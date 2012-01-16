@@ -4,9 +4,9 @@ window.Settings = Backbone.Model.extend(
     length: 10
     caps: true
     symbols: true
+    save_settings: true
     save_master: false
-    save_key: false
-    save_settings: false
+    save_key: true
 
   initialize: ->
     @set(key: @newKey())
@@ -25,10 +25,13 @@ SettingsView = Backbone.View.extend(
   }
   initialize: ->
     @settings = new Settings()
-    @loadDefaults()
+    @load()
   
-  loadDefaults: ->
-    settings = @settings.toJSON()
+  load: ->
+    if localStorage.settings
+      @settings.set(JSON.parse(localStorage.settings))
+
+    settings = @settings.toJSON()    
     for own index, value of settings
       switch $("##{index}").attr('type')
         when "checkbox"
@@ -40,12 +43,18 @@ SettingsView = Backbone.View.extend(
     
   togglePane: (e) ->
     e.preventDefault()
-    $('form', @el).toggle()
+    $('form', @el).slideToggle('fast')
   
   saveSettings: ->
-    @settings = @el.serializeObject()
-    localStorage.settings = JSON.stringify(settings) if settings.save_settings
-    @saveMaster()
+    @settings = $('form', @el).serializeObject()
+    unless @settings.save_key
+      delete @settings.key
+      
+    if @settings.save_settings
+      localStorage.settings = JSON.stringify(@settings)
+    
+    if @settings.save_master
+      @saveMaster()
       
   saveMaster: ->
     master = $('#master').val()

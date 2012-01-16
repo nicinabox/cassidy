@@ -8,9 +8,9 @@
       length: 10,
       caps: true,
       symbols: true,
+      save_settings: true,
       save_master: false,
-      save_key: false,
-      save_settings: false
+      save_key: true
     },
     initialize: function() {
       return this.set({
@@ -31,10 +31,13 @@
     },
     initialize: function() {
       this.settings = new Settings();
-      return this.loadDefaults();
+      return this.load();
     },
-    loadDefaults: function() {
+    load: function() {
       var index, settings, value, _results;
+      if (localStorage.settings) {
+        this.settings.set(JSON.parse(localStorage.settings));
+      }
       settings = this.settings.toJSON();
       _results = [];
       for (index in settings) {
@@ -53,12 +56,15 @@
     },
     togglePane: function(e) {
       e.preventDefault();
-      return $('form', this.el).toggle();
+      return $('form', this.el).slideToggle('fast');
     },
     saveSettings: function() {
-      this.settings = this.el.serializeObject();
-      if (settings.save_settings) localStorage.settings = JSON.stringify(settings);
-      return this.saveMaster();
+      this.settings = $('form', this.el).serializeObject();
+      if (!this.settings.save_key) delete this.settings.key;
+      if (this.settings.save_settings) {
+        localStorage.settings = JSON.stringify(this.settings);
+      }
+      if (this.settings.save_master) return this.saveMaster();
     },
     saveMaster: function() {
       var master;

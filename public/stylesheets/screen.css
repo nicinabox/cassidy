@@ -368,7 +368,7 @@ table {
 }
 
 body {
-  background: #f7f7f7 url('../../images/fabric_plaid.png') left top repeat;
+  background: #f7f7f7 url('../images/fabric_plaid.png?1326664855') left top repeat;
 }
 
 a {
@@ -381,7 +381,7 @@ a {
   top: 0;
   z-index: 5;
   width: 100%;
-  background: url('../../images/concrete_wall.png') left top repeat;
+  background: url('../images/concrete_wall.png?1326664984') left top repeat;
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 2px 1px;
   -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 2px 1px;
@@ -395,7 +395,8 @@ a {
 }
 
 #main {
-  width: 320px;
+  width: 300px;
+  padding: 10px;
   margin: 60px auto;
 }
 
@@ -408,10 +409,15 @@ a {
   clear: both;
 }
 #settings form {
-  border-bottom: 1px dashed #ddd;
+  width: 100%;
+  border-bottom: 1px dashed #ccc;
   margin: 0 auto;
   margin-bottom: 20px;
   display: none;
+}
+#settings hr {
+  border: 0;
+  border-bottom: 1px dashed #ccc;
 }
 #settings .toggle-settings {
   float: right;
@@ -504,7 +510,7 @@ form .field.invisible input {
   -moz-box-shadow: none;
   box-shadow: none;
   font-size: 22px;
-  background: transparent;
+  background: none;
   border-color: transparent;
 }
 form input {
