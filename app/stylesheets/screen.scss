@@ -1,0 +1,100 @@
+@import "compass";
+@import "normalize";
+
+body {
+  background: #f7f7f7 image-url('fabric_plaid.png') left top repeat;
+}
+a {
+  color: #4CAAE4;
+}
+#header {
+  padding: 8px;
+  position: fixed;
+  top: 0;
+  z-index: 5;
+  width: 100%;
+  background: image-url('concrete_wall.png') left top repeat;
+  border-bottom: 1px solid rgba(0,0,0,0.3);
+  @include box-shadow(rgba(0,0,0,0.2) 0 2px 1px);
+}
+#logo {
+  font-family: FluxRegular;
+  text-decoration: none;
+  color: #fff;
+}
+
+#main {
+  width: 300px;
+  margin: 60px auto;
+}
+
+#settings {
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 50px;
+  display: none;
+}
+.flash {
+  width: 100%;
+  margin: 0 auto;
+  font-size: 13px;
+  background: #fff;
+  @include border-radius(3px);
+  padding: 8px;
+  margin: 4px 0 10px;
+  display: none;
+  font-weight: bold;
+  &.error {
+    text-shadow: 0 -1px 1px darken(#E51837, 10%);
+    background: #E51837;
+    color: #fff;
+  }
+}
+
+form {
+  .hidden {
+    display: none;
+  }
+  .field {
+    margin-bottom: 10px;
+    label {
+      font-size: 13px;
+      text-transform: uppercase;
+      color: #aaa;
+      margin-bottom: 2px;
+      display: block;
+    }
+    input {
+      font-size: 18px;
+      @include border-radius(3px);
+      border: 1px solid #ddd;
+      outline: none;
+      width: 100%;
+      background: white;
+      @include box-shadow(#eee 0 1px 1px 0 inset);
+      &.required:focus {
+        border-color: #96cdef;
+        @include box-shadow(#efefef 0 0 0 2px);
+      }
+      &[type=checkbox], &[type=radio] {
+        width: auto;
+        + label {
+          display: inline;
+          text-transform: none;
+          color: #666;
+        }
+      }
+    }
+    &.invisible {
+      input {
+        @include box-shadow(none);
+        font-size: 22px;
+        background: transparent;
+        border-color: transparent;
+      }
+    }
+  }
+  input {
+    padding: 10px;
+  }
+}

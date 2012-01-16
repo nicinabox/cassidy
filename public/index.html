@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+	<title>Hatchpass</title>
+	<link rel="stylesheet" href="/fonts/stylesheet.css">
+	<link rel="stylesheet" href="/stylesheets/screen.css">
+
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" href="stylesheets/ie.css">
+	<![endif]-->
+	<!--[if lt IE 9]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+<body>
+  <div id="header">
+    <a id="logo" href="/">Hatchpass</a>
+  </div>
+  
+  <div id="main">
+    <div class="flash">
+    </div>
+
+    <div id="settings">
+      <form>
+        <div class="field">
+          <input type="checkbox" name="caps" value="true" id="caps"> <label for="caps">Caps</label>
+        </div>
+        <div class="field">
+          <input type="checkbox" name="symbols" value="true" id="symbols"> <label for="symbols">Symbols</label>
+        </div>
+        <div class="field">
+          <label for="length">Length</label> 
+          <input type="number" name="length" value="10" id="length" class="required">
+        </div>
+        <div class="field">
+          <label for="key">Key</label> 
+          <input type="text" name="key" value="" id="key" class="required">
+        </div>
+        <div class="field">
+          <input type="checkbox" name="save_key" value="true" id="save_key"> <label for="save_key">Save key</label>
+        </div>
+        <div class="field">
+          <input type="checkbox" name="save_master" value="true" id="save_master"> <label for="save_master">Save master</label>
+        </div>
+        <div class="field">
+          <input type="checkbox" name="save_settings" value="true" id="save_settings"> <label for="save_settings">Save settings</label>
+        </div>
+      </form>
+    </div>
+  
+    <div id="new_secret">
+      <form action="" method="post" accept-charset="utf-8">
+        <div class="field">
+          <label for="master">Master</label>
+          <input type="password" id="master" name="master" value="" class="required">
+        </div>
+        <div class="field">
+          <label for="domain">Domain</label>
+          <input type="url" id="domain" name="domain" value="" class="required">
+        </div>
+        <div class="field invisible">
+          <input type="text" id="secret" name="secret" readonly>
+        </div>
+        <div class="actions hidden">
+          <input type="submit" value="submit">
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+  <!-- <script data-main="javascripts/manifest" src="javascripts/vendor/require.js"></script> -->
+  
+  <script src="javascripts/vendor/json2.js"></script>
+  <script src="javascripts/vendor/underscore-min.js"></script>
+  <script src="javascripts/vendor/backbone-min.js"></script>
+  <script src="javascripts/vendor/backbone.localstorage.js"></script>
+  <script src="javascripts/vendor/Crypto.js"></script>
+  <script src="javascripts/vendor/SHA1.js"></script>
+  <script src="javascripts/vendor/jquery.placeholder.min.js"></script>
+  <script src="javascripts/jquery.addons.js"></script>
+  <script src="javascripts/application.js"></script>
+  
+</body>
+</html>
