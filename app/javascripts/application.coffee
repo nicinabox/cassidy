@@ -1,6 +1,6 @@
 window.Settings = Backbone.Model.extend(    
   defaults:
-    key: ""
+    key: ''
     length: 10
     caps: true
     symbols: true
@@ -9,15 +9,14 @@ window.Settings = Backbone.Model.extend(
     save_settings: false
 
   initialize: ->
-    @defaults.key = @newKey()  
+    @set(key: @newKey())
 
   newKey: ->
-    "fbb43"
-    # Crypto.SHA256(new Date().getTime().toString()).substr(0, 5)
+    Crypto.SHA256(new Date().getTime().toString()).substr(0, 5)
 
 )
 
-window.SettingsView = Backbone.View.extend(
+SettingsView = Backbone.View.extend(
   el: $('#settings')
   localStorage: new Store("settings")
   events: {
@@ -25,10 +24,11 @@ window.SettingsView = Backbone.View.extend(
     'click .toggle-settings': 'togglePane'
   }
   initialize: ->
-    window.settings = new Settings().defaults
-    @load()
+    @settings = new Settings()
+    @loadDefaults()
   
-  load: ->
+  loadDefaults: ->
+    settings = @settings.toJSON()
     for own index, value of settings
       switch $("##{index}").attr('type')
         when "checkbox"
@@ -76,6 +76,7 @@ window.Secret = Backbone.Model.extend(
         return [index, "can't be blank"]
   
   create: ->
+    settings = @attributes.settings
     symbols = "!@#]^&*(%[?${+=})_-|/<>".split('')
     domain = @attributes.domain.toLowerCase()
     [host, tld] = domain.split(".")
@@ -129,16 +130,18 @@ HatchpassView = Backbone.View.extend(
     ) 
     
   newSecret: ->
+    settings = $('#settings form').serializeObject()
     hatchpass = new Secret(
         master: $('#master').val()
         domain: $('#domain').val()
+        settings: settings
       )
     if hatchpass
       $('#secret').val(hatchpass.get('secret'))
 )
 
 window.HatchpassView = new HatchpassView
-new SettingsView
+window.SettingsView = new SettingsView
 # Backbone.history.start(
 #   pushState: true
 #   root: '/test'

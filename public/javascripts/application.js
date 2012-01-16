@@ -1,10 +1,10 @@
 (function() {
-  var HatchpassView,
+  var HatchpassView, SettingsView,
     __hasProp = Object.prototype.hasOwnProperty;
 
   window.Settings = Backbone.Model.extend({
     defaults: {
-      key: "",
+      key: '',
       length: 10,
       caps: true,
       symbols: true,
@@ -13,14 +13,16 @@
       save_settings: false
     },
     initialize: function() {
-      return this.defaults.key = this.newKey();
+      return this.set({
+        key: this.newKey()
+      });
     },
     newKey: function() {
-      return "fbb43";
+      return Crypto.SHA256(new Date().getTime().toString()).substr(0, 5);
     }
   });
 
-  window.SettingsView = Backbone.View.extend({
+  SettingsView = Backbone.View.extend({
     el: $('#settings'),
     localStorage: new Store("settings"),
     events: {
@@ -28,11 +30,12 @@
       'click .toggle-settings': 'togglePane'
     },
     initialize: function() {
-      window.settings = new Settings().defaults;
-      return this.load();
+      this.settings = new Settings();
+      return this.loadDefaults();
     },
-    load: function() {
-      var index, value, _results;
+    loadDefaults: function() {
+      var index, settings, value, _results;
+      settings = this.settings.toJSON();
       _results = [];
       for (index in settings) {
         if (!__hasProp.call(settings, index)) continue;
@@ -88,7 +91,8 @@
       }
     },
     create: function() {
-      var domain, hash, host, item, key_num, nums, secret, secret_idx, sym_idx, symbols, this_upper, tld, _i, _len, _ref;
+      var domain, hash, host, item, key_num, nums, secret, secret_idx, settings, sym_idx, symbols, this_upper, tld, _i, _len, _ref;
+      settings = this.attributes.settings;
       symbols = "!@#]^&*(%[?${+=})_-|/<>".split('');
       domain = this.attributes.domain.toLowerCase();
       _ref = domain.split("."), host = _ref[0], tld = _ref[1];
@@ -144,10 +148,12 @@
       });
     },
     newSecret: function() {
-      var hatchpass;
+      var hatchpass, settings;
+      settings = $('#settings form').serializeObject();
       hatchpass = new Secret({
         master: $('#master').val(),
-        domain: $('#domain').val()
+        domain: $('#domain').val(),
+        settings: settings
       });
       if (hatchpass) return $('#secret').val(hatchpass.get('secret'));
     }
@@ -155,6 +161,6 @@
 
   window.HatchpassView = new HatchpassView;
 
-  new SettingsView;
+  window.SettingsView = new SettingsView;
 
 }).call(this);
