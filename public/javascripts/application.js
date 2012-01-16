@@ -1,11 +1,8 @@
 (function() {
-  var HatchpassView, SettingsList,
+  var HatchpassView,
     __hasProp = Object.prototype.hasOwnProperty;
 
   window.Settings = Backbone.Model.extend({
-    initialize: function() {
-      return this.defaults.key = this.newKey();
-    },
     defaults: {
       key: "",
       length: 10,
@@ -15,13 +12,12 @@
       save_key: false,
       save_settings: false
     },
+    initialize: function() {
+      return this.defaults.key = this.newKey();
+    },
     newKey: function() {
-      return Crypto.SHA1(new Date().getTime().toString()).substr(0, 5);
+      return "fbb43";
     }
-  });
-
-  SettingsList = Backbone.Collection.extend({
-    model: Settings
   });
 
   window.SettingsView = Backbone.View.extend({
@@ -32,12 +28,11 @@
       'click .toggle-settings': 'togglePane'
     },
     initialize: function() {
-      this.settings = new Settings;
+      window.settings = new Settings().defaults;
       return this.load();
     },
     load: function() {
-      var index, settings, value, _results;
-      settings = this.settings.defaults;
+      var index, value, _results;
       _results = [];
       for (index in settings) {
         if (!__hasProp.call(settings, index)) continue;
@@ -59,15 +54,13 @@
     },
     saveSettings: function() {
       this.settings = this.el.serializeObject();
-      if (settings.defaults.save_settings) {
-        localStorage.settings = JSON.stringify(this.settings);
-      }
+      if (settings.save_settings) localStorage.settings = JSON.stringify(settings);
       return this.saveMaster();
     },
     saveMaster: function() {
       var master;
       master = $('#master').val();
-      if (this.settings.save_master) {
+      if (settings.save_master) {
         if (master.length > 0) return localStorage.master = master;
       } else {
         if (localStorage.master) return localStorage.removeItem('master');
@@ -83,9 +76,8 @@
     initialize: function() {
       var error;
       this.bind('error', function(model, errors) {});
-      this.settings = settings.defaults;
       error = this.validate(this.attributes);
-      if (!error) return this.create(this.attributes);
+      if (!error) return this.create();
     },
     validate: function(attrs) {
       var index, value;
@@ -96,8 +88,40 @@
       }
     },
     create: function() {
+      var domain, hash, host, item, key_num, nums, secret, secret_idx, sym_idx, symbols, this_upper, tld, _i, _len, _ref;
+      symbols = "!@#]^&*(%[?${+=})_-|/<>".split('');
+      domain = this.attributes.domain.toLowerCase();
+      _ref = domain.split("."), host = _ref[0], tld = _ref[1];
+      if (!tld) tld = 'com';
+      hash = Crypto.SHA256("" + this.attributes.master + ":" + host + "." + tld);
+      hash = Crypto.SHA256("" + hash + settings.key).substr(0, settings.length);
+      nums = 0;
+      key_num = hash.match(/\d/)[0];
+      secret = hash.split(/(?:)/);
+      this_upper = true;
+      for (_i = 0, _len = secret.length; _i < _len; _i++) {
+        item = secret[_i];
+        if (item.match(/[a-zA-Z]/)) {
+          if (settings.caps === true && !this_upper) {
+            this_upper = true;
+            secret[_i] = item.match(/[a-zA-Z]/)[0].toUpperCase();
+          } else {
+            this_upper = false;
+          }
+        } else {
+          if (settings.symbols === true) {
+            secret_idx = parseInt(_i + key_num / 3);
+            sym_idx = nums + _i + (key_num * nums) + (1 * _i);
+            if (!((secret[secret_idx] === null) || (secret_idx < 0) || (sym_idx < 0) || (symbols[sym_idx] === null) || (symbols[sym_idx] === void 0))) {
+              secret[secret_idx] += symbols[sym_idx];
+            }
+          }
+          nums += 1;
+        }
+      }
+      secret = secret.join('').substr(0, settings.length);
       return this.set({
-        secret: Crypto.SHA1("" + this.attributes.master + ":" + this.attributes.domain).substr(0, this.settings.length)
+        secret: secret
       });
     }
   });

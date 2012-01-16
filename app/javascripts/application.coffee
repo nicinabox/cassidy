@@ -1,7 +1,4 @@
 window.Settings = Backbone.Model.extend(    
-  initialize: ->
-    @defaults.key = @newKey()
-    
   defaults:
     key: ""
     length: 10
@@ -10,14 +7,14 @@ window.Settings = Backbone.Model.extend(
     save_master: false
     save_key: false
     save_settings: false
-    
+
+  initialize: ->
+    @defaults.key = @newKey()  
+
   newKey: ->
-    Crypto.SHA1(new Date().getTime().toString()).substr(0, 5)
+    "fbb43"
+    # Crypto.SHA256(new Date().getTime().toString()).substr(0, 5)
 
-)
-
-SettingsList = Backbone.Collection.extend(
-  model: Settings
 )
 
 window.SettingsView = Backbone.View.extend(
@@ -28,11 +25,10 @@ window.SettingsView = Backbone.View.extend(
     'click .toggle-settings': 'togglePane'
   }
   initialize: ->
-    @settings = new Settings
+    window.settings = new Settings().defaults
     @load()
   
   load: ->
-    settings = @settings.defaults
     for own index, value of settings
       switch $("##{index}").attr('type')
         when "checkbox"
@@ -48,12 +44,12 @@ window.SettingsView = Backbone.View.extend(
   
   saveSettings: ->
     @settings = @el.serializeObject()
-    localStorage.settings = JSON.stringify(@settings) if settings.defaults.save_settings
+    localStorage.settings = JSON.stringify(settings) if settings.save_settings
     @saveMaster()
       
   saveMaster: ->
     master = $('#master').val()
-    if @settings.save_master
+    if settings.save_master
       if master.length > 0
         localStorage.master = master
     else
@@ -70,10 +66,9 @@ window.Secret = Backbone.Model.extend(
     @bind('error', (model, errors) ->
       # console.log errors
     )
-    @settings = settings.defaults
     error = @validate(@attributes);
     unless error
-      @create(@attributes)
+      @create()
     
   validate: (attrs) ->
     for own index, value of attrs
@@ -81,9 +76,40 @@ window.Secret = Backbone.Model.extend(
         return [index, "can't be blank"]
   
   create: ->
-    @set(
-      secret: Crypto.SHA1("#{@attributes.master}:#{@attributes.domain}").substr(0, @settings.length)
-    )
+    symbols = "!@#]^&*(%[?${+=})_-|/<>".split('')
+    domain = @attributes.domain.toLowerCase()
+    [host, tld] = domain.split(".")
+    tld = 'com' unless tld
+    
+    hash = Crypto.SHA256("#{@attributes.master}:#{host}.#{tld}")
+    hash = Crypto.SHA256("#{hash}#{settings.key}").substr(0, settings.length)
+    
+    nums = 0
+    key_num = hash.match(/\d/)[0]
+    secret = hash.split(//)
+    this_upper = true
+
+    for item in secret
+      if item.match(/[a-zA-Z]/) # Letters
+        if settings.caps == true && !this_upper
+          this_upper = true
+          secret[_i] = item.match(/[a-zA-Z]/)[0].toUpperCase()
+        else
+          this_upper = false
+      else # Numbers
+        if settings.symbols == true
+          secret_idx = parseInt(_i + key_num / 3)
+          sym_idx = nums + _i + (key_num * nums) + (1 * _i)
+          unless  (secret[secret_idx] == null) or 
+                  (secret_idx < 0) or 
+                  (sym_idx < 0) or 
+                  (symbols[sym_idx] == null) or
+                  (symbols[sym_idx] == undefined)
+            secret[secret_idx] += symbols[sym_idx]
+        nums += 1
+    
+    secret = secret.join('').substr(0, settings.length)
+    @set(secret: secret)
 )
 
 HatchpassView = Backbone.View.extend(
