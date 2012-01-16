@@ -372,7 +372,7 @@ body {
 }
 
 a {
-  color: #4CAAE4;
+  color: #4caae4;
 }
 
 #header {
@@ -395,15 +395,37 @@ a {
 }
 
 #main {
-  width: 300px;
+  width: 320px;
   margin: 60px auto;
 }
 
 #settings {
-  width: 300px;
+  *zoom: 1;
+}
+#settings:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+#settings form {
+  border-bottom: 1px dashed #ddd;
   margin: 0 auto;
-  margin-top: 50px;
+  margin-bottom: 20px;
   display: none;
+}
+#settings .toggle-settings {
+  float: right;
+  text-decoration: none;
+  font-size: 13px;
+  background: #4caae4;
+  color: white;
+  display: block;
+  padding: 3px 5px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
 }
 
 .flash {
@@ -441,6 +463,9 @@ form .field label {
   display: block;
 }
 form .field input {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   font-size: 18px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -454,12 +479,17 @@ form .field input {
   -webkit-box-shadow: #eeeeee 0 1px 1px 0 inset;
   -moz-box-shadow: #eeeeee 0 1px 1px 0 inset;
   box-shadow: #eeeeee 0 1px 1px 0 inset;
+  -webkit-transition: border-color 0.2s ease-out;
+  -moz-transition: border-color 0.2s ease-out;
+  -ms-transition: border-color 0.2s ease-out;
+  -o-transition: border-color 0.2s ease-out;
+  transition: border-color 0.2s ease-out;
 }
 form .field input.required:focus {
   border-color: #96cdef;
-  -webkit-box-shadow: #efefef 0 0 0 2px;
-  -moz-box-shadow: #efefef 0 0 0 2px;
-  box-shadow: #efefef 0 0 0 2px;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.5) 0 0 0 3px;
+  -moz-box-shadow: rgba(255, 255, 255, 0.5) 0 0 0 3px;
+  box-shadow: rgba(255, 255, 255, 0.5) 0 0 0 3px;
 }
 form .field input[type=checkbox], form .field input[type=radio] {
   width: auto;
@@ -479,4 +509,8 @@ form .field.invisible input {
 }
 form input {
   padding: 10px;
+}
+
+#secret {
+  cursor: pointer;
 }

@@ -1,11 +1,12 @@
 @import "compass";
 @import "normalize";
+$blue: #4CAAE4;
 
 body {
   background: #f7f7f7 image-url('fabric_plaid.png') left top repeat;
 }
 a {
-  color: #4CAAE4;
+  color: $blue;
 }
 #header {
   padding: 8px;
@@ -24,15 +25,28 @@ a {
 }
 
 #main {
-  width: 300px;
+  width: 320px;
   margin: 60px auto;
 }
 
 #settings {
-  width: 300px;
-  margin: 0 auto;
-  margin-top: 50px;
-  display: none;
+  @include pie-clearfix;
+  form {
+    border-bottom: 1px dashed #ddd;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    display: none;
+  }
+  .toggle-settings {
+    float: right;
+    text-decoration: none;
+    font-size: 13px;
+    background: $blue;
+    color: white;
+    display: block;
+    padding: 3px 5px;
+    @include border-radius(3px);
+  }
 }
 .flash {
   width: 100%;
@@ -65,6 +79,7 @@ form {
       display: block;
     }
     input {
+      @include box-sizing('border-box');
       font-size: 18px;
       @include border-radius(3px);
       border: 1px solid #ddd;
@@ -72,9 +87,10 @@ form {
       width: 100%;
       background: white;
       @include box-shadow(#eee 0 1px 1px 0 inset);
+      @include single-transition(border-color, 0.2s, ease-out);
       &.required:focus {
         border-color: #96cdef;
-        @include box-shadow(#efefef 0 0 0 2px);
+        @include box-shadow(rgba(255,255,255,0.5) 0 0 0 3px);
       }
       &[type=checkbox], &[type=radio] {
         width: auto;
@@ -97,4 +113,8 @@ form {
   input {
     padding: 10px;
   }
+}
+
+#secret {
+  cursor: pointer;
 }

@@ -1,5 +1,5 @@
 (function() {
-  var HatchpassView, SettingsList, SettingsView,
+  var HatchpassView, SettingsList,
     __hasProp = Object.prototype.hasOwnProperty;
 
   window.Settings = Backbone.Model.extend({
@@ -24,15 +24,39 @@
     model: Settings
   });
 
-  SettingsView = Backbone.View.extend({
-    el: $('#settings form'),
+  window.SettingsView = Backbone.View.extend({
+    el: $('#settings'),
+    localStorage: new Store("settings"),
     events: {
-      'change': 'saveSettings'
+      'change input': 'saveSettings',
+      'click .toggle-settings': 'togglePane'
     },
     initialize: function() {
-      return window.settings = new Settings;
+      this.settings = new Settings;
+      return this.load();
     },
-    localStorage: new Store("settings"),
+    load: function() {
+      var index, settings, value, _results;
+      settings = this.settings.defaults;
+      _results = [];
+      for (index in settings) {
+        if (!__hasProp.call(settings, index)) continue;
+        value = settings[index];
+        switch ($("#" + index).attr('type')) {
+          case "checkbox":
+            $("#" + index).attr('checked', settings[index]);
+            break;
+          default:
+            $("#" + index).val(settings[index]);
+            break;
+        }
+      }
+      return _results;
+    },
+    togglePane: function(e) {
+      e.preventDefault();
+      return $('form', this.el).toggle();
+    },
     saveSettings: function() {
       this.settings = this.el.serializeObject();
       if (settings.defaults.save_settings) {
@@ -88,7 +112,7 @@
       return $('#secret:focus').select();
     },
     focus: function() {
-      return $('input.required', this.el).each(function(index) {
+      return $('input.required:visible', this.el).each(function(index) {
         if (this.value.length === 0) {
           $(this).focus();
           return false;

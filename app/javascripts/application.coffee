@@ -20,15 +20,31 @@ SettingsList = Backbone.Collection.extend(
   model: Settings
 )
 
-SettingsView = Backbone.View.extend(
-  el: $('#settings form')
+window.SettingsView = Backbone.View.extend(
+  el: $('#settings')
+  localStorage: new Store("settings")
   events: {
-    'change': 'saveSettings'
+    'change input': 'saveSettings'
+    'click .toggle-settings': 'togglePane'
   }
   initialize: ->
-    window.settings = new Settings
+    @settings = new Settings
+    @load()
+  
+  load: ->
+    settings = @settings.defaults
+    for own index, value of settings
+      switch $("##{index}").attr('type')
+        when "checkbox"
+          $("##{index}").attr('checked', settings[index])
+          break
+        else
+          $("##{index}").val(settings[index])
+          break
     
-  localStorage: new Store("settings")
+  togglePane: (e) ->
+    e.preventDefault()
+    $('form', @el).toggle()
   
   saveSettings: ->
     @settings = @el.serializeObject()
@@ -80,7 +96,7 @@ HatchpassView = Backbone.View.extend(
     $('#secret:focus').select()
     
   focus: ->
-    $('input.required', @el).each((index) ->
+    $('input.required:visible', @el).each((index) ->
       if @value.length == 0
         $(this).focus()
         false
