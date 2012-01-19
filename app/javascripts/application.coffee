@@ -13,19 +13,24 @@ window.Settings = Backbone.Model.extend(
 
   newKey: ->
     Crypto.SHA256(new Date().getTime().toString()).substr(0, 5)
-
 )
 
-SettingsView = Backbone.View.extend(
-  el: $('#settings')
+window.SettingsCollection = Backbone.Collection.extend(
   localStorage: new Store("settings")
-  events: {
+  model: Settings
+)
+
+
+SettingsView = Backbone.View.extend(
+  model: Settings
+  el: $('#settings')
+  events:
     'change input': 'saveSettings'
     'click .toggle-settings': 'togglePane'
-  }
+
   initialize: ->
     @settings = new Settings()
-    @load()
+    # @load()
   
   load: ->
     if localStorage.settings
@@ -149,6 +154,7 @@ HatchpassView = Backbone.View.extend(
       $('#secret').val(hatchpass.get('secret'))
 )
 
+window.MySettings = new SettingsCollection
 window.HatchpassView = new HatchpassView
 window.SettingsView = new SettingsView
 # Backbone.history.start(

@@ -22,16 +22,20 @@
     }
   });
 
-  SettingsView = Backbone.View.extend({
-    el: $('#settings'),
+  window.SettingsCollection = Backbone.Collection.extend({
     localStorage: new Store("settings"),
+    model: Settings
+  });
+
+  SettingsView = Backbone.View.extend({
+    model: Settings,
+    el: $('#settings'),
     events: {
       'change input': 'saveSettings',
       'click .toggle-settings': 'togglePane'
     },
     initialize: function() {
-      this.settings = new Settings();
-      return this.load();
+      return this.settings = new Settings();
     },
     load: function() {
       var index, settings, value, _results;
@@ -164,6 +168,8 @@
       if (hatchpass) return $('#secret').val(hatchpass.get('secret'));
     }
   });
+
+  window.MySettings = new SettingsCollection;
 
   window.HatchpassView = new HatchpassView;
 
