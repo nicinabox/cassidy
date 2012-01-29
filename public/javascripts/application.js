@@ -1,14 +1,15 @@
 (function() {
-  var HatchpassView, SettingsView,
+  var AppView, ConfigView,
     __hasProp = Object.prototype.hasOwnProperty;
 
-  window.Settings = Backbone.Model.extend({
+  window.Config = Backbone.Model.extend({
+    localStorage: new Store("settings"),
     defaults: {
       key: '',
       length: 10,
       caps: true,
       symbols: true,
-      save_settings: true,
+      save_settings: false,
       save_master: false,
       save_key: true
     },
@@ -22,37 +23,38 @@
     }
   });
 
-  window.SettingsCollection = Backbone.Collection.extend({
-    localStorage: new Store("settings"),
-    model: Settings
-  });
-
-  SettingsView = Backbone.View.extend({
-    model: Settings,
+  ConfigView = Backbone.View.extend({
     el: $('#settings'),
+    tagName: "input",
     events: {
-      'change input': 'saveSettings',
+      'change input': 'saveConfig',
       'click .toggle-settings': 'togglePane'
     },
     initialize: function() {
-      return this.settings = new Settings();
+      var self;
+      this.model = new Config;
+      self = this;
+      return this.model.fetch({
+        success: function(model, response) {
+          self.model.unset('0');
+          self.model.set(response[0]);
+          return self.render();
+        }
+      });
     },
-    load: function() {
-      var index, settings, value, _results;
-      if (localStorage.settings) {
-        this.settings.set(JSON.parse(localStorage.settings));
-      }
-      settings = this.settings.toJSON();
+    render: function() {
+      var config, index, value, _results;
+      config = this.model.attributes;
       _results = [];
-      for (index in settings) {
-        if (!__hasProp.call(settings, index)) continue;
-        value = settings[index];
+      for (index in config) {
+        if (!__hasProp.call(config, index)) continue;
+        value = config[index];
         switch ($("#" + index).attr('type')) {
           case "checkbox":
-            $("#" + index).attr('checked', settings[index]);
+            $("#" + index).attr('checked', config[index]);
             break;
           default:
-            $("#" + index).val(settings[index]);
+            $("#" + index).val(config[index]);
             break;
         }
       }
@@ -62,18 +64,22 @@
       e.preventDefault();
       return $('form', this.el).slideToggle('fast');
     },
-    saveSettings: function() {
-      this.settings = $('form', this.el).serializeObject();
-      if (!this.settings.save_key) delete this.settings.key;
-      if (this.settings.save_settings) {
-        localStorage.settings = JSON.stringify(this.settings);
+    saveConfig: function() {
+      var config;
+      config = $('form', this.el).serializeObject();
+      if (config.save_settings) {
+        this.model.save(config, {
+          success: function(model, response) {
+            return console.log(response);
+          }
+        });
       }
-      if (this.settings.save_master) return this.saveMaster();
+      if (config.save_master) return this.saveMaster();
     },
     saveMaster: function() {
       var master;
       master = $('#master').val();
-      if (settings.save_master) {
+      if (config.save_master) {
         if (master.length > 0) return localStorage.master = master;
       } else {
         if (localStorage.master) return localStorage.removeItem('master');
@@ -101,14 +107,14 @@
       }
     },
     create: function() {
-      var domain, hash, host, item, key_num, nums, secret, secret_idx, settings, sym_idx, symbols, this_upper, tld, _i, _len, _ref;
-      settings = this.attributes.settings;
+      var config, domain, hash, host, item, key_num, nums, secret, secret_idx, sym_idx, symbols, this_upper, tld, _i, _len, _ref;
+      config = this.attributes.config;
       symbols = "!@#]^&*(%[?${+=})_-|/<>".split('');
       domain = this.attributes.domain.toLowerCase();
       _ref = domain.split("."), host = _ref[0], tld = _ref[1];
       if (!tld) tld = 'com';
       hash = Crypto.SHA256("" + this.attributes.master + ":" + host + "." + tld);
-      hash = Crypto.SHA256("" + hash + settings.key).substr(0, settings.length);
+      hash = Crypto.SHA256("" + hash + config.key).substr(0, config.length);
       nums = 0;
       key_num = hash.match(/\d/)[0];
       secret = hash.split(/(?:)/);
@@ -116,14 +122,14 @@
       for (_i = 0, _len = secret.length; _i < _len; _i++) {
         item = secret[_i];
         if (item.match(/[a-zA-Z]/)) {
-          if (settings.caps === true && !this_upper) {
+          if (config.caps === true && !this_upper) {
             this_upper = true;
             secret[_i] = item.match(/[a-zA-Z]/)[0].toUpperCase();
           } else {
             this_upper = false;
           }
         } else {
-          if (settings.symbols === true) {
+          if (config.symbols === true) {
             secret_idx = parseInt(_i + key_num / 3);
             sym_idx = nums + _i + (key_num * nums) + (1 * _i);
             if (!((secret[secret_idx] === null) || (secret_idx < 0) || (sym_idx < 0) || (symbols[sym_idx] === null) || (symbols[sym_idx] === void 0))) {
@@ -133,14 +139,14 @@
           nums += 1;
         }
       }
-      secret = secret.join('').substr(0, settings.length);
+      secret = secret.join('').substr(0, config.length);
       return this.set({
         secret: secret
       });
     }
   });
 
-  HatchpassView = Backbone.View.extend({
+  AppView = Backbone.View.extend({
     el: $('#new_secret form'),
     events: {
       'keyup input.required': 'newSecret'
@@ -158,21 +164,19 @@
       });
     },
     newSecret: function() {
-      var hatchpass, settings;
-      settings = $('#settings form').serializeObject();
+      var config, hatchpass;
+      config = $('#settings form').serializeObject();
       hatchpass = new Secret({
         master: $('#master').val(),
         domain: $('#domain').val(),
-        settings: settings
+        config: config
       });
       if (hatchpass) return $('#secret').val(hatchpass.get('secret'));
     }
   });
 
-  window.MySettings = new SettingsCollection;
+  window.ConfigView = new ConfigView;
 
-  window.HatchpassView = new HatchpassView;
-
-  window.SettingsView = new SettingsView;
+  window.AppView = new AppView;
 
 }).call(this);

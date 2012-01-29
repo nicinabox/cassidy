@@ -376,12 +376,17 @@ a {
 }
 
 #header {
-  padding: 8px;
+  padding: 10px;
   position: fixed;
   top: 0;
   z-index: 5;
   width: 100%;
-  background: url('../images/concrete_wall.png?1326664984') left top repeat;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #434a50), color-stop(100%, #34393e));
+  background-image: -webkit-linear-gradient(#434a50, #34393e);
+  background-image: -moz-linear-gradient(#434a50, #34393e);
+  background-image: -o-linear-gradient(#434a50, #34393e);
+  background-image: -ms-linear-gradient(#434a50, #34393e);
+  background-image: linear-gradient(#434a50, #34393e);
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 2px 1px;
   -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 2px 1px;
@@ -426,12 +431,30 @@ a {
   background: #4caae4;
   color: white;
   display: block;
-  padding: 3px 5px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
-  border-radius: 3px;
+  padding: 5px 10px;
+  margin-top: -31px;
+  -moz-border-radius-bottomleft: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  -ms-border-bottom-left-radius: 3px;
+  -o-border-bottom-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  -moz-border-radius-bottomright: 3px;
+  -webkit-border-bottom-right-radius: 3px;
+  -ms-border-bottom-right-radius: 3px;
+  -o-border-bottom-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  -webkit-transition: all 0.1s ease-out;
+  -moz-transition: all 0.1s ease-out;
+  -ms-transition: all 0.1s ease-out;
+  -o-transition: all 0.1s ease-out;
+  transition: all 0.1s ease-out;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+  opacity: 0.8;
+}
+#settings .toggle-settings:hover, #settings .toggle-settings .active {
+  padding-top: 8px;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
 }
 
 .flash {

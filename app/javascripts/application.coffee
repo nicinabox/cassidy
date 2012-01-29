@@ -1,10 +1,11 @@
-window.Settings = Backbone.Model.extend(    
+window.Config = Backbone.Model.extend(
+  localStorage: new Store("settings")
   defaults:
     key: ''
     length: 10
     caps: true
     symbols: true
-    save_settings: true
+    save_settings: false
     save_master: false
     save_key: true
 
@@ -15,55 +16,57 @@ window.Settings = Backbone.Model.extend(
     Crypto.SHA256(new Date().getTime().toString()).substr(0, 5)
 )
 
-window.SettingsCollection = Backbone.Collection.extend(
-  localStorage: new Store("settings")
-  model: Settings
-)
-
-
-SettingsView = Backbone.View.extend(
-  model: Settings
+ConfigView = Backbone.View.extend(
   el: $('#settings')
+  tagName: "input"
   events:
-    'change input': 'saveSettings'
+    'change input': 'saveConfig'
     'click .toggle-settings': 'togglePane'
 
   initialize: ->
-    @settings = new Settings()
-    # @load()
-  
-  load: ->
-    if localStorage.settings
-      @settings.set(JSON.parse(localStorage.settings))
-
-    settings = @settings.toJSON()    
-    for own index, value of settings
+    @model = new Config
+    self = this
+    @model.fetch(
+      success: (model, response)->
+        self.model.unset('0')
+        self.model.set(response[0])
+        self.render()
+    )
+    
+  render: ->
+    config = @model.attributes
+    for own index, value of config
       switch $("##{index}").attr('type')
         when "checkbox"
-          $("##{index}").attr('checked', settings[index])
+          $("##{index}").attr('checked', config[index])
           break
         else
-          $("##{index}").val(settings[index])
+          $("##{index}").val(config[index])
           break
     
   togglePane: (e) ->
     e.preventDefault()
     $('form', @el).slideToggle('fast')
   
-  saveSettings: ->
-    @settings = $('form', @el).serializeObject()
-    unless @settings.save_key
-      delete @settings.key
-      
-    if @settings.save_settings
-      localStorage.settings = JSON.stringify(@settings)
+  saveConfig: ->
+    config = $('form', @el).serializeObject()
     
-    if @settings.save_master
+    # unless config.attributes.save_key
+    #   delete config.key
+    
+    if config.save_settings
+      @model.save(
+        config
+        success: (model, response) ->
+          console.log response
+      )
+    
+    if config.save_master
       @saveMaster()
       
   saveMaster: ->
     master = $('#master').val()
-    if settings.save_master
+    if config.save_master
       if master.length > 0
         localStorage.master = master
     else
@@ -90,14 +93,14 @@ window.Secret = Backbone.Model.extend(
         return [index, "can't be blank"]
   
   create: ->
-    settings = @attributes.settings
+    config = @attributes.config
     symbols = "!@#]^&*(%[?${+=})_-|/<>".split('')
     domain = @attributes.domain.toLowerCase()
     [host, tld] = domain.split(".")
     tld = 'com' unless tld
     
     hash = Crypto.SHA256("#{@attributes.master}:#{host}.#{tld}")
-    hash = Crypto.SHA256("#{hash}#{settings.key}").substr(0, settings.length)
+    hash = Crypto.SHA256("#{hash}#{config.key}").substr(0, config.length)
     
     nums = 0
     key_num = hash.match(/\d/)[0]
@@ -106,13 +109,13 @@ window.Secret = Backbone.Model.extend(
 
     for item in secret
       if item.match(/[a-zA-Z]/) # Letters
-        if settings.caps == true && !this_upper
+        if config.caps == true && !this_upper
           this_upper = true
           secret[_i] = item.match(/[a-zA-Z]/)[0].toUpperCase()
         else
           this_upper = false
       else # Numbers
-        if settings.symbols == true
+        if config.symbols == true
           secret_idx = parseInt(_i + key_num / 3)
           sym_idx = nums + _i + (key_num * nums) + (1 * _i)
           unless  (secret[secret_idx] == null) or 
@@ -123,11 +126,11 @@ window.Secret = Backbone.Model.extend(
             secret[secret_idx] += symbols[sym_idx]
         nums += 1
     
-    secret = secret.join('').substr(0, settings.length)
+    secret = secret.join('').substr(0, config.length)
     @set(secret: secret)
 )
 
-HatchpassView = Backbone.View.extend(
+AppView = Backbone.View.extend(
   el: $('#new_secret form')
   events:
     'keyup input.required': 'newSecret'
@@ -144,19 +147,19 @@ HatchpassView = Backbone.View.extend(
     ) 
     
   newSecret: ->
-    settings = $('#settings form').serializeObject()
+    config = $('#settings form').serializeObject()
     hatchpass = new Secret(
         master: $('#master').val()
         domain: $('#domain').val()
-        settings: settings
+        config: config
       )
     if hatchpass
       $('#secret').val(hatchpass.get('secret'))
 )
 
-window.MySettings = new SettingsCollection
-window.HatchpassView = new HatchpassView
-window.SettingsView = new SettingsView
+window.ConfigView = new ConfigView
+window.AppView = new AppView
+
 # Backbone.history.start(
 #   pushState: true
 #   root: '/test'

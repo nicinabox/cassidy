@@ -9,12 +9,13 @@ a {
   color: $blue;
 }
 #header {
-  padding: 8px;
+  padding: 10px;
   position: fixed;
   top: 0;
   z-index: 5;
   width: 100%;
-  background: image-url('concrete_wall.png') left top repeat;
+//  background: image-url('concrete_wall.png') left top repeat;
+  @include background-image(linear-gradient(#434a50, #34393E));
   border-bottom: 1px solid rgba(0,0,0,0.3);
   @include box-shadow(rgba(0,0,0,0.2) 0 2px 1px);
 }
@@ -50,8 +51,15 @@ a {
     background: $blue;
     color: white;
     display: block;
-    padding: 3px 5px;
-    @include border-radius(3px);
+    padding: 5px 10px;
+    margin-top: -31px;
+    @include border-bottom-radius(3px);
+    @include single-transition(all, 0.1s, ease-out);
+    @include opacity(0.8);
+    &:hover, .active {
+      padding-top: 8px;
+      @include opacity(1);
+    }
   }
 }
 .flash {
