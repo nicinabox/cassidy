@@ -50,16 +50,15 @@ ConfigView = Backbone.View.extend(
   
   saveConfig: ->
     config = $('form', @el).serializeObject()
-    
-    # unless config.attributes.save_key
-    #   delete config.key
-    
+        
     if config.save_settings
       @model.save(
         config
         success: (model, response) ->
           console.log response
       )
+    else
+      @model.destroy()
     
     if config.save_master
       @saveMaster()

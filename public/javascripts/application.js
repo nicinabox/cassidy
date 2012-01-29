@@ -73,6 +73,8 @@
             return console.log(response);
           }
         });
+      } else {
+        this.model.destroy();
       }
       if (config.save_master) return this.saveMaster();
     },
