@@ -1,6 +1,5 @@
 (function() {
-  var AppView, ConfigView,
-    __hasProp = Object.prototype.hasOwnProperty;
+  var __hasProp = Object.prototype.hasOwnProperty;
 
   window.Config = Backbone.Model.extend({
     localStorage: new Store("settings"),
@@ -23,7 +22,7 @@
     }
   });
 
-  ConfigView = Backbone.View.extend({
+  window.ConfigView = Backbone.View.extend({
     el: $('#settings'),
     tagName: "input",
     events: {
@@ -68,23 +67,25 @@
       var config;
       config = $('form', this.el).serializeObject();
       if (config.save_settings) {
-        this.model.save(config, {
-          success: function(model, response) {
-            return console.log(response);
-          }
-        });
+        this.model.save(config);
       } else {
         this.model.destroy();
       }
-      if (config.save_master) return this.saveMaster();
+      this.saveMaster();
+      return AppView.focus();
     },
     saveMaster: function() {
       var master;
       master = $('#master').val();
-      if (config.save_master) {
-        if (master.length > 0) return localStorage.master = master;
+      if (this.model.get('save_master')) {
+        if (master.length > 0 && localStorage.master !== master) {
+          return this.model.save({
+            master: master
+          });
+        }
       } else {
-        if (localStorage.master) return localStorage.removeItem('master');
+        this.model.unset('master');
+        return this.model.save();
       }
     }
   });
@@ -148,14 +149,20 @@
     }
   });
 
-  AppView = Backbone.View.extend({
+  window.AppView = Backbone.View.extend({
     el: $('#new_secret form'),
     events: {
-      'keyup input.required': 'newSecret'
+      'change #master': 'toggle_master',
+      'keyup input.required': 'render'
     },
     initialize: function() {
+      ConfigView.model.bind('change', this.render, this);
+      this.load_master();
       this.focus();
       return $('#secret:focus').select();
+    },
+    load_master: function() {
+      return $('#master').val(ConfigView.model.get('master'));
     },
     focus: function() {
       return $('input.required:visible', this.el).each(function(index) {
@@ -165,9 +172,12 @@
         }
       });
     },
-    newSecret: function() {
+    toggle_master: function() {
+      if (ConfigView.model.get('save_master')) return ConfigView.saveMaster();
+    },
+    render: function() {
       var config, hatchpass;
-      config = $('#settings form').serializeObject();
+      config = ConfigView.model.toJSON();
       hatchpass = new Secret({
         master: $('#master').val(),
         domain: $('#domain').val(),

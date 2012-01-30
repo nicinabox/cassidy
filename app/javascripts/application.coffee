@@ -16,7 +16,7 @@ window.Config = Backbone.Model.extend(
     Crypto.SHA256(new Date().getTime().toString()).substr(0, 5)
 )
 
-ConfigView = Backbone.View.extend(
+window.ConfigView = Backbone.View.extend(
   el: $('#settings')
   tagName: "input"
   events:
@@ -24,7 +24,7 @@ ConfigView = Backbone.View.extend(
     'click .toggle-settings': 'togglePane'
 
   initialize: ->
-    @model = new Config
+    @model = new Config    
     self = this
     @model.fetch(
       success: (model, response)->
@@ -52,25 +52,21 @@ ConfigView = Backbone.View.extend(
     config = $('form', @el).serializeObject()
         
     if config.save_settings
-      @model.save(
-        config
-        success: (model, response) ->
-          console.log response
-      )
+      @model.save(config)
     else
       @model.destroy()
     
-    if config.save_master
-      @saveMaster()
+    @saveMaster()
+    AppView.focus()
       
   saveMaster: ->
-    master = $('#master').val()
-    if config.save_master
-      if master.length > 0
-        localStorage.master = master
+    master = $('#master').val()    
+    if @model.get('save_master')
+      if master.length > 0 && localStorage.master != master
+        @model.save(master: master)
     else
-      if localStorage.master
-        localStorage.removeItem('master')
+      @model.unset('master')
+      @model.save()
 )
 
 window.Secret = Backbone.Model.extend(
@@ -129,14 +125,21 @@ window.Secret = Backbone.Model.extend(
     @set(secret: secret)
 )
 
-AppView = Backbone.View.extend(
+window.AppView = Backbone.View.extend(
   el: $('#new_secret form')
   events:
-    'keyup input.required': 'newSecret'
+    'change #master': 'toggle_master'
+    'keyup input.required': 'render'
   
-  initialize: ->
+  initialize: ->    
+    ConfigView.model.bind('change', this.render, this);
+    
+    @load_master()
     @focus()
     $('#secret:focus').select()
+  
+  load_master: ->
+    $('#master').val(ConfigView.model.get('master'))
     
   focus: ->
     $('input.required:visible', @el).each((index) ->
@@ -145,8 +148,13 @@ AppView = Backbone.View.extend(
         false
     ) 
     
-  newSecret: ->
-    config = $('#settings form').serializeObject()
+  toggle_master: ->
+    if ConfigView.model.get('save_master')
+      ConfigView.saveMaster()
+    
+  render: ->
+    config = ConfigView.model.toJSON()
+    
     hatchpass = new Secret(
         master: $('#master').val()
         domain: $('#domain').val()
