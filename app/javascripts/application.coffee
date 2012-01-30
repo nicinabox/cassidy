@@ -24,7 +24,7 @@ window.ConfigView = Backbone.View.extend(
     'click .toggle-settings': 'togglePane'
 
   initialize: ->
-    @model = new Config    
+    @model = new Config
     self = this
     @model.fetch(
       success: (model, response)->
@@ -32,6 +32,30 @@ window.ConfigView = Backbone.View.extend(
         self.model.set(response[0])
         self.render()
     )
+    @import()
+    
+  import: ->
+    if localStorage.hp_settings
+      import_key = localStorage.hp_key  
+      import_settings = JSON.parse(localStorage.hp_settings)
+      import_master = localStorage.hp_master
+    
+      import_settings.save_settings = import_settings.remember
+      delete import_settings.remember
+      delete import_settings.algorithm
+    
+      @model.set(
+        master: import_master 
+        key: import_key
+      )
+      @model.set(import_settings)
+      @model.save()
+    
+      localStorage.removeItem('hp_key')
+      localStorage.removeItem('hp_settings')
+      localStorage.removeItem('hp_master')
+      console.log "Import successful"
+      @render()
     
   render: ->
     config = @model.attributes

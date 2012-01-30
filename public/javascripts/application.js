@@ -33,13 +33,36 @@
       var self;
       this.model = new Config;
       self = this;
-      return this.model.fetch({
+      this.model.fetch({
         success: function(model, response) {
           self.model.unset('0');
           self.model.set(response[0]);
           return self.render();
         }
       });
+      return this["import"]();
+    },
+    "import": function() {
+      var import_key, import_master, import_settings;
+      if (localStorage.hp_settings) {
+        import_key = localStorage.hp_key;
+        import_settings = JSON.parse(localStorage.hp_settings);
+        import_master = localStorage.hp_master;
+        import_settings.save_settings = import_settings.remember;
+        delete import_settings.remember;
+        delete import_settings.algorithm;
+        this.model.set({
+          master: import_master,
+          key: import_key
+        });
+        this.model.set(import_settings);
+        this.model.save();
+        localStorage.removeItem('hp_key');
+        localStorage.removeItem('hp_settings');
+        localStorage.removeItem('hp_master');
+        console.log("Import successful");
+        return this.render();
+      }
     },
     render: function() {
       var config, index, value, _results;
