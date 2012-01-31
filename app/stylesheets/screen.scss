@@ -9,15 +9,38 @@ a {
   color: $blue;
 }
 #header {
-  padding: 10px;
+  padding: 0 10px;
   position: fixed;
   top: 0;
   z-index: 5;
   width: 100%;
-//  background: image-url('concrete_wall.png') left top repeat;
   @include background-image(linear-gradient(#434a50, #34393E));
   border-bottom: 1px solid rgba(0,0,0,0.3);
   @include box-shadow(rgba(0,0,0,0.2) 0 2px 1px);
+  @include clearfix;
+  #logo {
+    float: left;
+    padding: 10px 10px;
+  }
+  nav {
+    float: left;
+    @include clearfix;
+    margin: 6px 10px;
+    a {
+      float: left;
+      display: block;
+      padding: 5px 10px;
+      text-decoration: none;
+      color: #ddd;
+      font-size: 13px;
+      margin-right: 5px;
+      &:hover, &.active {
+        @include background-image(linear-gradient(#f7f7f7, #eee));
+        @include border-radius(15px);
+        color: #222;
+      }
+    }
+  }
 }
 #logo {
   font-family: FluxRegular;

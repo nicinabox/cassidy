@@ -191,7 +191,23 @@ window.AppView = Backbone.View.extend(
 window.ConfigView = new ConfigView
 window.AppView = new AppView
 
-# Backbone.history.start(
-#   pushState: true
-#   root: '/test'
-# )
+AppRouter = Backbone.Router.extend(
+  routes:
+    "about": "about"          
+    "privacy-policy": "privacy_policy"
+  
+  initialize: ->
+    # $('nav a').click(->
+    #   href = $(this).attr("href")
+    #   @navigate(href, true)
+    #   false
+    # )
+    Backbone.history.start()
+    
+  about: ->
+    console.log "About"
+    
+  privacy_policy: ->
+    console.log "Privacy"
+)
+new AppRouter()

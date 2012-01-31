@@ -376,7 +376,7 @@ a {
 }
 
 #header {
-  padding: 10px;
+  padding: 0 10px;
   position: fixed;
   top: 0;
   z-index: 5;
@@ -391,6 +391,41 @@ a {
   -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 2px 1px;
   -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 2px 1px;
   box-shadow: rgba(0, 0, 0, 0.2) 0 2px 1px;
+  overflow: hidden;
+  *zoom: 1;
+}
+#header #logo {
+  float: left;
+  padding: 10px 10px;
+}
+#header nav {
+  float: left;
+  overflow: hidden;
+  *zoom: 1;
+  margin: 6px 10px;
+}
+#header nav a {
+  float: left;
+  display: block;
+  padding: 5px 10px;
+  text-decoration: none;
+  color: #ddd;
+  font-size: 13px;
+  margin-right: 5px;
+}
+#header nav a:hover, #header nav a.active {
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f7f7f7), color-stop(100%, #eeeeee));
+  background-image: -webkit-linear-gradient(#f7f7f7, #eeeeee);
+  background-image: -moz-linear-gradient(#f7f7f7, #eeeeee);
+  background-image: -o-linear-gradient(#f7f7f7, #eeeeee);
+  background-image: -ms-linear-gradient(#f7f7f7, #eeeeee);
+  background-image: linear-gradient(#f7f7f7, #eeeeee);
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+  border-radius: 15px;
+  color: #222;
 }
 
 #logo {
