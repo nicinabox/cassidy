@@ -528,6 +528,9 @@ form .field input[type=checkbox] + label, form .field input[type=radio] + label 
   text-transform: none;
   color: #666;
 }
+form .field.invisible small.show-on-mobile {
+  display: none;
+}
 form .field.invisible input {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
@@ -540,6 +543,11 @@ form .field.invisible input {
 }
 form input {
   padding: 10px;
+}
+
+small {
+  font-size: 12px;
+  color: #aaa;
 }
 
 #secret {

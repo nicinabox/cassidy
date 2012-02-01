@@ -115,6 +115,9 @@ form {
       }
     }
     &.invisible {
+      small.show-on-mobile {
+        display: none;
+      }
       input {
         @include box-shadow(none);
         font-size: 22px;
@@ -128,6 +131,11 @@ form {
   input {
     padding: 10px;
   }
+}
+
+small {
+  font-size: 12px;
+  color: #aaa;
 }
 
 #secret {

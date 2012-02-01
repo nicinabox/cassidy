@@ -180,13 +180,22 @@
       'keyup input.required': 'render'
     },
     initialize: function() {
+      var self, _ref;
       ConfigView.model.bind('change', this.render, this);
+      self = this;
       this.load_master();
       this.focus();
-      $('#secret:focus').select();
-      if (navigator.userAgent.match(/mobile/i)) {
-        return $('#secret').attr('readonly', false);
-      }
+      this.mobile_user = (_ref = navigator.userAgent.match(/mobile/i) !== null) != null ? _ref : {
+        "true": false
+      };
+      $('#secret').bind('focus touchstart', function() {
+        this.selectionStart = 0;
+        this.selectionEnd = this.value.length;
+        if (self.mobile_user) return $('small.hint').fadeIn();
+      }).blur(function() {
+        if (self.mobile_user) return $('small.hint').fadeOut();
+      });
+      if (this.mobile_user) return $('#secret').attr('readonly', false);
     },
     load_master: function() {
       return $('#master').val(ConfigView.model.get('master'));

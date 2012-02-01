@@ -156,14 +156,27 @@ window.AppView = Backbone.View.extend(
     'change #master': 'toggle_master'
     'keyup input.required': 'render'
   
-  initialize: ->    
+  initialize: ->
     ConfigView.model.bind('change', this.render, this);
+    self = this
     
     @load_master()
     @focus()
-    $('#secret:focus').select()
+    @mobile_user = (navigator.userAgent.match(/mobile/i) != null ? true : false)
     
-    if navigator.userAgent.match(/mobile/i)
+    $('#secret').bind('focus touchstart', ->
+      
+      @selectionStart = 0;
+      @selectionEnd = @value.length;
+      
+      if self.mobile_user
+        $('small.hint').fadeIn()   
+    ).blur(->
+      if self.mobile_user
+        $('small.hint').fadeOut()
+    )
+    
+    if @mobile_user
       $('#secret').attr('readonly', false)
     
   
