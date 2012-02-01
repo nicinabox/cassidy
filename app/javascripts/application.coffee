@@ -74,7 +74,8 @@ window.ConfigView = Backbone.View.extend(
   
   saveConfig: ->
     config = $('form', @el).serializeObject()
-        
+    config.key = config.key.toLowerCase()
+    
     if config.save_settings
       @model.save(config)
     else
@@ -161,6 +162,10 @@ window.AppView = Backbone.View.extend(
     @load_master()
     @focus()
     $('#secret:focus').select()
+    
+    if navigator.userAgent.toLowerCase().match('iphone|ipad')
+      $('#secret').attr('readonly', false)
+    
   
   load_master: ->
     $('#master').val(ConfigView.model.get('master'))

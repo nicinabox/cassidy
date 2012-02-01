@@ -89,6 +89,7 @@
     saveConfig: function() {
       var config;
       config = $('form', this.el).serializeObject();
+      config.key = config.key.toLowerCase();
       if (config.save_settings) {
         this.model.save(config);
       } else {
@@ -182,7 +183,10 @@
       ConfigView.model.bind('change', this.render, this);
       this.load_master();
       this.focus();
-      return $('#secret:focus').select();
+      $('#secret:focus').select();
+      if (navigator.userAgent.toLowerCase().match('iphone|ipad')) {
+        return $('#secret').attr('readonly', false);
+      }
     },
     load_master: function() {
       return $('#master').val(ConfigView.model.get('master'));
