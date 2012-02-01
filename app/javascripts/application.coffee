@@ -163,7 +163,7 @@ window.AppView = Backbone.View.extend(
     @focus()
     $('#secret:focus').select()
     
-    if navigator.userAgent.toLowerCase().match('iphone|ipad')
+    if navigator.userAgent.match(/mobile/i)
       $('#secret').attr('readonly', false)
     
   

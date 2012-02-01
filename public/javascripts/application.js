@@ -184,7 +184,7 @@
       this.load_master();
       this.focus();
       $('#secret:focus').select();
-      if (navigator.userAgent.toLowerCase().match('iphone|ipad')) {
+      if (navigator.userAgent.match(/mobile/i)) {
         return $('#secret').attr('readonly', false);
       }
     },

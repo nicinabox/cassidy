@@ -535,6 +535,8 @@ form .field.invisible input {
   font-size: 22px;
   background: none;
   border-color: transparent;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(255, 255, 255, 0)), to(rgba(255, 255, 255, 0)));
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0));
 }
 form input {
   padding: 10px;
