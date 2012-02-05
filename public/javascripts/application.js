@@ -1,6 +1,5 @@
 (function() {
-  var AppRouter,
-    __hasProp = Object.prototype.hasOwnProperty;
+  var __hasProp = Object.prototype.hasOwnProperty;
 
   window.Config = Backbone.Model.extend({
     localStorage: new Store("settings"),
@@ -227,23 +226,5 @@
   window.ConfigView = new ConfigView;
 
   window.AppView = new AppView;
-
-  AppRouter = Backbone.Router.extend({
-    routes: {
-      "about": "about",
-      "privacy-policy": "privacy_policy"
-    },
-    initialize: function() {
-      return Backbone.history.start();
-    },
-    about: function() {
-      return console.log("About");
-    },
-    privacy_policy: function() {
-      return console.log("Privacy");
-    }
-  });
-
-  new AppRouter();
 
 }).call(this);

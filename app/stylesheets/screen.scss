@@ -1,6 +1,9 @@
 @import "compass";
 @import "normalize";
 $blue: #4CAAE4;
+@mixin signika {
+ font-family: 'Signika', sans-serif; 
+}
 
 body {
   background: #f7f7f7 image-url('fabric_plaid.png') left top repeat;
@@ -8,6 +11,15 @@ body {
 a {
   color: $blue;
 }
+h3 {
+  color: #666;
+  font-weight: 300;
+}
+p {
+  line-height: 22px;
+  color: #555;
+}
+
 #header {
   padding: 0 10px;
   position: fixed;
@@ -24,7 +36,7 @@ a {
   }
   nav {
     float: left;
-    @include clearfix;
+    @include pie-clearfix;
     margin: 6px 10px;
     a {
       float: left;
@@ -35,7 +47,7 @@ a {
       font-size: 13px;
       margin-right: 5px;
       &:hover, &.active {
-        @include background-image(linear-gradient(#f7f7f7, #eee));
+        @include background-image(linear-gradient(#fff, #ddd));
         @include border-radius(15px);
         color: #222;
       }
@@ -43,7 +55,8 @@ a {
   }
 }
 #logo {
-  font-family: FluxRegular;
+//  font-family: FluxRegular;
+  @include signika;
   text-decoration: none;
   color: #fff;
 }
@@ -52,6 +65,18 @@ a {
   width: 300px;
   padding: 10px;
   margin: 60px auto;
+}
+#page-content {
+  margin: 40px auto;
+  background: white;
+  @include border-bottom-radius(3px);
+  @include box-shadow(#aaa 0 1px 3px);
+  padding: 20px;
+  width: 600px;
+  display: none;
+  &.active {
+    display: block;
+  }
 }
 
 #settings {

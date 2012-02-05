@@ -368,11 +368,21 @@ table {
 }
 
 body {
-  background: #f7f7f7 url('../images/fabric_plaid.png?1326664855') left top repeat;
+  background: #f7f7f7 url('../images/fabric_plaid.png?1328464244') left top repeat;
 }
 
 a {
   color: #4caae4;
+}
+
+h3 {
+  color: #666;
+  font-weight: 300;
+}
+
+p {
+  line-height: 22px;
+  color: #555;
 }
 
 #header {
@@ -400,9 +410,13 @@ a {
 }
 #header nav {
   float: left;
-  overflow: hidden;
   *zoom: 1;
   margin: 6px 10px;
+}
+#header nav:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 #header nav a {
   float: left;
@@ -414,12 +428,12 @@ a {
   margin-right: 5px;
 }
 #header nav a:hover, #header nav a.active {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f7f7f7), color-stop(100%, #eeeeee));
-  background-image: -webkit-linear-gradient(#f7f7f7, #eeeeee);
-  background-image: -moz-linear-gradient(#f7f7f7, #eeeeee);
-  background-image: -o-linear-gradient(#f7f7f7, #eeeeee);
-  background-image: -ms-linear-gradient(#f7f7f7, #eeeeee);
-  background-image: linear-gradient(#f7f7f7, #eeeeee);
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #dddddd));
+  background-image: -webkit-linear-gradient(#ffffff, #dddddd);
+  background-image: -moz-linear-gradient(#ffffff, #dddddd);
+  background-image: -o-linear-gradient(#ffffff, #dddddd);
+  background-image: -ms-linear-gradient(#ffffff, #dddddd);
+  background-image: linear-gradient(#ffffff, #dddddd);
   -webkit-border-radius: 15px;
   -moz-border-radius: 15px;
   -ms-border-radius: 15px;
@@ -429,7 +443,7 @@ a {
 }
 
 #logo {
-  font-family: FluxRegular;
+  font-family: 'Signika', sans-serif;
   text-decoration: none;
   color: #fff;
 }
@@ -438,6 +452,30 @@ a {
   width: 300px;
   padding: 10px;
   margin: 60px auto;
+}
+
+#page-content {
+  margin: 40px auto;
+  background: white;
+  -moz-border-radius-bottomleft: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  -ms-border-bottom-left-radius: 3px;
+  -o-border-bottom-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  -moz-border-radius-bottomright: 3px;
+  -webkit-border-bottom-right-radius: 3px;
+  -ms-border-bottom-right-radius: 3px;
+  -o-border-bottom-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  -webkit-box-shadow: #aaaaaa 0 1px 3px;
+  -moz-box-shadow: #aaaaaa 0 1px 3px;
+  box-shadow: #aaaaaa 0 1px 3px;
+  padding: 20px;
+  width: 600px;
+  display: none;
+}
+#page-content.active {
+  display: block;
 }
 
 #settings {
