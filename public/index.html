@@ -6,32 +6,22 @@
 <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
 <head>
 	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width" />
+	<meta name="viewport" content="width=device-width, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+  
 	<title>Hatchpass</title>
+	
 	<link rel="stylesheet" href="/fonts/stylesheet.css">
 	<link rel="stylesheet" href="/stylesheets/screen.css">
-
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png"/>
+  <link rel="apple-touch-icon-precomposed" href="icon" />
+  
 	<!--[if lt IE 9]>
 		<link rel="stylesheet" href="stylesheets/ie.css">
 	<![endif]-->
 	<!--[if lt IE 9]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
-	
-	<script type="text/javascript">
-
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-20072687-1']);
-    _gaq.push(['_setDomainName', 'hatchpass.org']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-
-  </script>
 </head>
 <body>
   <div id="header">
@@ -95,6 +85,7 @@
         </div>
         <div class="field invisible">
           <input type="text" id="secret" name="secret" readonly>
+          <small class="show-on-mobile hint">Scroll slightly to trigger copy menu</small>
         </div>
         <div class="actions hidden">
           <input type="submit" value="submit">
@@ -106,7 +97,6 @@
   
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
   <!-- <script data-main="javascripts/manifest" src="javascripts/vendor/require.js"></script> -->
-  
   <script src="javascripts/vendor/json2.js"></script>
   <script src="javascripts/vendor/underscore-min.js"></script>
   <script src="javascripts/vendor/backbone-min.js"></script>
@@ -116,5 +106,18 @@
   <script src="javascripts/jquery.addons.js"></script>
   <script src="javascripts/application.js"></script>
   
+  <script type="text/javascript">
+    var _gauges = _gauges || [];
+    (function() {
+      var t   = document.createElement('script');
+      t.type  = 'text/javascript';
+      t.async = true;
+      t.id    = 'gauges-tracker';
+      t.setAttribute('data-site-id', '4f29ec75cb25bc695d00006b');
+      t.src = '//secure.gaug.es/track.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(t, s);
+    })();
+  </script>
 </body>
 </html>

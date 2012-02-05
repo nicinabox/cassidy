@@ -139,17 +139,27 @@ form {
       }
     }
     &.invisible {
+      small.show-on-mobile {
+        display: none;
+      }
       input {
         @include box-shadow(none);
         font-size: 22px;
         background: none;
         border-color: transparent;
+        background-image:-webkit-gradient(linear, 0% 0%, 0% 100%, from(hsla(0,0%,100%,0)), to(hsla(0,0%,100%,0)));
+        background-image:-webkit-linear-gradient(hsla(0,0%,100%,0), hsla(0,0%,100%,0));
       }
     }
   }
   input {
     padding: 10px;
   }
+}
+
+small {
+  font-size: 12px;
+  color: #aaa;
 }
 
 #secret {

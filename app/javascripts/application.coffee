@@ -74,7 +74,8 @@ window.ConfigView = Backbone.View.extend(
   
   saveConfig: ->
     config = $('form', @el).serializeObject()
-        
+    config.key = config.key.toLowerCase()
+    
     if config.save_settings
       @model.save(config)
     else
@@ -155,12 +156,29 @@ window.AppView = Backbone.View.extend(
     'change #master': 'toggle_master'
     'keyup input.required': 'render'
   
-  initialize: ->    
+  initialize: ->
     ConfigView.model.bind('change', this.render, this);
+    self = this
     
     @load_master()
     @focus()
-    $('#secret:focus').select()
+    @mobile_user = (navigator.userAgent.match(/mobile/i) != null ? true : false)
+    
+    $('#secret').bind('focus touchstart', ->
+      
+      @selectionStart = 0;
+      @selectionEnd = @value.length;
+      
+      if self.mobile_user
+        $('small.hint').fadeIn()   
+    ).blur(->
+      if self.mobile_user
+        $('small.hint').fadeOut()
+    )
+    
+    if @mobile_user
+      $('#secret').attr('readonly', false)
+    
   
   load_master: ->
     $('#master').val(ConfigView.model.get('master'))
