@@ -55,7 +55,6 @@ p {
   }
 }
 #logo {
-//  font-family: FluxRegular;
   @include signika;
   text-decoration: none;
   color: #fff;
@@ -72,7 +71,7 @@ p {
   @include border-bottom-radius(3px);
   @include box-shadow(#aaa 0 1px 3px);
   padding: 20px;
-  width: 600px;
+  max-width: 600px;
   display: none;
   &.active {
     display: block;
