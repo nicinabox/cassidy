@@ -39,8 +39,7 @@ p {
     @include pie-clearfix;
     margin: 6px 10px;
     a {
-      float: left;
-      display: block;
+      @include inline-block;
       padding: 5px 10px;
       text-decoration: none;
       color: #ddd;
