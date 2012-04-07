@@ -189,7 +189,7 @@
       self = this;
       this.load_master();
       this.focus();
-      this.mobile_user = (_ref = navigator.userAgent.match(/mobile/i) !== null) != null ? _ref : {
+      window.is_mobile = (_ref = navigator.userAgent.match(/mobile/i) !== null) != null ? _ref : {
         "true": false
       };
       return $('#secret').bind('focus touchstart', function() {
@@ -224,7 +224,7 @@
       });
       if (hatchpass) {
         $('#secret').val(hatchpass.get('secret'));
-        if (this.mobile_user) {
+        if (window.is_mobile) {
           if ($('#secret').val().length > 0) {
             return $('#secret').show().attr('readonly', false);
           } else {

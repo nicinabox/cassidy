@@ -167,7 +167,7 @@ window.AppView = Backbone.View.extend(
     
     @load_master()
     @focus()
-    @mobile_user = (navigator.userAgent.match(/mobile/i) != null ? true : false)
+    window.is_mobile = (navigator.userAgent.match(/mobile/i) != null ? true : false)
     
     $('#secret').bind('focus touchstart', ->
       
@@ -205,7 +205,7 @@ window.AppView = Backbone.View.extend(
       )
     if hatchpass
       $('#secret').val(hatchpass.get('secret'))
-      if @mobile_user
+      if window.is_mobile
         if $('#secret').val().length > 0
           $('#secret').show().attr('readonly', false)
         else

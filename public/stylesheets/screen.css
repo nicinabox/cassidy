@@ -517,6 +517,7 @@ p {
   margin: 0 auto;
   top: 50px;
   width: 400px;
+  display: none;
 }
 .panel-nav a {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);

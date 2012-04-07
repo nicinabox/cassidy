@@ -111,6 +111,7 @@ p {
   margin: 0 auto;
   top: 50px;
   width: 400px;
+  display: none;
   a {
     @include opacity(0.3);
     @include single-transition(opacity, 0.15s, ease-out);
