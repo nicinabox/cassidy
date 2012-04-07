@@ -10,6 +10,6 @@ get '/about' do
   erb :about, :layout => :'layouts/application'
 end
 
-get '/privacy-policy' do
-  erb :'privacy-policy', :layout => :'layouts/application'
+get '/privacy' do
+  erb :privacy, :layout => :'layouts/application'
 end
