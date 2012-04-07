@@ -38,8 +38,7 @@ $ ->
       
   $('body').on 'click', '#recent_domains a.domain', (e) ->
     e.preventDefault()
-    
-    $('#domain').val($(this).text())
+    $('#domain').val($.trim($(this).text()))
     AppView.render()
     Swipe.next()
     

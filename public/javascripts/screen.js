@@ -42,7 +42,7 @@
     });
     $('body').on('click', '#recent_domains a.domain', function(e) {
       e.preventDefault();
-      $('#domain').val($(this).text());
+      $('#domain').val($.trim($(this).text()));
       AppView.render();
       return Swipe.next();
     });
