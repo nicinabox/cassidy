@@ -531,6 +531,8 @@ p {
   display: block;
   color: black;
   font-weight: bold;
+  text-align: center;
+  width: 75px;
   text-decoration: none;
 }
 .panel-nav a span {
@@ -544,12 +546,10 @@ p {
 }
 .panel-nav a.next {
   right: -50px;
-  height: 50px;
   background: url('../images/icon-next.png?1333823299') center top no-repeat;
 }
 .panel-nav a.prev {
   left: -50px;
-  height: 50px;
   background: url('../images/icon-prev.png?1333823315') center top no-repeat;
 }
 .panel-nav a.hide {

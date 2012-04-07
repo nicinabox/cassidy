@@ -119,6 +119,8 @@ p {
     display: block;
     color: black;
     font-weight: bold;
+    text-align: center;
+    width: 75px;
     text-decoration: none;
     span {
       display: block;
@@ -130,12 +132,10 @@ p {
     }
     &.next {
       right: -50px;
-      height: 50px;
       background: image-url('icon-next.png') center top no-repeat;
     }
     &.prev {
       left: -50px;
-      height: 50px;
       background: image-url('icon-prev.png') center top no-repeat;
     }
     &.hide {
