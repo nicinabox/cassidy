@@ -207,9 +207,9 @@ window.AppView = Backbone.View.extend(
       $('#secret').val(hatchpass.get('secret'))
       if @mobile_user
         if $('#secret').val().length > 0
-          $('#secret').show()
+          $('#secret').show().attr('readonly', false)
         else
-          $('#secret').hide()
+          $('#secret').hide().attr('readonly', true)
 )
 
 window.ConfigView = new ConfigView

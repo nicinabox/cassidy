@@ -226,9 +226,9 @@
         $('#secret').val(hatchpass.get('secret'));
         if (this.mobile_user) {
           if ($('#secret').val().length > 0) {
-            return $('#secret').show();
+            return $('#secret').show().attr('readonly', false);
           } else {
-            return $('#secret').hide();
+            return $('#secret').hide().attr('readonly', true);
           }
         }
       }
