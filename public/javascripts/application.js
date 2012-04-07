@@ -178,6 +178,7 @@
       var self, _ref;
       self = this;
       window.Swipe = new Swipe(document.getElementById('swipe'), {
+        startSlide: 1,
         callback: function() {
           return $('#swipe').trigger('swipe.animated');
         }
@@ -189,6 +190,7 @@
       self = this;
       this.load_master();
       this.focus();
+      this.render_domains();
       window.is_mobile = (_ref = navigator.userAgent.match(/mobile/i) !== null) != null ? _ref : {
         "true": false
       };
@@ -215,7 +217,8 @@
       if (ConfigView.model.get('save_master')) return ConfigView.saveMaster();
     },
     render: function() {
-      var config, hatchpass;
+      var config, hatchpass, self;
+      self = this;
       config = ConfigView.model.toJSON();
       hatchpass = new Secret({
         master: $('#master').val(),
@@ -226,11 +229,49 @@
         $('#secret').val(hatchpass.get('secret'));
         if (window.is_mobile) {
           if ($('#secret').val().length > 0) {
-            return $('#secret').show().attr('readonly', false);
+            $('#secret').show().attr('readonly', false);
           } else {
-            return $('#secret').hide().attr('readonly', true);
+            $('#secret').hide().attr('readonly', true);
           }
         }
+        return $('#secret').off('focus').focus(function(e) {
+          return self.save_domain($('#domain').val());
+        });
+      }
+    },
+    save_domain: function(domain) {
+      var recent_domains, total;
+      recent_domains = [];
+      if (localStorage.recent_domains) {
+        recent_domains = JSON.parse(localStorage.recent_domains);
+      }
+      total = recent_domains.length;
+      if (total >= 10) recent_domains.splice(0, 1);
+      recent_domains.push(domain);
+      localStorage.recent_domains = JSON.stringify(recent_domains.unique());
+      return this.render_domains();
+    },
+    render_domains: function() {
+      var $recent_domains, html, i, recent_domains, total, _results;
+      recent_domains = [];
+      if (localStorage.recent_domains) {
+        recent_domains = JSON.parse(localStorage.recent_domains);
+      }
+      total = recent_domains.length;
+      $recent_domains = $('#recent_domains ul');
+      $recent_domains.empty();
+      if (total > 0) {
+        i = 0;
+        _results = [];
+        while (i < total) {
+          html = "<li>                   <a href='#" + recent_domains[i] + "' class='domain'>                    " + recent_domains[i] + "                  </a>                   <a href='#remove' class='remove' data-id='" + i + "'>&times;</a>                </li>";
+          $recent_domains.append(html);
+          _results.push(i++);
+        }
+        return _results;
+      } else {
+        html = "<li class='no-results'>You have no recent domains</li>";
+        return $recent_domains.append(html);
       }
     }
   });

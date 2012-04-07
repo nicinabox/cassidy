@@ -1,6 +1,6 @@
 <nav class="panel-nav">
   <a href="#settings" class="next" data-direction="next"><span>Settings</span></a>
-  <a href="#new_secret" class="prev" data-direction="prev"><span>Back</span></a>
+  <a href="#new_secret" class="prev" data-direction="prev"><span>Recent</span></a>
 </nav>
 
 <div id="main">
@@ -8,6 +8,7 @@
   
   <div id="swipe">
     <div class="swipe-container">
+      <%= erb :_recent_domains %>
       <%= erb :_form %>
       <%= erb :_settings %>
     </div>

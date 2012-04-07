@@ -125,7 +125,7 @@ p {
     span {
       display: block;
       margin-top: 55px;
-      text-shadow: 0 -1px 1px #fff;
+      text-shadow: 0 1px 1px #fff;
     }
     &:hover {
       @include opacity(1);
@@ -146,9 +146,7 @@ p {
 
 .panel {
   padding: 10px;
-  + .panel {
-    display: none;
-  }
+  display: none;
 }
 #settings {
   @include pie-clearfix;
@@ -242,4 +240,41 @@ small {
 
 #secret {
   cursor: pointer;
+}
+
+#recent_domains {
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li {
+      margin: 0;
+      padding: 0;
+      @include clearfix;
+      &.no-results {
+        font-size: 18px;
+        color: #aaa;
+        text-shadow: 0 1px 1px #fff;
+        text-align: center;
+        padding: 10px;
+        border: 1px dashed #bbb;
+        @include border-radius(4px);
+      }
+    }
+    a {
+      text-decoration: none;
+      font-size: 15px;
+      display: block;
+    }
+    .domain {
+      font-weight: bold;
+      padding: 3px 0;
+      float: left;
+      width: 90%;
+    }
+    .remove {
+      padding: 3px 6px;
+      float: right;
+    }
+  }
 }
