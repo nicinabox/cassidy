@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <title>Hatchpass</title>
+
+  <link href='http://fonts.googleapis.com/css?family=Signika' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/stylesheets/screen.css">
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png"/>
+  <link rel="apple-touch-icon-precomposed" href="icon" />
+
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <link rel="stylesheet" href="/stylesheets/ie.css">
+  <![endif]-->
+  
+  <script src="/javascripts/vendor/modernizr.custom-2.5.3.js"></script>
+  <script src="/javascripts/modernizr.load.js"></script>
+</head>
+<body>
+  <div id="header">
+    <a id="logo" href="/">Hatchpass</a>
+    <nav>
+      <a href="/about">About</a>
+      <a href="/privacy-policy">Privacy Policy</a>
+    </nav>
+  </div>
+
+  <%= yield %>
+
+  <script type="text/javascript">
+    var _gauges = _gauges || [];
+    (function() {
+      var t   = document.createElement('script');
+      t.type  = 'text/javascript';
+      t.async = true;
+      t.id    = 'gauges-tracker';
+      t.setAttribute('data-site-id', '4f29ec75cb25bc695d00006b');
+      t.src = '//secure.gaug.es/track.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(t, s);
+    })();
+  </script>
+</body>
+</html>
