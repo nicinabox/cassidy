@@ -18,7 +18,8 @@ $ ->
     next = (if position <= total then position+1 else position)
     prev = (if position > 0 then position-1 else 0)
 
-    $nav.fadeIn('fast') unless is_mobile
+    if navigator.userAgent.match(/ipad/i) || !is_mobile
+      $nav.fadeIn('fast')
         
     $next = $('.next', $nav)
     $prev = $('.prev', $nav)

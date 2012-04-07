@@ -153,24 +153,27 @@ window.AppView = Backbone.View.extend(
   
   initialize: ->
     self = this
+    $panel = $('#swipe .panel')
+    
     window.Swipe = new Swipe(
       document.getElementById('swipe'),
       startSlide: 1
       callback: ->
         $('#swipe').trigger('swipe.animated')
     )
-
-    $('body').on 'swipe.animated', '#swipe', ->
-      self.focus()
       
     ConfigView.model.bind('change', this.render, this);
-    self = this
     
     @load_master()
     @focus()
     @render_domains()
     window.is_mobile = (navigator.userAgent.match(/mobile/i) != null ? true : false)
     
+    $('body').on 'swipe.animated', '#swipe', ->
+      $active = $panel.eq(Swipe.getPos())
+      if $active[0] == self.el.parent()[0]
+        self.focus()
+        
     $('#secret').bind('focus touchstart', ->
       
       @selectionStart = 0;
@@ -187,6 +190,7 @@ window.AppView = Backbone.View.extend(
     $('#master').val(ConfigView.model.get('master'))
     
   focus: ->
+    console.log('FOCUS')
     $('input.required:visible', @el).each((index) ->
       if @value.length == 0
         $(this).focus()

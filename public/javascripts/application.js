@@ -175,25 +175,27 @@
       'keyup input.required': 'render'
     },
     initialize: function() {
-      var self, _ref;
+      var $panel, self, _ref;
       self = this;
+      $panel = $('#swipe .panel');
       window.Swipe = new Swipe(document.getElementById('swipe'), {
         startSlide: 1,
         callback: function() {
           return $('#swipe').trigger('swipe.animated');
         }
       });
-      $('body').on('swipe.animated', '#swipe', function() {
-        return self.focus();
-      });
       ConfigView.model.bind('change', this.render, this);
-      self = this;
       this.load_master();
       this.focus();
       this.render_domains();
       window.is_mobile = (_ref = navigator.userAgent.match(/mobile/i) !== null) != null ? _ref : {
         "true": false
       };
+      $('body').on('swipe.animated', '#swipe', function() {
+        var $active;
+        $active = $panel.eq(Swipe.getPos());
+        if ($active[0] === self.el.parent()[0]) return self.focus();
+      });
       return $('#secret').bind('focus touchstart', function() {
         this.selectionStart = 0;
         this.selectionEnd = this.value.length;
@@ -206,6 +208,7 @@
       return $('#master').val(ConfigView.model.get('master'));
     },
     focus: function() {
+      console.log('FOCUS');
       return $('input.required:visible', this.el).each(function(index) {
         if (this.value.length === 0) {
           $(this).focus();

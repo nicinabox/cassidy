@@ -22,7 +22,7 @@
       total = $panel.length;
       next = (position <= total ? position + 1 : position);
       prev = (position > 0 ? position - 1 : 0);
-      if (!is_mobile) $nav.fadeIn('fast');
+      if (navigator.userAgent.match(/ipad/i) || !is_mobile) $nav.fadeIn('fast');
       $next = $('.next', $nav);
       $prev = $('.prev', $nav);
       if (position === (total_panels - 1)) {
