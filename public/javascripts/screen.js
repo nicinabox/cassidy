@@ -14,19 +14,30 @@
       }
     });
     $('body').on('swipe.animated', function() {
-      var $nav, position;
+      var $active, $nav, $next, $panel, $prev, next, position, prev, total;
       $nav = $('.panel-nav');
+      $panel = $('#swipe .panel');
       position = Swipe.getPos();
+      $active = $panel.eq(position);
+      total = $panel.length;
+      next = (position <= total ? position + 1 : position);
+      prev = (position > 0 ? position - 1 : 0);
       if (!is_mobile) $nav.fadeIn('fast');
+      $next = $('.next', $nav);
+      $prev = $('.prev', $nav);
       if (position === (total_panels - 1)) {
-        $('.next', $nav).hide();
-        return $('.prev', $nav).show();
+        $next.hide();
+        $prev.show();
+        return $('span', $prev).text($panel.eq(prev).data('title'));
       } else if (position === 0) {
-        $('.next', $nav).show();
-        return $('.prev', $nav).hide();
+        $next.show();
+        $prev.hide();
+        return $('span', $next).text($panel.eq(next).data('title'));
       } else {
-        $('.next', $nav).show();
-        return $('.prev', $nav).show();
+        $next.show();
+        $prev.show();
+        $('span', $prev).text($panel.eq(prev).data('title'));
+        return $('span', $next).text($panel.eq(next).data('title'));
       }
     });
     $('body').on('click', '#recent_domains a.domain', function(e) {

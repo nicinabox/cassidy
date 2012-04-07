@@ -11,19 +11,30 @@ $ ->
     
   $('body').on 'swipe.animated', ->
     $nav = $('.panel-nav')
+    $panel = $('#swipe .panel')
     position = Swipe.getPos()
-    
+    $active = $panel.eq(position)
+    total = $panel.length    
+    next = (if position <= total then position+1 else position)
+    prev = (if position > 0 then position-1 else 0)
+
     $nav.fadeIn('fast') unless is_mobile
         
+    $next = $('.next', $nav)
+    $prev = $('.prev', $nav)
     if position == (total_panels-1)
-      $('.next', $nav).hide()
-      $('.prev', $nav).show()
+      $next.hide()
+      $prev.show()
+      $('span', $prev).text($panel.eq(prev).data('title'))
     else if position == 0
-      $('.next', $nav).show()
-      $('.prev', $nav).hide()
+      $next.show()
+      $prev.hide()
+      $('span', $next).text($panel.eq(next).data('title'))
     else
-      $('.next', $nav).show()
-      $('.prev', $nav).show()
+      $next.show()
+      $prev.show()
+      $('span', $prev).text($panel.eq(prev).data('title'))
+      $('span', $next).text($panel.eq(next).data('title'))
       
   $('body').on 'click', '#recent_domains a.domain', (e) ->
     e.preventDefault()
