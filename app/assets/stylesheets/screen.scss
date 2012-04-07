@@ -1,6 +1,8 @@
 @import "compass";
 @import "normalize";
+
 $blue: #4CAAE4;
+
 @mixin signika {
  font-family: 'Signika', sans-serif; 
 }
@@ -30,10 +32,6 @@ p {
   border-bottom: 1px solid rgba(0,0,0,0.3);
   @include box-shadow(rgba(0,0,0,0.2) 0 2px 1px);
   @include clearfix;
-  #logo {
-    float: left;
-    padding: 10px 10px;
-  }
   nav {
     float: left;
     @include pie-clearfix;
@@ -53,15 +51,20 @@ p {
     }
   }
 }
+
 #logo {
   @include signika;
   text-decoration: none;
   color: #fff;
+  margin: 0 auto;
+  width: 100px;
+  text-align: center;
+  display: block;
+  padding: 10px 10px;
 }
 
 #main {
   width: 300px;
-  padding: 10px;
   margin: 60px auto;
 }
 #page-content {
@@ -72,11 +75,80 @@ p {
   padding: 20px;
   max-width: 600px;
   display: none;
+  position: relative;
+  z-index: 2;
   &.active {
     display: block;
   }
 }
+#footer {
+  position: fixed;
+  bottom: 0;
+  z-index: 0;
+  font-size: 11px;
+  background: rgba(0,0,0,0.2);
+  @include clearfix;
+  width: 100%;
+  nav {
+    padding: 5px 20px;
+    float: right;
+    * {
+      color: #555;
+      display: inline-block;
+      + * {
+        margin-left: 15px;
+      }
+    }
+    a {
+      color: #000;
+      text-decoration: none;
+    }
+  }
+}
 
+.panel-nav {
+  position: relative;
+  margin: 0 auto;
+  top: 50px;
+  width: 400px;
+  a {
+    @include opacity(0.3);
+    @include single-transition(opacity, 0.15s, ease-out);
+    position: absolute;
+    display: block;
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    span {
+      display: block;
+      margin-top: 55px;
+      text-shadow: 0 -1px 1px #fff;
+    }
+    &:hover {
+      @include opacity(1);
+    }
+    &.next {
+      right: -50px;
+      height: 50px;
+      background: image-url('icon-next.png') center top no-repeat;
+    }
+    &.prev {
+      left: -50px;
+      height: 50px;
+      background: image-url('icon-prev.png') center top no-repeat;
+    }
+    &.hide {
+      display: none;
+    }
+  }
+}
+
+.panel {
+  padding: 10px;
+  + .panel {
+    display: none;
+  }
+}
 #settings {
   @include pie-clearfix;
   form {
@@ -84,28 +156,10 @@ p {
     border-bottom: 1px dashed #ccc;
     margin: 0 auto;
     margin-bottom: 20px;
-    display: none;
   }
   hr {
     border: 0;
     border-bottom: 1px dashed #ccc;
-  }
-  .toggle-settings {
-    float: right;
-    text-decoration: none;
-    font-size: 13px;
-    background: $blue;
-    color: white;
-    display: block;
-    padding: 5px 10px;
-    margin-top: -31px;
-    @include border-bottom-radius(3px);
-    @include single-transition(all, 0.1s, ease-out);
-    @include opacity(0.8);
-    &:hover, .active {
-      padding-top: 8px;
-      @include opacity(1);
-    }
   }
 }
 .flash {

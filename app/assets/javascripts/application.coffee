@@ -21,7 +21,6 @@ window.ConfigView = Backbone.View.extend(
   tagName: "input"
   events:
     'change input': 'saveConfig'
-    'click .toggle-settings': 'togglePane'
 
   initialize: ->
     @model = new Config
@@ -68,10 +67,6 @@ window.ConfigView = Backbone.View.extend(
           $("##{index}").val(config[index])
           break
     
-  togglePane: (e) ->
-    e.preventDefault()
-    $('form', @el).slideToggle('fast')
-  
   saveConfig: ->
     config = $('form', @el).serializeObject()
     config.key = config.key.toLowerCase()
@@ -157,6 +152,16 @@ window.AppView = Backbone.View.extend(
     'keyup input.required': 'render'
   
   initialize: ->
+    self = this
+    window.Swipe = new Swipe(
+      document.getElementById('swipe'),
+      callback: ->
+        $('#swipe').trigger('swipe.animated')
+    )
+
+    $('body').on 'swipe.animated', '#swipe', ->
+      self.focus()
+      
     ConfigView.model.bind('change', this.render, this);
     self = this
     
@@ -170,15 +175,11 @@ window.AppView = Backbone.View.extend(
       @selectionEnd = @value.length;
       
       if self.mobile_user
-        $('small.hint').fadeIn()   
+        $('small.hint').fadeIn()
     ).blur(->
       if self.mobile_user
         $('small.hint').fadeOut()
-    )
-    
-    if @mobile_user
-      $('#secret').attr('readonly', false)
-    
+    )    
   
   load_master: ->
     $('#master').val(ConfigView.model.get('master'))
@@ -204,36 +205,12 @@ window.AppView = Backbone.View.extend(
       )
     if hatchpass
       $('#secret').val(hatchpass.get('secret'))
+      if @mobile_user
+        if $('#secret').val().length > 0
+          $('#secret').show()
+        else
+          $('#secret').hide()
 )
 
 window.ConfigView = new ConfigView
 window.AppView = new AppView
-
-# AppRouter = Backbone.Router.extend(
-#   routes:
-#     "about": "about"          
-#     "privacy-policy": "privacy_policy"
-#   
-#   initialize: ->
-#     self = this
-#     $('nav a').click(->
-#       href = $(this).attr("href")
-#       self.navigate(href, true)
-#       false
-#     )
-#     Backbone.history.start(
-#       pushState: true
-#     )
-#     
-#   about: ->
-#     $('#main').hide()
-#     $('#page-content').load('/about #page-content', (data) ->
-#       console.log data
-#      # $(this).html(data).addClass('active') 
-#     )
-#     
-#   privacy_policy: ->
-#     $('#main').hide()
-#     $('#page-content').html('Privacy!').addClass('active')
-# )
-# new AppRouter()

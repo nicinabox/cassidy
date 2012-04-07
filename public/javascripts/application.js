@@ -26,8 +26,7 @@
     el: $('#settings'),
     tagName: "input",
     events: {
-      'change input': 'saveConfig',
-      'click .toggle-settings': 'togglePane'
+      'change input': 'saveConfig'
     },
     initialize: function() {
       var self;
@@ -81,10 +80,6 @@
         }
       }
       return _results;
-    },
-    togglePane: function(e) {
-      e.preventDefault();
-      return $('form', this.el).slideToggle('fast');
     },
     saveConfig: function() {
       var config;
@@ -181,6 +176,15 @@
     },
     initialize: function() {
       var self, _ref;
+      self = this;
+      window.Swipe = new Swipe(document.getElementById('swipe'), {
+        callback: function() {
+          return $('#swipe').trigger('swipe.animated');
+        }
+      });
+      $('body').on('swipe.animated', '#swipe', function() {
+        return self.focus();
+      });
       ConfigView.model.bind('change', this.render, this);
       self = this;
       this.load_master();
@@ -188,14 +192,13 @@
       this.mobile_user = (_ref = navigator.userAgent.match(/mobile/i) !== null) != null ? _ref : {
         "true": false
       };
-      $('#secret').bind('focus touchstart', function() {
+      return $('#secret').bind('focus touchstart', function() {
         this.selectionStart = 0;
         this.selectionEnd = this.value.length;
         if (self.mobile_user) return $('small.hint').fadeIn();
       }).blur(function() {
         if (self.mobile_user) return $('small.hint').fadeOut();
       });
-      if (this.mobile_user) return $('#secret').attr('readonly', false);
     },
     load_master: function() {
       return $('#master').val(ConfigView.model.get('master'));
@@ -219,7 +222,16 @@
         domain: $('#domain').val(),
         config: config
       });
-      if (hatchpass) return $('#secret').val(hatchpass.get('secret'));
+      if (hatchpass) {
+        $('#secret').val(hatchpass.get('secret'));
+        if (this.mobile_user) {
+          if ($('#secret').val().length > 0) {
+            return $('#secret').show();
+          } else {
+            return $('#secret').hide();
+          }
+        }
+      }
     }
   });
 

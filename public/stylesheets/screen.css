@@ -404,10 +404,6 @@ p {
   overflow: hidden;
   *zoom: 1;
 }
-#header #logo {
-  float: left;
-  padding: 10px 10px;
-}
 #header nav {
   float: left;
   *zoom: 1;
@@ -452,11 +448,15 @@ p {
   font-family: 'Signika', sans-serif;
   text-decoration: none;
   color: #fff;
+  margin: 0 auto;
+  width: 100px;
+  text-align: center;
+  display: block;
+  padding: 10px 10px;
 }
 
 #main {
   width: 300px;
-  padding: 10px;
   margin: 60px auto;
 }
 
@@ -479,9 +479,87 @@ p {
   padding: 20px;
   max-width: 600px;
   display: none;
+  position: relative;
+  z-index: 2;
 }
 #page-content.active {
   display: block;
+}
+
+#footer {
+  position: fixed;
+  bottom: 0;
+  z-index: 0;
+  font-size: 11px;
+  background: rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  *zoom: 1;
+  width: 100%;
+}
+#footer nav {
+  padding: 5px 20px;
+  float: right;
+}
+#footer nav * {
+  color: #555;
+  display: inline-block;
+}
+#footer nav * + * {
+  margin-left: 15px;
+}
+#footer nav a {
+  color: #000;
+  text-decoration: none;
+}
+
+.panel-nav {
+  position: relative;
+  margin: 0 auto;
+  top: 50px;
+  width: 400px;
+}
+.panel-nav a {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);
+  opacity: 0.3;
+  -webkit-transition: opacity 0.15s ease-out;
+  -moz-transition: opacity 0.15s ease-out;
+  -ms-transition: opacity 0.15s ease-out;
+  -o-transition: opacity 0.15s ease-out;
+  transition: opacity 0.15s ease-out;
+  position: absolute;
+  display: block;
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+}
+.panel-nav a span {
+  display: block;
+  margin-top: 55px;
+  text-shadow: 0 -1px 1px white;
+}
+.panel-nav a:hover {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+}
+.panel-nav a.next {
+  right: -50px;
+  height: 50px;
+  background: url('../images/icon-next.png?1333823299') center top no-repeat;
+}
+.panel-nav a.prev {
+  left: -50px;
+  height: 50px;
+  background: url('../images/icon-prev.png?1333823315') center top no-repeat;
+}
+.panel-nav a.hide {
+  display: none;
+}
+
+.panel {
+  padding: 10px;
+}
+.panel + .panel {
+  display: none;
 }
 
 #settings {
@@ -497,43 +575,10 @@ p {
   border-bottom: 1px dashed #ccc;
   margin: 0 auto;
   margin-bottom: 20px;
-  display: none;
 }
 #settings hr {
   border: 0;
   border-bottom: 1px dashed #ccc;
-}
-#settings .toggle-settings {
-  float: right;
-  text-decoration: none;
-  font-size: 13px;
-  background: #4caae4;
-  color: white;
-  display: block;
-  padding: 5px 10px;
-  margin-top: -31px;
-  -moz-border-radius-bottomleft: 3px;
-  -webkit-border-bottom-left-radius: 3px;
-  -ms-border-bottom-left-radius: 3px;
-  -o-border-bottom-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-  -moz-border-radius-bottomright: 3px;
-  -webkit-border-bottom-right-radius: 3px;
-  -ms-border-bottom-right-radius: 3px;
-  -o-border-bottom-right-radius: 3px;
-  border-bottom-right-radius: 3px;
-  -webkit-transition: all 0.1s ease-out;
-  -moz-transition: all 0.1s ease-out;
-  -ms-transition: all 0.1s ease-out;
-  -o-transition: all 0.1s ease-out;
-  transition: all 0.1s ease-out;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
-  opacity: 0.8;
-}
-#settings .toggle-settings:hover, #settings .toggle-settings .active {
-  padding-top: 8px;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-  opacity: 1;
 }
 
 .flash {
