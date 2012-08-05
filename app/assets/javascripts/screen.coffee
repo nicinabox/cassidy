@@ -51,4 +51,4 @@ $ ->
     recent_domains = JSON.parse(localStorage.recent_domains)
     recent_domains.splice(id, 1)
     localStorage.recent_domains = JSON.stringify(recent_domains)
-    AppView.render_domains()
+    App.AppView.render_domains()
