@@ -1,4 +1,4 @@
-App.AppView = Backbone.View.extend(
+AppView = Backbone.View.extend(
   el: $('#new_secret form')
   events:
     'change #master': 'toggle_master'
@@ -15,12 +15,12 @@ App.AppView = Backbone.View.extend(
         $('#swipe').trigger('swipe.animated')
     )
 
-    ConfigView.model.bind('change', this.render, this);
+    App.ConfigView.model.bind('change', this.render, this);
 
     @load_master()
     @focus()
     @render_domains()
-    window.is_mobile = (navigator.userAgent.match(/mobile/i) != null ? true : false)
+    App.is_mobile = (navigator.userAgent.match(/mobile/i) != null ? true : false)
 
     $('body').on 'swipe.animated', '#swipe', ->
       $active = $panel.eq(Swipe.getPos())
@@ -40,10 +40,9 @@ App.AppView = Backbone.View.extend(
     )
 
   load_master: ->
-    $('#master').val(ConfigView.model.get('master'))
+    $('#master').val(App.ConfigView.model.get('master'))
 
   focus: ->
-    console.log('FOCUS')
     $('input.required:visible', @el).each((index) ->
       if @value.length == 0
         $(this).focus()
@@ -51,21 +50,21 @@ App.AppView = Backbone.View.extend(
     )
 
   toggle_master: ->
-    if ConfigView.model.get('save_master')
-      ConfigView.saveMaster()
+    if App.ConfigView.model.get('save_master')
+      App.ConfigView.saveMaster()
 
   render: ->
     self = this
-    config = ConfigView.model.toJSON()
+    config = App.ConfigView.model.toJSON()
 
-    hatchpass = new Secret
+    hatchpass = new App.Secret
       master: $('#master').val()
       domain: $('#domain').val()
       config: config
 
     if hatchpass
       $('#secret').val(hatchpass.get('secret'))
-      if window.is_mobile
+      if App.is_mobile
         if $('#secret').val().length > 0
           $('#secret').show().attr('readonly', false)
         else

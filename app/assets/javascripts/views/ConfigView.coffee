@@ -1,11 +1,11 @@
-App.ConfigView = Backbone.View.extend(
+ConfigView = Backbone.View.extend(
   el: $('#settings')
   tagName: "input"
   events:
     'change input': 'saveConfig'
 
   initialize: ->
-    @model = new Config
+    @model = new App.Config
     self = this
     @model.fetch(
       success: (model, response)->
@@ -53,13 +53,15 @@ App.ConfigView = Backbone.View.extend(
     config = $('form', @el).serializeObject()
     config.key = config.key.toLowerCase()
 
+    @model.set(config)
+
     if config.save_settings
       @model.save(config)
     else
       @model.destroy()
 
     @saveMaster()
-    AppView.focus()
+    App.AppView.focus()
 
   saveMaster: ->
     master = $('#master').val()
@@ -68,7 +70,7 @@ App.ConfigView = Backbone.View.extend(
         @model.save(master: master)
     else
       @model.unset('master')
-      @model.save()
+      # @model.save()
 )
 
 App.ConfigView = new ConfigView

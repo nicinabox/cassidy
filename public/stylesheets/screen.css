@@ -570,7 +570,6 @@ p {
 }
 #settings form {
   width: 100%;
-  border-bottom: 1px dashed #ccc;
   margin: 0 auto;
   margin-bottom: 20px;
 }

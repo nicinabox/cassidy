@@ -15,6 +15,7 @@ Modernizr.load [
   , "/javascripts/models/Config.js"
   , "/javascripts/models/Secret.js"
   , "/javascripts/views/ConfigView.js"
+  , "/javascripts/views/RecentView.js"
   , "/javascripts/views/AppView.js"
 
   , "/javascripts/screen.js"

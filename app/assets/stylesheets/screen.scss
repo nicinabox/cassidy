@@ -4,7 +4,7 @@
 $blue: #4CAAE4;
 
 @mixin signika {
- font-family: 'Signika', sans-serif; 
+ font-family: 'Signika', sans-serif;
 }
 
 body {
@@ -151,7 +151,6 @@ p {
   @include pie-clearfix;
   form {
     width: 100%;
-    border-bottom: 1px dashed #ccc;
     margin: 0 auto;
     margin-bottom: 20px;
   }

@@ -5,9 +5,8 @@ App.Config = Backbone.Model.extend(
     length: 10
     caps: true
     symbols: true
-    save_settings: false
+    # save_settings: false
     save_master: false
-    save_key: true
 
   initialize: ->
     @set(key: @newKey())
