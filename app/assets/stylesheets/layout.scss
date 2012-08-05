@@ -185,7 +185,7 @@ form {
     float: right;
   }
   .field {
-    @include clearfix;
+    @include pie-clearfix;
     margin-bottom: 10px;
     &.switch {
       > label {

@@ -690,9 +690,13 @@ form .onoffswitch {
   float: right;
 }
 form .field {
-  overflow: hidden;
   *zoom: 1;
   margin-bottom: 10px;
+}
+form .field:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 form .field.switch > label {
   padding: 3px 0;
