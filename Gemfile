@@ -8,3 +8,7 @@ group :development do
   gem 'rack'
   gem 'heroku'
 end
+
+group :production do
+  gem 'newrelic_rpm'
+end

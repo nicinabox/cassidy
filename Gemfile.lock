@@ -16,6 +16,7 @@ GEM
     launchy (2.0.5)
       addressable (~> 2.2.6)
     mime-types (1.17.2)
+    newrelic_rpm (3.4.1)
     rack (1.4.0)
     rack-protection (1.2.0)
       rack
@@ -38,6 +39,7 @@ PLATFORMS
 DEPENDENCIES
   compass
   heroku
+  newrelic_rpm
   rack
   shotgun
   sinatra
