@@ -9,7 +9,6 @@ AppView = Backbone.View.extend(
     self = this
     $panel = $('#swipe .panel')
 
-    console.log 'swipe'
     window.Swipe = new Swipe(
       $('#swipe')[0]
       startSlide: self.active_panel
@@ -51,6 +50,7 @@ AppView = Backbone.View.extend(
         $(this).focus()
         false
 
+
   toggle_master: ->
     if App.ConfigView.model.get('save_all')
       App.ConfigView.saveConfig()
@@ -72,7 +72,7 @@ AppView = Backbone.View.extend(
         else
           $('#secret').hide().attr('readonly', true)
 
-      $('#secret').off('focus').focus (e) ->
+      $('#secret').one 'focus', (e) ->
         self.save_domain($('#domain').val())
 
   save_domain: (domain) ->

@@ -13,7 +13,6 @@
       var $panel, self, _ref;
       self = this;
       $panel = $('#swipe .panel');
-      console.log('swipe');
       window.Swipe = new Swipe($('#swipe')[0], {
         startSlide: self.active_panel,
         callback: function(x, d) {
@@ -81,7 +80,7 @@
             $('#secret').hide().attr('readonly', true);
           }
         }
-        return $('#secret').off('focus').focus(function(e) {
+        return $('#secret').one('focus', function(e) {
           return self.save_domain($('#domain').val());
         });
       }
