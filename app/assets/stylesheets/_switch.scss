@@ -1,24 +1,27 @@
 .onoffswitch {
     position: relative; width: 74px;
-    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select: none;
 }
 .onoffswitch-checkbox {
     display: none;
 }
 .onoffswitch-label {
     display: block; overflow: hidden; cursor: pointer;
-    border: 2px solid #FFFFFF; border-radius: 47px;
+    border: 2px solid #FFFFFF;
+    @include border-radius(47px);
 }
 .onoffswitch-inner {
     width: 200%; margin-left: -100%;
     -webkit-transform: translateZ(0);
-    -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;
-    -o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s;
+    @include transition(margin 0.3s ease-in 0s);
 }
 .onoffswitch-inner > div {
+    @include border-radius(47px);
     float: left; width: 50%; height: 23px; padding: 0; line-height: 23px;
     font-size: 13px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
-    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+    @include box-sizing('border-box')
 }
 .onoffswitch-inner .onoffswitch-active {
     padding-left: 12px;
@@ -35,8 +38,7 @@
     border: 2px solid #FFFFFF; border-radius: 47px;
     position: absolute; top: 0; bottom: 0; right: 47px;
     -webkit-transform: translateZ(0);
-    -moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;
-    -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s;
+    @include transition(all 0.3s ease-in 0s);
 }
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
     margin-left: 0;

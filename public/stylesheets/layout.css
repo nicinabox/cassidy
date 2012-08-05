@@ -384,6 +384,10 @@ table {
   overflow: hidden;
   cursor: pointer;
   border: 2px solid #FFFFFF;
+  -webkit-border-radius: 47px;
+  -moz-border-radius: 47px;
+  -ms-border-radius: 47px;
+  -o-border-radius: 47px;
   border-radius: 47px;
 }
 
@@ -391,13 +395,19 @@ table {
   width: 200%;
   margin-left: -100%;
   -webkit-transform: translateZ(0);
-  -moz-transition: margin 0.3s ease-in 0s;
   -webkit-transition: margin 0.3s ease-in 0s;
+  -moz-transition: margin 0.3s ease-in 0s;
+  -ms-transition: margin 0.3s ease-in 0s;
   -o-transition: margin 0.3s ease-in 0s;
   transition: margin 0.3s ease-in 0s;
 }
 
 .onoffswitch-inner > div {
+  -webkit-border-radius: 47px;
+  -moz-border-radius: 47px;
+  -ms-border-radius: 47px;
+  -o-border-radius: 47px;
+  border-radius: 47px;
   float: left;
   width: 50%;
   height: 23px;
@@ -407,8 +417,8 @@ table {
   color: white;
   font-family: Trebuchet, Arial, sans-serif;
   font-weight: bold;
-  -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -436,8 +446,9 @@ table {
   bottom: 0;
   right: 47px;
   -webkit-transform: translateZ(0);
-  -moz-transition: all 0.3s ease-in 0s;
   -webkit-transition: all 0.3s ease-in 0s;
+  -moz-transition: all 0.3s ease-in 0s;
+  -ms-transition: all 0.3s ease-in 0s;
   -o-transition: all 0.3s ease-in 0s;
   transition: all 0.3s ease-in 0s;
 }
