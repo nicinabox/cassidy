@@ -45,7 +45,6 @@ AppView = Backbone.View.extend(
   focus_input: ->
     $('input.required:visible', @el).each (i) ->
       if !@value.length
-        console.log "focus #{this.id}"
         $(this).focus()
         false
 

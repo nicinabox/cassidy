@@ -47,7 +47,6 @@
     focus_input: function() {
       return $('input.required:visible', this.el).each(function(i) {
         if (!this.value.length) {
-          console.log("focus " + this.id);
           $(this).focus();
           return false;
         }
