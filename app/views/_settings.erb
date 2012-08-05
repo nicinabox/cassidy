@@ -1,25 +1,60 @@
 <div id="settings" class="panel" data-title="Settings">
   <form>
-   <div class="field">
-     <input type="hidden" name="caps" value="false">
-     <input type="checkbox" name="caps" value="true" id="caps"> <label for="caps">Caps</label>
-   </div>
-   <div class="field">
-     <input type="hidden" name="symbols" value="false">
-     <input type="checkbox" name="symbols" value="true" id="symbols"> <label for="symbols">Symbols</label>
-   </div>
-   <div class="field">
-     <label for="length">Length</label>
-     <input type="number" name="length" value="" id="length" class="required">
-   </div>
-   <div class="field">
-     <label for="key">Key</label>
-     <input type="text" name="key" value="" id="key" class="required">
-   </div>
-   <hr>
-   <div class="field">
-     <input type="hidden" name="save_master" value="false">
-     <input type="checkbox" name="save_master" value="true" id="save_master"> <label for="save_master">Save All</label>
-   </div>
- </form>
+   <div class="field switch">
+     <label for="caps">Caps</label>
+
+     <div class="onoffswitch">
+      <input type="hidden" name="caps" value="false" readonly="true">
+      <input type="checkbox" name="caps" value="true" id="caps" class="onoffswitch-checkbox">
+      <label class="onoffswitch-label" for="caps">
+        <div class="onoffswitch-inner">
+          <div class="onoffswitch-active">ON</div>
+          <div class="onoffswitch-inactive">OFF</div>
+        </div>
+        <div class="onoffswitch-switch"></div>
+      </label>
+    </div>
+
+  </div>
+  <div class="field switch">
+    <label for="symbols">Symbols</label>
+
+    <div class="onoffswitch">
+      <input type="hidden" name="symbols" value="false" readonly="true">
+      <input type="checkbox" name="symbols" value="true" id="symbols" class="onoffswitch-checkbox">
+      <label class="onoffswitch-label" for="symbols">
+        <div class="onoffswitch-inner">
+          <div class="onoffswitch-active">ON</div>
+          <div class="onoffswitch-inactive">OFF</div>
+        </div>
+        <div class="onoffswitch-switch"></div>
+      </label>
+    </div>
+
+  </div>
+  <div class="field">
+    <label for="length">Length</label>
+    <input type="number" name="length" value="" id="length" class="required">
+  </div>
+  <div class="field">
+    <label for="key">Key</label>
+    <input type="text" name="key" value="" id="key" class="required">
+  </div>
+  <hr>
+  <div class="field switch">
+    <label for="save_master">Save All</label>
+
+    <div class="onoffswitch">
+      <input type="hidden" name="save_master" value="false" readonly="true">
+      <input type="checkbox" name="save_master" value="true" id="save_master" class="onoffswitch-checkbox">
+      <label class="onoffswitch-label" for="save_master">
+        <div class="onoffswitch-inner">
+          <div class="onoffswitch-active">ON</div>
+          <div class="onoffswitch-inactive">OFF</div>
+        </div>
+        <div class="onoffswitch-switch"></div>
+      </label>
+    </div>
+  </div>
+</form>
 </div>

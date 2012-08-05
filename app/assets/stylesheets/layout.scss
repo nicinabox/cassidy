@@ -1,5 +1,6 @@
 @import "compass";
 @import "normalize";
+@import "switch";
 
 $blue: #4CAAE4;
 
@@ -144,6 +145,7 @@ p {
 }
 
 .panel {
+  overflow: hidden;
   padding: 10px;
   display: none;
 }
@@ -180,9 +182,19 @@ form {
   .hidden {
     display: none;
   }
+  .onoffswitch {
+    float: right;
+  }
   .field {
+    @include clearfix;
     margin-bottom: 10px;
-    label {
+    &.switch {
+      > label {
+        padding: 3px 0;
+      }
+    }
+    > label {
+      float: left;
       font-size: 13px;
       text-transform: uppercase;
       color: #aaa;
@@ -205,11 +217,6 @@ form {
       }
       &[type=checkbox], &[type=radio] {
         width: auto;
-        + label {
-          display: inline;
-          text-transform: none;
-          color: #666;
-        }
       }
     }
     &.invisible {

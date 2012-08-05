@@ -367,6 +367,90 @@ table {
   border-spacing: 0;
 }
 
+.onoffswitch {
+  position: relative;
+  width: 74px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.onoffswitch-checkbox {
+  display: none;
+}
+
+.onoffswitch-label {
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid #FFFFFF;
+  border-radius: 47px;
+}
+
+.onoffswitch-inner {
+  width: 200%;
+  margin-left: -100%;
+  -webkit-transform: translateZ(0);
+  -moz-transition: margin 0.3s ease-in 0s;
+  -webkit-transition: margin 0.3s ease-in 0s;
+  -o-transition: margin 0.3s ease-in 0s;
+  transition: margin 0.3s ease-in 0s;
+}
+
+.onoffswitch-inner > div {
+  float: left;
+  width: 50%;
+  height: 23px;
+  padding: 0;
+  line-height: 23px;
+  font-size: 13px;
+  color: white;
+  font-family: Trebuchet, Arial, sans-serif;
+  font-weight: bold;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.onoffswitch-inner .onoffswitch-active {
+  padding-left: 12px;
+  background-color: #EEEEEE;
+  color: #4CAAE4;
+}
+
+.onoffswitch-inner .onoffswitch-inactive {
+  padding-right: 12px;
+  background-color: #EEEEEE;
+  color: #999999;
+  text-align: right;
+}
+
+.onoffswitch-switch {
+  width: 23px;
+  margin: 0px;
+  background: #A1A1A1;
+  border: 2px solid #FFFFFF;
+  border-radius: 47px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 47px;
+  -webkit-transform: translateZ(0);
+  -moz-transition: all 0.3s ease-in 0s;
+  -webkit-transition: all 0.3s ease-in 0s;
+  -o-transition: all 0.3s ease-in 0s;
+  transition: all 0.3s ease-in 0s;
+}
+
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+  margin-left: 0;
+}
+
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+  right: 0px;
+  background-color: #4CAAE4;
+}
+
 body {
   background: #f7f7f7 url('../images/fabric_plaid.png?1328464244') left top repeat;
 }
@@ -556,6 +640,7 @@ p {
 }
 
 .panel {
+  overflow: hidden;
   padding: 10px;
   display: none;
 }
@@ -602,10 +687,19 @@ p {
 form .hidden {
   display: none;
 }
+form .onoffswitch {
+  float: right;
+}
 form .field {
+  overflow: hidden;
+  *zoom: 1;
   margin-bottom: 10px;
 }
-form .field label {
+form .field.switch > label {
+  padding: 3px 0;
+}
+form .field > label {
+  float: left;
   font-size: 13px;
   text-transform: uppercase;
   color: #aaa;
@@ -643,11 +737,6 @@ form .field input.required:focus {
 }
 form .field input[type=checkbox], form .field input[type=radio] {
   width: auto;
-}
-form .field input[type=checkbox] + label, form .field input[type=radio] + label {
-  display: inline;
-  text-transform: none;
-  color: #666;
 }
 form .field.invisible small.show-on-mobile {
   display: none;
