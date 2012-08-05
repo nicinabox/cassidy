@@ -1,4 +1,5 @@
 AppView = Backbone.View.extend(
+  active_panel: 1
   el: $('#new_secret form')
   events:
     'change #master': 'toggle_master'
@@ -8,10 +9,11 @@ AppView = Backbone.View.extend(
     self = this
     $panel = $('#swipe .panel')
 
+    console.log 'swipe'
     window.Swipe = new Swipe(
-      document.getElementById('swipe'),
-      startSlide: 1
-      callback: ->
+      $('#swipe')[0]
+      startSlide: self.active_panel
+      callback: (x, d) ->
         $('#swipe').trigger('swipe.animated')
     )
 
@@ -23,9 +25,10 @@ AppView = Backbone.View.extend(
     App.is_mobile = (navigator.userAgent.match(/mobile/i) != null ? true : false)
 
     $('body').on 'swipe.animated', '#swipe', (e) ->
-      $active = $panel.eq(Swipe.getPos())
-      # if $active[0] == self.el.parent()[0]
-      #   self.focus_input()
+      pos = Swipe.getPos()
+      if pos != self.active_panel
+        self.active_panel = pos
+        self.focus_input()
 
     $('#secret').bind('focus touchstart', ->
 

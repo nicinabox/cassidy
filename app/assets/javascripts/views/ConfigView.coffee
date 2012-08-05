@@ -63,8 +63,6 @@ ConfigView = Backbone.View.extend(
       @model.save(config)
     else
       @model.destroy()
-
-    # App.AppView.focus_input()
 )
 
 App.ConfigView = new ConfigView

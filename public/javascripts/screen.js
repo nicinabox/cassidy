@@ -46,7 +46,7 @@
     $('body').on('click', '#recent_domains a.domain', function(e) {
       e.preventDefault();
       $('#domain').val($.trim($(this).text()));
-      AppView.render();
+      App.AppView.render();
       return Swipe.next();
     });
     return $('body').on('click', '#recent_domains a.remove', function(e) {
