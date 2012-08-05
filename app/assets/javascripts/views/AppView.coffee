@@ -49,8 +49,8 @@ AppView = Backbone.View.extend(
         false
 
   toggle_master: ->
-    if App.ConfigView.model.get('save_master')
-      App.ConfigView.saveMaster()
+    if App.ConfigView.model.get('save_all')
+      App.ConfigView.saveConfig()
 
   render: ->
     self = this

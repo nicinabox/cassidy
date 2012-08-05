@@ -53,8 +53,8 @@
       });
     },
     toggle_master: function() {
-      if (App.ConfigView.model.get('save_master')) {
-        return App.ConfigView.saveMaster();
+      if (App.ConfigView.model.get('save_all')) {
+        return App.ConfigView.saveConfig();
       }
     },
     render: function() {

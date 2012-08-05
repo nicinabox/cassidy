@@ -8,7 +8,7 @@
       length: 10,
       caps: true,
       symbols: true,
-      save_master: false
+      save_all: false
     },
     initialize: function() {
       return this.set({

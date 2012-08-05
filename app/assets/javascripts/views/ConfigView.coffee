@@ -53,24 +53,18 @@ ConfigView = Backbone.View.extend(
     config = $('form', @el).serializeObject()
     config.key = config.key.toLowerCase()
 
+    master = $('#master').val()
+    if master.length > 0
+      config.master = $('#master').val()
+
     @model.set(config)
 
-    if config.save_settings
+    if config.save_all
       @model.save(config)
     else
       @model.destroy()
 
-    @saveMaster()
     # App.AppView.focus_input()
-
-  saveMaster: ->
-    master = $('#master').val()
-    if @model.get('save_master')
-      if master.length > 0 && localStorage.master != master
-        @model.save(master: master)
-    else
-      @model.unset('master')
-      @model.save()
 )
 
 App.ConfigView = new ConfigView

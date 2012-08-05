@@ -63,29 +63,18 @@
       return _results;
     },
     saveConfig: function() {
-      var config;
+      var config, master;
       config = $('form', this.el).serializeObject();
       config.key = config.key.toLowerCase();
-      this.model.set(config);
-      if (config.save_settings) {
-        this.model.save(config);
-      } else {
-        this.model.destroy();
-      }
-      return this.saveMaster();
-    },
-    saveMaster: function() {
-      var master;
       master = $('#master').val();
-      if (this.model.get('save_master')) {
-        if (master.length > 0 && localStorage.master !== master) {
-          return this.model.save({
-            master: master
-          });
-        }
+      if (master.length > 0) {
+        config.master = $('#master').val();
+      }
+      this.model.set(config);
+      if (config.save_all) {
+        return this.model.save(config);
       } else {
-        this.model.unset('master');
-        return this.model.save();
+        return this.model.destroy();
       }
     }
   });
