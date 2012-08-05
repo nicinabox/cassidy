@@ -61,7 +61,7 @@ ConfigView = Backbone.View.extend(
       @model.destroy()
 
     @saveMaster()
-    App.AppView.focus()
+    # App.AppView.focus_input()
 
   saveMaster: ->
     master = $('#master').val()
@@ -70,7 +70,7 @@ ConfigView = Backbone.View.extend(
         @model.save(master: master)
     else
       @model.unset('master')
-      # @model.save()
+      @model.save()
 )
 
 App.ConfigView = new ConfigView

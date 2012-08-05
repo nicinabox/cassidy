@@ -72,8 +72,7 @@
       } else {
         this.model.destroy();
       }
-      this.saveMaster();
-      return App.AppView.focus();
+      return this.saveMaster();
     },
     saveMaster: function() {
       var master;
@@ -85,7 +84,8 @@
           });
         }
       } else {
-        return this.model.unset('master');
+        this.model.unset('master');
+        return this.model.save();
       }
     }
   });

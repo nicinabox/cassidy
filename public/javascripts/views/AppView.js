@@ -20,17 +20,14 @@
       });
       App.ConfigView.model.bind('change', this.render, this);
       this.load_master();
-      this.focus();
+      this.focus_input();
       this.render_domains();
       App.is_mobile = (_ref = navigator.userAgent.match(/mobile/i) !== null) != null ? _ref : {
         "true": false
       };
-      $('body').on('swipe.animated', '#swipe', function() {
+      $('body').on('swipe.animated', '#swipe', function(e) {
         var $active;
-        $active = $panel.eq(Swipe.getPos());
-        if ($active[0] === self.el.parent()[0]) {
-          return self.focus();
-        }
+        return $active = $panel.eq(Swipe.getPos());
       });
       return $('#secret').bind('focus touchstart', function() {
         this.selectionStart = 0;
@@ -47,9 +44,10 @@
     load_master: function() {
       return $('#master').val(App.ConfigView.model.get('master'));
     },
-    focus: function() {
-      return $('input.required:visible', this.el).each(function(index) {
-        if (this.value.length === 0) {
+    focus_input: function() {
+      return $('input.required:visible', this.el).each(function(i) {
+        if (!this.value.length) {
+          console.log("focus " + this.id);
           $(this).focus();
           return false;
         }

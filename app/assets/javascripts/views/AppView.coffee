@@ -18,14 +18,14 @@ AppView = Backbone.View.extend(
     App.ConfigView.model.bind('change', this.render, this);
 
     @load_master()
-    @focus()
+    @focus_input()
     @render_domains()
     App.is_mobile = (navigator.userAgent.match(/mobile/i) != null ? true : false)
 
-    $('body').on 'swipe.animated', '#swipe', ->
+    $('body').on 'swipe.animated', '#swipe', (e) ->
       $active = $panel.eq(Swipe.getPos())
-      if $active[0] == self.el.parent()[0]
-        self.focus()
+      # if $active[0] == self.el.parent()[0]
+      #   self.focus_input()
 
     $('#secret').bind('focus touchstart', ->
 
@@ -42,12 +42,12 @@ AppView = Backbone.View.extend(
   load_master: ->
     $('#master').val(App.ConfigView.model.get('master'))
 
-  focus: ->
-    $('input.required:visible', @el).each((index) ->
-      if @value.length == 0
+  focus_input: ->
+    $('input.required:visible', @el).each (i) ->
+      if !@value.length
+        console.log "focus #{this.id}"
         $(this).focus()
         false
-    )
 
   toggle_master: ->
     if App.ConfigView.model.get('save_master')
