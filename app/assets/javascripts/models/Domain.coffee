@@ -1,4 +1,1 @@
-App.Domain = Backbone.Model.extend(
-  defaults:
-    url: ''
-)
+App.Domain = Backbone.Model.extend()

@@ -71,7 +71,7 @@ AppView = Backbone.View.extend(
           $('#secret').hide().attr('readonly', true)
 
       $('#secret').off().one 'focus', (e) ->
-        App.Domains.create(
+        App.Domains.save(
           url: $('#domain').val()
         )
 )

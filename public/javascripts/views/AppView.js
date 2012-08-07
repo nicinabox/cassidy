@@ -80,7 +80,7 @@
           }
         }
         return $('#secret').off().one('focus', function(e) {
-          return App.Domains.create({
+          return App.Domains.save({
             url: $('#domain').val()
           });
         });

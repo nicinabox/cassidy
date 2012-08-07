@@ -4,7 +4,14 @@
 
   Domains = Backbone.Collection.extend({
     model: App.Domain,
-    localStorage: new Store('domains')
+    localStorage: new Store('domains'),
+    save: function(obj) {
+      var domains;
+      domains = _.pluck(App.Domains.toJSON(), 'url');
+      if (!_.include(domains, obj.url)) {
+        return this.create(obj);
+      }
+    }
   });
 
   App.Domains = new Domains;
