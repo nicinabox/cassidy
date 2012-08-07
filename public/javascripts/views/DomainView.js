@@ -5,12 +5,12 @@
   DomainView = Backbone.View.extend({
     el: $('#recent_domains ul'),
     events: {
-      'click .remove': 'remove'
+      'click .remove': 'clear'
     },
     initialize: function() {
       var self;
       self = this;
-      _.bindAll(this, 'remove');
+      _.bindAll(this, 'clear');
       App.Domains.bind('all', this.render, this);
       return App.Domains.fetch();
     },
@@ -25,8 +25,12 @@
         return self.el.append("<li>           <a href='#" + d.url + "' class='domain'>            " + d.url + "          </a>           <a href='#remove' class='remove' data-id='" + d.id + "'>&times;</a>        </li>");
       });
     },
-    remove: function(e) {
-      return e.preventDefault();
+    clear: function(e) {
+      var id, item;
+      e.preventDefault();
+      id = $(e.currentTarget).data('id');
+      item = App.Domains.get(id);
+      return item.destroy();
     }
   });
 
