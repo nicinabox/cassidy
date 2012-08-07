@@ -43,23 +43,11 @@
         return $('span', $next).text($panel.eq(next).data('title'));
       }
     });
-    $('body').on('click', '#recent_domains a.domain', function(e) {
+    return $('body').on('click', '#recent_domains a.domain', function(e) {
       e.preventDefault();
       $('#domain').val($.trim($(this).text()));
       App.AppView.render();
       return Swipe.next();
-    });
-    return $('body').on('click', '#recent_domains a.remove', function(e) {
-      var id, recent_domains;
-      e.preventDefault();
-      if (e.type === 'swipe') {
-        e.stopPropagation();
-      }
-      id = $(this).data('id');
-      recent_domains = JSON.parse(localStorage.recent_domains);
-      recent_domains.splice(id, 1);
-      localStorage.recent_domains = JSON.stringify(recent_domains);
-      return App.AppView.render_domains();
     });
   });
 

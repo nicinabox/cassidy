@@ -42,13 +42,3 @@ $ ->
     $('#domain').val($.trim($(this).text()))
     App.AppView.render()
     Swipe.next()
-
-  $('body').on 'click', '#recent_domains a.remove', (e) ->
-    e.preventDefault()
-    e.stopPropagation() if e.type == 'swipe'
-    id = $(this).data('id')
-
-    recent_domains = JSON.parse(localStorage.recent_domains)
-    recent_domains.splice(id, 1)
-    localStorage.recent_domains = JSON.stringify(recent_domains)
-    App.AppView.render_domains()

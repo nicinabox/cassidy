@@ -13,9 +13,11 @@ Modernizr.load [
   # App
   , "/javascripts/application.js"
   , "/javascripts/models/Config.js"
+  , "/javascripts/models/Domain.js"
   , "/javascripts/models/Secret.js"
+  , "/javascripts/collections/Domains.js"
   , "/javascripts/views/ConfigView.js"
-  , "/javascripts/views/RecentView.js"
+  , "/javascripts/views/DomainView.js"
   , "/javascripts/views/AppView.js"
 
   , "/javascripts/screen.js"

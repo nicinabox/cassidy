@@ -20,7 +20,6 @@ AppView = Backbone.View.extend(
 
     @load_master()
     @focus_input()
-    @render_domains()
     App.is_mobile = (navigator.userAgent.match(/mobile/i) != null ? true : false)
 
     $('body').on 'swipe.animated', '#swipe', (e) ->
@@ -50,7 +49,6 @@ AppView = Backbone.View.extend(
         $(this).focus()
         false
 
-
   toggle_master: ->
     if App.ConfigView.model.get('save_all')
       App.ConfigView.saveConfig()
@@ -72,45 +70,10 @@ AppView = Backbone.View.extend(
         else
           $('#secret').hide().attr('readonly', true)
 
-      $('#secret').one 'focus', (e) ->
-        self.save_domain($('#domain').val())
-
-  save_domain: (domain) ->
-    recent_domains = []
-    if localStorage.recent_domains
-      recent_domains = JSON.parse(localStorage.recent_domains)
-
-    total = recent_domains.length
-    if total >= 10
-      recent_domains.splice(0, 1)
-
-    recent_domains.push(domain)
-    localStorage.recent_domains = JSON.stringify(recent_domains.unique())
-    @render_domains()
-
-  render_domains: ->
-    recent_domains = []
-    if localStorage.recent_domains
-      recent_domains = JSON.parse(localStorage.recent_domains)
-
-    total = recent_domains.length
-    $recent_domains = $('#recent_domains ul')
-    $recent_domains.empty()
-
-    if total > 0
-      i = 0
-      while i < total
-        html = "<li> \
-                  <a href='##{recent_domains[i]}' class='domain'>
-                    #{recent_domains[i]}
-                  </a> \
-                  <a href='#remove' class='remove' data-id='#{i}'>&times;</a>
-                </li>"
-        $recent_domains.append(html)
-        i++
-    else
-      html = "<li class='no-results'>You have no recent domains</li>"
-      $recent_domains.append(html)
+      $('#secret').off().one 'focus', (e) ->
+        App.Domains.create(
+          url: $('#domain').val()
+        )
 )
 
 App.AppView = new AppView
