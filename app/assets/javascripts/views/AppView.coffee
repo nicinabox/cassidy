@@ -20,7 +20,7 @@ AppView = Backbone.View.extend(
 
     @load_master()
     @focus_input()
-    App.is_mobile = (navigator.userAgent.match(/mobile/i) != null ? true : false)
+    App.is_mobile = (/mobile/i).test(navigator.userAgent)
 
     $('body').on 'swipe.animated', '#swipe', (e) ->
       pos = Swipe.getPos()
@@ -28,15 +28,18 @@ AppView = Backbone.View.extend(
         self.active_panel = pos
         self.focus_input()
 
-    $('#secret').bind('focus touchstart', ->
-
+    $('#secret').on('focus touchstart', ->
       @selectionStart = 0;
       @selectionEnd = @value.length;
 
-      if self.is_mobile
+      App.Domains.save(
+        url: $('#domain').val()
+      )
+
+      if App.is_mobile
         $('small.hint').fadeIn()
-    ).blur(->
-      if self.is_mobile
+    ).on('blur', ->
+      if App.is_mobile
         $('small.hint').fadeOut()
     )
 
@@ -68,11 +71,6 @@ AppView = Backbone.View.extend(
           $('#secret').show().attr('readonly', false)
         else
           $('#secret').hide().attr('readonly', true)
-
-      $('#secret').off().one 'focus', (e) ->
-        App.Domains.save(
-          url: $('#domain').val()
-        )
 )
 
 App.AppView = new AppView

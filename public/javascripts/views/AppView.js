@@ -10,7 +10,7 @@
       'keyup input.required': 'render'
     },
     initialize: function() {
-      var $panel, self, _ref;
+      var $panel, self;
       self = this;
       $panel = $('#swipe .panel');
       window.Swipe = new Swipe($('#swipe')[0], {
@@ -22,9 +22,7 @@
       App.ConfigView.model.bind('change', this.render, this);
       this.load_master();
       this.focus_input();
-      App.is_mobile = (_ref = navigator.userAgent.match(/mobile/i) !== null) != null ? _ref : {
-        "true": false
-      };
+      App.is_mobile = /mobile/i.test(navigator.userAgent);
       $('body').on('swipe.animated', '#swipe', function(e) {
         var pos;
         pos = Swipe.getPos();
@@ -33,14 +31,17 @@
           return self.focus_input();
         }
       });
-      return $('#secret').bind('focus touchstart', function() {
+      return $('#secret').on('focus touchstart', function() {
         this.selectionStart = 0;
         this.selectionEnd = this.value.length;
-        if (self.is_mobile) {
+        App.Domains.save({
+          url: $('#domain').val()
+        });
+        if (App.is_mobile) {
           return $('small.hint').fadeIn();
         }
-      }).blur(function() {
-        if (self.is_mobile) {
+      }).on('blur', function() {
+        if (App.is_mobile) {
           return $('small.hint').fadeOut();
         }
       });
@@ -73,16 +74,11 @@
         $('#secret').val(hatchpass.get('secret'));
         if (App.is_mobile) {
           if ($('#secret').val().length > 0) {
-            $('#secret').show().attr('readonly', false);
+            return $('#secret').show().attr('readonly', false);
           } else {
-            $('#secret').hide().attr('readonly', true);
+            return $('#secret').hide().attr('readonly', true);
           }
         }
-        return $('#secret').off().one('focus', function(e) {
-          return App.Domains.save({
-            url: $('#domain').val()
-          });
-        });
       }
     }
   });
