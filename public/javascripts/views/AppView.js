@@ -36,11 +36,11 @@
       return $('#secret').bind('focus touchstart', function() {
         this.selectionStart = 0;
         this.selectionEnd = this.value.length;
-        if (self.mobile_user) {
+        if (self.is_mobile) {
           return $('small.hint').fadeIn();
         }
       }).blur(function() {
-        if (self.mobile_user) {
+        if (self.is_mobile) {
           return $('small.hint').fadeOut();
         }
       });
@@ -62,8 +62,7 @@
       }
     },
     render: function() {
-      var config, hatchpass, self;
-      self = this;
+      var config, hatchpass;
       config = App.ConfigView.model.toJSON();
       hatchpass = new App.Secret({
         master: $('#master').val(),

@@ -33,10 +33,10 @@ AppView = Backbone.View.extend(
       @selectionStart = 0;
       @selectionEnd = @value.length;
 
-      if self.mobile_user
+      if self.is_mobile
         $('small.hint').fadeIn()
     ).blur(->
-      if self.mobile_user
+      if self.is_mobile
         $('small.hint').fadeOut()
     )
 
@@ -54,7 +54,6 @@ AppView = Backbone.View.extend(
       App.ConfigView.saveConfig()
 
   render: ->
-    self = this
     config = App.ConfigView.model.toJSON()
 
     hatchpass = new App.Secret
