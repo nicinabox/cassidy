@@ -1,0 +1,11 @@
+@import "normalize";
+@import "compass";
+@import "switch";
+
+$blue: #4CAAE4;
+
+@mixin signika {
+ font-family: 'Signika', sans-serif;
+}
+
+@import "layout";

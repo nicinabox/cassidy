@@ -1,13 +1,3 @@
-@import "compass";
-@import "normalize";
-@import "switch";
-
-$blue: #4CAAE4;
-
-@mixin signika {
- font-family: 'Signika', sans-serif;
-}
-
 body {
   background: #f7f7f7 image-url('fabric_plaid.png') left top repeat;
 }
