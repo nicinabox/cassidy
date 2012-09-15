@@ -1,5 +1,5 @@
 CACHE MANIFEST
-#version 1.0 9-15-2012
+#version 1.1 9-15-2012
 
 CACHE:
 #internal HTML documents
@@ -7,7 +7,7 @@ CACHE:
 
 #style sheets
 data:text/css,
-/stylesheets/layout.css
+/stylesheets/application.css
 /stylesheets/mobile.css
 http://fonts.googleapis.com/css?family=Signika
 
