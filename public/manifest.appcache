@@ -1,0 +1,41 @@
+CACHE MANIFEST
+#version 1.0 9-15-2012
+
+CACHE:
+#internal HTML documents
+/
+
+#style sheets
+data:text/css,
+/stylesheets/layout.css
+/stylesheets/mobile.css
+http://fonts.googleapis.com/css?family=Signika
+
+#style sheet images
+/images/fabric_plaid.png
+/images/icon-next.png
+/images/icon-prev.png
+
+#javascript files
+/javascripts/vendor/json2.js
+/javascripts/vendor/underscore-min.js
+/javascripts/vendor/backbone-min.js
+/javascripts/vendor/backbone.localstorage.js
+/javascripts/vendor/Crypto.js
+/javascripts/vendor/SHA256.js
+/javascripts/vendor/swipe.min.js
+/javascripts/jquery.addons.js
+/javascripts/application.js
+/javascripts/models/Config.js
+/javascripts/models/Domain.js
+/javascripts/models/Secret.js
+/javascripts/collections/Domains.js
+/javascripts/views/ConfigView.js
+/javascripts/views/DomainView.js
+/javascripts/views/AppView.js
+/javascripts/screen.js
+/javascripts/vendor/modernizr.custom-2.5.3.js
+/javascripts/modernizr.load.js
+
+NETWORK:
+*
