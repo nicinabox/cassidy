@@ -96,6 +96,26 @@ p {
   }
 }
 
+.help {
+  display: none;
+  padding: 10px;
+  border: 1px solid #ccc;
+  width: 50%;
+  margin: 60px auto 20px;
+  position: relative;
+  strong {
+    color: #444;
+  }
+  .close {
+    color: #aaa;
+    font-weight: bold;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    text-decoration: none;
+  }
+}
+
 .panel-nav {
   position: relative;
   margin: 0 auto;

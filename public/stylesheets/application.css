@@ -463,7 +463,7 @@ table {
 }
 
 body {
-  background: #f7f7f7 url('../images/fabric_plaid.png?1328464244') left top repeat;
+  background: #f7f7f7 url('../images/fabric_plaid.png?1327331745') left top repeat;
 }
 
 a {
@@ -606,6 +606,26 @@ p {
   text-decoration: none;
 }
 
+.help {
+  display: none;
+  padding: 10px;
+  border: 1px solid #ccc;
+  width: 50%;
+  margin: 60px auto 20px;
+  position: relative;
+}
+.help strong {
+  color: #444;
+}
+.help .close {
+  color: #aaa;
+  font-weight: bold;
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  text-decoration: none;
+}
+
 .panel-nav {
   position: relative;
   margin: 0 auto;
@@ -640,11 +660,11 @@ p {
 }
 .panel-nav a.next {
   right: -50px;
-  background: url('../images/icon-next.png?1333823299') center top no-repeat;
+  background: url('../images/icon-next.png?1348669616') center top no-repeat;
 }
 .panel-nav a.prev {
   left: -50px;
-  background: url('../images/icon-prev.png?1333823315') center top no-repeat;
+  background: url('../images/icon-prev.png?1348669616') center top no-repeat;
 }
 .panel-nav a.hide {
   display: none;

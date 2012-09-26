@@ -2,7 +2,16 @@
 (function() {
 
   $(function() {
-    var total_panels;
+    var showHelp, total_panels;
+    showHelp = localStorage.help;
+    if (showHelp !== "false") {
+      $('.help').show();
+    }
+    $(document).on('click', '.close', function(e) {
+      e.preventDefault();
+      $(this).parent('.help').hide();
+      return localStorage.help = false;
+    });
     total_panels = $('.swipe-container').children().length;
     $('.panel-nav a').click(function(e) {
       var direction;
