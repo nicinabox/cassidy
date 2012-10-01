@@ -65,7 +65,6 @@
     saveConfig: function() {
       var config, master;
       config = $('form', this.el).serializeObject();
-      config.key = config.key.toLowerCase();
       master = $('#master').val();
       if (master.length > 0) {
         config.master = $('#master').val();
