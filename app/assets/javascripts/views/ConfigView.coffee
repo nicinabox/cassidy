@@ -51,7 +51,6 @@ ConfigView = Backbone.View.extend(
 
   saveConfig: ->
     config = $('form', @el).serializeObject()
-    config.key = config.key.toLowerCase()
 
     master = $('#master').val()
     if master.length > 0
