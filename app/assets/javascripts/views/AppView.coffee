@@ -57,13 +57,24 @@ AppView = Backbone.View.extend(
     if App.ConfigView.model.get('save_all')
       App.ConfigView.saveConfig()
 
-  render: ->
-    config = App.ConfigView.model.toJSON()
+  render: (domain_id) ->
+    if typeof domain_id == 'string'
+      domain = App.Domains.get domain_id
+      config = domain.get('config')
 
-    secret = new App.Secret
-      master: $('#master').val()
-      domain: $('#domain').val()
-      config: config
+      $('#domain').val domain.get('url')
+
+      secret = new App.Secret
+        master: config.master
+        domain: domain.get('url')
+        config: config
+
+    else
+      config = App.ConfigView.model.toJSON()
+      secret = new App.Secret
+        master: $('#master').val()
+        domain: $('#domain').val()
+        config: config
 
     if secret
       $('#secret').val(secret.get('secret'))

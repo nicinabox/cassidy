@@ -23,20 +23,19 @@
         self.el.empty();
       }
       return _.each(domains, function(d) {
-        return self.el.append("<li>           <a href='#" + d.url + "' class='domain'>            " + d.url + "          </a>           <a href='#remove' class='remove' data-id='" + d.id + "'>&times;</a>        </li>");
+        return self.el.append("<li data-id='" + d.id + "'>           <a href='#" + d.url + "' class='domain'>            " + d.url + "          </a>           <a href='#remove' class='remove'>&times;</a>        </li>");
       });
     },
     clear: function(e) {
       var id, item;
       e.preventDefault();
-      id = $(e.currentTarget).data('id');
+      id = $(e.currentTarget).parent().data('id');
       item = App.Domains.get(id);
       return item.destroy();
     },
     load: function(e) {
       e.preventDefault();
-      $('#domain').val($.trim($(e.currentTarget).text()));
-      App.AppView.render();
+      App.AppView.render($(e.currentTarget).parent().data('id'));
       return Swipe.next();
     }
   });

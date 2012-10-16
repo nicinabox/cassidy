@@ -63,14 +63,25 @@
         return App.ConfigView.saveConfig();
       }
     },
-    render: function() {
-      var config, secret;
-      config = App.ConfigView.model.toJSON();
-      secret = new App.Secret({
-        master: $('#master').val(),
-        domain: $('#domain').val(),
-        config: config
-      });
+    render: function(domain_id) {
+      var config, domain, secret;
+      if (typeof domain_id === 'string') {
+        domain = App.Domains.get(domain_id);
+        config = domain.get('config');
+        $('#domain').val(domain.get('url'));
+        secret = new App.Secret({
+          master: config.master,
+          domain: domain.get('url'),
+          config: config
+        });
+      } else {
+        config = App.ConfigView.model.toJSON();
+        secret = new App.Secret({
+          master: $('#master').val(),
+          domain: $('#domain').val(),
+          config: config
+        });
+      }
       if (secret) {
         $('#secret').val(secret.get('secret'));
         if (App.is_mobile) {

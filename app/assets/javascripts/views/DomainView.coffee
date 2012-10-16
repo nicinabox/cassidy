@@ -17,25 +17,24 @@ DomainView = Backbone.View.extend(
     self.el.empty() if domains.length
     _.each(domains, (d) ->
       self.el.append(
-        "<li> \
+        "<li data-id='#{d.id}'> \
           <a href='##{d.url}' class='domain'>
             #{d.url}
           </a> \
-          <a href='#remove' class='remove' data-id='#{d.id}'>&times;</a>
+          <a href='#remove' class='remove'>&times;</a>
         </li>"
       )
     )
 
   clear: (e) ->
     e.preventDefault();
-    id = $(e.currentTarget).data('id')
+    id = $(e.currentTarget).parent().data('id')
     item = App.Domains.get(id)
     item.destroy()
 
   load: (e) ->
     e.preventDefault()
-    $('#domain').val $.trim($(e.currentTarget).text())
-    App.AppView.render()
+    App.AppView.render $(e.currentTarget).parent().data('id')
     Swipe.next()
 )
 
