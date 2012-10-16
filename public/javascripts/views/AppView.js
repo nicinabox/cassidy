@@ -63,24 +63,23 @@
         return App.ConfigView.saveConfig();
       }
     },
+    new_secret: function(master, domain, config) {
+      return new App.Secret({
+        master: master,
+        domain: domain,
+        config: config
+      });
+    },
     render: function(domain_id) {
       var config, domain, secret;
       if (typeof domain_id === 'string') {
         domain = App.Domains.get(domain_id);
-        config = domain.get('config');
+        config = domain.get('config') || App.ConfigView.model.toJSON();
         $('#domain').val(domain.get('url'));
-        secret = new App.Secret({
-          master: config.master,
-          domain: domain.get('url'),
-          config: config
-        });
+        secret = this.new_secret(config.master, domain.get('url'), config);
       } else {
         config = App.ConfigView.model.toJSON();
-        secret = new App.Secret({
-          master: $('#master').val(),
-          domain: $('#domain').val(),
-          config: config
-        });
+        secret = this.new_secret($('#master').val(), $('#domain').val(), config);
       }
       if (secret) {
         $('#secret').val(secret.get('secret'));
