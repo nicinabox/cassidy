@@ -5,7 +5,8 @@
   DomainView = Backbone.View.extend({
     el: $('#recent_domains ul'),
     events: {
-      'click .remove': 'clear'
+      'click .remove': 'clear',
+      'click .domain': 'load'
     },
     initialize: function() {
       var self;
@@ -31,6 +32,12 @@
       id = $(e.currentTarget).data('id');
       item = App.Domains.get(id);
       return item.destroy();
+    },
+    load: function(e) {
+      e.preventDefault();
+      $('#domain').val($.trim($(e.currentTarget).text()));
+      App.AppView.render();
+      return Swipe.next();
     }
   });
 

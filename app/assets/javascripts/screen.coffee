@@ -45,9 +45,3 @@ $ ->
       $prev.show()
       $('span', $prev).text($panel.eq(prev).data('title'))
       $('span', $next).text($panel.eq(next).data('title'))
-
-  $('body').on 'click', '#recent_domains a.domain', (e) ->
-    e.preventDefault()
-    $('#domain').val($.trim($(this).text()))
-    App.AppView.render()
-    Swipe.next()

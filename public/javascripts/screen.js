@@ -23,7 +23,7 @@
         return Swipe.prev();
       }
     });
-    $('body').on('swipe.animated', function() {
+    return $('body').on('swipe.animated', function() {
       var $active, $nav, $next, $panel, $prev, next, position, prev, total;
       $nav = $('.panel-nav');
       $panel = $('#swipe .panel');
@@ -51,12 +51,6 @@
         $('span', $prev).text($panel.eq(prev).data('title'));
         return $('span', $next).text($panel.eq(next).data('title'));
       }
-    });
-    return $('body').on('click', '#recent_domains a.domain', function(e) {
-      e.preventDefault();
-      $('#domain').val($.trim($(this).text()));
-      App.AppView.render();
-      return Swipe.next();
     });
   });
 

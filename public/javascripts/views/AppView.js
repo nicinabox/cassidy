@@ -35,7 +35,8 @@
         this.selectionStart = 0;
         this.selectionEnd = this.value.length;
         App.Domains.save({
-          url: $('#domain').val()
+          url: $('#domain').val(),
+          config: App.ConfigView.model.toJSON()
         });
         if (App.is_mobile) {
           return $('small.hint').fadeIn();
@@ -63,17 +64,17 @@
       }
     },
     render: function() {
-      var config, hatchpass;
+      var config, secret;
       config = App.ConfigView.model.toJSON();
-      hatchpass = new App.Secret({
+      secret = new App.Secret({
         master: $('#master').val(),
         domain: $('#domain').val(),
         config: config
       });
-      if (hatchpass) {
-        $('#secret').val(hatchpass.get('secret'));
+      if (secret) {
+        $('#secret').val(secret.get('secret'));
         if (App.is_mobile) {
-          if ($('#secret').val().length > 0) {
+          if ($('#secret').val().length) {
             return $('#secret').show().attr('readonly', false);
           } else {
             return $('#secret').hide().attr('readonly', true);

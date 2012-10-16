@@ -2,6 +2,7 @@ DomainView = Backbone.View.extend(
   el: $('#recent_domains ul')
   events:
     'click .remove': 'clear'
+    'click .domain': 'load'
 
   initialize: ->
     self = this
@@ -30,6 +31,12 @@ DomainView = Backbone.View.extend(
     id = $(e.currentTarget).data('id')
     item = App.Domains.get(id)
     item.destroy()
+
+  load: (e) ->
+    e.preventDefault()
+    $('#domain').val $.trim($(e.currentTarget).text())
+    App.AppView.render()
+    Swipe.next()
 )
 
 App.DomainView = new DomainView
