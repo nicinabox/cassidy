@@ -5,9 +5,13 @@ class window.ConfigView extends Backbone.View
     'change input': 'saveConfig'
 
   initialize: ->
-    @model.on('all', @render, this)
-    @model.fetch()
-    # @import()
+    @model.on('change', @render, this)
+    @model.fetch(
+      success: (model, response) =>
+        @model.unset('0')
+        @model.set(response[0])
+        @model.save() if @model.isNew()
+    )
 
   import: ->
     if localStorage.hp_settings
@@ -33,18 +37,19 @@ class window.ConfigView extends Backbone.View
       @render()
 
   render: ->
-    config = @model.attributes
-    for own index, value of config
-      switch $("##{index}").attr('type')
+    config = @model.toJSON()
+    for own key, value of config
+      switch $("##{key}").attr('type')
         when "checkbox"
-          $("##{index}").attr('checked', config[index])
+          $("##{key}").attr('checked', config[key])
           break
         else
-          $("##{index}").val(config[index])
+          $("##{key}").val(config[key])
           break
 
   saveConfig: ->
     config = $('form', @el).serializeObject()
+    console.log config
 
     master = $('#master').val()
     if master.length > 0
