@@ -1,8 +1,8 @@
 Modernizr.load [
   # Vendor
-    "//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"
+    "//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"
   , "/javascripts/vendor/json2.js"
-  , "/javascripts/vendor/underscore-min.js"
+  , "/javascripts/vendor/lodash.min.js"
   , "/javascripts/vendor/backbone-min.js"
   , "/javascripts/vendor/backbone.localstorage.js"
   , "/javascripts/vendor/Crypto.js"
