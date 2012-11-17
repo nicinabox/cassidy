@@ -20,8 +20,17 @@
     };
 
     ConfigView.prototype.initialize = function() {
-      this.model.on('all', this.render, this);
-      return this.model.fetch();
+      var _this = this;
+      this.model.on('change', this.render, this);
+      return this.model.fetch({
+        success: function(model, response) {
+          _this.model.unset('0');
+          _this.model.set(response[0]);
+          if (_this.model.isNew()) {
+            return _this.model.save();
+          }
+        }
+      });
     };
 
     ConfigView.prototype["import"] = function() {
@@ -48,18 +57,18 @@
     };
 
     ConfigView.prototype.render = function() {
-      var config, index, value, _results;
-      config = this.model.attributes;
+      var config, key, value, _results;
+      config = this.model.toJSON();
       _results = [];
-      for (index in config) {
-        if (!__hasProp.call(config, index)) continue;
-        value = config[index];
-        switch ($("#" + index).attr('type')) {
+      for (key in config) {
+        if (!__hasProp.call(config, key)) continue;
+        value = config[key];
+        switch ($("#" + key).attr('type')) {
           case "checkbox":
-            $("#" + index).attr('checked', config[index]);
+            $("#" + key).attr('checked', config[key]);
             break;
           default:
-            $("#" + index).val(config[index]);
+            $("#" + key).val(config[key]);
             break;
         }
       }
@@ -69,6 +78,7 @@
     ConfigView.prototype.saveConfig = function() {
       var config, master;
       config = $('form', this.el).serializeObject();
+      console.log(config);
       master = $('#master').val();
       if (master.length > 0) {
         config.master = $('#master').val();

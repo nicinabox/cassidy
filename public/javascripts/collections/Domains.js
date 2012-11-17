@@ -15,7 +15,7 @@
 
     Domains.prototype.save = function(obj) {
       var domains;
-      domains = _.pluck(App.Domains.toJSON(), 'url');
+      domains = _.pluck(app.Domains.toJSON(), 'url');
       if (!_.include(domains, obj.url)) {
         return this.create(obj);
       }

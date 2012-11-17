@@ -58,7 +58,7 @@
     };
 
     AppView.prototype.newSecret = function(master, domain, config) {
-      return new app.Secret({
+      return new Secret({
         master: master,
         domain: domain,
         config: config
