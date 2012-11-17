@@ -2,55 +2,15 @@
 (function() {
 
   $(function() {
-    var showHelp, total_panels;
+    var showHelp;
     showHelp = localStorage.help;
     if (showHelp !== "false") {
       $('.help').show();
     }
-    $(document).on('click', '.close', function(e) {
+    return $(document).on('click', '.close', function(e) {
       e.preventDefault();
       $(this).parent('.help').hide();
       return localStorage.help = false;
-    });
-    total_panels = $('.swipe-container').children().length;
-    $('.panel-nav a').click(function(e) {
-      var direction;
-      e.preventDefault();
-      direction = $(this).data('direction');
-      if (direction === 'next') {
-        return Swipe.next();
-      } else {
-        return Swipe.prev();
-      }
-    });
-    return $('body').on('swipe.animated', function() {
-      var $active, $nav, $next, $panel, $prev, next, position, prev, total;
-      $nav = $('.panel-nav');
-      $panel = $('#swipe .panel');
-      position = Swipe.getPos();
-      $active = $panel.eq(position);
-      total = $panel.length;
-      next = (position <= total ? position + 1 : position);
-      prev = (position > 0 ? position - 1 : 0);
-      if (navigator.userAgent.match(/ipad/i) || !App.is_mobile) {
-        $nav.fadeIn('fast');
-      }
-      $next = $('.next', $nav);
-      $prev = $('.prev', $nav);
-      if (position === (total_panels - 1)) {
-        $next.hide();
-        $prev.show();
-        return $('span', $prev).text($panel.eq(prev).data('title'));
-      } else if (position === 0) {
-        $next.show();
-        $prev.hide();
-        return $('span', $next).text($panel.eq(next).data('title'));
-      } else {
-        $next.show();
-        $prev.show();
-        $('span', $prev).text($panel.eq(prev).data('title'));
-        return $('span', $next).text($panel.eq(next).data('title'));
-      }
     });
   });
 
