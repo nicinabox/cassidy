@@ -1,40 +1,25 @@
 class window.DomainView extends Backbone.View
-  el: $('#recent_domains ul')
+  tagName: 'li'
+  template: _.template $('#recent-domain-template').html()
   events:
     'click .remove': 'clear'
     'click .domain': 'load'
 
   initialize: ->
-    self = this
-    _.bindAll(this, 'clear')
-    App.Domains.bind('all', @render, this)
-    App.Domains.fetch()
+    @model.on('change', @render, this);
+    @model.on('destroy', @remove, this);
 
-  render: ->
-    self = this
-    domains = App.Domains.toJSON()
-
-    self.el.empty() if domains.length
-    _.each(domains, (d) ->
-      self.el.append(
-        "<li data-id='#{d.id}'> \
-          <a href='##{d.url}' class='domain'>
-            #{d.url}
-          </a> \
-          <a href='#remove' class='remove'>&times;</a>
-        </li>"
-      )
-    )
+  render: (html) ->
+    this.$el.html @template @model.toJSON()
+    this
 
   clear: (e) ->
     e.preventDefault();
-    id = $(e.currentTarget).parent().data('id')
-    item = App.Domains.get(id)
-    item.destroy()
+    @model.destroy()
 
   load: (e) ->
     e.preventDefault()
-    App.AppView.render $(e.currentTarget).parent().data('id')
-    Swipe.next()
-
-# App.DomainView = new DomainView
+    app.SwipeView.swipe.next()
+    $("#domain").val @model.get 'url'
+    app.SecretView.render()
+    $('#secret')[0].setSelectionRange 0, 999

@@ -1,4 +1,4 @@
-class window.AppView extends Backbone.View
+class window.SecretView extends Backbone.View
   el: $('#new_secret form')
   events:
     'change #master': 'toggleMaster'
@@ -9,20 +9,12 @@ class window.AppView extends Backbone.View
 
     @loadMaster()
 
-    $('#secret').on('focus touchstart', ->
-      @selectionStart = 0;
-      @selectionEnd = @value.length;
+    $('#secret').on 'focus touchstart', ->
+      @setSelectionRange 0, @value.length
 
       app.Domains.save
         url: $('#domain').val()
-        config: app.ConfigView.model.toJSON()
-
-      if app.mobile
-        $('small.hint').fadeIn()
-    ).on('blur', ->
-      if app.mobile
-        $('small.hint').fadeOut()
-    )
+        config: app.Config.toJSON()
 
   loadMaster: ->
     $('#master').val app.Config.get 'master'
@@ -64,7 +56,4 @@ class window.AppView extends Backbone.View
       $('#secret').val(secret.get('secret'))
 
       if app.mobile
-        if $('#secret').val().length
-          $('#secret').show().attr('readonly', false)
-        else
-          $('#secret').hide().attr('readonly', true)
+        $('#secret').show().attr('readonly', false)
