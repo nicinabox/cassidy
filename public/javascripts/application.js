@@ -5,20 +5,18 @@
     mobile: /mobile/i.test(navigator.userAgent)
   });
 
-  app.Domain = new Domain;
-
-  app.Config = new Config;
-
-  app.Domains = new Domains({
-    model: app.Domain
+  $(function() {
+    app.Domain = new Domain;
+    app.Config = new Config;
+    app.Domains = new Domains({
+      model: app.Domain
+    });
+    app.ConfigView = new ConfigView({
+      model: app.Config
+    });
+    app.DomainsView = new DomainsView;
+    app.SecretView = new SecretView;
+    return app.SwipeView = new SwipeView;
   });
-
-  app.ConfigView = new ConfigView({
-    model: app.Config
-  });
-
-  app.AppView = new AppView;
-
-  app.SwipeView = new SwipeView;
 
 }).call(this);

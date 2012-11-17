@@ -27,8 +27,7 @@
           return _this.animated(e, index, el);
         }
       });
-      this.animated();
-      return app.AppView.focusInput();
+      return this.animated();
     };
 
     SwipeView.prototype.animated = function(e, index, el) {
@@ -56,7 +55,8 @@
         $next.show();
         $prev.show();
         $('span', $prev).text($panel.eq(prev).data('title'));
-        return $('span', $next).text($panel.eq(next).data('title'));
+        $('span', $next).text($panel.eq(next).data('title'));
+        return app.SecretView.focusInput();
       }
     };
 

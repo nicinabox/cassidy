@@ -11,7 +11,9 @@
       return DomainView.__super__.constructor.apply(this, arguments);
     }
 
-    DomainView.prototype.el = $('#recent_domains ul');
+    DomainView.prototype.tagName = 'li';
+
+    DomainView.prototype.template = _.template($('#recent-domain-template').html());
 
     DomainView.prototype.events = {
       'click .remove': 'clear',
@@ -19,37 +21,26 @@
     };
 
     DomainView.prototype.initialize = function() {
-      var self;
-      self = this;
-      _.bindAll(this, 'clear');
-      App.Domains.bind('all', this.render, this);
-      return App.Domains.fetch();
+      this.model.on('change', this.render, this);
+      return this.model.on('destroy', this.remove, this);
     };
 
-    DomainView.prototype.render = function() {
-      var domains, self;
-      self = this;
-      domains = App.Domains.toJSON();
-      if (domains.length) {
-        self.el.empty();
-      }
-      return _.each(domains, function(d) {
-        return self.el.append("<li data-id='" + d.id + "'>           <a href='#" + d.url + "' class='domain'>            " + d.url + "          </a>           <a href='#remove' class='remove'>&times;</a>        </li>");
-      });
+    DomainView.prototype.render = function(html) {
+      this.$el.html(this.template(this.model.toJSON()));
+      return this;
     };
 
     DomainView.prototype.clear = function(e) {
-      var id, item;
       e.preventDefault();
-      id = $(e.currentTarget).parent().data('id');
-      item = App.Domains.get(id);
-      return item.destroy();
+      return this.model.destroy();
     };
 
     DomainView.prototype.load = function(e) {
       e.preventDefault();
-      App.AppView.render($(e.currentTarget).parent().data('id'));
-      return Swipe.next();
+      app.SwipeView.swipe.next();
+      $("#domain").val(this.model.get('url'));
+      app.SecretView.render();
+      return $('#secret')[0].setSelectionRange(0, 999);
     };
 
     return DomainView;

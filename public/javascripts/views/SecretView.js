@@ -3,46 +3,38 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  window.AppView = (function(_super) {
+  window.SecretView = (function(_super) {
 
-    __extends(AppView, _super);
+    __extends(SecretView, _super);
 
-    function AppView() {
-      return AppView.__super__.constructor.apply(this, arguments);
+    function SecretView() {
+      return SecretView.__super__.constructor.apply(this, arguments);
     }
 
-    AppView.prototype.el = $('#new_secret form');
+    SecretView.prototype.el = $('#new_secret form');
 
-    AppView.prototype.events = {
+    SecretView.prototype.events = {
       'change #master': 'toggleMaster',
       'keyup input.required': 'render'
     };
 
-    AppView.prototype.initialize = function() {
+    SecretView.prototype.initialize = function() {
       app.Config.bind('change', this.render, this);
       this.loadMaster();
       return $('#secret').on('focus touchstart', function() {
-        this.selectionStart = 0;
-        this.selectionEnd = this.value.length;
-        app.Domains.save({
+        this.setSelectionRange(0, this.value.length);
+        return app.Domains.save({
           url: $('#domain').val(),
-          config: app.ConfigView.model.toJSON()
+          config: app.Config.toJSON()
         });
-        if (app.mobile) {
-          return $('small.hint').fadeIn();
-        }
-      }).on('blur', function() {
-        if (app.mobile) {
-          return $('small.hint').fadeOut();
-        }
       });
     };
 
-    AppView.prototype.loadMaster = function() {
+    SecretView.prototype.loadMaster = function() {
       return $('#master').val(app.Config.get('master'));
     };
 
-    AppView.prototype.focusInput = function() {
+    SecretView.prototype.focusInput = function() {
       return $('input.required:visible', this.$el).each(function() {
         if (!this.value.length) {
           $(this).focus();
@@ -51,13 +43,13 @@
       });
     };
 
-    AppView.prototype.toggleMaster = function() {
+    SecretView.prototype.toggleMaster = function() {
       if (app.Config.get('save_all')) {
         return app.ConfigView.saveConfig();
       }
     };
 
-    AppView.prototype.newSecret = function(master, domain, config) {
+    SecretView.prototype.newSecret = function(master, domain, config) {
       return new Secret({
         master: master,
         domain: domain,
@@ -65,7 +57,7 @@
       });
     };
 
-    AppView.prototype.render = function(domain_id) {
+    SecretView.prototype.render = function(domain_id) {
       var config, domain, secret;
       if (typeof domain_id === 'string') {
         domain = app.Domains.get(domain_id);
@@ -79,16 +71,12 @@
       if (secret) {
         $('#secret').val(secret.get('secret'));
         if (app.mobile) {
-          if ($('#secret').val().length) {
-            return $('#secret').show().attr('readonly', false);
-          } else {
-            return $('#secret').hide().attr('readonly', true);
-          }
+          return $('#secret').show().attr('readonly', false);
         }
       }
     };
 
-    return AppView;
+    return SecretView;
 
   })(Backbone.View);
 
