@@ -5,13 +5,8 @@ class window.ConfigView extends Backbone.View
     'change input': 'saveConfig'
 
   initialize: ->
+    @model.on('all', @render, this)
     @model.fetch()
-    # @model.fetch(
-    #   success: (model, response) =>
-    #     @model.unset('0')
-    #     @model.set(response[0])
-    #     @render()
-    # )
     # @import()
 
   import: ->
