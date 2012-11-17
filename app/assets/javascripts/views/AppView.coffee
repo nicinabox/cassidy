@@ -38,7 +38,7 @@ class window.AppView extends Backbone.View
       app.ConfigView.saveConfig()
 
   newSecret: (master, domain, config) ->
-    new app.Secret
+    new Secret
       master: master
       domain: domain
       config: config
@@ -56,9 +56,9 @@ class window.AppView extends Backbone.View
 
     else
       config = app.Config.toJSON()
-      secret = @newSecret  $('#master').val(),
-                            $('#domain').val(),
-                            config
+      secret = @newSecret $('#master').val(),
+                          $('#domain').val(),
+                          config
 
     if secret
       $('#secret').val(secret.get('secret'))
