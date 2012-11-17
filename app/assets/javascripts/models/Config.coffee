@@ -1,4 +1,4 @@
-App.Config = Backbone.Model.extend(
+class window.Config extends Backbone.Model
   localStorage: new Store("settings")
   defaults:
     key: ''
@@ -8,8 +8,7 @@ App.Config = Backbone.Model.extend(
     save_all: false
 
   initialize: ->
-    @set(key: @newKey())
+    @set key: @newKey()
 
   newKey: ->
     Crypto.SHA256(new Date().getTime().toString()).substr(0, 5)
-)

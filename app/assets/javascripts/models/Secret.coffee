@@ -1,4 +1,4 @@
-App.Secret = Backbone.Model.extend(
+class window.Secret extends Backbone.Model
   defaults:
     master: ''
     domain: ''
@@ -13,7 +13,7 @@ App.Secret = Backbone.Model.extend(
 
   validate: (attrs) ->
     for own index, value of attrs
-      if attrs[index].length == 0
+      unless attrs[index].length
         return [index, "can't be blank"]
 
   create: ->
@@ -52,4 +52,3 @@ App.Secret = Backbone.Model.extend(
 
     secret = secret.join('').substr(0, config.length)
     @set(secret: secret)
-)

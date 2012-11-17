@@ -11,7 +11,6 @@ Modernizr.load [
   , "/javascripts/jquery.addons.js"
 
   # App
-  , "/javascripts/application.js"
   , "/javascripts/models/Config.js"
   , "/javascripts/models/Domain.js"
   , "/javascripts/models/Secret.js"
@@ -19,6 +18,8 @@ Modernizr.load [
   , "/javascripts/views/ConfigView.js"
   , "/javascripts/views/DomainView.js"
   , "/javascripts/views/AppView.js"
+  , "/javascripts/views/SwipeView.js"
+  , "/javascripts/application.js"
+  # , "/javascripts/screen.js"
 
-  , "/javascripts/screen.js"
 ]

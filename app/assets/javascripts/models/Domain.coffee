@@ -1,1 +1,1 @@
-App.Domain = Backbone.Model.extend()
+class window.Domain extends Backbone.Model

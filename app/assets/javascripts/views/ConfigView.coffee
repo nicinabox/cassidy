@@ -1,19 +1,18 @@
-ConfigView = Backbone.View.extend(
+class window.ConfigView extends Backbone.View
   el: $('#settings')
   tagName: "input"
   events:
     'change input': 'saveConfig'
 
   initialize: ->
-    @model = new App.Config
-    self = this
-    @model.fetch(
-      success: (model, response)->
-        self.model.unset('0')
-        self.model.set(response[0])
-        self.render()
-    )
-    @import()
+    @model.fetch()
+    # @model.fetch(
+    #   success: (model, response) =>
+    #     @model.unset('0')
+    #     @model.set(response[0])
+    #     @render()
+    # )
+    # @import()
 
   import: ->
     if localStorage.hp_settings
@@ -56,12 +55,9 @@ ConfigView = Backbone.View.extend(
     if master.length > 0
       config.master = $('#master').val()
 
-    @model.set(config)
+    @model.set config
 
     if config.save_all
-      @model.save(config)
+      @model.save config
     else
       @model.destroy()
-)
-
-App.ConfigView = new ConfigView
