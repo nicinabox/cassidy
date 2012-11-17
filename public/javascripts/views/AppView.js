@@ -14,14 +14,13 @@
     AppView.prototype.el = $('#new_secret form');
 
     AppView.prototype.events = {
-      'change #master': 'toggle_master',
+      'change #master': 'toggleMaster',
       'keyup input.required': 'render'
     };
 
     AppView.prototype.initialize = function() {
-      var $panel;
-      $panel = $('#swipe .panel');
-      app.is_mobile = /mobile/i.test(navigator.userAgent);
+      app.Config.bind('change', this.render, this);
+      this.loadMaster();
       return $('#secret').on('focus touchstart', function() {
         this.selectionStart = 0;
         this.selectionEnd = this.value.length;
@@ -29,20 +28,22 @@
           url: $('#domain').val(),
           config: app.ConfigView.model.toJSON()
         });
-        if (app.is_mobile) {
+        if (app.mobile) {
           return $('small.hint').fadeIn();
         }
       }).on('blur', function() {
-        if (app.is_mobile) {
+        if (app.mobile) {
           return $('small.hint').fadeOut();
         }
       });
     };
 
-    AppView.prototype.load_master = function() {};
+    AppView.prototype.loadMaster = function() {
+      return $('#master').val(app.Config.get('master'));
+    };
 
-    AppView.prototype.focus_input = function() {
-      return $('input.required:visible', this.el).each(function(i) {
+    AppView.prototype.focusInput = function() {
+      return $('input.required:visible', this.$el).each(function() {
         if (!this.value.length) {
           $(this).focus();
           return false;
@@ -50,13 +51,13 @@
       });
     };
 
-    AppView.prototype.toggle_master = function() {
-      if (app.ConfigView.model.get('save_all')) {
+    AppView.prototype.toggleMaster = function() {
+      if (app.Config.get('save_all')) {
         return app.ConfigView.saveConfig();
       }
     };
 
-    AppView.prototype.new_secret = function(master, domain, config) {
+    AppView.prototype.newSecret = function(master, domain, config) {
       return new app.Secret({
         master: master,
         domain: domain,
@@ -70,14 +71,14 @@
         domain = app.Domains.get(domain_id);
         config = domain.get('config') || app.ConfigView.model.toJSON();
         $('#domain').val(domain.get('url'));
-        secret = this.new_secret(config.master, domain.get('url'), config);
+        secret = this.newSecret(config.master, domain.get('url'), config);
       } else {
-        config = app.ConfigView.model.toJSON();
-        secret = this.new_secret($('#master').val(), $('#domain').val(), config);
+        config = app.Config.toJSON();
+        secret = this.newSecret($('#master').val(), $('#domain').val(), config);
       }
       if (secret) {
         $('#secret').val(secret.get('secret'));
-        if (app.is_mobile) {
+        if (app.mobile) {
           if ($('#secret').val().length) {
             return $('#secret').show().attr('readonly', false);
           } else {

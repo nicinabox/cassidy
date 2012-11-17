@@ -27,12 +27,12 @@
           return _this.animated(e, index, el);
         }
       });
-      return this.post_init();
+      this.animated();
+      return app.AppView.focusInput();
     };
 
     SwipeView.prototype.animated = function(e, index, el) {
       var $active, $nav, $next, $panel, $prev, next, position, prev;
-      console.log(this.swipe);
       $nav = $('.panel-nav');
       $panel = $('#swipe .panel');
       position = this.swipe.getPos();
@@ -41,7 +41,7 @@
       $prev = $('.prev', $nav);
       next = (position <= this.swipe.length ? position + 1 : position);
       prev = (position > 0 ? position - 1 : 0);
-      if (navigator.userAgent.match(/ipad/i) || !app.is_mobile) {
+      if (navigator.userAgent.match(/ipad/i) || !app.mobile) {
         $nav.fadeIn('fast');
       }
       if (position === (this.swipe.length - 1)) {
@@ -57,15 +57,6 @@
         $prev.show();
         $('span', $prev).text($panel.eq(prev).data('title'));
         return $('span', $next).text($panel.eq(next).data('title'));
-      }
-    };
-
-    SwipeView.prototype.post_init = function() {
-      var pos;
-      this.animated();
-      pos = this.swipe.getPos();
-      if (pos !== this.active_panel) {
-        return this.active_panel = pos;
       }
     };
 

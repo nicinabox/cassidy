@@ -20,6 +20,7 @@
     };
 
     ConfigView.prototype.initialize = function() {
+      this.model.on('all', this.render, this);
       return this.model.fetch();
     };
 
