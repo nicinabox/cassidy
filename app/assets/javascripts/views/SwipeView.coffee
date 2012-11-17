@@ -12,11 +12,10 @@ class window.SwipeView extends Backbone.View
       callback: (e, index, el) =>
         @animated(e, index, el)
     )
-    @post_init()
+    @animated()
+    app.AppView.focusInput()
 
   animated: (e, index, el) ->
-    console.log @swipe
-
     $nav = $('.panel-nav')
     $panel = $('#swipe .panel')
     position = @swipe.getPos()
@@ -28,7 +27,7 @@ class window.SwipeView extends Backbone.View
     next = (if position <= @swipe.length then position + 1 else position)
     prev = (if position > 0 then position - 1 else 0)
 
-    if navigator.userAgent.match(/ipad/i) || !app.is_mobile
+    if navigator.userAgent.match(/ipad/i) || !app.mobile
       $nav.fadeIn('fast')
 
     if position == (@swipe.length - 1)
@@ -44,13 +43,6 @@ class window.SwipeView extends Backbone.View
       $prev.show()
       $('span', $prev).text($panel.eq(prev).data('title'))
       $('span', $next).text($panel.eq(next).data('title'))
-
-  post_init: ->
-    @animated()
-    pos = @swipe.getPos()
-    if pos != @active_panel
-      @active_panel = pos
-      # @focus_input()
 
   animate: (e) ->
     e.preventDefault()

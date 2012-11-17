@@ -1,17 +1,13 @@
 class window.AppView extends Backbone.View
   el: $('#new_secret form')
   events:
-    'change #master': 'toggle_master'
+    'change #master': 'toggleMaster'
     'keyup input.required': 'render'
 
   initialize: ->
-    $panel = $('#swipe .panel')
+    app.Config.bind('change', @render, this);
 
-    # app.ConfigView.model.bind('change', @render, this);
-
-    # @load_master()
-    # @focus_input()
-    app.is_mobile = (/mobile/i).test(navigator.userAgent)
+    @loadMaster()
 
     $('#secret').on('focus touchstart', ->
       @selectionStart = 0;
@@ -21,27 +17,27 @@ class window.AppView extends Backbone.View
         url: $('#domain').val()
         config: app.ConfigView.model.toJSON()
 
-      if app.is_mobile
+      if app.mobile
         $('small.hint').fadeIn()
     ).on('blur', ->
-      if app.is_mobile
+      if app.mobile
         $('small.hint').fadeOut()
     )
 
-  load_master: ->
-    # $('#master').val(app.ConfigView.model.get('master'))
+  loadMaster: ->
+    $('#master').val app.Config.get 'master'
 
-  focus_input: ->
-    $('input.required:visible', @el).each (i) ->
+  focusInput: ->
+    $('input.required:visible', this.$el).each ->
       if !@value.length
         $(this).focus()
         false
 
-  toggle_master: ->
-    if app.ConfigView.model.get('save_all')
+  toggleMaster: ->
+    if app.Config.get('save_all')
       app.ConfigView.saveConfig()
 
-  new_secret: (master, domain, config) ->
+  newSecret: (master, domain, config) ->
     new app.Secret
       master: master
       domain: domain
@@ -54,19 +50,20 @@ class window.AppView extends Backbone.View
 
       $('#domain').val domain.get('url')
 
-      secret = @new_secret  config.master,
+      secret = @newSecret  config.master,
                             domain.get('url'),
                             config
 
     else
-      config = app.ConfigView.model.toJSON()
-      secret = @new_secret  $('#master').val(),
+      config = app.Config.toJSON()
+      secret = @newSecret  $('#master').val(),
                             $('#domain').val(),
                             config
 
     if secret
       $('#secret').val(secret.get('secret'))
-      if app.is_mobile
+
+      if app.mobile
         if $('#secret').val().length
           $('#secret').show().attr('readonly', false)
         else
