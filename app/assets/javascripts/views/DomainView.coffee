@@ -21,5 +21,5 @@ class window.DomainView extends Backbone.View
     e.preventDefault()
     app.SwipeView.swipe.next()
     $("#domain").val @model.get 'url'
-    app.SecretView.render()
+    app.SecretView.render(@model)
     $('#secret')[0].setSelectionRange 0, 999
