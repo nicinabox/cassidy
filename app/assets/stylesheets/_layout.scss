@@ -1,3 +1,6 @@
+* {
+  @include box-sizing(border-box);
+}
 body {
   background: #f7f7f7 image-url('fabric_plaid.png') left top repeat;
 }
@@ -265,6 +268,10 @@ small {
       margin: 0;
       padding: 0;
       @include clearfix;
+      @include border-radius(3px);
+      &:hover {
+        background: rgba(#fff, 0.5);
+      }
       &.no-results {
         font-size: 18px;
         color: #aaa;
@@ -277,17 +284,16 @@ small {
     }
     a {
       text-decoration: none;
-      font-size: 15px;
+      font-size: 16px;
       display: block;
+      padding: 6px 5px;
     }
     .domain {
       font-weight: bold;
-      padding: 3px 0;
       float: left;
       width: 90%;
     }
     .remove {
-      padding: 3px 6px;
       float: right;
     }
   }
