@@ -6,7 +6,7 @@ class window.DomainView extends Backbone.View
     'click .domain': 'load'
 
   initialize: ->
-    @model.on('change', @render, this);
+    # @model.on('change', @render, this);
     @model.on('destroy', @remove, this);
 
   render: (html) ->
