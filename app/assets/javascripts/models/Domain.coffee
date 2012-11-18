@@ -1,4 +1,8 @@
 class window.Domain extends Backbone.Model
+  initialize: ->
+    @bind 'error', (model, errors) ->
+      # console.log errors
+
   validate: (attrs) ->
     errors = []
     domains = app.Domains.pluck 'url'
@@ -9,5 +13,5 @@ class window.Domain extends Backbone.Model
     if _.isEmpty attrs.url
       errors.push "URL cannot be blank"
 
-    if errors
+    unless _.isEmpty(errors)
       errors

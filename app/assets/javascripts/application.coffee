@@ -4,12 +4,10 @@ window.app ||= {
 
 $ ->
   # Models
-  app.Domain = new Domain
   app.Config = new Config
 
   # Collections
   app.Domains = new Domains
-    model: app.Domain
 
   # Views
   app.ConfigView = new ConfigView

@@ -13,10 +13,8 @@ class window.SecretView extends Backbone.View
     e.target.setSelectionRange 0, e.target.value.length
 
     app.Domains.create
-      url: $('#domain').val()
+      url: this.$('#domain').val()
       config: app.Config.toJSON()
-    , error: (event, model) ->
-      console.log event, model
 
   loadMaster: ->
     $('#master').val app.Config.get 'master'
