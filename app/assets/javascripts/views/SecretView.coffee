@@ -35,25 +35,17 @@ class window.SecretView extends Backbone.View
       domain: domain
       config: config
 
-  render: (domain_id) ->
-    if typeof domain_id == 'string'
-      domain = app.Domains.get domain_id
-      config = domain.get('config') || app.ConfigView.model.toJSON()
+  render: (model) ->
+    if model instanceof Backbone.Model
+      config = model.get 'config'
+    config ||= app.Config.toJSON()
 
-      $('#domain').val domain.get('url')
-
-      secret = @newSecret  config.master,
-                            domain.get('url'),
-                            config
-
-    else
-      config = app.Config.toJSON()
-      secret = @newSecret $('#master').val(),
-                          $('#domain').val(),
-                          config
+    secret = @newSecret $('#master').val(),
+                        $('#domain').val(),
+                        config
 
     if secret
-      $('#secret').val(secret.get('secret'))
+      $('#secret').val secret.get 'secret'
 
       if app.mobile
         $('#secret').show().attr('readonly', false)

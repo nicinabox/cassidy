@@ -49,7 +49,6 @@ class window.ConfigView extends Backbone.View
 
   saveConfig: ->
     config = $('form', @el).serializeObject()
-    console.log config
 
     master = $('#master').val()
     if master.length > 0
