@@ -3,18 +3,20 @@ class window.SecretView extends Backbone.View
   events:
     'change #master': 'toggleMaster'
     'keyup input.required': 'render'
+    'focus #secret': 'saveDomain'
 
   initialize: ->
     app.Config.bind('change', @render, this);
-
     @loadMaster()
 
-    $('#secret').on 'focus touchstart', ->
-      @setSelectionRange 0, @value.length
+  saveDomain: (e) ->
+    e.target.setSelectionRange 0, e.target.value.length
 
-      app.Domains.save
-        url: $('#domain').val()
-        config: app.Config.toJSON()
+    app.Domains.create
+      url: $('#domain').val()
+      config: app.Config.toJSON()
+    , error: (event, model) ->
+      console.log event, model
 
   loadMaster: ->
     $('#master').val app.Config.get 'master'
@@ -26,7 +28,7 @@ class window.SecretView extends Backbone.View
         false
 
   toggleMaster: ->
-    if app.Config.get('save_all')
+    if app.Config.get 'save_all'
       app.ConfigView.saveConfig()
 
   newSecret: (master, domain, config) ->
