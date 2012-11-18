@@ -21,6 +21,6 @@ Modernizr.load [
   , "/javascripts/views/SecretView.js"
   , "/javascripts/views/SwipeView.js"
   , "/javascripts/application.js"
-  # , "/javascripts/screen.js"
+  , "/javascripts/screen.js"
 
 ]
