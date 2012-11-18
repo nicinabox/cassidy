@@ -13,6 +13,7 @@ class window.SwipeView extends Backbone.View
         @animated(e, index, el)
     )
     @animated()
+    app.SecretView.focusInput()
 
   animated: (e, index, el) ->
     $nav = $('.panel-nav')
@@ -42,7 +43,6 @@ class window.SwipeView extends Backbone.View
       $prev.show()
       $('span', $prev).text($panel.eq(prev).data('title'))
       $('span', $next).text($panel.eq(next).data('title'))
-      app.SecretView.focusInput()
 
   animate: (e) ->
     e.preventDefault()
