@@ -18,7 +18,9 @@
 
     Secret.prototype.initialize = function() {
       var error;
-      this.bind('error', function(model, errors) {});
+      this.on('error', function(model, errors) {
+        return console.log(errors);
+      });
       error = this.validate(this.attributes);
       if (!error) {
         return this.create();

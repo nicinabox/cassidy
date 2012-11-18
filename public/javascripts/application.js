@@ -6,11 +6,8 @@
   });
 
   $(function() {
-    app.Domain = new Domain;
     app.Config = new Config;
-    app.Domains = new Domains({
-      model: app.Domain
-    });
+    app.Domains = new Domains;
     app.ConfigView = new ConfigView({
       model: app.Config
     });

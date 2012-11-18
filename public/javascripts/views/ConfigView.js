@@ -78,7 +78,6 @@
     ConfigView.prototype.saveConfig = function() {
       var config, master;
       config = $('form', this.el).serializeObject();
-      console.log(config);
       master = $('#master').val();
       if (master.length > 0) {
         config.master = $('#master').val();

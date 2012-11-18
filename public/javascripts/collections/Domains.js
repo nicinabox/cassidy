@@ -13,13 +13,7 @@
 
     Domains.prototype.localStorage = new Store('domains');
 
-    Domains.prototype.save = function(obj) {
-      var domains;
-      domains = _.pluck(this.toJSON(), 'url');
-      if (!_.include(domains, obj.url)) {
-        return this.create(obj);
-      }
-    };
+    Domains.prototype.model = Domain;
 
     return Domains;
 

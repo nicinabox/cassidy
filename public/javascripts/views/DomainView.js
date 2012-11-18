@@ -21,7 +21,6 @@
     };
 
     DomainView.prototype.initialize = function() {
-      this.model.on('change', this.render, this);
       return this.model.on('destroy', this.remove, this);
     };
 
@@ -39,7 +38,7 @@
       e.preventDefault();
       app.SwipeView.swipe.next();
       $("#domain").val(this.model.get('url'));
-      app.SecretView.render();
+      app.SecretView.render(this.model);
       return $('#secret')[0].setSelectionRange(0, 999);
     };
 

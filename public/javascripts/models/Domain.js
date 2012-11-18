@@ -11,6 +11,25 @@
       return Domain.__super__.constructor.apply(this, arguments);
     }
 
+    Domain.prototype.initialize = function() {
+      return this.bind('error', function(model, errors) {});
+    };
+
+    Domain.prototype.validate = function(attrs) {
+      var domains, errors;
+      errors = [];
+      domains = app.Domains.pluck('url');
+      if (_.include(domains, attrs.url)) {
+        errors.push("URL must be unique");
+      }
+      if (_.isEmpty(attrs.url)) {
+        errors.push("URL cannot be blank");
+      }
+      if (!_.isEmpty(errors)) {
+        return errors;
+      }
+    };
+
     return Domain;
 
   })(Backbone.Model);

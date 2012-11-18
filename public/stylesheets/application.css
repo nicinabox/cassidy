@@ -395,9 +395,9 @@ table {
   width: 200%;
   margin-left: -100%;
   -webkit-transform: translateZ(0);
-  -webkit-transition: margin 0.3s ease-in 0s;
+  -webkit-transition: margin 0.3s ease-in;
+  -webkit-transition-delay: 0s;
   -moz-transition: margin 0.3s ease-in 0s;
-  -ms-transition: margin 0.3s ease-in 0s;
   -o-transition: margin 0.3s ease-in 0s;
   transition: margin 0.3s ease-in 0s;
 }
@@ -446,9 +446,9 @@ table {
   bottom: 0;
   right: 47px;
   -webkit-transform: translateZ(0);
-  -webkit-transition: all 0.3s ease-in 0s;
+  -webkit-transition: all 0.3s ease-in;
+  -webkit-transition-delay: 0s;
   -moz-transition: all 0.3s ease-in 0s;
-  -ms-transition: all 0.3s ease-in 0s;
   -o-transition: all 0.3s ease-in 0s;
   transition: all 0.3s ease-in 0s;
 }
@@ -460,6 +460,12 @@ table {
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
   right: 0px;
   background-color: #4CAAE4;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
@@ -489,7 +495,6 @@ p {
   background-image: -webkit-linear-gradient(#434a50, #34393e);
   background-image: -moz-linear-gradient(#434a50, #34393e);
   background-image: -o-linear-gradient(#434a50, #34393e);
-  background-image: -ms-linear-gradient(#434a50, #34393e);
   background-image: linear-gradient(#434a50, #34393e);
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 2px 1px;
@@ -509,26 +514,23 @@ p {
   clear: both;
 }
 #header nav a {
-  display: -moz-inline-box;
-  -moz-box-orient: vertical;
+  display: -moz-inline-stack;
   display: inline-block;
   vertical-align: middle;
   *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
   padding: 5px 10px;
   text-decoration: none;
   color: #ddd;
   font-size: 13px;
   margin-right: 5px;
 }
-#header nav a {
-  *display: inline;
-}
 #header nav a:hover, #header nav a.active {
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #dddddd));
   background-image: -webkit-linear-gradient(#ffffff, #dddddd);
   background-image: -moz-linear-gradient(#ffffff, #dddddd);
   background-image: -o-linear-gradient(#ffffff, #dddddd);
-  background-image: -ms-linear-gradient(#ffffff, #dddddd);
   background-image: linear-gradient(#ffffff, #dddddd);
   -webkit-border-radius: 15px;
   -moz-border-radius: 15px;
@@ -559,13 +561,9 @@ p {
   background: white;
   -moz-border-radius-bottomleft: 3px;
   -webkit-border-bottom-left-radius: 3px;
-  -ms-border-bottom-left-radius: 3px;
-  -o-border-bottom-left-radius: 3px;
   border-bottom-left-radius: 3px;
   -moz-border-radius-bottomright: 3px;
   -webkit-border-bottom-right-radius: 3px;
-  -ms-border-bottom-right-radius: 3px;
-  -o-border-bottom-right-radius: 3px;
   border-bottom-right-radius: 3px;
   -webkit-box-shadow: #aaaaaa 0 1px 3px;
   -moz-box-shadow: #aaaaaa 0 1px 3px;
@@ -638,7 +636,6 @@ p {
   opacity: 0.3;
   -webkit-transition: opacity 0.15s ease-out;
   -moz-transition: opacity 0.15s ease-out;
-  -ms-transition: opacity 0.15s ease-out;
   -o-transition: opacity 0.15s ease-out;
   transition: opacity 0.15s ease-out;
   position: absolute;
@@ -759,7 +756,6 @@ form .field input {
   box-shadow: #eeeeee 0 1px 1px 0 inset;
   -webkit-transition: border-color 0.2s ease-out;
   -moz-transition: border-color 0.2s ease-out;
-  -ms-transition: border-color 0.2s ease-out;
   -o-transition: border-color 0.2s ease-out;
   transition: border-color 0.2s ease-out;
 }
@@ -808,6 +804,14 @@ small {
   padding: 0;
   overflow: hidden;
   *zoom: 1;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+}
+#recent_domains ul li:hover {
+  background: rgba(255, 255, 255, 0.5);
 }
 #recent_domains ul li.no-results {
   font-size: 18px;
@@ -824,16 +828,15 @@ small {
 }
 #recent_domains ul a {
   text-decoration: none;
-  font-size: 15px;
+  font-size: 16px;
   display: block;
+  padding: 6px 5px;
 }
 #recent_domains ul .domain {
   font-weight: bold;
-  padding: 3px 0;
   float: left;
   width: 90%;
 }
 #recent_domains ul .remove {
-  padding: 3px 6px;
   float: right;
 }

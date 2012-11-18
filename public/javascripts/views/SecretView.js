@@ -15,18 +15,20 @@
 
     SecretView.prototype.events = {
       'change #master': 'toggleMaster',
-      'keyup input.required': 'render'
+      'keyup input.required': 'render',
+      'focus #secret': 'saveDomain'
     };
 
     SecretView.prototype.initialize = function() {
       app.Config.bind('change', this.render, this);
-      this.loadMaster();
-      return $('#secret').on('focus touchstart', function() {
-        this.setSelectionRange(0, this.value.length);
-        return app.Domains.save({
-          url: $('#domain').val(),
-          config: app.Config.toJSON()
-        });
+      return this.loadMaster();
+    };
+
+    SecretView.prototype.saveDomain = function(e) {
+      e.target.setSelectionRange(0, e.target.value.length);
+      return app.Domains.create({
+        url: this.$('#domain').val(),
+        config: app.Config.toJSON()
       });
     };
 
@@ -57,17 +59,13 @@
       });
     };
 
-    SecretView.prototype.render = function(domain_id) {
-      var config, domain, secret;
-      if (typeof domain_id === 'string') {
-        domain = app.Domains.get(domain_id);
-        config = domain.get('config') || app.ConfigView.model.toJSON();
-        $('#domain').val(domain.get('url'));
-        secret = this.newSecret(config.master, domain.get('url'), config);
-      } else {
-        config = app.Config.toJSON();
-        secret = this.newSecret($('#master').val(), $('#domain').val(), config);
+    SecretView.prototype.render = function(model) {
+      var config, secret;
+      if (model instanceof Backbone.Model) {
+        config = model.get('config');
       }
+      config || (config = app.Config.toJSON());
+      secret = this.newSecret($('#master').val(), $('#domain').val(), config);
       if (secret) {
         $('#secret').val(secret.get('secret'));
         if (app.mobile) {
