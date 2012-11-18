@@ -4,10 +4,10 @@ class window.Secret extends Backbone.Model
     domain: ''
 
   initialize: ->
-    @bind('error', (model, errors) ->
-      # console.log errors
-    )
-    error = @validate(@attributes);
+    @on 'error', (model, errors) ->
+      console.log errors
+
+    error = @validate @attributes
     unless error
       @create()
 
