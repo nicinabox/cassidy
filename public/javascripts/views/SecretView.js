@@ -51,21 +51,17 @@
       }
     };
 
-    SecretView.prototype.newSecret = function(master, domain, config) {
-      return new Secret({
-        master: master,
-        domain: domain,
-        config: config
-      });
-    };
-
     SecretView.prototype.render = function(model) {
       var config, secret;
       if (model instanceof Backbone.Model) {
         config = model.get('config');
       }
       config || (config = app.Config.toJSON());
-      secret = this.newSecret($('#master').val(), $('#domain').val(), config);
+      secret = new Secret({
+        master: $('#master').val(),
+        domain: $('#domain').val(),
+        config: config
+      });
       if (secret) {
         $('#secret').val(secret.get('secret'));
         if (app.mobile) {

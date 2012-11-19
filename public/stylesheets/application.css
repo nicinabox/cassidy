@@ -802,6 +802,7 @@ small {
 #recent_domains ul li {
   margin: 0;
   padding: 0;
+  position: relative;
   overflow: hidden;
   *zoom: 1;
   -webkit-border-radius: 3px;
@@ -834,9 +835,11 @@ small {
 }
 #recent_domains ul .domain {
   font-weight: bold;
-  float: left;
-  width: 90%;
 }
 #recent_domains ul .remove {
-  float: right;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  color: #999;
 }

@@ -39,7 +39,7 @@
       app.SwipeView.swipe.next();
       $("#domain").val(this.model.get('url'));
       app.SecretView.render(this.model);
-      return $('#secret')[0].setSelectionRange(0, 999);
+      return $('#secret').focus();
     };
 
     return DomainView;
