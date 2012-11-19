@@ -29,20 +29,15 @@ class window.SecretView extends Backbone.View
     if app.Config.get 'save_all'
       app.ConfigView.saveConfig()
 
-  newSecret: (master, domain, config) ->
-    new Secret
-      master: master
-      domain: domain
-      config: config
-
   render: (model) ->
     if model instanceof Backbone.Model
       config = model.get 'config'
     config ||= app.Config.toJSON()
 
-    secret = @newSecret $('#master').val(),
-                        $('#domain').val(),
-                        config
+    secret = new Secret
+      master: $('#master').val()
+      domain: $('#domain').val()
+      config: config
 
     if secret
       $('#secret').val secret.get 'secret'

@@ -6,7 +6,6 @@ class window.DomainView extends Backbone.View
     'click .domain': 'load'
 
   initialize: ->
-    # @model.on('change', @render, this);
     @model.on('destroy', @remove, this);
 
   render: (html) ->
@@ -21,5 +20,5 @@ class window.DomainView extends Backbone.View
     e.preventDefault()
     app.SwipeView.swipe.next()
     $("#domain").val @model.get 'url'
-    app.SecretView.render(@model)
-    $('#secret')[0].setSelectionRange 0, 999
+    app.SecretView.render @model
+    $('#secret').focus()
