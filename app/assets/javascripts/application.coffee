@@ -1,8 +1,13 @@
+window.addEventListener 'load', ->
+  new FastClick document.body
+, false
+
 window.app ||= {
   mobile: (/mobile/i).test(navigator.userAgent)
 }
 
 $ ->
+
   # Models
   app.Config = new Config
 
