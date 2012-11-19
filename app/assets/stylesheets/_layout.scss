@@ -267,6 +267,7 @@ small {
     li {
       margin: 0;
       padding: 0;
+      position: relative;
       @include clearfix;
       @include border-radius(3px);
       &:hover {
@@ -290,11 +291,13 @@ small {
     }
     .domain {
       font-weight: bold;
-      float: left;
-      width: 90%;
     }
     .remove {
-      float: right;
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      right: 0;
+      color: #999;
     }
   }
 }
