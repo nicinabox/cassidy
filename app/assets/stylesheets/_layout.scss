@@ -17,7 +17,7 @@ p {
 }
 
 #header {
-  position: fixed;
+  position: relative;
   top: 0;
   z-index: 5;
   width: 100%;
@@ -58,7 +58,7 @@ p {
 
 #main {
   width: 300px;
-  margin: 60px auto;
+  margin: 40px auto;
 }
 #page-content {
   margin: 40px auto;
@@ -122,7 +122,7 @@ p {
 .panel-nav {
   position: relative;
   margin: 0 auto;
-  top: 50px;
+  top: 90px;
   width: 400px;
   display: none;
   a {

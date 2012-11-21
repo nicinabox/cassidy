@@ -469,7 +469,7 @@ table {
 }
 
 body {
-  background: #f7f7f7 url('../images/fabric_plaid.png?1328464244') left top repeat;
+  background: #f7f7f7 url('../images/debut_light.png?1352309482') left top repeat;
 }
 
 a {
@@ -487,7 +487,7 @@ p {
 }
 
 #header {
-  position: fixed;
+  position: relative;
   top: 0;
   z-index: 5;
   width: 100%;
@@ -553,7 +553,7 @@ p {
 
 #main {
   width: 300px;
-  margin: 60px auto;
+  margin: 40px auto;
 }
 
 #page-content {
@@ -627,7 +627,7 @@ p {
 .panel-nav {
   position: relative;
   margin: 0 auto;
-  top: 50px;
+  top: 90px;
   width: 400px;
   display: none;
 }
