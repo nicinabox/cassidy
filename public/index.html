@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <title>Hatchpass</title>
+
+  <link href='http://fonts.googleapis.com/css?family=Signika' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/stylesheets/application.css">
+  <link rel="stylesheet" href="/stylesheets/mobile.css" media="only screen and (max-device-width: 480px)"/>
+
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png"/>
+  <link rel="apple-touch-icon-precomposed" href="icon" />
+
+  <!--[if lt IE 9]>
+    <link rel="stylesheet" href="/stylesheets/ie.css">
+  <![endif]-->
+
+  <script src="/javascripts/vendor/modernizr.custom-2.5.3.js"></script>
+  <script src="/javascripts/modernizr.load.js"></script>
+</head>
+<body>
+  <div id="header">
+    <a id="logo" href="/">Hatchpass</a>
+  </div>
+
+  <div class="help">
+  <strong>Confused?</strong>
+  <a href="http://nicinabox.com/blog/how-hatchpass-works/" target="_blank">Read about how Hatchpass works.</a>
+  <a href="#" class="close">&times;</a>
+</div>
+
+<nav class="panel-nav">
+  <a href="#settings" class="next" data-direction="next"><span>Settings</span></a>
+  <a href="#recent_domains" class="prev" data-direction="prev"><span>Recent</span></a>
+</nav>
+
+<div id="main">
+  <div class="flash"></div>
+
+  <div id="swipe">
+    <div class="swipe-container">
+      <div id="recent_domains" class="panel" data-title="Recent">
+        <ul>
+          <li class="no-results">You have no recent domains</li>
+        </ul>
+      </div>
+
+      <div id="new_secret" class="panel" data-title="Hatchpass">
+        <form action="" method="post" accept-charset="utf-8">
+          <div class="field">
+            <label for="master">Master</label>
+            <input type="password" id="master" name="master" value="" class="required">
+          </div>
+          <div class="field">
+            <label for="domain">Domain</label>
+            <input type="url" id="domain" name="domain" value="" class="required">
+          </div>
+          <div class="field invisible">
+            <input type="text" id="secret" name="secret" readonly>
+            <small class="show-on-mobile hint">Scroll slightly to trigger copy menu</small>
+          </div>
+          <div class="actions hidden">
+            <input type="submit" value="submit">
+          </div>
+        </form>
+      </div>
+
+      <div id="settings" class="panel" data-title="Settings">
+        <form>
+         <div class="field switch">
+           <label for="caps">Caps</label>
+
+           <div class="onoffswitch">
+            <input type="hidden" name="caps" value="false" readonly="true">
+            <input type="checkbox" name="caps" value="true" id="caps" class="onoffswitch-checkbox">
+            <label class="onoffswitch-label" for="caps">
+              <div class="onoffswitch-inner">
+                <div class="onoffswitch-active">ON</div>
+                <div class="onoffswitch-inactive">OFF</div>
+              </div>
+              <div class="onoffswitch-switch"></div>
+            </label>
+          </div>
+
+        </div>
+        <div class="field switch">
+          <label for="symbols">Symbols</label>
+
+          <div class="onoffswitch">
+            <input type="hidden" name="symbols" value="false" readonly="true">
+            <input type="checkbox" name="symbols" value="true" id="symbols" class="onoffswitch-checkbox">
+            <label class="onoffswitch-label" for="symbols">
+              <div class="onoffswitch-inner">
+                <div class="onoffswitch-active">ON</div>
+                <div class="onoffswitch-inactive">OFF</div>
+              </div>
+              <div class="onoffswitch-switch"></div>
+            </label>
+          </div>
+
+        </div>
+        <div class="field">
+          <label for="length">Length</label>
+          <input type="number" name="length" value="" id="length" class="required">
+        </div>
+        <div class="field">
+          <label for="key">Key</label>
+          <input type="text" name="key" value="" id="key" class="required" autocapitalize="off">
+        </div>
+        <hr>
+        <div class="field switch">
+          <label for="save_all">Save All</label>
+
+          <div class="onoffswitch">
+            <input type="hidden" name="save_all" value="false" readonly="true">
+            <input type="checkbox" name="save_all" value="true" id="save_all" class="onoffswitch-checkbox">
+            <label class="onoffswitch-label" for="save_all">
+              <div class="onoffswitch-inner">
+                <div class="onoffswitch-active">ON</div>
+                <div class="onoffswitch-inactive">OFF</div>
+              </div>
+              <div class="onoffswitch-switch"></div>
+            </label>
+          </div>
+        </div>
+        </form>
+        </div>
+    </div>
+  </div>
+
+  <script type="text/template" id="recent-domain-template">
+    <a href='#${url}' class='domain'>
+      ${url}
+    </a>
+    <a href='#remove' class='remove'>&times;</a>
+  </script>
+</div>
+
+  <div id="footer">
+    <nav>
+      <span>A project by <a href="http://twitter.com/nicinabox">@nicinabox</a></span>
+      <a href="/about">About</a>
+      <a href="/privacy">Privacy</a>
+    </nav>
+  </div>
+
+  <script type="text/javascript">
+    var _gauges = _gauges || [];
+    (function() {
+      var t   = document.createElement('script');
+      t.type  = 'text/javascript';
+      t.async = true;
+      t.id    = 'gauges-tracker';
+      t.setAttribute('data-site-id', '4f29ec75cb25bc695d00006b');
+      t.src = '//secure.gaug.es/track.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(t, s);
+    })();
+  </script>
+
+
+</body>
+</html>
