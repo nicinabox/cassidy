@@ -1,0 +1,24 @@
+{
+  "name": "hatchpass",
+  "version": "2.0.0",
+  "authors": [
+    "Nic Aitch <nic@nicinabox.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "lodash": "~2.4.1",
+    "backbone": "~1.1.2",
+    "jquery": "~2.1.0",
+    "bootstrap-sass": "twbs/bootstrap-sass#~3.1.1",
+    "handlebars": "~1.3.0"
+  }
+}

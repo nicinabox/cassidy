@@ -1,0 +1,25 @@
+{
+  "name": "hatchpass",
+  "version": "2.0.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git@nicinabox.com:hatchpass-javascript.git"
+  },
+  "author": "nicinabox",
+  "license": "MIT",
+  "dependencies": {
+    "grunt": "^0.4.4"
+  },
+  "devDependencies": {
+    "grunt-contrib-coffee": "^0.10.1",
+    "grunt-contrib-compass": "^0.7.2",
+    "grunt-contrib-concat": "^0.3.0",
+    "grunt-contrib-connect": "^0.7.1",
+    "grunt-contrib-copy": "^0.5.0",
+    "grunt-contrib-handlebars": "^0.7.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-usemin": "^2.1.0",
+    "lodash": "^2.4.1"
+  }
+}

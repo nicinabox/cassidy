@@ -18,3 +18,7 @@ tmtags
 coverage
 rdoc
 pkg
+
+bower_components
+node_modules
+public
