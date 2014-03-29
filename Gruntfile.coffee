@@ -1,3 +1,5 @@
+_ = require('lodash')
+
 module.exports = (grunt) ->
   require('load-grunt-tasks')(grunt)
 
@@ -13,15 +15,15 @@ module.exports = (grunt) ->
         files: 'Gruntfile*'
 
       scripts:
-        files: 'app/javascripts/*'
+        files: 'app/javascripts/**/*.coffee'
         tasks: ['coffee']
 
       styles:
-        files: 'app/stylesheets/*'
+        files: 'app/stylesheets/**/*.scss'
         tasks: ['compass']
 
       templates:
-        files: 'app/templates/*'
+        files: 'app/templates/**/*.hbs'
 
       html:
         files: ['app/*.html']
@@ -31,6 +33,9 @@ module.exports = (grunt) ->
       compile:
         options:
           namespace: "JST"
+          processName: (filePath) ->
+            _.last(filePath.split('/')).replace('.hbs', '')
+
         files:
           "public/javascripts/templates.js": [
             "app/templates/*.hbs"
@@ -41,7 +46,9 @@ module.exports = (grunt) ->
         bare: true
       compileBare:
         files:
-          "public/javascripts/application.js": ['app/javascripts/**/*']
+          "public/javascripts/application.js": [
+            'app/javascripts/**/*.coffee'
+          ]
 
     compass:
       dist:

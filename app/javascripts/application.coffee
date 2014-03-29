@@ -1,2 +1,5 @@
-$ ->
-  console.log('hello')
+App =
+  initialize: ->
+    new App.ApplicationView
+
+$ App.initialize
