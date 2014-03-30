@@ -1,7 +1,7 @@
 class App.GeneratorView extends Backbone.View
   template: JST['generator']
   id: 'generator'
-  className: 'col-sm-6 col-sm-push-4'
+  className: 'col-sm-7 col-md-6 col-md-push-4 col-sm-push-5'
 
   events:
     'submit form': 'saveService'
