@@ -15,6 +15,7 @@ class App.SettingsView extends Backbone.View
   render: ->
     @$el.html @template @model.attributes
     @$('.placeholder-passphrase').replaceWith @passphraseView.render()
+    @passphraseView.delegateEvents()
     @el
 
   updateModel: (e) ->
@@ -34,4 +35,3 @@ class App.SettingsView extends Backbone.View
     e.preventDefault()
     @model.clear silent: true
     @model.set @model.defaults
-    @passphraseView.delegateEvents()
