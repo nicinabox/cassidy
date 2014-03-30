@@ -5,14 +5,16 @@ class App.SettingsView extends Backbone.View
 
   events:
     'change form': 'updateModel'
+    'click .reset-settings': 'resetSettings'
 
   initialize: ->
     @model = new App.SettingsModel
+    @listenTo @model, 'change', @render
     @passphraseView = new App.PassPhraseView
 
   render: ->
     @$el.html @template @model.attributes
-    @$el.append @passphraseView.render()
+    @$('.placeholder-passphrase').replaceWith @passphraseView.render()
     @el
 
   updateModel: (e) ->
@@ -22,3 +24,13 @@ class App.SettingsView extends Backbone.View
 
     @model.clear silent: true
     @model.set data
+    @updateService()
+
+  updateService: ->
+    App.views.generator.saveService()
+
+  resetSettings: (e) ->
+    e.preventDefault()
+    @model.clear silent: true
+    @model.set @model.defaults
+    @passphraseView.delegateEvents()

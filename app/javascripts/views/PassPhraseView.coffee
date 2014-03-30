@@ -25,6 +25,7 @@ class App.PassPhraseView extends Backbone.View
 
   toggleInputType: (e) ->
     e.preventDefault()
+
     $target = $(e.target)
     @$('input').attr 'type', (i, attr) ->
       if attr == 'password'

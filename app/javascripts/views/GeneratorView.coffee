@@ -10,9 +10,8 @@ class App.GeneratorView extends Backbone.View
     @$el.html @template()
     @el
 
-  saveService: (e) ->
-    e.preventDefault()
-    data = _.merge $(e.target).serializeObject(),
+  saveService: ->
+    data = _.merge @$('form').serializeObject(),
               settings: App.views.settings.model.attributes
 
     model = App.collections.services.where(service: data.service)[0]

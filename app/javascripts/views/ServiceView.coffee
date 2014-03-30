@@ -18,7 +18,13 @@ class App.ServiceView extends Backbone.View
   populateGenerator: (e) ->
     e.preventDefault()
     view = App.views.generator
+    @populateSettings()
     view.$('[name=service]').val @model.get('service')
+
+  populateSettings: ->
+    settings = App.views.settings.model
+    settings.clear silent: true
+    settings.set @model.get('settings')
 
   clear: (e) ->
     @model.destroy()
