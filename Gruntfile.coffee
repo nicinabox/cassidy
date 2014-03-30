@@ -52,6 +52,7 @@ module.exports = (grunt) ->
             'app/javascripts/models/*.coffee'
             'app/javascripts/collections/*.coffee'
             'app/javascripts/views/*.coffee'
+            'app/javascripts/helpers/*.coffee'
             'app/javascripts/initialize.coffee'
           ]
 
