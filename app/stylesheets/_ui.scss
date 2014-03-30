@@ -1,0 +1,11 @@
+.no-results {
+  font-weight: normal;
+  text-align: center;
+  border: 1px dashed #ddd;
+  @include border-radius(3px);
+  font-size: 16px;
+  color: $gray-light;
+  font-weight: 300;
+  padding: 20px;
+  line-height: 1.3;
+}

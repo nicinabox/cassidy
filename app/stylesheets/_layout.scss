@@ -48,6 +48,33 @@
   }
 }
 
+#settings {
+  .toggle {
+    margin-bottom: 0;
+    label {
+      display: block;
+      text-align: center;
+      cursor: pointer;
+      padding: 10px;
+      color: #444;
+      @include border-radius(3px);
+      @include transition(background 200ms ease-out);
+      &:hover {
+        background: #eee;
+      }
+    }
+    input[type="checkbox"] {
+      display: none;
+      &:checked {
+        + label {
+          background: $brand-primary;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
 #generator {
   margin-top: 30px;
 }

@@ -4,6 +4,9 @@ class App.SettingsView extends Backbone.View
   className: 'tab-pane'
   tagName: 'form'
 
+  initialize: ->
+    @model = new App.SettingsModel
+
   render: ->
-    @$el.html @template()
+    @$el.html @template @model.attributes
     @el
