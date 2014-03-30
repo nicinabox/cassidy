@@ -6,6 +6,7 @@ class App.SettingsView extends Backbone.View
   events:
     'change form': 'updateModel'
     'click .reset-settings': 'resetSettings'
+    'click .clear-data': 'clearData'
 
   initialize: ->
     @model = new App.SettingsModel
@@ -35,3 +36,9 @@ class App.SettingsView extends Backbone.View
     e.preventDefault()
     @model.clear silent: true
     @model.set @model.defaults
+
+  clearData: (e) ->
+    e.preventDefault()
+    if confirm 'Are you sure you want to clear all saved data?'
+      localStorage.clear()
+      window.location.reload()

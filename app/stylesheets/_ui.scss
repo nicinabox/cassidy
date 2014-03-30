@@ -9,3 +9,10 @@
   padding: 20px;
   line-height: 1.3;
 }
+
+.btn-link-danger {
+  color: $brand-danger;
+  &:hover {
+    color: darken($brand-danger, 10%);
+  }
+}
