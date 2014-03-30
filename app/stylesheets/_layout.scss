@@ -1,0 +1,48 @@
+#root {
+  @extend .container;
+  margin: 0;
+}
+
+#sidebar {
+  @include clearfix;
+  background: #fafafa;
+  padding: 0;
+  overflow: auto;
+  nav {
+    margin: 30px 0;
+    a {
+      display: block;
+      padding: 15px 15px;
+      border-bottom: 1px solid #eee;
+      position: relative;
+      @include text-overflow;
+      @include transition(background 200ms ease-out);
+      &:hover {
+        text-decoration: none;
+        background: #eee;
+        .remove {
+          right: 0;
+          @include opacity(1);
+        }
+      }
+      .remove {
+        @include opacity(0);
+        background: #eee;
+        position: absolute;
+        right: -30px;
+        padding: 5px 15px;
+        top: 10px;
+        font-weight: bold;
+        color: #aaa;
+        @include transition(right 200ms ease-out, opacity 200ms ease-out);
+        &:hover {
+          color: $brand-danger;
+        }
+      }
+    }
+  }
+}
+
+#generator {
+  margin-top: 30px;
+}
