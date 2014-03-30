@@ -17,6 +17,7 @@ class App.ApplicationView extends Backbone.View
 
     _.each collections, (v, k) ->
       App.collections[k] = v
+      v.fetch()
 
   setupViews: ->
     views = {

@@ -8,7 +8,6 @@ class App.ServicesView extends Backbone.View
 
     @collection = App.collections.services
     @listenTo @collection, 'sync', @render
-    @collection.fetch()
 
   render: ->
     if @collection.length

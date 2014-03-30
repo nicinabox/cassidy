@@ -5,12 +5,33 @@ class App.GeneratorView extends Backbone.View
 
   events:
     'submit form': 'saveService'
+    'keyup input[name=service]': 'submitForm'
+    'keyup input[name=service]': 'toggleBorderClass'
+
+  initialize: ->
 
   render: ->
     @$el.html @template()
+    @typeahead()
     @el
 
-  saveService: ->
+  typeahead: ->
+    @$('input[name=service]').typeahead({
+      highlight: true
+    }, App.collections.services.toDataset())
+
+  updateTypeahead: ->
+    @$('input[name=service]').typeahead('destroy')
+    @typeahead()
+
+  submitForm: (e) ->
+    if e.which == 13
+      @$('input[name=service]').typeahead('close')
+      $(e.target.form).trigger('submit')
+
+  saveService: (e) ->
+    e.preventDefault() if e
+
     data = _.merge @$('form').serializeObject(),
               settings: App.views.settings.model.attributes
 
@@ -24,3 +45,9 @@ class App.GeneratorView extends Backbone.View
       # Rollback
       unless model.isValid()
         model.destroy()
+
+    @updateTypeahead()
+
+  toggleBorderClass: ->
+    @$('[name=service]').toggleClass 'no-border-radius',
+      @$('.tt-dropdown-menu').is(':visible')
