@@ -6,9 +6,6 @@ class App.GeneratorView extends Backbone.View
   events:
     'submit form': 'saveService'
     'keyup input[name=service]': 'submitForm'
-    'keyup input[name=service]': 'toggleBorderClass'
-
-  initialize: ->
 
   render: ->
     @$el.html @template()
@@ -25,6 +22,8 @@ class App.GeneratorView extends Backbone.View
     @typeahead()
 
   submitForm: (e) ->
+    @toggleBorderClass()
+
     if e.which == 13
       @$('input[name=service]').typeahead('close')
       $(e.target.form).trigger('submit')
