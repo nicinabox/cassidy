@@ -12,9 +12,16 @@ class App.GeneratorView extends Backbone.View
 
   saveService: (e) ->
     e.preventDefault()
-    data = $(e.target).serializeObject()
-    model = App.collections.services.create data
+    data = _.merge $(e.target).serializeObject(),
+              settings: App.views.settings.model.attributes
 
-    # Rollback
-    unless model.isValid()
-      model.destroy()
+    model = App.collections.services.where(service: data.service)[0]
+
+    if model
+      model.save(data)
+    else
+      model = App.collections.services.create data
+
+      # Rollback
+      unless model.isValid()
+        model.destroy()

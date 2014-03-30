@@ -1,26 +1,28 @@
-<div class="form-group">
-  <div class="toggle">
-    <input type="checkbox" name="lower" id="lower" {{checked lower}}>
-    <label for="lower">a-z</label>
+<form action="">
+  <div class="form-group">
+    <div class="toggle">
+      <input type="checkbox" name="lower" id="lower" {{checked lower}}>
+      <label for="lower">a-z</label>
+    </div>
+
+    <div class="toggle">
+      <input type="checkbox" name="upper" id="upper" {{checked upper}}>
+      <label for="upper">A-Z</label>
+    </div>
+
+    <div class="toggle">
+      <input type="checkbox" name="numbers" id="numbers" {{checked numbers}}>
+      <label for="numbers">0-9</label>
+    </div>
+
+    <div class="toggle">
+      <input type="checkbox" name="symbols" id="symbols" {{checked symbols}}>
+      <label for="symbols">-\%</label>
+    </div>
   </div>
 
-  <div class="toggle">
-    <input type="checkbox" name="upper" id="upper" {{checked upper}}>
-    <label for="upper">A-Z</label>
+  <div class="form-group">
+    <label for="length">Length</label>
+    <input type="text" name="length" id="length" class="form-control" value="{{length}}">
   </div>
-
-  <div class="toggle">
-    <input type="checkbox" name="numbers" id="numbers" {{checked numbers}}>
-    <label for="numbers">0-9</label>
-  </div>
-
-  <div class="toggle">
-    <input type="checkbox" name="symbols" id="symbols" {{checked symbols}}>
-    <label for="symbols">-\%</label>
-  </div>
-</div>
-
-<div class="form-group">
-  <label for="length">Length</label>
-  <input type="text" name="length" id="length" class="form-control" value="{{length}}">
-</div>
+</form>
