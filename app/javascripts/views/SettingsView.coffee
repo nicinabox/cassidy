@@ -27,7 +27,8 @@ class App.SettingsView extends Backbone.View
     @updateService()
 
   updateService: ->
-    App.views.generator.saveService()
+    if App.views.generator.populated
+      App.views.generator.saveService()
 
   resetSettings: (e) ->
     e.preventDefault()

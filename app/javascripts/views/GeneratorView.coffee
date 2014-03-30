@@ -51,3 +51,6 @@ class App.GeneratorView extends Backbone.View
   toggleBorderClass: ->
     @$('[name=service]').toggleClass 'no-border-radius',
       @$('.tt-dropdown-menu').is(':visible')
+
+  populated: ->
+    !!@$('[name=service').val()
