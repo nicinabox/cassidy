@@ -1,4 +1,6 @@
 class App.ServicesView extends Backbone.View
+  id: 'services'
+  className: 'tab-pane active'
   tagName: 'nav'
 
   initialize: ->
