@@ -20,8 +20,8 @@ class App.ApplicationView extends Backbone.View
 
   setupViews: ->
     views = {
-      sidebar: new App.SidebarView
       generator: new App.GeneratorView
+      sidebar: new App.SidebarView
     }
 
     _.each views, (v, k) =>

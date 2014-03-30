@@ -11,6 +11,9 @@
   .tab-pane {
     margin-top: 20px;
   }
+  @include respond-to($container-sm) {
+    height: auto !important;
+  }
 }
 
 #services {

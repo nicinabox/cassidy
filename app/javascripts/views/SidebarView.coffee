@@ -1,7 +1,7 @@
 class App.SidebarView extends Backbone.View
   id: 'sidebar'
   template: JST['sidebar']
-  className: 'col-sm-3'
+  className: 'col-sm-3 col-sm-pull-6'
 
   initialize: ->
     App.views.sidebar_tabs = new App.SidebarTabsView
