@@ -24,6 +24,7 @@ module.exports = (grunt) ->
 
       templates:
         files: 'app/templates/**/*.hbs'
+        tasks: ['handlebars']
 
       html:
         files: ['app/*.html']
@@ -34,7 +35,9 @@ module.exports = (grunt) ->
         options:
           namespace: "JST"
           processName: (filePath) ->
-            _.last(filePath.split('/')).replace('.hbs', '')
+            filePath
+              .replace('app/templates/', '')
+              .replace('.hbs', '')
 
         files:
           "public/javascripts/templates.js": [
@@ -42,12 +45,14 @@ module.exports = (grunt) ->
           ]
 
     coffee:
-      options:
-        bare: true
       compileBare:
         files:
           "public/javascripts/application.js": [
-            'app/javascripts/**/*.coffee'
+            'app/javascripts/*.coffee'
+            'app/javascripts/models/*.coffee'
+            'app/javascripts/collections/*.coffee'
+            'app/javascripts/views/*.coffee'
+            'app/javascripts/initialize.coffee'
           ]
 
     compass:
