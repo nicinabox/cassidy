@@ -22,4 +22,7 @@ class App.ServiceView extends Backbone.View
 
   clear: (e) ->
     @model.destroy()
+    unless App.collections.services.length
+      App.views.services.render()
+
     false

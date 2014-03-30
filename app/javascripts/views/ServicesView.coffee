@@ -11,7 +11,11 @@ class App.ServicesView extends Backbone.View
     @collection.fetch()
 
   render: ->
-    @addServices()
+    if @collection.length
+      @addServices()
+    else
+      @$el.html App.noResults('Your recent services appear here.')
+
     @el
 
   addServices: ->
