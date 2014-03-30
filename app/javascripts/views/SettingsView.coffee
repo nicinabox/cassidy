@@ -6,7 +6,9 @@ class App.SettingsView extends Backbone.View
 
   initialize: ->
     @model = new App.SettingsModel
+    @passphraseView = new App.PassPhraseView
 
   render: ->
     @$el.html @template @model.attributes
+    @$el.append @passphraseView.render()
     @el
