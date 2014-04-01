@@ -76,7 +76,7 @@ module.exports = (grunt) ->
     useminPrepare:
       options:
         dest: 'public'
-      html: 'app/index.html'
+      html: 'public/index.html'
 
     usemin:
       html: 'public/index.html'
