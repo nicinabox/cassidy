@@ -12,11 +12,14 @@ class App.GeneratorView extends Backbone.View
     'focus .result': 'toggleHint'
     'blur .result': 'toggleHint'
 
+  initialize: ->
+    @listenForEscape()
+    @mobileResults()
+
   render: ->
     @$el.html @template()
     @typeahead()
     @setSuperKey()
-    @listenForEscape()
     @el
 
   typeahead: ->
@@ -72,8 +75,7 @@ class App.GeneratorView extends Backbone.View
     @$('.result').select()
 
   setSuperKey: ->
-    if /Win/.test(navigator.appVersion)
-      @$('.super-key').text('Ctrl+')
+    @$('.super-key').text('Ctrl+') if App.platform == 'win'
 
   clearForm: (e) ->
     e.preventDefault() if e
@@ -99,6 +101,10 @@ class App.GeneratorView extends Backbone.View
 
   populated: ->
     !!@$('[name=service]').val().length
+
+  mobileResults: ->
+    return unless App.isMobile
+    @$('.results').removeAttr('readonly')
 
   serviceData: ->
     settingsView = App.views.settings
