@@ -11,14 +11,16 @@ class App.GeneratorView extends Backbone.View
     'click .result': 'selectResult'
     'focus .result': 'toggleHint'
     'blur .result': 'toggleHint'
+    'keydown .result': 'preventChange'
+    'cut .result': 'preventChange'
 
   initialize: ->
     @listenForEscape()
-    @mobileResults()
 
   render: ->
     @$el.html @template()
     @typeahead()
+    @removeReadonlyOnMobile()
     @setSuperKey()
     @el
 
@@ -72,7 +74,12 @@ class App.GeneratorView extends Backbone.View
     @updateTypeahead()
 
   selectResult: (e) ->
-    @$('.result').select()
+    e.preventDefault() if e
+    $result = @$('.result')
+    $result[0].setSelectionRange(0, $result[0].value.length);
+
+  preventChange: (e) ->
+    false
 
   setSuperKey: ->
     @$('.super-key').text('Ctrl+') if App.platform == 'win'
@@ -102,9 +109,9 @@ class App.GeneratorView extends Backbone.View
   populated: ->
     !!@$('[name=service]').val().length
 
-  mobileResults: ->
+  removeReadonlyOnMobile: ->
     return unless App.isMobile
-    @$('.results').removeAttr('readonly')
+    @$('.result').removeAttr('readonly')
 
   serviceData: ->
     settingsView = App.views.settings
