@@ -49,6 +49,7 @@ module.exports = (grunt) ->
         files:
           "public/javascripts/application.js": [
             'app/javascripts/*.coffee'
+            'app/javascripts/utils/*.coffee'
             'app/javascripts/models/*.coffee'
             'app/javascripts/collections/*.coffee'
             'app/javascripts/views/*.coffee'
