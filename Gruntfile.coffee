@@ -97,6 +97,7 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'compile', [
     'handlebars'
+    'copy'
     'compass'
     'coffee'
   ]
