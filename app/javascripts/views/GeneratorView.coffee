@@ -16,6 +16,7 @@ class App.GeneratorView extends Backbone.View
     @$el.html @template()
     @typeahead()
     @setSuperKey()
+    @listenForEscape()
     @el
 
   typeahead: ->
@@ -90,6 +91,11 @@ class App.GeneratorView extends Backbone.View
 
   toggleHint: ->
     @$('.hint').toggleClass('visible')
+
+  listenForEscape: ->
+    $(document).on 'keyup', (e) =>
+      if e.which == 27
+        @clearForm()
 
   populated: ->
     !!@$('[name=service]').val().length
