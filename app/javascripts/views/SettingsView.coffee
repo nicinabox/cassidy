@@ -31,20 +31,23 @@ class App.SettingsView extends Backbone.View
     data = _.merge @model.inverseDefaults(), data
 
     @model.clear silent: true
-    @model.set data
+    @model.set data, silent: true
     @updateService()
 
   updateService: ->
     generator = App.views.generator
 
-    if generator.populated
+    if generator.populated?()
       generator.saveService()
       generator.generatePassword()
+    else
+      @model.save()
 
   resetSettings: (e) ->
     e.preventDefault() if e
     @model.clear silent: true
     @model.setDefaults()
+    @updateService()
 
   clearData: (e) ->
     e.preventDefault()

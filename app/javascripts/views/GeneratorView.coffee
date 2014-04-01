@@ -79,6 +79,7 @@ class App.GeneratorView extends Backbone.View
     @$('form')[0].reset()
     @toggleClearButton()
     App.views.settings.resetSettings()
+    @$('[name=service]').focus()
 
   toggleBorderClass: ->
     @$('[name=service]').toggleClass 'no-border-radius',
@@ -91,7 +92,7 @@ class App.GeneratorView extends Backbone.View
     @$('.hint').toggleClass('visible')
 
   populated: ->
-    !!@$('[name=service').val()
+    !!@$('[name=service]').val().length
 
   serviceData: ->
     settingsView = App.views.settings
