@@ -1,12 +1,13 @@
 class App.SettingsModel extends Backbone.Model
   localStorage: new Backbone.LocalStorage("default-settings")
 
-  defaults:
+  defaults: ->
     length: 20
     upper: true
     lower: true
     numbers: true
     symbols: true
+    key: @newKey()
 
   initialize: ->
     @store = new App.Storage('settings')

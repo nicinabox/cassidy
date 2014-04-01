@@ -13,3 +13,6 @@ class App.Storage
     catch e
       data
 
+  clear: ->
+    localStorage.clear()
+

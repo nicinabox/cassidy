@@ -10,8 +10,7 @@ class App.SettingsView extends Backbone.View
 
   initialize: ->
     @model = new App.SettingsModel
-    @listenTo @model, 'sync', @render
-
+    @listenTo @model, 'change', @render
     @passphraseView = new App.PassPhraseView
 
   render: ->
@@ -36,7 +35,7 @@ class App.SettingsView extends Backbone.View
   resetSettings: (e) ->
     e.preventDefault()
     @model.clear silent: true
-    @model.set @model.defaults
+    @model.set @model.defaults()
 
   clearData: (e) ->
     e.preventDefault()
