@@ -67,9 +67,11 @@ module.exports = (grunt) ->
           cssDir: "public/stylesheets"
 
     copy:
-      html:
-        src: 'app/index.html'
-        dest: 'public/index.html'
+      main:
+        cwd: 'app/'
+        src: ['*.html', 'CNAME']
+        dest: 'public/'
+        expand: true
 
     useminPrepare:
       options:
