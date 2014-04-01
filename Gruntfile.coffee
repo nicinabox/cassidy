@@ -120,5 +120,5 @@ module.exports = (grunt) ->
   ]
 
   grunt.registerTask 'deploy', [
-    'build'
+    'compile'
   ]
