@@ -79,6 +79,7 @@ class App.GeneratorView extends Backbone.View
     $result[0].setSelectionRange(0, $result[0].value.length);
 
   preventChange: (e) ->
+    return unless App.mobile
     false
 
   setSuperKey: ->
