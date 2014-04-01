@@ -537,6 +537,9 @@
     };
 
     GeneratorView.prototype.preventChange = function(e) {
+      if (!App.mobile) {
+        return;
+      }
       return false;
     };
 
