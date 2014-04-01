@@ -29,7 +29,6 @@ class App.GeneratorView extends Backbone.View
 
   submitForm: (e) ->
     @toggleBorderClass()
-    @toggleClearButton()
 
     if e.which == 13
       @$('input[name=service]').typeahead('close')
@@ -45,6 +44,7 @@ class App.GeneratorView extends Backbone.View
     e.preventDefault() if e
     return unless @$('[name=service]').val().length
 
+    @toggleClearButton()
     data = @serviceData()
     generator = new App.Generator(data)
     @$('.result').val generator.result || generator.error

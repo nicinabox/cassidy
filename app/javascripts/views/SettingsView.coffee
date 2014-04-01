@@ -4,7 +4,7 @@ class App.SettingsView extends Backbone.View
   className: 'tab-pane'
 
   events:
-    'change form': 'updateModel'
+    'change form': 'updateSettings'
     'click .reset-settings': 'resetSettings'
     'click .clear-data': 'clearData'
 
@@ -22,7 +22,7 @@ class App.SettingsView extends Backbone.View
     @phraseView.delegateEvents()
     @el
 
-  updateModel: (e) ->
+  updateSettings: (e) ->
     data = $(e.currentTarget).serializeObject()
     defaults = @model.defaults()
 
