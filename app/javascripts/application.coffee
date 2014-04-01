@@ -22,5 +22,5 @@ window.App =
       @platform = 'osx'
 
   setMobile: ->
-    if /mobile/i.test(navigator.appVersion)
+    if /mobile/i.test(navigator.userAgent)
       @isMobile = true
