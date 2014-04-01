@@ -7,10 +7,15 @@ class App.GeneratorView extends Backbone.View
     'submit form': 'generatePassword'
     'change input[name=service]': 'generatePassword'
     'keyup input[name=service]': 'submitForm'
+    'click .clear': 'clearForm'
+    'click .result': 'selectResult'
+    'focus .result': 'toggleHint'
+    'blur .result': 'toggleHint'
 
   render: ->
     @$el.html @template()
     @typeahead()
+    @setSuperKey()
     @el
 
   typeahead: ->
@@ -24,17 +29,17 @@ class App.GeneratorView extends Backbone.View
 
   submitForm: (e) ->
     @toggleBorderClass()
+    @toggleClearButton()
 
     if e.which == 13
       @$('input[name=service]').typeahead('close')
-      @$('.result').select()
+      @selectResult()
       @saveService()
 
     if e.target.value
       $(e.target.form).trigger('submit')
     else
-      e.target.form.reset()
-      App.views.settings.resetSettings()
+      @clearForm()
 
   generatePassword: (e) ->
     e.preventDefault() if e
@@ -62,9 +67,28 @@ class App.GeneratorView extends Backbone.View
 
     @updateTypeahead()
 
+  selectResult: (e) ->
+    @$('.result').select()
+
+  setSuperKey: ->
+    if /Win/.test(navigator.appVersion)
+      @$('.super-key').text('Ctrl+')
+
+  clearForm: (e) ->
+    e.preventDefault() if e
+    @$('form')[0].reset()
+    @toggleClearButton()
+    App.views.settings.resetSettings()
+
   toggleBorderClass: ->
     @$('[name=service]').toggleClass 'no-border-radius',
       @$('.tt-dropdown-menu').is(':visible')
+
+  toggleClearButton: ->
+    @$('.clear').toggle !!@$('[name=service]').val().length
+
+  toggleHint: ->
+    @$('.hint').toggleClass('visible')
 
   populated: ->
     !!@$('[name=service').val()
