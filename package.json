@@ -4,7 +4,7 @@
   "description": "",
   "repository": {
     "type": "git",
-    "url": "git@nicinabox.com:hatchpass-javascript.git"
+    "url": "https://github.com/nicinabox/cassidy.git"
   },
   "author": "nicinabox",
   "license": "MIT",
