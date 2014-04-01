@@ -7794,12 +7794,13 @@ button.close {
 #generator input.result {
   background: none;
   border: none;
-  font-size: 18px;
+  font-size: 20px;
+  font-family: Monaco, monospace;
   width: 100%;
   outline: none;
   cursor: pointer;
 }
-/* line 95, ../../app/stylesheets/_layout.scss */
+/* line 96, ../../app/stylesheets/_layout.scss */
 #generator .hint {
   color: #ddd;
   margin-top: 3px;
@@ -7814,12 +7815,12 @@ button.close {
   zoom: 1;
   *display: inline;
 }
-/* line 101, ../../app/stylesheets/_layout.scss */
+/* line 102, ../../app/stylesheets/_layout.scss */
 #generator .hint.visible {
   opacity: 1;
   filter: alpha(opacity=100);
 }
-/* line 105, ../../app/stylesheets/_layout.scss */
+/* line 106, ../../app/stylesheets/_layout.scss */
 #generator .clear {
   font-weight: bold;
   position: absolute;
@@ -7837,7 +7838,7 @@ button.close {
   *display: inline;
   display: none;
 }
-/* line 116, ../../app/stylesheets/_layout.scss */
+/* line 117, ../../app/stylesheets/_layout.scss */
 #generator .clear:hover {
   text-decoration: none;
   color: #aaa;
