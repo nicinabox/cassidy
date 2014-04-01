@@ -10,7 +10,8 @@ class App.SettingsView extends Backbone.View
 
   initialize: ->
     @model = new App.SettingsModel
-    @listenTo @model, 'change', @render
+    @listenTo @model, 'sync', @render
+
     @passphraseView = new App.PassPhraseView
 
   render: ->

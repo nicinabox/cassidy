@@ -1,5 +1,8 @@
 class App.PassPhraseModel extends Backbone.Model
-  localStorage: new Backbone.LocalStorage("passphrase")
 
-  parse: (data) ->
-    data[0] if data
+  initialize: ->
+    @store = new App.Storage
+    @set @store.get('passphrase')
+
+    @on 'change', (model) ->
+      @store.set('passphrase', model.attributes)

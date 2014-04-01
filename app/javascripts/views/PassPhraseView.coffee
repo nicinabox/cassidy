@@ -7,21 +7,16 @@ class App.PassPhraseView extends Backbone.View
 
   initialize: ->
     @model = new App.PassPhraseModel
-    @listenTo @model, 'sync', @renderContent
 
   render: ->
-    @renderContent()
-    @model.fetch()
-    @el
-
-  renderContent: ->
     @$el.html @template @model.attributes
+    @el
 
   save: (e) ->
     return if e.type == 'keyup' and e.which != 13
 
     val = e.target.value
-    @model.save('passphrase', val)
+    @model.set('passphrase', val)
 
   toggleInputType: (e) ->
     e.preventDefault()
