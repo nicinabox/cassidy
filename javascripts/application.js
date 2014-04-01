@@ -16,6 +16,19 @@
       return template({
         message: message
       });
+    },
+    setPlatform: function() {
+      if (/win/i.test(navigator.appVersion)) {
+        this.platform = 'win';
+      }
+      if (/mac/i.test(navigator.appVersion)) {
+        return this.platform = 'osx';
+      }
+    },
+    setMobile: function() {
+      if (/mobile/i.test(navigator.userAgent)) {
+        return this.isMobile = true;
+      }
     }
   };
 
@@ -444,11 +457,15 @@
       'blur .result': 'toggleHint'
     };
 
+    GeneratorView.prototype.initialize = function() {
+      this.listenForEscape();
+      return this.mobileResults();
+    };
+
     GeneratorView.prototype.render = function() {
       this.$el.html(this.template());
       this.typeahead();
       this.setSuperKey();
-      this.listenForEscape();
       return this.el;
     };
 
@@ -517,7 +534,7 @@
     };
 
     GeneratorView.prototype.setSuperKey = function() {
-      if (/Win/.test(navigator.appVersion)) {
+      if (App.platform === 'win') {
         return this.$('.super-key').text('Ctrl+');
       }
     };
@@ -556,6 +573,13 @@
 
     GeneratorView.prototype.populated = function() {
       return !!this.$('[name=service]').val().length;
+    };
+
+    GeneratorView.prototype.mobileResults = function() {
+      if (!App.isMobile) {
+        return;
+      }
+      return this.$('.results').removeAttr('readonly');
     };
 
     GeneratorView.prototype.serviceData = function() {
