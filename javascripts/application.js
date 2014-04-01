@@ -72,7 +72,7 @@
     function Generator(data) {
       var e;
       try {
-        this.result = new Vault(data.settings).generate(data.service);
+        this.result = new App.Vault(data.settings).generate_with_key(data.service, data.settings.key);
       } catch (_error) {
         e = _error;
         this.error = e;
@@ -235,6 +235,78 @@
     return SettingsModel;
 
   })(Backbone.Model);
+
+}).call(this);
+
+(function() {
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  App.Vault = (function(_super) {
+    __extends(Vault, _super);
+
+    function Vault() {
+      return Vault.__super__.constructor.apply(this, arguments);
+    }
+
+    Vault.prototype.generate_with_key = function(service, key) {
+      var charset, i, index, previous, required, result, same, stream;
+      if (this._required.length > this._length) {
+        throw new Error("Length too small to fit all required characters");
+      }
+      if (this._allowed.length === 0) {
+        throw new Error("No characters available to create a password");
+      }
+      required = this._required.slice();
+      stream = new App.Vault.Stream(this._phrase, service, key, this.entropy());
+      result = "";
+      index = void 0;
+      charset = void 0;
+      previous = void 0;
+      i = void 0;
+      same = void 0;
+      while (result.length < this._length) {
+        index = stream.generate(required.length);
+        charset = required.splice(index, 1)[0];
+        previous = result.charAt(result.length - 1);
+        i = this._repeat - 1;
+        same = previous && (i >= 0);
+        while (same && i--) {
+          same = same && result.charAt(result.length + i - this._repeat) === previous;
+        }
+        if (same) {
+          charset = this.subtract([previous], charset.slice());
+        }
+        index = stream.generate(charset.length);
+        result += charset[index];
+      }
+      return result;
+    };
+
+    return Vault;
+
+  })(Vault);
+
+  App.Vault.Stream = (function(_super) {
+    __extends(Stream, _super);
+
+    function Stream(phrase, service, key, entropy) {
+      var bits, hash;
+      this._phrase = phrase;
+      this._service = service;
+      hash = Vault.createHash(phrase, service + Vault.UUID + key, 2 * entropy);
+      bits = Vault.map(hash.split(""), Vault.toBits).join("").split("");
+      this._bases = {
+        2: Vault.map(bits, function(s) {
+          return parseInt(s, 2);
+        })
+      };
+      return;
+    }
+
+    return Stream;
+
+  })(Vault.Stream);
 
 }).call(this);
 
