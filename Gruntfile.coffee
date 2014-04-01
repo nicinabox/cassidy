@@ -76,7 +76,8 @@ module.exports = (grunt) ->
     useminPrepare:
       options:
         dest: 'public'
-      html: 'app/index.html'
+        root: './'
+      html: 'public/index.html'
 
     usemin:
       html: 'public/index.html'
@@ -97,7 +98,7 @@ module.exports = (grunt) ->
 
   grunt.initConfig config
 
-  grunt.registerTask 'compile', [
+  grunt.registerTask 'build', [
     'handlebars'
     'copy'
     'compass'
@@ -105,13 +106,19 @@ module.exports = (grunt) ->
   ]
 
   grunt.registerTask 'default', [
-    'compile'
+    'build'
     'connect'
     'watch'
   ]
 
-  grunt.registerTask 'deploy', [
-    'compile'
+  grunt.registerTask 'compile', [
+    'build'
     'useminPrepare'
+    'concat'
+    'uglify'
     'usemin'
+  ]
+
+  grunt.registerTask 'deploy', [
+    'build'
   ]
