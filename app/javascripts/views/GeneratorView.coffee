@@ -4,7 +4,8 @@ class App.GeneratorView extends Backbone.View
   className: 'col-sm-7 col-md-6 col-md-push-4 col-sm-push-5'
 
   events:
-    'submit form': 'saveService'
+    'submit form': 'generatePassword'
+    'change input[name=service]': 'generatePassword'
     'keyup input[name=service]': 'submitForm'
 
   render: ->
@@ -26,14 +27,28 @@ class App.GeneratorView extends Backbone.View
 
     if e.which == 13
       @$('input[name=service]').typeahead('close')
+      @$('.result').select()
+      @saveService()
+
+    if e.target.value
       $(e.target.form).trigger('submit')
+    else
+      e.target.form.reset()
+      App.views.settings.resetSettings()
+
+  generatePassword: (e) ->
+    e.preventDefault() if e
+    return unless @$('[name=service]').val().length
+
+    data = @serviceData()
+    generator = new App.Generator(data)
+    @$('.result').val generator.result || generator.error
 
   saveService: (e) ->
-    e.preventDefault() if e
+    settings = App.views.settings.model
+    data = @serviceData()
 
-    data = _.merge @$('form').serializeObject(),
-              settings: App.views.settings.model.attributes
-
+    _.each settings.protectedAttributes, (attr) -> delete data.settings[attr]
     model = App.collections.services.where(service: data.service)[0]
 
     if model
@@ -53,3 +68,14 @@ class App.GeneratorView extends Backbone.View
 
   populated: ->
     !!@$('[name=service').val()
+
+  serviceData: ->
+    settingsView = App.views.settings
+    form_data = @$('form').serializeObject()
+
+    # Merge phrase with settings
+    settings  = _.merge settingsView.model.attributes,
+      settingsView.phraseView.model.attributes
+
+    # Merge form data with settings
+    _.merge form_data, settings: settings

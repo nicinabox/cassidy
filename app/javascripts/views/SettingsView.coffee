@@ -11,31 +11,40 @@ class App.SettingsView extends Backbone.View
   initialize: ->
     @model = new App.SettingsModel
     @listenTo @model, 'change', @render
-    @passphraseView = new App.PassPhraseView
+    @listenTo @model, 'change:key', (model, value) ->
+      @model.save('key', value)
+
+    @phraseView = new App.PhraseView
 
   render: ->
     @$el.html @template @model.attributes
-    @$('.placeholder-passphrase').replaceWith @passphraseView.render()
-    @passphraseView.delegateEvents()
+    @$('.placeholder-passphrase').replaceWith @phraseView.render()
+    @phraseView.delegateEvents()
     @el
 
   updateModel: (e) ->
     data = $(e.currentTarget).serializeObject()
-    _.forEach data, (v, k) ->
-      data[k] = true if v == 'on'
+    defaults = @model.defaults()
+
+    # Fix checkbox data
+    _.forEach data, (v, k) -> data[k] = defaults[k] if v == 'on'
+    data = _.merge @model.inverseDefaults(), data
 
     @model.clear silent: true
     @model.set data
     @updateService()
 
   updateService: ->
-    if App.views.generator.populated
-      App.views.generator.saveService()
+    generator = App.views.generator
+
+    if generator.populated
+      generator.saveService()
+      generator.generatePassword()
 
   resetSettings: (e) ->
-    e.preventDefault()
+    e.preventDefault() if e
     @model.clear silent: true
-    @model.set @model.defaults()
+    @model.setDefaults()
 
   clearData: (e) ->
     e.preventDefault()

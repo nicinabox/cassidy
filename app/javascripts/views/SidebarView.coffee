@@ -4,6 +4,8 @@ class App.SidebarView extends Backbone.View
   className: 'col-sm-4 col-md-3 col-md-pull-6 col-sm-pull-7'
 
   initialize: ->
+    _.bindAll this, 'setHeight'
+    $(window).resize @setHeight
     App.views.sidebar_tabs = new App.SidebarTabsView
     App.views.services = new App.ServicesView
     App.views.settings = new App.SettingsView
@@ -17,4 +19,4 @@ class App.SidebarView extends Backbone.View
     @el
 
   setHeight: ->
-    @$el.height($(window).height())
+    @$el.outerHeight($(window).height(), true)

@@ -3,18 +3,36 @@ class App.SettingsModel extends Backbone.Model
 
   defaults: ->
     length: 20
-    upper: true
-    lower: true
-    numbers: true
-    symbols: true
+    upper: 1
+    lower: 1
+    number: 1
+    symbol: 1
+    dash: 1
+    space: 0
     key: @newKey()
+
+  inverseDefaults: ->
+    space: 0
+    upper: 0
+    lower: 0
+    number: 0
+    symbol: 0
+    dash: 0
+
+  protectedAttributes: ['key', 'phrase']
 
   initialize: ->
     @store = new App.Storage('settings')
     @setDefaults()
 
-    @on 'change:key', (model) ->
-      @store.set('defaults', model.attributes)
+  save: (attr, value) ->
+    if attr
+      @set attr, value
+      values = @store.get('defaults')
+      values[attr] = value
+      @store.set('defaults', values)
+    else
+      @store.set('defaults', @attributes)
 
   newKey: ->
     time = new Date().getTime().toString()
@@ -25,9 +43,9 @@ class App.SettingsModel extends Backbone.Model
     defaults = @store.get('defaults')
     unless defaults
       @set 'key', @newKey(), silent: true
-      defaults = @store.set('defaults', @attributes)
+      defaults = @save()
 
-    @set defaults
+    @set _.merge @defaults(), defaults
 
   parse: (data) ->
     data[0] if data

@@ -84,4 +84,14 @@
 
 #generator {
   margin: 30px 0;
+  input {
+    margin-bottom: 20px;
+  }
+  input.result {
+    background: none;
+    border: none;
+    font-size: 18px;
+    width: 100%;
+    outline: none;
+  }
 }

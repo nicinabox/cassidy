@@ -1,12 +1,11 @@
-class App.PassPhraseView extends Backbone.View
-  template: JST['passphrase']
+class App.PhraseView extends Backbone.View
+  template: JST['phrase']
   events:
-    'blur input': 'save'
-    'keyup input': 'save'
+    'change input': 'save'
     'click .toggle-visibility': 'toggleInputType'
 
   initialize: ->
-    @model = new App.PassPhraseModel
+    @model = new App.PhraseModel
 
   render: ->
     @$el.html @template @model.attributes
@@ -16,7 +15,8 @@ class App.PassPhraseView extends Backbone.View
     return if e.type == 'keyup' and e.which != 13
 
     val = e.target.value
-    @model.set('passphrase', val)
+    @model.set('phrase', val)
+    App.views.settings.updateService()
 
   toggleInputType: (e) ->
     e.preventDefault()
