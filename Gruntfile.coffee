@@ -109,3 +109,9 @@ module.exports = (grunt) ->
     'connect'
     'watch'
   ]
+
+  grunt.registerTask 'deploy', [
+    'compile'
+    'useminPrepare'
+    'usemin'
+  ]
