@@ -96,6 +96,12 @@ module.exports = (grunt) ->
               connect.static('public')
             ]
 
+    shell:
+      deploy_sh:
+        options:
+          stdout: true
+        command: 'sh deploy.sh'
+
   grunt.initConfig config
 
   grunt.registerTask 'build', [
@@ -121,4 +127,5 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'deploy', [
     'compile'
+    'shell:deploy_sh'
   ]
