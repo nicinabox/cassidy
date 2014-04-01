@@ -448,6 +448,7 @@
       this.$el.html(this.template());
       this.typeahead();
       this.setSuperKey();
+      this.listenForEscape();
       return this.el;
     };
 
@@ -541,6 +542,16 @@
 
     GeneratorView.prototype.toggleHint = function() {
       return this.$('.hint').toggleClass('visible');
+    };
+
+    GeneratorView.prototype.listenForEscape = function() {
+      return $(document).on('keyup', (function(_this) {
+        return function(e) {
+          if (e.which === 27) {
+            return _this.clearForm();
+          }
+        };
+      })(this));
     };
 
     GeneratorView.prototype.populated = function() {
