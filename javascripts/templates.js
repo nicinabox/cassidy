@@ -15,7 +15,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<form action=\"\">\n  <div class=\"form-group\">\n    <input type=\"service\" name=\"service\" class=\"form-control input-lg\" placeholder=\"Eg, google.com\" autocomplete=\"off\" autofocus>\n    <a href=\"#\" class=\"clear\" tabindex=\"-1\">&times;</a>\n  </div>\n\n  <div class=\"form-group\">\n    <input type=\"text\" class=\"result\" readonly>\n    <small class=\"hint\">\n      <span class=\"super-key\">⌘</span>C\n    </small>\n  </div>\n</form>\n";
+  return "<form action=\"\">\n  <div class=\"form-group\">\n    <input type=\"service\" name=\"service\" class=\"form-control input-lg\" placeholder=\"Eg, google.com\" autocomplete=\"off\" autocapitalize=\"off\" autocorrect=\"off\" autofocus>\n    <a href=\"#\" class=\"clear\" tabindex=\"-1\">&times;</a>\n  </div>\n\n  <div class=\"form-group\">\n    <input type=\"text\" class=\"result\" readonly>\n    <small class=\"hint\">\n      <span class=\"super-key\">⌘</span>C\n    </small>\n  </div>\n</form>\n";
   });
 
 this["JST"]["no_results"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
