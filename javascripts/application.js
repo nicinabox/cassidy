@@ -25,11 +25,7 @@
         return this.platform = 'osx';
       }
     },
-    setMobile: function() {
-      if (/mobile/i.test(navigator.userAgent)) {
-        return this.isMobile = true;
-      }
-    }
+    isMobile: /mobile/i.test(navigator.userAgent)
   };
 
 }).call(this);
@@ -454,17 +450,19 @@
       'click .clear': 'clearForm',
       'click .result': 'selectResult',
       'focus .result': 'toggleHint',
-      'blur .result': 'toggleHint'
+      'blur .result': 'toggleHint',
+      'keydown .result': 'preventChange',
+      'cut .result': 'preventChange'
     };
 
     GeneratorView.prototype.initialize = function() {
-      this.listenForEscape();
-      return this.mobileResults();
+      return this.listenForEscape();
     };
 
     GeneratorView.prototype.render = function() {
       this.$el.html(this.template());
       this.typeahead();
+      this.removeReadonlyOnMobile();
       this.setSuperKey();
       return this.el;
     };
@@ -530,7 +528,16 @@
     };
 
     GeneratorView.prototype.selectResult = function(e) {
-      return this.$('.result').select();
+      var $result;
+      if (e) {
+        e.preventDefault();
+      }
+      $result = this.$('.result');
+      return $result[0].setSelectionRange(0, $result[0].value.length);
+    };
+
+    GeneratorView.prototype.preventChange = function(e) {
+      return false;
     };
 
     GeneratorView.prototype.setSuperKey = function() {
@@ -575,11 +582,11 @@
       return !!this.$('[name=service]').val().length;
     };
 
-    GeneratorView.prototype.mobileResults = function() {
+    GeneratorView.prototype.removeReadonlyOnMobile = function() {
       if (!App.isMobile) {
         return;
       }
-      return this.$('.results').removeAttr('readonly');
+      return this.$('.result').removeAttr('readonly');
     };
 
     GeneratorView.prototype.serviceData = function() {
