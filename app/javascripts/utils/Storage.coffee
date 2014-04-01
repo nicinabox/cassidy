@@ -3,11 +3,11 @@ class App.Storage
 
   set: (key, value) ->
     value = JSON.stringify value unless typeof value == 'string'
-    localStorage.setItem([@namespace, key].join('_'), value)
+    localStorage.setItem(@namespacedKey(key), value)
     @get key
 
   get: (key) ->
-    data = localStorage.getItem([@namespace, key].join('_'))
+    data = localStorage.getItem(@namespacedKey(key))
     try
       JSON.parse(data)
     catch e
@@ -16,3 +16,5 @@ class App.Storage
   clear: ->
     localStorage.clear()
 
+  namespacedKey: (key) ->
+    [@namespace, key].filter((n) -> n).join('_')
