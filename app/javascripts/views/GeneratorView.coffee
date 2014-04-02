@@ -61,6 +61,7 @@ class App.GeneratorView extends Backbone.View
 
     _.each settings.protectedAttributes, (attr) -> delete data.settings[attr]
     model = App.collections.services.where(service: data.service)[0]
+    data.settings = JSON.stringify(data.settings)
 
     if model
       model.save(data)
@@ -123,4 +124,4 @@ class App.GeneratorView extends Backbone.View
       settingsView.phraseView.model.attributes
 
     # Merge form data with settings
-    _.merge form_data, settings: settings
+    _.merge form_data , settings: settings

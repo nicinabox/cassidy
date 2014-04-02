@@ -1,6 +1,17 @@
 class App.ServicesCollection extends Backbone.Collection
   model: App.ServiceModel
-  localStorage: new Backbone.LocalStorage("services")
+
+  setStorage: ->
+    if Backbone.DropboxDatastore.client.isAuthenticated()
+      @dropboxDatastore = new Backbone.DropboxDatastore('services')
+    else
+      @localStorage = new Backbone.LocalStorage("services")
+
+  initialize: ->
+    @setStorage()
+
+    if @dropboxDatastore
+      @dropboxDatastore.syncCollection(this)
 
   comparator: (model) ->
     model.get('service')
