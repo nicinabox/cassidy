@@ -38,6 +38,10 @@ class App.SettingsModel extends Backbone.Model
       @store.set('defaults', attrs)
 
     if @dropboxStore
+      if !@result
+        results = @table.query()
+        @result = results[0]
+
       if @result.getFields().key != @get('key')
         @result.set 'key', @get('key')
 
@@ -64,8 +68,8 @@ class App.SettingsModel extends Backbone.Model
       ds.openDefaultDatastore (error, store) =>
         @table = store.getTable('default-settings')
         results = @table.query()
-
         @result = results[0]
+
         if @result
           @set @result.getFields()
           @trigger 'sync'
