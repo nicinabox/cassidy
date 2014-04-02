@@ -50,7 +50,7 @@ class App.SettingsView extends Backbone.View
   resetSettings: (e) ->
     e.preventDefault() if e
     @model.clear silent: true
-    @model.setDefaults()
+    @model.resetDefaults()
     @updateService()
 
   clearData: (e) ->

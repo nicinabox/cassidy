@@ -46,6 +46,11 @@ class App.SettingsModel extends Backbone.Model
     CryptoJS.PBKDF2(time, '', { keySize: 128/32 })
       .toString().substr(0, 5)
 
+  resetDefaults: ->
+    @set @defaults()
+    @saveKey()
+    @trigger('sync')
+
   setInitialDefaults: ->
     if @store
       defaults = @store.get('defaults')
@@ -66,7 +71,3 @@ class App.SettingsModel extends Backbone.Model
           @trigger 'sync'
         else
           @table.insert @toJSON()
-
-
-  parse: (data) ->
-    data[0] if data
