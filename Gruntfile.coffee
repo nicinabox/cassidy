@@ -5,6 +5,19 @@ module.exports = (grunt) ->
 
   config =
     pkg: grunt.file.readJSON('package.json')
+    aws: grunt.file.readJSON('grunt-aws.json')
+
+    s3:
+      options:
+        key: '<%= aws.key %>'
+        secret: '<%= aws.secret %>'
+        bucket: '<%= aws.bucket %>'
+        access: 'public-read'
+      production:
+        upload: [
+          src: 'public/**/*'
+          rel: 'public'
+        ]
 
     watch:
       options:
@@ -96,10 +109,12 @@ module.exports = (grunt) ->
             ]
 
     shell:
-      deploy_sh:
+      deploy_github:
         options:
           stdout: true
         command: 'sh deploy.sh'
+
+
 
   grunt.initConfig config
 
@@ -126,5 +141,5 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'deploy', [
     'compile'
-    'shell:deploy_sh'
+    's3:production'
   ]
