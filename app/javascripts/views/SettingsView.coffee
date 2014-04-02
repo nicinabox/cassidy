@@ -56,8 +56,14 @@ class App.SettingsView extends Backbone.View
   clearData: (e) ->
     e.preventDefault()
     if confirm 'Are you sure you want to clear all saved data?'
-      localStorage.clear()
-      window.location.reload()
+      if Backbone.DropboxDatastore.client.isAuthenticated()
+        client = Backbone.DropboxDatastore.client
+        ds = client.getDatastoreManager()
+        ds.deleteDatastore 'default', ->
+          window.location.reload()
+      else
+        localStorage.clear()
+        window.location.reload()
 
   disconnectDropbox: (e) ->
     e.preventDefault()
