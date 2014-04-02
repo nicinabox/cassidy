@@ -1,5 +1,11 @@
 class App.SettingsModel extends Backbone.Model
-  localStorage: new Backbone.LocalStorage("default-settings")
+
+  # Fallback on localStorage
+  setStorage: ->
+    if Backbone.DropboxDatastore.client.isAuthenticated()
+      @dropboxStore = Backbone.DropboxDatastore.client
+    else
+      @store = new App.Storage('settings')
 
   defaults: ->
     length: 20
@@ -22,30 +28,45 @@ class App.SettingsModel extends Backbone.Model
   protectedAttributes: ['key', 'phrase']
 
   initialize: ->
-    @store = new App.Storage('settings')
-    @setDefaults()
+    @setStorage()
+    @setInitialDefaults()
 
-  save: (attr, value) ->
-    if attr
-      @set attr, value
-      values = @store.get('defaults')
-      values[attr] = value
-      @store.set('defaults', values)
-    else
-      @store.set('defaults', @attributes)
+  saveKey: ->
+    if @store
+      attrs = @store.get('defaults')
+      attrs.key = @get('key')
+      @store.set('defaults', attrs)
+
+    if @dropboxStore
+      if @result.getFields().key != @get('key')
+        @result.set 'key', @get('key')
 
   newKey: ->
     time = new Date().getTime().toString()
     CryptoJS.PBKDF2(time, '', { keySize: 128/32 })
       .toString().substr(0, 5)
 
-  setDefaults: ->
-    defaults = @store.get('defaults')
-    unless defaults
-      @set 'key', @newKey(), silent: true
-      defaults = @save()
+  setInitialDefaults: ->
+    if @store
+      defaults = @store.get('defaults')
+      if defaults
+        @set defaults
+      else
+        @store.set 'defaults', @toJSON()
 
-    @set _.merge @defaults(), defaults
+    if @dropboxStore
+      ds = @dropboxStore.getDatastoreManager()
+      ds.openDefaultDatastore (error, store) =>
+        @table = store.getTable('default-settings')
+        results = @table.query()
+
+        @result = results[0]
+        if @result
+          @set @result.getFields()
+          @trigger 'sync'
+        else
+          @table.insert @toJSON()
+
 
   parse: (data) ->
     data[0] if data

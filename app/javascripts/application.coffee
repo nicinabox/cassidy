@@ -8,6 +8,9 @@ window.App =
   collections: {}
 
   initialize: ->
+    dropbox = new App.DropboxClient
+    Backbone.DropboxDatastore.client = dropbox.client
+
     new App.ApplicationView
 
   noResults: (message) ->

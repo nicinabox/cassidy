@@ -7,17 +7,23 @@ class App.SettingsView extends Backbone.View
     'change form': 'updateSettings'
     'click .reset-settings': 'resetSettings'
     'click .clear-data': 'clearData'
+    'click .connect-dropbox': 'connectDropbox'
+    'click .disconnect-dropbox': 'disconnectDropbox'
 
   initialize: ->
+    _.bindAll this, 'render'
+
     @model = new App.SettingsModel
-    @listenTo @model, 'change', @render
-    @listenTo @model, 'change:key', (model, value) ->
-      @model.save('key', value)
+    @listenTo @model, 'sync', @render
+    @listenTo @model, 'change:key', (model, prop) ->
+      @model.saveKey()
 
     @phraseView = new App.PhraseView
 
   render: ->
-    @$el.html @template @model.attributes
+    @$el.html @template _.extend _.clone(@model.attributes),
+      dropbox_auth: Backbone.DropboxDatastore.client.isAuthenticated()
+
     @$('.placeholder-passphrase').replaceWith @phraseView.render()
     @phraseView.delegateEvents()
     @el
@@ -31,7 +37,7 @@ class App.SettingsView extends Backbone.View
     data = _.merge @model.inverseDefaults(), data
 
     @model.clear silent: true
-    @model.set data, silent: true
+    @model.set data
     @updateService()
 
   updateService: ->
@@ -40,8 +46,6 @@ class App.SettingsView extends Backbone.View
     if generator.populated?()
       generator.saveService()
       generator.generatePassword()
-    else
-      @model.save()
 
   resetSettings: (e) ->
     e.preventDefault() if e
@@ -54,3 +58,11 @@ class App.SettingsView extends Backbone.View
     if confirm 'Are you sure you want to clear all saved data?'
       localStorage.clear()
       window.location.reload()
+
+  disconnectDropbox: (e) ->
+    e.preventDefault()
+    Backbone.DropboxDatastore.client.signOut({}, @render)
+
+  connectDropbox: (e) ->
+    e.preventDefault()
+    Backbone.DropboxDatastore.client.authenticate()
