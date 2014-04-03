@@ -4,9 +4,10 @@ class App.GeneratorView extends Backbone.View
   className: 'col-sm-7 col-md-6 col-md-push-4 col-sm-push-5'
 
   events:
-    'submit form': 'generatePassword'
-    'change input[name=service]': 'generatePassword'
     'keyup input[name=service]': 'submitForm'
+    'change input[name=service]': 'generatePassword'
+    'submit form': 'generatePassword'
+
     'click .clear': 'clearForm'
     'click .result': 'selectResult'
     'focus .result': 'toggleHint'
@@ -16,10 +17,11 @@ class App.GeneratorView extends Backbone.View
 
   initialize: ->
     @listenForEscape()
+    @listenToOnce App.collections.services, 'sync', ->
+      @typeahead()
 
   render: ->
     @$el.html @template()
-    @typeahead()
     @removeReadonlyOnMobile()
     @setSuperKey()
     @el
@@ -29,12 +31,12 @@ class App.GeneratorView extends Backbone.View
       highlight: true
     }, App.collections.services.toDataset())
 
-  updateTypeahead: ->
-    @$('input[name=service]').typeahead('destroy')
-    @typeahead()
-
   submitForm: (e) ->
     @toggleBorderClass()
+
+    if e.which == 27
+      return
+      # e.target.blur()
 
     if e.which == 13
       @$('input[name=service]').typeahead('close')
@@ -42,7 +44,7 @@ class App.GeneratorView extends Backbone.View
       @saveService()
 
     if e.target.value
-      $(e.target.form).trigger('submit')
+      @generatePassword()
     else
       @clearForm()
 
@@ -72,8 +74,6 @@ class App.GeneratorView extends Backbone.View
       unless model.isValid()
         model.destroy()
 
-    @updateTypeahead()
-
   selectResult: (e) ->
     e.preventDefault() if e
     $result = @$('.result')
@@ -88,6 +88,8 @@ class App.GeneratorView extends Backbone.View
 
   clearForm: (e) ->
     e.preventDefault() if e
+
+    @$('input[name=service]').typeahead('close')
     @$('form')[0].reset()
     @toggleClearButton()
     App.views.settings.resetSettings()
