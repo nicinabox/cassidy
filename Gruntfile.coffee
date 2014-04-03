@@ -108,12 +108,6 @@ module.exports = (grunt) ->
               connect.static('public')
             ]
 
-    shell:
-      deploy_github:
-        options:
-          stdout: true
-        command: 'sh deploy.sh'
-
     invalidate_cloudfront:
       options:
         key: '<%= aws.key %>',
