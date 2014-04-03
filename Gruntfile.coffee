@@ -114,7 +114,19 @@ module.exports = (grunt) ->
           stdout: true
         command: 'sh deploy.sh'
 
-
+    invalidate_cloudfront:
+      options:
+        key: '<%= aws.key %>',
+        secret: '<%= aws.secret %>',
+        distribution: 'E304OOCZVQB21'
+      production:
+        files: [
+          expand: true,
+          cwd: './public/',
+          src: ['**/*'],
+          filter: 'isFile',
+          dest: ''
+        ]
 
   grunt.initConfig config
 
@@ -142,4 +154,5 @@ module.exports = (grunt) ->
   grunt.registerTask 'deploy', [
     'compile'
     's3:production'
+    'invalidate_cloudfront'
   ]
