@@ -96,6 +96,7 @@ module.exports = (grunt) ->
         cwd: 'app'
         dest: 'dist'
         src: [
+          'images/*'
           '*.html'
         ]
 
