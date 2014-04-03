@@ -2,13 +2,20 @@ class App.ApplicationView extends Backbone.View
   template: JST['application']
   el: '#root'
 
+  events:
+    'click .connect-dropbox': 'connectDropbox'
+    'click .connect-dropbox.connected': 'disconnectDropbox'
+
   initialize: ->
+    @dropboxAuth = Backbone.DropboxDatastore.client.isAuthenticated()
     @render()
     @setupCollections()
     @setupViews()
 
   render: ->
-    @$el.html @template()
+    attrs =
+      connectedClass: if @dropboxAuth then 'connected' else ''
+    @$el.html @template attrs
 
   setupCollections: ->
     collections = {
@@ -28,3 +35,13 @@ class App.ApplicationView extends Backbone.View
     _.each views, (v, k) =>
       App.views[k] = v
       @$('.row').append v.render()
+
+  disconnectDropbox: (e) ->
+    e.preventDefault()
+    Backbone.DropboxDatastore.client.signOut {}, ->
+      window.location.reload()
+
+  connectDropbox: (e) ->
+    e.preventDefault()
+    return if @dropboxAuth
+    Backbone.DropboxDatastore.client.authenticate()

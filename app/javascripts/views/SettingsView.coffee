@@ -7,8 +7,6 @@ class App.SettingsView extends Backbone.View
     'change form': 'updateSettings'
     'click .reset-settings': 'resetSettings'
     'click .clear-data': 'clearData'
-    'click .connect-dropbox': 'connectDropbox'
-    'click .disconnect-dropbox': 'disconnectDropbox'
 
   initialize: ->
     _.bindAll this, 'render'
@@ -64,11 +62,3 @@ class App.SettingsView extends Backbone.View
       else
         localStorage.clear()
         window.location.reload()
-
-  disconnectDropbox: (e) ->
-    e.preventDefault()
-    Backbone.DropboxDatastore.client.signOut({}, @render)
-
-  connectDropbox: (e) ->
-    e.preventDefault()
-    Backbone.DropboxDatastore.client.authenticate()

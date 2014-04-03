@@ -44,12 +44,10 @@
 <div class="placeholder-passphrase"></div>
 
 <div class="danger-zone">
-  {{#if dropbox_auth}}
-    <a href="#" class="btn btn-link disconnect-dropbox">Disconnect Dropbox</a><br>
-    <a href="#" class="btn btn-link btn-link-danger clear-data">Clear Dropbox data</a>
-  {{else}}
-    <a href="#" class="btn btn-link connect-dropbox">Connect Dropbox</a><br>
-    <a href="#" class="btn btn-link btn-link-danger clear-data">Clear local data</a>
-  {{/if}}
   <a href="#" class="btn btn-link reset-settings">Reset settings</a><br>
+  {{#if dropbox_auth}}
+    <a href="#" class="btn btn-link btn-link-danger clear-data">Clear Dropbox data</a><br>
+  {{else}}
+    <a href="#" class="btn btn-link btn-link-danger clear-data">Clear local data</a><br>
+  {{/if}}
 </div>
