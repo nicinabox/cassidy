@@ -107,6 +107,14 @@ module.exports = (grunt) ->
     usemin:
       html: 'release/index.html'
 
+    htmlmin:
+      release:
+        options:
+          removeComments: true,
+          collapseWhitespace: true
+        files:
+          'release/index.html': 'release/index.html',
+
     connect:
       server:
         options:
@@ -160,6 +168,7 @@ module.exports = (grunt) ->
     'concat'
     'uglify'
     'usemin'
+    'htmlmin'
   ]
 
   grunt.registerTask 'deploy', [
