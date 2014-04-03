@@ -46,7 +46,7 @@ class App.SettingsModel extends Backbone.Model
         @result.set 'key', @get('key')
 
   newKey: ->
-    time = new Date().getTime().toString()
+    time = new Date().getTime().toString() + Math.floor(Math.random() * 100000)
     CryptoJS.PBKDF2(time, '', { keySize: 128/32 })
       .toString().substr(0, 5)
 
