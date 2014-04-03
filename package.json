@@ -14,6 +14,7 @@
   },
   "devDependencies": {
     "backbone.dropboxdatastore": "git://github.com/dmytroyarmak/Backbone.dropboxDatastore#master",
+    "grunt-contrib-clean": "^0.5.0",
     "grunt-contrib-coffee": "^0.10.1",
     "grunt-contrib-compass": "^0.7.2",
     "grunt-contrib-concat": "^0.4.0",

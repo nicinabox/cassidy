@@ -21,7 +21,8 @@ pkg
 
 bower_components
 node_modules
-public
+public/
+release/
 .tmp
 
 grunt-aws.json

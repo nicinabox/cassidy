@@ -71,28 +71,41 @@ module.exports = (grunt) ->
           ]
 
     compass:
-      dist:
+      options:
+        importPath: [
+          'bower_components/bootstrap-sass/vendor/assets/stylesheets'
+        ]
+        sassDir: "app/stylesheets"
+      main:
         options:
-          importPath: [
-            'bower_components/bootstrap-sass/vendor/assets/stylesheets'
-          ]
-          sassDir: "app/stylesheets"
           cssDir: "public/stylesheets"
+          environment: 'development'
+      release:
+        options:
+          cssDir: "release/stylesheets"
+          environment: 'production'
+
+    clean: ['release/**/*']
 
     copy:
-      main:
+      public:
         cwd: 'app/'
-        src: ['*.html', 'CNAME']
-        dest: 'public/'
         expand: true
+        src: ['*.html']
+        dest: 'public/'
+      release:
+        cwd: 'app/'
+        expand: true
+        src: ['*.html']
+        dest: 'release/'
 
     useminPrepare:
       options:
-        dest: 'public'
-      html: 'public/index.html'
+        dest: 'release'
+      html: 'app/index.html'
 
     usemin:
-      html: 'public/index.html'
+      html: 'release/index.html'
 
     connect:
       server:
@@ -126,7 +139,7 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'build', [
     'handlebars'
-    'copy'
+    'copy:public'
     'compass'
     'coffee'
   ]
@@ -138,7 +151,11 @@ module.exports = (grunt) ->
   ]
 
   grunt.registerTask 'compile', [
-    'build'
+    'clean'
+    'handlebars'
+    'copy:release'
+    'compass:release'
+    'coffee'
     'useminPrepare'
     'concat'
     'uglify'
