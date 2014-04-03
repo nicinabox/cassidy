@@ -50,7 +50,13 @@ class App.SettingsModel extends Backbone.Model
     CryptoJS.PBKDF2(time, '', { keySize: 128/32 })
       .toString().substr(0, 5)
 
-  resetDefaults: ->
+  resetOptions: ->
+    defaults = @defaults()
+    delete defaults.key
+    @set defaults
+    @trigger('sync')
+
+  resetAllDefaults: ->
     @set @defaults()
     @saveKey()
     @trigger('sync')
