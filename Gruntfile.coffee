@@ -15,14 +15,14 @@ module.exports = (grunt) ->
         access: 'public-read'
       production:
         upload: [
-          src: 'public/**/*'
-          rel: 'public'
+          src: 'dist/**/*'
+          rel: 'dist'
         ]
 
     watch:
       options:
         livereload: true
-        files: ['public/**/*']
+        files: ['.tmp/**/*', 'Gruntfile*']
 
       gruntfile:
         files: 'Gruntfile*'
@@ -39,10 +39,6 @@ module.exports = (grunt) ->
         files: 'app/templates/**/*.hbs'
         tasks: ['handlebars']
 
-      html:
-        files: ['app/*.html']
-        tasks: ['copy']
-
     handlebars:
       compile:
         options:
@@ -53,14 +49,14 @@ module.exports = (grunt) ->
               .replace('.hbs', '')
 
         files:
-          "public/javascripts/templates.js": [
+          ".tmp/javascripts/templates.js": [
             "app/templates/*.hbs"
           ]
 
     coffee:
       compileBare:
         files:
-          "public/javascripts/application.js": [
+          ".tmp/javascripts/application.js": [
             'app/javascripts/*.coffee'
             'app/javascripts/utils/*.coffee'
             'app/javascripts/models/*.coffee'
@@ -76,57 +72,66 @@ module.exports = (grunt) ->
           'bower_components/bootstrap-sass/vendor/assets/stylesheets'
         ]
         sassDir: "app/stylesheets"
+
       main:
         options:
-          cssDir: "public/stylesheets"
+          cssDir: ".tmp/stylesheets"
           environment: 'development'
-      release:
+
+      dist:
         options:
-          cssDir: "release/stylesheets"
+          cssDir: "dist/stylesheets"
           environment: 'production'
 
-    clean: ['release/**/*']
+    clean:
+      dist: [
+        '.tmp'
+        'dist/*'
+      ]
+      server: '.tmp'
 
     copy:
-      public:
-        cwd: 'app/'
+      dist:
         expand: true
-        src: ['*.html']
-        dest: 'public/'
-      release:
-        cwd: 'app/'
-        expand: true
-        src: ['*.html']
-        dest: 'release/'
+        cwd: 'app'
+        dest: 'dist'
+        src: [
+          '*.html'
+        ]
 
     useminPrepare:
       options:
-        dest: 'release'
+        dest: 'dist'
+        root: '.tmp'
       html: 'app/index.html'
 
     usemin:
-      html: 'release/index.html'
+      html: 'dist/index.html'
 
     htmlmin:
-      release:
+      dist:
         options:
           removeComments: true,
           collapseWhitespace: true
-        files:
-          'release/index.html': 'release/index.html',
+        files: [
+          expand: true
+          cwd: 'dist'
+          src: '*.html'
+          dest: 'dist'
+        ]
 
     connect:
       server:
         options:
           open: true
-          base: 'public'
+          base: '.tmp'
           livereload: true
           middleware: (connect)  ->
             [
               connect.static('.tmp')
               connect().use('/bower_components', connect.static('./bower_components'))
               connect().use('/node_modules', connect.static('./node_modules'))
-              connect.static('public')
+              connect.static('app')
             ]
 
     invalidate_cloudfront:
@@ -137,7 +142,7 @@ module.exports = (grunt) ->
       production:
         files: [
           expand: true
-          cwd: './public/'
+          cwd: 'dist'
           src: ['**/*']
           filter: 'isFile'
           dest: ''
@@ -145,34 +150,29 @@ module.exports = (grunt) ->
 
   grunt.initConfig config
 
-  grunt.registerTask 'build', [
-    'handlebars'
-    'copy:public'
-    'compass'
-    'coffee'
-  ]
-
   grunt.registerTask 'default', [
-    'build'
+    'handlebars'
+    'compass:main'
+    'coffee'
     'connect'
     'watch'
   ]
 
-  grunt.registerTask 'compile', [
+  grunt.registerTask 'build', [
     'clean'
-    'handlebars'
-    'copy:release'
-    'compass:release'
-    'coffee'
     'useminPrepare'
+    'handlebars'
+    'compass:dist'
+    'coffee'
     'concat'
     'uglify'
+    'copy:dist'
     'usemin'
     'htmlmin'
   ]
 
   grunt.registerTask 'deploy', [
-    'compile'
+    'build'
     's3:production'
     'invalidate_cloudfront'
   ]
