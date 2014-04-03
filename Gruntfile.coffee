@@ -110,15 +110,15 @@ module.exports = (grunt) ->
 
     invalidate_cloudfront:
       options:
-        key: '<%= aws.key %>',
-        secret: '<%= aws.secret %>',
+        key: '<%= aws.key %>'
+        secret: '<%= aws.secret %>'
         distribution: 'E304OOCZVQB21'
       production:
         files: [
-          expand: true,
-          cwd: './public/',
-          src: ['**/*'],
-          filter: 'isFile',
+          expand: true
+          cwd: './public/'
+          src: ['**/*']
+          filter: 'isFile'
           dest: ''
         ]
 
