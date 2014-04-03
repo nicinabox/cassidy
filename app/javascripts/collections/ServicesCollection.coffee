@@ -16,6 +16,19 @@ class App.ServicesCollection extends Backbone.Collection
   comparator: (model) ->
     model.get('service')
 
+  syncLocalToRemote: ->
+    originalCollection = this
+    @dropboxDatastore = null
+    @localStorage = new Backbone.LocalStorage("services")
+    @fetch
+      success: (collection, response, options) ->
+        remote = new App.ServicesCollection()
+        collection.each (m) ->
+          data = m.toJSON()
+          delete data.id
+          data.settings = JSON.stringify(data.settings)
+          remote.create(data)
+
   toDataset: ->
     name: 'service'
     source: @substringMatcher(@pluck('service'))
