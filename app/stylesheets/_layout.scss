@@ -127,6 +127,11 @@
       color: #aaa;
     }
   }
+  @include respond-to($container-sm) {
+    .clear {
+      right: 17%;
+    }
+  }
 }
 
 .connect-dropbox {
