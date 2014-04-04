@@ -143,6 +143,7 @@
     color: $brand-primary;
   }
   @include respond-to($container-sm) {
+    position: absolute;
     bottom: auto;
     top: 57px;
     right: 15px;
