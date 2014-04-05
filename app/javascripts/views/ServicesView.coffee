@@ -12,6 +12,7 @@ class App.ServicesView extends Backbone.View
   render: ->
     if @collection.length
       @addServices()
+      App.views.generator.focus()
     else
       @$el.html App.noResults('Your recent services appear here.')
 

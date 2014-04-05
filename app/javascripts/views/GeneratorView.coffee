@@ -74,6 +74,9 @@ class App.GeneratorView extends Backbone.View
       unless model.isValid()
         model.destroy()
 
+  focus: ->
+    @$('[name=service]').focus()
+
   selectResult: (e) ->
     e.preventDefault() if e
     $result = @$('.result')
