@@ -24,7 +24,7 @@ class App.ServiceView extends Backbone.View
 
   populateSettings: ->
     settings = App.views.settings.model
-    settings.set @model.get('settings')
+    settings.set JSON.parse @model.get('settings')
 
   clear: (e) ->
     @model.destroy()
