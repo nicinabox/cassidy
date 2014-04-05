@@ -121,6 +121,15 @@ module.exports = (grunt) ->
           dest: 'dist'
         ]
 
+    rev:
+      options:
+        encoding: 'utf8',
+        algorithm: 'md5',
+        length: 8
+      assets:
+        files:
+          src: ['dist/**/*.{js,css}']
+
     connect:
       server:
         options:
@@ -168,6 +177,7 @@ module.exports = (grunt) ->
     'concat'
     'uglify'
     'copy:dist'
+    'rev'
     'usemin'
     'htmlmin'
   ]
