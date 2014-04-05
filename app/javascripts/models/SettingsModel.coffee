@@ -1,4 +1,5 @@
 class App.SettingsModel extends Backbone.Model
+  protectedAttributes: ['key', 'phrase']
 
   # Fallback on localStorage
   setStorage: ->
@@ -24,8 +25,6 @@ class App.SettingsModel extends Backbone.Model
     number: 0
     symbol: 0
     dash: 0
-
-  protectedAttributes: ['key', 'phrase']
 
   initialize: ->
     @setStorage()

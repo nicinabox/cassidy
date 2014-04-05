@@ -4,7 +4,6 @@ class App.ApplicationView extends Backbone.View
 
   events:
     'click .connect-dropbox': 'connectDropbox'
-    'click .connect-dropbox.connected': 'disconnectDropbox'
 
   initialize: ->
     @dropboxAuth = Backbone.DropboxDatastore.client.isAuthenticated()
@@ -36,12 +35,13 @@ class App.ApplicationView extends Backbone.View
       App.views[k] = v
       @$('.row').append v.render()
 
-  disconnectDropbox: (e) ->
-    e.preventDefault()
+  disconnectDropbox: ->
     Backbone.DropboxDatastore.client.signOut {}, ->
       window.location.reload()
 
   connectDropbox: (e) ->
     e.preventDefault()
-    return if @dropboxAuth
-    Backbone.DropboxDatastore.client.authenticate()
+    if @dropboxAuth
+      @disconnectDropbox()
+    else
+      Backbone.DropboxDatastore.client.authenticate()
