@@ -12,11 +12,15 @@ class App.SettingsView extends Backbone.View
     _.bindAll this, 'render'
 
     @model = new App.SettingsModel
-    @listenTo @model, 'sync', @render
+    @phraseView = new App.PhraseView
+
+    @listenTo @model, 'sync', ->
+      @phraseView.model.fetch()
+      @render()
+
     @listenTo @model, 'change:key', (model, prop) ->
       @model.saveKey()
 
-    @phraseView = new App.PhraseView
 
   render: ->
     @$el.html @template _.extend _.clone(@model.attributes),
