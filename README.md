@@ -10,7 +10,7 @@ Cassidy generates passwords based on a service (eg, google.com). Combine this wi
 
 ## How it works
 
-Your history and the data to recreate a service password is stored in localStorage. Passwords are never stored or transmitted.
+Your history and the data to recreate a service password is stored in localStorage. Passwords themselves are never stored or transmitted.
 
 Dropbox syncing of services (using the Datastore API) is also available (https only). Your passphrase IS stored in localStorage using Triple DES and your Key as the salt.
 
