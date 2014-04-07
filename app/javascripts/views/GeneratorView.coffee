@@ -4,16 +4,16 @@ class App.GeneratorView extends Backbone.View
   className: 'col-sm-7 col-md-6 col-md-push-4 col-sm-push-5'
 
   events:
-    'keyup input[name=service]': 'submitForm'
-    'change input[name=service]': 'generatePassword'
+    'keyup #service': 'submitForm'
+    'change #service': 'generatePassword'
     'submit form': 'generatePassword'
 
     'click .clear': 'clearForm'
-    'click .result': 'selectResult'
-    'focus .result': 'toggleHint'
-    'blur .result': 'toggleHint'
-    'keydown .result': 'preventChange'
-    'cut .result': 'preventChange'
+    'click #result': 'selectResult'
+    'focus #result': 'toggleHint'
+    'blur #result': 'toggleHint'
+    'keydown #result': 'preventChange'
+    'cut #result': 'preventChange'
 
   initialize: ->
     @listenForEscape()
@@ -22,12 +22,13 @@ class App.GeneratorView extends Backbone.View
 
   render: ->
     @$el.html @template()
+    @$service = @$('#service')
     @removeReadonlyOnMobile()
     @setSuperKey()
     @el
 
   typeahead: ->
-    @$('input[name=service]').typeahead({
+    @$service.typeahead({
       highlight: true
     }, App.collections.services.toDataset())
 
@@ -39,7 +40,7 @@ class App.GeneratorView extends Backbone.View
       # e.target.blur()
 
     if e.which == 13
-      @$('input[name=service]').typeahead('close')
+      @$service.typeahead('close')
       @selectResult()
       @saveService()
 
@@ -50,12 +51,12 @@ class App.GeneratorView extends Backbone.View
 
   generatePassword: (e) ->
     e.preventDefault() if e
-    return unless @$('[name=service]').val().length
+    return unless @populated()
 
     @toggleClearButton()
     data = @serviceData()
     generator = new App.Generator(data)
-    @$('.result').val generator.result || generator.error
+    @$('#result').val generator.result || generator.error
 
   saveService: (e) ->
     settings = App.views.settings.model
@@ -77,12 +78,12 @@ class App.GeneratorView extends Backbone.View
         model.destroy()
 
   focus: ->
-    @$('[name=service]').focus()
+    @$service.focus()
 
   selectResult: (e) ->
     e.preventDefault() if e
-    $result = @$('.result')
-    $result[0].setSelectionRange(0, $result[0].value.length);
+    result = @$('#result')[0]
+    result.setSelectionRange(0, result.value.length);
 
   preventChange: (e) ->
     return unless App.mobile
@@ -94,18 +95,19 @@ class App.GeneratorView extends Backbone.View
   clearForm: (e) ->
     e.preventDefault() if e
 
-    @$('input[name=service]').typeahead('close')
+    @$service.typeahead('close')
+    @$service.typeahead('val', '')
     @$('form')[0].reset()
     @toggleClearButton()
     App.views.settings.resetSettings()
-    @$('[name=service]').focus()
+    @$service.focus()
 
   toggleBorderClass: ->
-    @$('[name=service]').toggleClass 'no-border-radius',
+    @$service.toggleClass 'no-border-radius',
       @$('.tt-dropdown-menu').is(':visible')
 
   toggleClearButton: ->
-    @$('.clear').toggle !!@$('[name=service]').val().length
+    @$('.clear').toggle !!@$('#service').val().length
 
   toggleHint: ->
     @$('.hint').toggleClass('visible')
@@ -116,11 +118,11 @@ class App.GeneratorView extends Backbone.View
         @clearForm()
 
   populated: ->
-    !!@$('[name=service]').val().length
+    !!@$service.val().length
 
   removeReadonlyOnMobile: ->
     return unless App.isMobile
-    @$('.result').removeAttr('readonly')
+    @$('#result').removeAttr('readonly')
 
   serviceData: ->
     settingsView = App.views.settings
@@ -132,3 +134,13 @@ class App.GeneratorView extends Backbone.View
 
     # Merge form data with settings
     _.merge form_data, settings: settings
+
+  populate: (model) ->
+    model.setUsage().save()
+    service_name = model.get('service')
+    @$service
+      .typeahead('val', service_name)
+      .typeahead('close')
+      .val(service_name)
+      .trigger('change')
+    @selectResult()

@@ -65,3 +65,10 @@ class App.SettingsView extends Backbone.View
       else
         localStorage.clear()
         window.location.reload()
+
+  populate: (model) ->
+    settings = model.get('settings')
+    if typeof settings == 'string'
+      model.set JSON.parse settings
+    else
+      model.set settings

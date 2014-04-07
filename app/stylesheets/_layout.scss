@@ -87,12 +87,12 @@
 
 #generator {
   margin: 30px 0;
-  input[name=service] {
+  #service {
     @include respond-to($container-sm) {
       width: 87%;
     }
   }
-  input.result {
+  #result {
     background: none;
     border: none;
     font-size: 20px;
