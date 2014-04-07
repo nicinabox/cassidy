@@ -151,3 +151,17 @@
     margin-right: -5px;
   }
 }
+
+#stats {
+  margin: 30px 0;
+  color: #aaa;
+  li {
+    margin-bottom: 6px;
+    &:hover {
+      color: #666;
+    }
+  }
+  span {
+    float: right;
+  }
+}

@@ -55,3 +55,13 @@ class App.ServicesCollection extends Backbone.Collection
 
       cb matches
       return
+
+  stats: ->
+    _.map @topUsed(), (m) -> m.attributes
+
+  topUsed: (limit = 5) ->
+    sorted = @sortBy((m) -> m.get('usage')).reverse()
+    _.first sorted, limit
+
+  mostUsed: ->
+    @max (m) -> m.get('usage')

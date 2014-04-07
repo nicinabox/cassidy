@@ -129,4 +129,4 @@ class App.GeneratorView extends Backbone.View
       settingsView.phraseView.model.attributes
 
     # Merge form data with settings
-    _.merge form_data , settings: settings
+    _.merge form_data, settings: settings, usage: 1

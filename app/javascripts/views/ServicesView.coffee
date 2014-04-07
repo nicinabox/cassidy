@@ -2,6 +2,7 @@ class App.ServicesView extends Backbone.View
   id: 'services'
   className: 'tab-pane active'
   tagName: 'nav'
+  statsTemplate: JST['stats']
 
   initialize: ->
     _.bindAll this, 'addService'
@@ -21,7 +22,10 @@ class App.ServicesView extends Backbone.View
   addServices: ->
     @$el.empty()
     @collection.each @addService
+    console.log @collection.stats()
+    @$el.append @statsTemplate(@collection.stats())
 
   addService: (model) ->
     view = new App.ServiceView model: model
     @$el.append view.render()
+
