@@ -57,7 +57,6 @@ class App.ServicesCollection extends Backbone.Collection
       return
 
   stats: ->
-    console.log @topUsed()
     _.map @topUsed(), (m) -> m.attributes
 
   topUsed: (limit = 5) ->
