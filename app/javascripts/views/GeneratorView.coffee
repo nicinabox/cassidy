@@ -66,8 +66,10 @@ class App.GeneratorView extends Backbone.View
     data.settings = JSON.stringify(data.settings)
 
     if model
+      model.setUsage()
       model.save(data)
     else
+      data.usage = 1
       model = App.collections.services.create data
 
       # Rollback
@@ -129,4 +131,4 @@ class App.GeneratorView extends Backbone.View
       settingsView.phraseView.model.attributes
 
     # Merge form data with settings
-    _.merge form_data, settings: settings, usage: 1
+    _.merge form_data, settings: settings

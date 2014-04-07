@@ -19,7 +19,7 @@ class App.ServiceView extends Backbone.View
     e.preventDefault()
     generator = App.views.generator
     @populateSettings()
-    @setUsage()
+    @model.setUsage().save()
     generator.$('[name=service]').val(@model.get('service')).trigger('change')
     generator.$('.result').select()
 
@@ -30,10 +30,6 @@ class App.ServiceView extends Backbone.View
       app_settings.set JSON.parse settings
     else
       app_settings.set settings
-
-  setUsage: ->
-    usage = @model.get('usage') || 0
-    @model.save usage: usage + 1
 
   clear: (e) ->
     @model.destroy()

@@ -14,3 +14,8 @@ class App.ServiceModel extends Backbone.Model
     services = App.collections.services
     matching_services = services.where service: name
     matching_services.length > 1
+
+  setUsage: ->
+    usage = @get('usage') || 0
+    @set usage: usage + 1
+    this
