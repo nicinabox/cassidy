@@ -57,11 +57,13 @@ class App.ServicesCollection extends Backbone.Collection
       return
 
   stats: ->
+    console.log @topUsed()
     _.map @topUsed(), (m) -> m.attributes
 
   topUsed: (limit = 5) ->
-    sorted = @sortBy((m) -> m.get('usage')).reverse()
-    _.first sorted, limit
+    collection = new App.ServicesCollection(@reject (m) -> !m.get('usage'))
+    sorted = collection.sortBy 'usage'
+    _.first(sorted, limit).reverse()
 
   mostUsed: ->
     @max (m) -> m.get('usage')

@@ -22,7 +22,6 @@ class App.ServicesView extends Backbone.View
   addServices: ->
     @$el.empty()
     @collection.each @addService
-    console.log @collection.stats()
     @$el.append @statsTemplate(@collection.stats())
 
   addService: (model) ->
