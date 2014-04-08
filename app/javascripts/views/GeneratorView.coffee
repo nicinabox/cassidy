@@ -16,20 +16,28 @@ class App.GeneratorView extends Backbone.View
     'cut #result': 'preventChange'
 
   initialize: ->
+    _.bindAll this, 'toggleHint'
+
     @listenForEscape()
     @listenToOnce App.collections.services, 'sync', ->
-      @typeahead()
+        @typeahead()
 
   render: ->
     @$el.html @template()
     @$service = @$('#service')
     @removeReadonlyOnMobile()
     @setSuperKey()
+
+    if App.collections.services.length
+      @typeahead()
+      @stopListening App.collections.services
+
     @el
 
   typeahead: ->
     @$service.typeahead({
       highlight: true
+      hint: false
     }, App.collections.services.toDataset())
 
   submitForm: (e) ->
@@ -41,8 +49,8 @@ class App.GeneratorView extends Backbone.View
 
     # Enter
     if e.which == 13
-      @$service.typeahead('close')
       @selectResult()
+      @$service.typeahead('close')
       @saveService() if @hasChanged()
 
     if e.target.value
@@ -83,8 +91,10 @@ class App.GeneratorView extends Backbone.View
 
   selectResult: (e) ->
     e.preventDefault() if e
-    result = @$('#result')[0]
+    $result = @$('#result')
+    result = $result[0]
     result.setSelectionRange(0, result.value.length);
+    @toggleHint()
 
   preventChange: (e) ->
     return unless App.mobile
@@ -99,8 +109,9 @@ class App.GeneratorView extends Backbone.View
     @$service.typeahead('close')
     @$service.typeahead('val', '')
     @$('form')[0].reset()
-    @toggleClearButton()
     @originalVal = null
+    @toggleClearButton()
+    @toggleHint()
     App.views.settings.resetSettings()
     @$service.focus()
 
@@ -112,7 +123,7 @@ class App.GeneratorView extends Backbone.View
     @$('.clear').toggle !!@$('#service').val().length
 
   toggleHint: ->
-    @$('.hint').toggleClass('visible')
+    @$('.hint').toggleClass 'visible', !!@$('#result').val()
 
   listenForEscape: ->
     $(document).on 'keyup', (e) =>
@@ -144,8 +155,8 @@ class App.GeneratorView extends Backbone.View
       .typeahead('close')
       .val(service_name)
       .trigger('change')
-    @selectResult()
     model.setUsage().save() if @hasChanged()
+    @selectResult()
 
   hasChanged: ->
     val = @$service.val()
