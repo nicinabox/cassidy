@@ -3,8 +3,10 @@
   <ul class="list-unstyled">
     {{#each this}}
       <li>
-        <strong>{{service}}</strong>
-        <span>{{usage}}</span>
+        <a href="#" data-service="{{service}}">
+          <strong>{{service}}</strong>
+          <span>{{usage}}</span>
+        </a>
       </li>
     {{/each}}
   </ul>

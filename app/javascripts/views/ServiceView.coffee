@@ -5,7 +5,7 @@ class App.ServiceView extends Backbone.View
     href: '#'
 
   events:
-    'click': 'populateGenerator'
+    'click': 'populate'
     'click .remove': 'clear'
 
   initialize: ->
@@ -15,14 +15,10 @@ class App.ServiceView extends Backbone.View
     @$el.html @template @model.attributes
     @el
 
-  populateGenerator: (e) ->
+  populate: (e) ->
     e.preventDefault()
-
-    @populateSettings()
-    App.views.generator.populate(@model)
-
-  populateSettings: ->
     App.views.settings.populate(@model)
+    App.views.generator.populate(@model)
 
   clear: (e) ->
     e.preventDefault()
