@@ -24,32 +24,50 @@
   margin-bottom: 20px;
   a {
     display: block;
-    padding: 15px 15px;
+    padding: 15px;
     margin: 0 -15px;
     border-bottom: 1px solid #eee;
     position: relative;
-    @include text-overflow;
     @include transition(background 200ms ease-out);
+    @include clearfix;
+    overflow: hidden;
     &:hover {
       text-decoration: none;
-      background: #eee;
+      background: #f4f4f4;
+      .name {
+        width: 85%;
+      }
       .remove {
-        right: 0;
+        margin-right: -15px;
         @include opacity(1);
       }
     }
+    .name {
+      @include text-overflow;
+      display: block;
+      width: 90%;
+      float: left;
+      @include transition(width 200ms ease-out);
+    }
     .remove {
       @include opacity(0);
-      background: #eee;
-      position: absolute;
-      right: -30px;
       padding: 5px 15px;
-      top: 10px;
+      margin: -5px -53px -5px 0;
+      float: right;
       font-weight: bold;
       color: #ddd;
-      @include transition(right 200ms ease-out, opacity 200ms ease-out);
+      @include transition(margin-right 200ms ease-out, opacity 200ms ease-out);
       &:hover {
         color: $brand-danger;
+      }
+    }
+    @include respond-to($container-sm) {
+      &:hover {
+        background: none;
+      }
+      .remove {
+        @include opacity(1);
+        margin-right: -15px;
       }
     }
   }
@@ -156,7 +174,7 @@
   margin: 30px 0;
   color: #aaa;
   li {
-    margin-bottom: 6px;
+    padding: 3px 0;
     &:hover {
       color: #666;
     }

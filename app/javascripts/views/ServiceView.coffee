@@ -25,6 +25,9 @@ class App.ServiceView extends Backbone.View
     App.views.settings.populate(@model)
 
   clear: (e) ->
+    confirmed = confirm "Really remove #{@model.get('service')}?"
+    return unless confirmed
+
     @model.destroy()
     unless App.collections.services.length
       App.views.services.render()
