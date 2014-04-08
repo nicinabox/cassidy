@@ -35,14 +35,15 @@ class App.GeneratorView extends Backbone.View
   submitForm: (e) ->
     @toggleBorderClass()
 
+    # Escape
     if e.which == 27
       return
-      # e.target.blur()
 
+    # Enter
     if e.which == 13
       @$service.typeahead('close')
       @selectResult()
-      @saveService()
+      @saveService() if @hasChanged()
 
     if e.target.value
       @generatePassword()
@@ -99,6 +100,7 @@ class App.GeneratorView extends Backbone.View
     @$service.typeahead('val', '')
     @$('form')[0].reset()
     @toggleClearButton()
+    @originalVal = null
     App.views.settings.resetSettings()
     @$service.focus()
 
@@ -136,7 +138,6 @@ class App.GeneratorView extends Backbone.View
     _.merge form_data, settings: settings
 
   populate: (model) ->
-    model.setUsage().save()
     service_name = model.get('service')
     @$service
       .typeahead('val', service_name)
@@ -144,3 +145,12 @@ class App.GeneratorView extends Backbone.View
       .val(service_name)
       .trigger('change')
     @selectResult()
+    model.setUsage().save() if @hasChanged()
+
+  hasChanged: ->
+    val = @$service.val()
+    diff = @originalVal != val
+
+    if diff or !@originalVal
+      @originalVal = val
+      diff
