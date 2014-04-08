@@ -63,6 +63,3 @@ class App.ServicesCollection extends Backbone.Collection
     collection = new App.ServicesCollection(@reject (m) -> !m.get('usage'))
     sorted = collection.sortBy('usage').reverse()
     _.first(sorted, limit)
-
-  mostUsed: ->
-    @max (m) -> m.get('usage')
