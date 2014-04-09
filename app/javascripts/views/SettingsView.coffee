@@ -14,6 +14,8 @@ class App.SettingsView extends Backbone.View
     @model = new App.SettingsModel
     @phraseView = new App.PhraseView
 
+    @listenTo @model, 'change', @render
+
     @listenTo @model, 'sync', ->
       @phraseView.model.fetch()
       @render()
