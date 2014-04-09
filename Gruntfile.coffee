@@ -84,10 +84,7 @@ module.exports = (grunt) ->
           environment: 'production'
 
     clean:
-      dist: [
-        '.tmp'
-        'dist/*'
-      ]
+      dist: ['dist/*']
       server: '.tmp'
 
     copy:
@@ -169,7 +166,7 @@ module.exports = (grunt) ->
   ]
 
   grunt.registerTask 'build', [
-    'clean'
+    'clean:dist'
     'useminPrepare'
     'handlebars'
     'compass:dist'
