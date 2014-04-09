@@ -29,6 +29,13 @@ class App.SettingsModel extends Backbone.Model
   initialize: ->
     @setStorage()
 
+  fetch: ->
+    if @store
+      @fetchStore()
+
+    if @dropboxStore
+      @fetchDropbox()
+
   saveKey: ->
     if @store
       attrs = @store.get('defaults')
@@ -59,20 +66,15 @@ class App.SettingsModel extends Backbone.Model
     @saveKey()
     @trigger('sync')
 
-  fetch: ->
-    if @store
-      @fetchStore()
-
-    if @dropboxStore
-      @fetchDropbox()
-
   fetchStore: ->
-    defaults = @store.get('defaults')
-    if defaults
-      @set defaults
-    else
-      @store.set 'defaults', @toJSON()
+    setTimeout =>
+      defaults = @store.get('defaults')
+      if defaults
+        @set defaults
+      else
+        @store.set 'defaults', @toJSON()
       @trigger 'sync'
+    , 0
 
   fetchDropbox: ->
     ds = @dropboxStore.getDatastoreManager()

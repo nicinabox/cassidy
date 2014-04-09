@@ -21,9 +21,7 @@ class App.SettingsView extends Backbone.View
     @listenTo @model, 'change:key', (model, prop) ->
       @model.saveKey()
 
-    setTimeout =>
-      @model.fetch()
-    , 0
+    @model.fetch()
 
   render: ->
     @$el.html @template _.extend _.clone(@model.attributes),
