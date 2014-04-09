@@ -70,6 +70,6 @@ class App.SettingsView extends Backbone.View
   populate: (model) ->
     settings = model.get('settings')
     if typeof settings == 'string'
-      model.set JSON.parse settings
+      @model.set JSON.parse settings
     else
-      model.set settings
+      @model.set settings
