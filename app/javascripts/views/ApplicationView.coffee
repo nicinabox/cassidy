@@ -12,28 +12,26 @@ class App.ApplicationView extends Backbone.View
     @setupViews()
 
   render: ->
-    attrs =
-      connectedClass: if @dropboxAuth then 'connected' else ''
-    @$el.html @template attrs
+    @$el.html @template()
 
   setupCollections: ->
-    collections = {
+    collections =
       services: new App.ServicesCollection
-    }
 
     _.each collections, (v, k) ->
       App.collections[k] = v
       v.fetch()
 
   setupViews: ->
-    views = {
+    views =
       generator: new App.GeneratorView
       sidebar: new App.SidebarView
-    }
+      footer: new App.FooterView
 
     _.each views, (v, k) =>
       App.views[k] = v
       @$('.row').append v.render()
+      App.views[k].trigger("append.#{k}")
 
   disconnectDropbox: ->
     Backbone.DropboxDatastore.client.signOut {}, ->

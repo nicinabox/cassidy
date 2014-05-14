@@ -3,23 +3,29 @@ class App.ServicesCollection extends Backbone.Collection
 
   setStorage: ->
     if Backbone.DropboxDatastore.client.isAuthenticated()
-      @dropboxDatastore = new Backbone.DropboxDatastore('services')
+      @setRemoteStorage()
     else
-      @localStorage = new Backbone.LocalStorage("services")
+      @setLocalStorage()
+
+  setLocalStorage: ->
+    delete @dropboxDatastore
+    @localStorage = new Backbone.LocalStorage("services")
+
+  setRemoteStorage: ->
+    delete @localStorage
+    @dropboxDatastore = new Backbone.DropboxDatastore('services')
+    @dropboxDatastore.syncCollection(this)
 
   initialize: ->
     @setStorage()
-
-    if @dropboxDatastore
-      @dropboxDatastore.syncCollection(this)
 
   comparator: (model) ->
     model.get('service')
 
   syncLocalToRemote: ->
     originalCollection = this
-    @dropboxDatastore = null
-    @localStorage = new Backbone.LocalStorage("services")
+    @setLocalStorage()
+
     @fetch
       success: (collection, response, options) ->
         remote = new App.ServicesCollection()
