@@ -41,6 +41,11 @@ class App.ApplicationView extends Backbone.View
 
   connectDropbox: (e) ->
     e.preventDefault()
+
+    if App.env == 'production' and window.location.protocol != 'https:'
+       window.location.href = "https:" +
+        window.location.href.substring(window.location.protocol.length)
+
     if @dropboxAuth
       @disconnectDropbox()
     else
