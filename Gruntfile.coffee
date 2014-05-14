@@ -138,6 +138,18 @@ module.exports = (grunt) ->
           dest: '.tmp'
         ]
 
+      dist:
+        options:
+          includesDir: 'app/includes'
+          prefix: '{% '
+          suffix: ' %}'
+
+        files: [
+          expand: true
+          src: 'app/*.html'
+          dest: 'dist'
+        ]
+
     rev:
       options:
         encoding: 'utf8',
@@ -181,14 +193,14 @@ module.exports = (grunt) ->
     'handlebars'
     'compass:main'
     'coffee'
-    'includereplace'
+    'includereplace:html'
     'connect'
     'watch'
   ]
 
   grunt.registerTask 'build', [
     'clean:dist'
-    'includereplace'
+    'includereplace:dist'
     'useminPrepare'
     'handlebars'
     'compass:dist'
