@@ -6,11 +6,10 @@ class App.GeneratorView extends Backbone.View
   events:
     'keyup #service': 'submitForm'
     'change #service': 'generatePassword'
-    'submit form': 'generatePassword'
 
     'click .clear': 'clearForm'
     'click #result': 'selectResult'
-    'focus #result': 'toggleHint'
+    'focus #result': 'selectResult'
     'blur #result': 'toggleHint'
     'keydown #result': 'preventChange'
     'cut #result': 'preventChange'
@@ -47,19 +46,17 @@ class App.GeneratorView extends Backbone.View
     if e.which == 27
       return
 
-    # Enter
-    if e.which == 13
-      @selectResult()
-      @$service.typeahead('close')
-      @saveService() if @hasChanged()
-
     if e.target.value
       @generatePassword()
     else
       @clearForm()
 
+    # Enter
+    if e.which == 13
+      @$service.typeahead('close')
+      @selectResult()
+
   generatePassword: (e) ->
-    e.preventDefault() if e
     return unless @populated()
 
     @toggleClearButton()
@@ -90,10 +87,11 @@ class App.GeneratorView extends Backbone.View
     @$service.focus()
 
   selectResult: (e) ->
-    e.preventDefault() if e
+    @saveService() if @hasChanged()
     $result = @$('#result')
     result = $result[0]
-    result.setSelectionRange(0, result.value.length);
+    result.focus()
+    result.setSelectionRange(0, result.value.length)
     @toggleHint()
 
   preventChange: (e) ->
