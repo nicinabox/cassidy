@@ -24,6 +24,7 @@
     "grunt-contrib-htmlmin": "^0.2.0",
     "grunt-contrib-uglify": "^0.4.0",
     "grunt-contrib-watch": "^0.6.1",
+    "grunt-include-replace": "^2.0.0",
     "grunt-invalidate-cloudfront": "^0.1.4",
     "grunt-rev": "^0.1.0",
     "grunt-s3": "^0.2.0-alpha.3",

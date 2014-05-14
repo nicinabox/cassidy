@@ -1,8 +1,22 @@
+body.docs {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
 #root {
   @extend .container;
   margin: 0;
   @include respond-to($container-sm) {
     margin-top: 20px;
+  }
+}
+
+#primary-nav {
+  @include clearfix;
+  a {
+    padding: 10px;
+    float: left;
+    display: block;
   }
 }
 
@@ -106,9 +120,6 @@
 #generator {
   margin: 30px 0;
   #service {
-    @include respond-to($container-sm) {
-      width: 87%;
-    }
   }
   #result {
     background: none;
@@ -152,23 +163,42 @@
   }
 }
 
-.connect-dropbox {
+#footer {
   position: fixed;
-  right: 20px;
-  bottom: 20px;
-  color: #aaa;
-  &.connected {
-    color: $brand-primary;
+  right: 0;
+  bottom: 0;
+  font-size: 14px;
+  .wrapper {
+    padding: 20px;
+    @include clearfix;
   }
+
+  nav {
+    float: left;
+    > a, > span {
+      float: left;
+      display: block;
+      padding: 7px 10px;
+    }
+  }
+  .connect-dropbox {
+    color: #aaa;
+    float: right;
+    &.connected {
+      color: $brand-primary;
+    }
+
+    @include respond-to($container-sm) {
+      float: left;
+    }
+  }
+
   @include respond-to($container-sm) {
-    position: absolute;
-    bottom: auto;
-    top: 57px;
-    right: 15px;
-    padding: 5px;
-    margin-right: -5px;
+    position: static;
+    width: auto !important;
   }
 }
+
 
 #stats {
   margin: 30px 0;

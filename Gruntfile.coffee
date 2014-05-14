@@ -28,6 +28,10 @@ module.exports = (grunt) ->
       gruntfile:
         files: 'Gruntfile*'
 
+      html:
+        files: 'app/*.html'
+        tasks: 'includereplace'
+
       scripts:
         files: 'app/javascripts/**/*.coffee'
         tasks: ['coffee']
@@ -121,6 +125,19 @@ module.exports = (grunt) ->
           dest: 'dist'
         ]
 
+    includereplace:
+      html:
+        options:
+          includesDir: 'app/includes'
+          prefix: '{% '
+          suffix: ' %}'
+
+        files: [
+          expand: true
+          src: 'app/*.html'
+          dest: '.tmp'
+        ]
+
     rev:
       options:
         encoding: 'utf8',
@@ -141,7 +158,7 @@ module.exports = (grunt) ->
               connect.static('.tmp')
               connect().use('/bower_components', connect.static('./bower_components'))
               connect().use('/node_modules', connect.static('./node_modules'))
-              connect.static('app')
+              connect.static('.tmp/app')
             ]
 
     invalidate_cloudfront:
@@ -164,12 +181,14 @@ module.exports = (grunt) ->
     'handlebars'
     'compass:main'
     'coffee'
+    'includereplace'
     'connect'
     'watch'
   ]
 
   grunt.registerTask 'build', [
     'clean:dist'
+    'includereplace'
     'useminPrepare'
     'handlebars'
     'compass:dist'
