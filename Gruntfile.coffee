@@ -6,6 +6,7 @@ module.exports = (grunt) ->
   config =
     pkg: grunt.file.readJSON('package.json')
     aws: grunt.file.readJSON('grunt-aws.json')
+    env: grunt.option('e') or 'development'
 
     s3:
       options:
@@ -57,6 +58,8 @@ module.exports = (grunt) ->
       compileBare:
         files:
           ".tmp/javascripts/application.js": [
+            'app/javascripts/application.coffee'
+            'app/environments/<%= env %>.coffee'
             'app/javascripts/*.coffee'
             'app/javascripts/utils/*.coffee'
             'app/javascripts/models/*.coffee'
