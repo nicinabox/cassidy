@@ -178,13 +178,18 @@ module.exports = (grunt) ->
 
   grunt.initConfig config
 
+
   grunt.registerTask 'default', [
+    'compile'
+    'connect'
+    'watch'
+  ]
+
+  grunt.registerTask 'compile', [
     'handlebars'
     'compass:main'
     'coffee'
     'includereplace'
-    'connect'
-    'watch'
   ]
 
   grunt.registerTask 'build', [
