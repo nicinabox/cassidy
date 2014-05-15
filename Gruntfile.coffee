@@ -97,21 +97,21 @@ module.exports = (grunt) ->
     copy:
       dist:
         expand: true
-        cwd: 'app'
+        cwd: '.tmp'
         dest: 'dist'
         src: [
           'images/*'
-          '*.html'
+          '.tmp/*.html'
         ]
 
     useminPrepare:
       options:
         dest: 'dist'
         root: '.tmp'
-      html: 'app/index.html'
+      html: '.tmp/index.html'
 
     usemin:
-      html: 'dist/index.html'
+      html: '.tmp/index.html'
 
     htmlmin:
       dist:
@@ -120,7 +120,7 @@ module.exports = (grunt) ->
           collapseWhitespace: true
         files: [
           expand: true
-          cwd: 'dist'
+          cwd: '.tmp'
           src: '*.html'
           dest: 'dist'
         ]
@@ -134,20 +134,10 @@ module.exports = (grunt) ->
 
         files: [
           expand: true
-          src: 'app/*.html'
-          dest: '.tmp'
-        ]
-
-      dist:
-        options:
-          includesDir: 'app/includes'
-          prefix: '{% '
-          suffix: ' %}'
-
-        files: [
-          expand: true
-          src: 'app/*.html'
-          dest: 'dist'
+          flatten: true
+          cwd: 'app'
+          src: ['*.html']
+          dest: '.tmp/'
         ]
 
     rev:
@@ -170,7 +160,6 @@ module.exports = (grunt) ->
               connect.static('.tmp')
               connect().use('/bower_components', connect.static('./bower_components'))
               connect().use('/node_modules', connect.static('./node_modules'))
-              connect.static('.tmp/app')
             ]
 
     invalidate_cloudfront:
@@ -193,14 +182,14 @@ module.exports = (grunt) ->
     'handlebars'
     'compass:main'
     'coffee'
-    'includereplace:html'
+    'includereplace'
     'connect'
     'watch'
   ]
 
   grunt.registerTask 'build', [
     'clean:dist'
-    'includereplace:dist'
+    'includereplace'
     'useminPrepare'
     'handlebars'
     'compass:dist'
