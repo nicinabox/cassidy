@@ -19,7 +19,7 @@ class App.GeneratorView extends Backbone.View
 
     @listenForEscape()
     @listenToOnce App.collections.services, 'sync', ->
-        @typeahead()
+      @typeahead()
 
   render: ->
     @$el.html @template()
