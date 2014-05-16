@@ -101,17 +101,17 @@ module.exports = (grunt) ->
         dest: 'dist'
         src: [
           'images/*'
-          '.tmp/*.html'
+          '*.html'
         ]
 
     useminPrepare:
       options:
         dest: 'dist'
         root: '.tmp'
-      html: '.tmp/index.html'
+      html: '.tmp/*.html'
 
     usemin:
-      html: '.tmp/index.html'
+      html: 'dist/*.html'
 
     htmlmin:
       dist:
@@ -120,7 +120,7 @@ module.exports = (grunt) ->
           collapseWhitespace: true
         files: [
           expand: true
-          cwd: '.tmp'
+          cwd: 'dist'
           src: '*.html'
           dest: 'dist'
         ]
