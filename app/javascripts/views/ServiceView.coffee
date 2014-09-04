@@ -22,6 +22,7 @@ class App.ServiceView extends Backbone.View
 
   clear: (e) ->
     e.preventDefault()
+    e.stopImmediatePropagation()
     confirmed = confirm "Really remove #{@model.get('service')}?"
     return unless confirmed
 
