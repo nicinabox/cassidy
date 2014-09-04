@@ -1,5 +1,4 @@
 class App.PhraseModel extends Backbone.Model
-
   initialize: ->
     @store = new App.Storage('phrase')
 
@@ -7,7 +6,8 @@ class App.PhraseModel extends Backbone.Model
       @store.set('phrase', model.toJSON())
 
   fetch: ->
-    @set @parse @store.get('phrase')
+    $.when(@settings.fetch()).then =>
+      @set @parse @store.get('phrase')
 
   toJSON: ->
     attrs = _.clone @attributes

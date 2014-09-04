@@ -13,17 +13,18 @@ class App.SettingsView extends Backbone.View
 
     @model = new App.SettingsModel
     @phraseView = new App.PhraseView
+    @phraseView.model.settings = @model
 
     @listenTo @model, 'change', @render
-
-    @listenTo @model, 'sync', ->
-      @phraseView.model.fetch()
-      @render()
+    @listenTo @phraseView.model, 'change', @render
 
     @listenTo @model, 'change:key', (model, prop) ->
       @model.saveKey()
 
     @model.fetch()
+    @phraseView.model.fetch().done (data) =>
+      if _.isEmpty data.phrase
+        alert 'Please enter your pass phrase again.'
 
   render: ->
     @$el.html @template _.extend _.clone(@model.attributes),
