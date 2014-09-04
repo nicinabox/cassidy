@@ -8,6 +8,7 @@ class App.GeneratorView extends Backbone.View
     'change #service': 'generatePassword'
 
     'click .clear': 'clearForm'
+    'click #result': 'selectResult'
     'focus #result': 'selectResult'
     'blur #result': 'toggleHint'
     'keydown #result': 'preventChange'
