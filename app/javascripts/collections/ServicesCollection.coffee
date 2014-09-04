@@ -9,12 +9,13 @@ class App.ServicesCollection extends Backbone.Collection
 
   setLocalStorage: ->
     delete @dropboxDatastore
-    @localStorage = new Backbone.LocalStorage("services")
+    @localStorage = new Backbone.LocalStorage('services')
 
   setRemoteStorage: ->
     delete @localStorage
     @dropboxDatastore = new Backbone.DropboxDatastore('services')
     @dropboxDatastore.syncCollection(this)
+    @sync = Backbone.cachingSync(Backbone.sync, 'services')
 
   initialize: ->
     @setStorage()
