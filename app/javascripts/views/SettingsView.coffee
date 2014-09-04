@@ -29,11 +29,12 @@ class App.SettingsView extends Backbone.View
         @render()
 
   render: ->
-    @$el.html @template _.extend _.clone(@model.attributes),
+    @$el.html @template _.extend @model.toJSON(),
       dropbox_auth: Backbone.DropboxDatastore.client.isAuthenticated()
 
     @$('.placeholder-passphrase').replaceWith @phraseView.render()
     @phraseView.delegateEvents()
+
     @$('[title]').tooltip
       placement: 'right'
       container: 'body'
@@ -43,6 +44,8 @@ class App.SettingsView extends Backbone.View
   updateSettings: (e) ->
     data = $(e.currentTarget).serializeObject()
     defaults = @model.defaults()
+
+    @$('[title]').tooltip('destroy')
 
     # Fix checkbox data
     _.forEach data, (v, k) -> data[k] = defaults[k] if v == 'on'
