@@ -22,8 +22,8 @@ class App.SettingsView extends Backbone.View
       @model.saveKey()
 
     @model.fetch()
-    @phraseView.model.fetch().done (data) =>
-      if _.isEmpty data.phrase
+    @phraseView.model.fetch().done (model) =>
+      if _.isEmpty model.get('phrase')
         alert 'Please enter your pass phrase again.'
 
   render: ->
