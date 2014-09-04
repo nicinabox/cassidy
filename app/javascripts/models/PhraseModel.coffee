@@ -7,7 +7,8 @@ class App.PhraseModel extends Backbone.Model
 
   fetch: ->
     $.when(@settings.fetch()).then =>
-      @set @parse @store.get('phrase')
+      @set @parse(@store.get('phrase')),
+        silent: true
 
   toJSON: ->
     attrs = _.clone @attributes
