@@ -24,4 +24,4 @@ node_modules
 dist
 .tmp
 
-grunt-aws.json
+s3.json
