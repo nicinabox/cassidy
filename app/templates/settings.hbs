@@ -3,27 +3,27 @@
     <label for="">Options</label>
     <div class="toggle">
       <input type="checkbox" name="lower" id="lower" {{checked lower}}>
-      <label for="lower" title="Lowercase">a-z</label>
+      <label for="lower" title="Toggle lowercase">a-z</label>
     </div>
 
     <div class="toggle">
       <input type="checkbox" name="upper" id="upper" {{checked upper}}>
-      <label for="upper" title="Uppercase">A-Z</label>
+      <label for="upper" title="Toggle uppercase">A-Z</label>
     </div>
 
     <div class="toggle">
       <input type="checkbox" name="number" id="number" {{checked number}}>
-      <label for="number" title="Numbers">0-9</label>
+      <label for="number" title="Toggle numbers">0-9</label>
     </div>
 
     <div class="toggle">
       <input type="checkbox" name="dash" id="dash" {{checked dash}}>
-      <label for="dash" title="Dashes and underscore">-_</label>
+      <label for="dash" title="Toggle dashes and underscore">-_</label>
     </div>
 
     <div class="toggle">
       <input type="checkbox" name="symbol" id="symbol" {{checked symbol}}>
-      <label for="symbol" title="Symbols">!@#$%</label>
+      <label for="symbol" title="Toggle symbols">!@#$%</label>
     </div>
   </div>
 
@@ -44,7 +44,9 @@
 <div class="placeholder-passphrase"></div>
 
 <div class="danger-zone">
-  <a href="#" class="btn btn-link reset-settings">Reset settings</a><br>
+  <a href="#" class="btn btn-link reset-settings" title="Will reset all settings except for your phrase">
+    Reset settings
+  </a><br>
   {{#if dropbox_auth}}
     <a href="#" class="btn btn-link btn-link-danger clear-data">Clear Dropbox data</a><br>
   {{else}}

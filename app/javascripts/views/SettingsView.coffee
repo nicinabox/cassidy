@@ -34,6 +34,10 @@ class App.SettingsView extends Backbone.View
 
     @$('.placeholder-passphrase').replaceWith @phraseView.render()
     @phraseView.delegateEvents()
+    @$('[title]').tooltip
+      placement: 'right'
+      container: 'body'
+
     @el
 
   updateSettings: (e) ->
