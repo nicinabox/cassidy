@@ -8,7 +8,6 @@ class App.GeneratorView extends Backbone.View
     'change #service': 'generatePassword'
 
     'click .clear': 'clearForm'
-    'click #result': 'selectResult'
     'focus #result': 'selectResult'
     'blur #result': 'toggleHint'
     'keydown #result': 'preventChange'
@@ -87,16 +86,18 @@ class App.GeneratorView extends Backbone.View
     @$service.focus()
 
   selectResult: (e) ->
-    @saveService() if @hasChanged()
-    $result = @$('#result')
-    result = $result[0]
-    result.focus()
-    result.setSelectionRange(0, result.value.length)
-    @toggleHint()
+    setTimeout =>
+      @saveService() if @hasChanged()
+      $result = @$('#result')
+      result = $result[0]
+      result.focus()
+      result.setSelectionRange(0, result.value.length)
+      @toggleHint()
+    , 0
 
   preventChange: (e) ->
-    return unless App.mobile
-    false
+    e.preventDefault()
+    e.stopImmediatePropagation()
 
   setSuperKey: ->
     @$('.super-key').text('Ctrl+') if App.platform == 'win'
