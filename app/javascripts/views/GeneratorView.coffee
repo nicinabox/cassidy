@@ -36,7 +36,6 @@ class App.GeneratorView extends Backbone.View
   typeahead: ->
     @$service.typeahead({
       highlight: true
-      hint: false
     }, App.collections.services.toDataset())
 
   submitForm: (e) ->
