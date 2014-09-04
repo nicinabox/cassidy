@@ -158,9 +158,6 @@ body.docs {
     }
   }
   @include respond-to($container-sm) {
-    .clear {
-      right: 17%;
-    }
   }
 }
 
