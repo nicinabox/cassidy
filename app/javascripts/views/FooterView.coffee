@@ -16,5 +16,4 @@ class App.FooterView extends Backbone.View
     @el
 
   setWidth: ->
-    console.log $('#sidebar').outerWidth(true)
     @$el.width $(window).width() - $('#sidebar').outerWidth(true)
