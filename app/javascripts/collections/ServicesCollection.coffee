@@ -46,7 +46,7 @@ class App.ServicesCollection extends Backbone.Collection
       ).compact().value()
 
   stats: ->
-    _.map @topUsed(), (m) -> m.attributes
+    _.map @topUsed(), (m) -> m.toJSON()
 
   topUsed: (limit = 5) ->
     collection = new App.ServicesCollection(@reject (m) -> !m.get('usage'))
