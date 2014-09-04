@@ -34,9 +34,9 @@ class App.GeneratorView extends Backbone.View
     @el
 
   typeahead: ->
-    @$service.typeahead({
+    @$service.typeahead
       highlight: true
-    }, App.collections.services.toDataset())
+    , App.collections.services.toDataset()
 
   submitForm: (e) ->
     @toggleBorderClass()
