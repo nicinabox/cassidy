@@ -62,6 +62,7 @@ module.exports = (grunt) ->
       compileBare:
         files:
           ".tmp/javascripts/application.js": [
+            'app/javascripts/mixins/*.coffee'
             'app/javascripts/application.coffee'
             'app/environments/<%= env %>.coffee'
             'app/javascripts/*.coffee'

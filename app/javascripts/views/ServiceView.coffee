@@ -12,7 +12,7 @@ class App.ServiceView extends Backbone.View
     @listenTo @model, 'destroy', @remove
 
   render: ->
-    @$el.html @template @model.attributes
+    @$el.html @template @model.toJSON()
     @el
 
   populate: (e) ->

@@ -17,12 +17,16 @@ class App.GeneratorView extends Backbone.View
   initialize: ->
     _.bindAll this, 'toggleHint'
 
+    @suggestionsView = new App.SuggestionsView
+
     @listenForEscape()
     @listenToOnce App.collections.services, 'sync', ->
       @typeahead()
 
   render: ->
     @$el.html @template()
+    @$el.append @suggestionsView.render()
+
     @$service = @$('#service')
     @removeReadonlyOnMobile()
     @setSuperKey()
