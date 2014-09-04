@@ -19,8 +19,18 @@ class App.ServicesCollection extends Backbone.Collection
   initialize: ->
     @setStorage()
 
-  comparator: (model) ->
-    model.get('service')
+  comparator: 'service'
+
+  sortByPopular: (a, b) ->
+    orderA = a.get('usage')
+    orderB = b.get('usage')
+
+    if (orderA < orderB)
+      return 1
+    else if (orderA > orderB)
+      return -1
+
+    return 0
 
   syncLocalToRemote: ->
     originalCollection = this
@@ -46,9 +56,9 @@ class App.ServicesCollection extends Backbone.Collection
       ).compact().value()
 
   stats: ->
-    _.map @topUsed(), (m) -> m.toJSON()
+    _.map @topServices(), (m) -> m.toJSON()
 
-  topUsed: (limit = 5) ->
-    collection = new App.ServicesCollection(@reject (m) -> !m.get('usage'))
-    sorted = collection.sortBy('usage').reverse()
-    _.first(sorted, limit)
+  topServices: (limit = 5) ->
+    collection = new @constructor @reject((m) -> !m.get('usage')),
+      comparator: @sortByPopular
+    collection.first(limit)
