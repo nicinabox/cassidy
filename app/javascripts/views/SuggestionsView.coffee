@@ -5,7 +5,7 @@ class App.SuggestionsView extends Backbone.View
   initialize: ->
     @collection = App.collections.services
     @items = @collection.top(6)
-    @listenTo @collection, 'change', ->
+    @listenTo @collection, 'change sync', ->
       @items = @collection.top(6)
       @render()
 
