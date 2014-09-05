@@ -100,6 +100,7 @@ class App.GeneratorView extends Backbone.View
     , 0
 
   preventChange: (e) ->
+    return unless App.isMobile
     e.preventDefault()
     e.stopImmediatePropagation()
 
