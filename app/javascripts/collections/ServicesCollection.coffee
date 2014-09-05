@@ -47,7 +47,8 @@ class App.ServicesCollection extends Backbone.Collection
 
   top: (limit = 5) ->
     items = @reject (m) -> !m.get('usage')
-    items = _(items).sortBy('usage').last(limit).value()
+    items = _(items).sortBy((m) -> m.get('usage'))
+              .last(limit).reverse().value()
     items
 
   resetUsage: ->
