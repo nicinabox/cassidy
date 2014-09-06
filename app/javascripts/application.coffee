@@ -25,3 +25,11 @@ window.App =
       @platform = 'osx'
 
   isMobile: /mobile/i.test(navigator.userAgent)
+
+  prompt: (message) ->
+    dfd = $.Deferred()
+    setTimeout ->
+      answer = prompt message
+      dfd.resolve(answer) if answer
+    , 0
+    dfd.promise()
