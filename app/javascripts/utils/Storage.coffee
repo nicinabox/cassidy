@@ -13,6 +13,9 @@ class App.Storage
     catch e
       data
 
+  remove: (key) ->
+    localStorage.removeItem(@namespacedKey(key))
+
   clear: ->
     localStorage.clear()
 

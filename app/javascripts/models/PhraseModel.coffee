@@ -2,20 +2,29 @@ class App.PhraseModel extends Backbone.Model
   initialize: ->
     @store = new App.Storage('phrase')
 
-    @on 'change', (model) ->
-      @store.set('phrase', model.toJSON())
+    @on 'change', ->
+      data = @toJSON()
+      if data
+        @store.set('phrase', data)
+      else
+        @store.remove('phrase')
 
   fetch: ->
     $.when(@settings.fetch()).then =>
       @set @parse(@store.get('phrase')),
         silent: true
 
+  hasSavedPhrase: ->
+    !!@store.get('phrase')
+
   toJSON: ->
-    attrs = _.clone @attributes
-    key = App.views.settings.model.get('key')
     phrase = @get('phrase')
-    encrypted = CryptoJS.TripleDES.encrypt(phrase, key)
-    _.extend attrs, phrase: encrypted.toString()
+
+    if phrase
+      attrs     = _.clone @attributes
+      key       = App.views.settings.model.get('key')
+      encrypted = CryptoJS.TripleDES.encrypt(phrase, key)
+      _.extend attrs, phrase: encrypted.toString()
 
   parse: (data) ->
     return unless data
