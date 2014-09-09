@@ -90,24 +90,38 @@ body.docs {
 #settings {
   .toggle {
     margin-bottom: 0;
+    border-bottom: 1px solid #eee;
+
     label {
       display: block;
-      text-align: center;
       cursor: pointer;
       padding: 10px;
-      color: #444;
+      margin: 0;
+      color: #ccc;
       @include border-radius(3px);
       @include transition(background 200ms ease-out);
-      &:hover {
-        background: #eee;
+
+      i {
+        line-height: 1;
+        color: #888;
       }
     }
     input[type="checkbox"] {
       display: none;
+
       &:checked {
         + label {
-          background: $brand-primary;
-          color: white;
+          color: #444;
+
+          i {
+            color: $brand-primary;
+          }
+
+          &:hover {
+            i {
+              color: tint($brand-primary, 8%);
+            }
+          }
         }
       }
     }

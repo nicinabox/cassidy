@@ -3,27 +3,42 @@
     <label for="">Options</label>
     <div class="toggle">
       <input type="checkbox" name="lower" id="lower" {{checked lower}}>
-      <label for="lower" title="Toggle lowercase">a-z</label>
+      <label for="lower" title="Toggle lowercase">
+        a-z
+        <i class="fa {{settingsIcon lower}} fa-lg pull-right"></i>
+      </label>
     </div>
 
     <div class="toggle">
       <input type="checkbox" name="upper" id="upper" {{checked upper}}>
-      <label for="upper" title="Toggle uppercase">A-Z</label>
+      <label for="upper" title="Toggle uppercase">
+        A-Z
+        <i class="fa {{settingsIcon upper}} fa-lg pull-right"></i>
+      </label>
     </div>
 
     <div class="toggle">
       <input type="checkbox" name="number" id="number" {{checked number}}>
-      <label for="number" title="Toggle numbers">0-9</label>
+      <label for="number" title="Toggle numbers">
+        0-9
+        <i class="fa {{settingsIcon number}} fa-lg pull-right"></i>
+      </label>
     </div>
 
     <div class="toggle">
       <input type="checkbox" name="dash" id="dash" {{checked dash}}>
-      <label for="dash" title="Toggle dashes and underscore">-_</label>
+      <label for="dash" title="Toggle dashes and underscore">
+        -_
+        <i class="fa {{settingsIcon dash}} fa-lg pull-right"></i>
+      </label>
     </div>
 
     <div class="toggle">
       <input type="checkbox" name="symbol" id="symbol" {{checked symbol}}>
-      <label for="symbol" title="Toggle symbols">!@#$%</label>
+      <label for="symbol" title="Toggle symbols">
+        !@#$%
+        <i class="fa {{settingsIcon symbol}} fa-lg pull-right"></i>
+      </label>
     </div>
   </div>
 
