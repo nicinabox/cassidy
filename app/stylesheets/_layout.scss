@@ -119,7 +119,7 @@ body.docs {
 
           &:hover {
             i {
-              color: tint($brand-primary, 8%);
+              color: darken($brand-primary, 10%);
             }
           }
         }
