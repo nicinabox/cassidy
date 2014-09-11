@@ -3,40 +3,40 @@
     <label for="">Options</label>
     <div class="toggle">
       <input type="checkbox" name="lower" id="lower" {{checked lower}}>
-      <label for="lower" title="Toggle lowercase">
-        a-z
+      <label for="lower">
+        Lowercase
         <i class="fa {{settingsIcon lower}} fa-lg pull-right"></i>
       </label>
     </div>
 
     <div class="toggle">
       <input type="checkbox" name="upper" id="upper" {{checked upper}}>
-      <label for="upper" title="Toggle uppercase">
-        A-Z
+      <label for="upper">
+        Uppercase
         <i class="fa {{settingsIcon upper}} fa-lg pull-right"></i>
       </label>
     </div>
 
     <div class="toggle">
       <input type="checkbox" name="number" id="number" {{checked number}}>
-      <label for="number" title="Toggle numbers">
-        0-9
+      <label for="number">
+        Numbers
         <i class="fa {{settingsIcon number}} fa-lg pull-right"></i>
       </label>
     </div>
 
     <div class="toggle">
       <input type="checkbox" name="dash" id="dash" {{checked dash}}>
-      <label for="dash" title="Toggle dashes and underscore">
-        -_
+      <label for="dash">
+        Dashes & underscore
         <i class="fa {{settingsIcon dash}} fa-lg pull-right"></i>
       </label>
     </div>
 
     <div class="toggle">
       <input type="checkbox" name="symbol" id="symbol" {{checked symbol}}>
-      <label for="symbol" title="Toggle symbols">
-        !@#$%
+      <label for="symbol">
+        Symbols
         <i class="fa {{settingsIcon symbol}} fa-lg pull-right"></i>
       </label>
     </div>
@@ -59,7 +59,7 @@
 <div class="placeholder-passphrase"></div>
 
 <div class="danger-zone">
-  <a href="#" class="btn btn-link reset-settings" title="Will reset all settings except for your phrase">
+  <a href="#" class="btn btn-link reset-settings" title="Reset all settings except for key and phrase">
     Reset settings
   </a><br>
   {{#if dropbox_auth}}
