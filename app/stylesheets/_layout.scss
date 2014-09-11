@@ -95,7 +95,8 @@ body.docs {
     label {
       display: block;
       cursor: pointer;
-      padding: 10px;
+      padding: 10px 0;
+      font-weight: normal;
       margin: 0;
       color: #ccc;
       @include border-radius(3px);
@@ -111,13 +112,15 @@ body.docs {
 
       &:checked {
         + label {
-          color: #444;
+          color: #666;
 
           i {
             color: $brand-primary;
           }
 
           &:hover {
+            color: #222;
+
             i {
               color: darken($brand-primary, 10%);
             }
