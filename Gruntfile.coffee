@@ -29,7 +29,7 @@ module.exports = (grunt) ->
         files: 'Gruntfile*'
 
       html:
-        files: 'app/*.html'
+        files: 'app/**/*.html'
         tasks: 'includereplace'
 
       scripts:
