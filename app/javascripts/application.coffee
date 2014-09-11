@@ -17,12 +17,10 @@ window.App =
     template = JST['no_results']
     template message: message
 
-  setPlatform: ->
-    if /win/i.test(navigator.appVersion)
-      @platform = 'win'
-
-    if /mac/i.test(navigator.appVersion)
-      @platform = 'osx'
+  platform: (->
+    return 'win' if /win/i.test(navigator.appVersion)
+    return 'osx' if /mac/i.test(navigator.appVersion)
+  )()
 
   isMobile: /mobile/i.test(navigator.userAgent)
 

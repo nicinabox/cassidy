@@ -104,7 +104,11 @@ class App.GeneratorView extends Backbone.View
     e.stopImmediatePropagation()
 
   setSuperKey: ->
-    @$('.super-key').text('Ctrl+') if App.platform == 'win'
+    superKeys =
+      win: 'Ctrl'
+      osx: 'Cmd'
+
+    @$('.super-key').text superKeys[App.platform] + '+'
 
   clearForm: (e) ->
     e.preventDefault() if e
