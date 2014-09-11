@@ -19,7 +19,6 @@ class App.GeneratorView extends Backbone.View
 
     @suggestionsView = new App.SuggestionsView
 
-    @listenForEscape()
     @listenToOnce App.collections.services, 'sync', ->
       @typeahead()
 
@@ -117,7 +116,6 @@ class App.GeneratorView extends Backbone.View
     @toggleClearButton()
     @toggleHint()
     App.views.settings.resetSettings()
-    @$service.focus()
 
   toggleBorderClass: ->
     @$service.toggleClass 'no-border-radius',
@@ -128,11 +126,6 @@ class App.GeneratorView extends Backbone.View
 
   toggleHint: ->
     @$('.hint').toggleClass 'visible', !!@$('#result').val()
-
-  listenForEscape: ->
-    $(document).on 'keyup', (e) =>
-      if e.which == 27
-        @clearForm()
 
   populated: ->
     !!@$service.val().length

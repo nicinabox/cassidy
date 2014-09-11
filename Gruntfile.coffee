@@ -161,6 +161,7 @@ module.exports = (grunt) ->
               connect.static('.tmp')
               connect().use('/bower_components', connect.static('./bower_components'))
               connect().use('/node_modules', connect.static('./node_modules'))
+              connect().use('/vendor', connect.static('./vendor'))
             ]
 
     invalidate_cloudfront:

@@ -10,6 +10,7 @@ class App.ApplicationView extends Backbone.View
     @render()
     @setupCollections()
     @setupViews()
+    @setupShortcuts()
 
   render: ->
     @$el.html @template()
@@ -32,6 +33,11 @@ class App.ApplicationView extends Backbone.View
       App.views[k] = v
       @$('.row').append v.render()
       App.views[k].trigger("append.#{k}")
+
+  setupShortcuts: ->
+    App.shortcuts       = new App.Shortcuts
+    App.views.shortcuts = new App.ShortcutsView
+    @$el.append App.views.shortcuts.render()
 
   disconnectDropbox: ->
     Backbone.DropboxDatastore.client.signOut {}, ->
