@@ -24,4 +24,4 @@ class App.ServicesView extends Backbone.View
 
   addService: (model) ->
     view = new App.ServiceView model: model
-    @$el.append view.render()
+    @$el.append view.render() if model.visible

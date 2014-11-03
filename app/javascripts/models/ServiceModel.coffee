@@ -1,4 +1,6 @@
 class App.ServiceModel extends Backbone.Model
+  visible: true
+
   validate: (attrs) ->
     errors = []
 

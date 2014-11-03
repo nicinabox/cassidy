@@ -43,6 +43,7 @@ class App.GeneratorView extends Backbone.View
 
   submitForm: (e) ->
     @toggleBorderClass()
+    @resetFilterServices()
 
     # Escape
     if e.which == 27
@@ -50,6 +51,7 @@ class App.GeneratorView extends Backbone.View
 
     if e.target.value
       @populateSettings @findService(e.target.value)
+      @filterServices()
       @generatePassword()
     else
       @clearForm()
@@ -66,6 +68,7 @@ class App.GeneratorView extends Backbone.View
     data = @serviceData()
     generator = new App.Generator(data)
 
+    @$('.errors').html('').hide()
     if generator.error
       @$('.errors').html(generator.error).show()
       @$('#result').val('')
@@ -126,6 +129,7 @@ class App.GeneratorView extends Backbone.View
     @originalVal = null
     @toggleClearButton()
     @toggleHint()
+    @resetFilterServices()
     App.views.settings.resetSettings()
 
   toggleBorderClass: ->
@@ -150,6 +154,24 @@ class App.GeneratorView extends Backbone.View
 
   populateSettings: (settingsModel) ->
     App.views.settings.populate(settingsModel) if settingsModel
+
+  resetFilterServices: ->
+    servicesView = App.views.services
+    App.collections.services.each (m) -> m.visible = true
+    servicesView.render()
+
+  filterServices: ->
+    data         = @$('form').serializeObject()
+    servicesView = App.views.services
+
+    if data.service
+      App.collections.services.each (model) ->
+        regex = new RegExp data.service, 'i'
+        model.visible = false
+        if regex.test model.get('service')
+          model.visible = true
+
+    servicesView.render()
 
   serviceData: ->
     settingsView = App.views.settings
