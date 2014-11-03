@@ -49,6 +49,7 @@ class App.GeneratorView extends Backbone.View
       return
 
     if e.target.value
+      @populateSettings @findService(e.target.value)
       @generatePassword()
     else
       @clearForm()
@@ -71,7 +72,7 @@ class App.GeneratorView extends Backbone.View
     data = @serviceData()
 
     _.each settings.protectedAttributes, (attr) -> delete data.settings[attr]
-    model = App.collections.services.where(service: data.service)[0]
+    model = @findService(data.service)
     data.settings = JSON.stringify(data.settings)
 
     if model
@@ -137,6 +138,12 @@ class App.GeneratorView extends Backbone.View
   removeReadonlyOnMobile: ->
     return unless App.isMobile
     @$('#result').removeAttr('readonly')
+
+  findService: (name) ->
+    model = App.collections.services.where(service: name)[0]
+
+  populateSettings: (settingsModel) ->
+    App.views.settings.populate(settingsModel) if settingsModel
 
   serviceData: ->
     settingsView = App.views.settings
