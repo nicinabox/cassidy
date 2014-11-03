@@ -32,6 +32,10 @@ module.exports = (grunt) ->
         files: 'app/**/*.html'
         tasks: 'includereplace'
 
+      images:
+        files: 'app/images/*'
+        tasks: 'copy:images'
+
       scripts:
         files: 'app/javascripts/**/*.coffee'
         tasks: ['coffee']
@@ -96,6 +100,14 @@ module.exports = (grunt) ->
       server: '.tmp'
 
     copy:
+      images:
+        expand: true
+        cwd: 'app/'
+        dest: '.tmp'
+        src: [
+          'images/*'
+        ]
+
       dist:
         expand: true
         cwd: '.tmp'
