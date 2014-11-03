@@ -4,5 +4,5 @@ class App.Generator
       @result = new App.Vault(data.settings)
                   .generate_with_key(data.service, data.settings.key)
     catch e
-      @error = e
+      @error = e.message
 

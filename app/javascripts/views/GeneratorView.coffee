@@ -65,7 +65,12 @@ class App.GeneratorView extends Backbone.View
     @toggleClearButton()
     data = @serviceData()
     generator = new App.Generator(data)
-    @$('#result').val generator.result || generator.error
+
+    if generator.error
+      @$('.errors').html(generator.error).show()
+      @$('#result').val('')
+    else
+      @$('#result').val generator.result
 
   saveService: (e) ->
     settings = App.views.settings.model
@@ -117,6 +122,7 @@ class App.GeneratorView extends Backbone.View
     @$service.typeahead('close')
     @$service.typeahead('val', '')
     @$('form')[0].reset()
+    @$('.errors').empty().hide()
     @originalVal = null
     @toggleClearButton()
     @toggleHint()

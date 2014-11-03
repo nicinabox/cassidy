@@ -136,8 +136,6 @@ body.docs {
 
 #generator {
   margin: 30px 0;
-  #service {
-  }
   #result {
     background: none;
     border: none;
@@ -173,6 +171,12 @@ body.docs {
       color: #aaa;
     }
   }
+  .errors {
+    margin: 10px 0;
+    font-size: 16px;
+    color: $brand-warning;
+  }
+
   @include respond-to($container-sm) {
   }
 }
