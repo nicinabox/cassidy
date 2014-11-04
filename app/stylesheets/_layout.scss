@@ -17,9 +17,11 @@ body.docs {
 
 #primary-nav {
   @include clearfix;
+  float: right;
+  margin-top: 30px;
+
   a {
     padding: 10px;
-    float: left;
     display: block;
   }
 }
@@ -34,4 +36,8 @@ kbd {
 
 .modal-body {
   padding: 40px;
+}
+
+.page {
+  margin: 100px 0;
 }

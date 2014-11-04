@@ -1,6 +1,7 @@
 class App.WelcomeView extends Backbone.View
   id: 'welcome'
   template: JST['welcome']
+  className: 'page'
 
   events:
     'submit form': 'savePhrase'
