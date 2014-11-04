@@ -9,6 +9,7 @@ body.docs {
 }
 
 #root {
+  @include clearfix;
   @include respond-to($container-sm) {
     margin-top: 20px;
   }
