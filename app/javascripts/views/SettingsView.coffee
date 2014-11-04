@@ -11,9 +11,8 @@ class App.SettingsView extends Backbone.View
   initialize: ->
     _.bindAll this, 'render'
 
-    @model = new App.SettingsModel
+    @model = App.models.settings
     @phraseView = new App.PhraseView
-    @phraseView.model.settings = @model
 
     @listenTo @model, 'change', @render
     @listenTo @phraseView.model, 'change', @render

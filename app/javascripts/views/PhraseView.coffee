@@ -5,7 +5,7 @@ class App.PhraseView extends Backbone.View
     'click .toggle-visibility': 'toggleInputType'
 
   initialize: ->
-    @model = new App.PhraseModel
+    @model = App.models.phrase
 
   render: ->
     @$el.html @template @model.attributes

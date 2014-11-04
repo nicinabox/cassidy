@@ -11,8 +11,15 @@ window.App =
     dropbox = new App.DropboxClient
     Backbone.DropboxDatastore.client = dropbox.client
 
-    App.router = new App.ApplicationRouter
-    App.root   = new App.ApplicationView
+    @models =
+      phrase: new App.PhraseModel
+      settings: new App.SettingsModel
+
+    @collections =
+      services: new App.ServicesCollection
+
+    @router = new App.ApplicationRouter
+    @root   = new App.RootView
     Backbone.history.start()
 
   noResults: (message) ->
@@ -33,3 +40,5 @@ window.App =
       dfd.resolve(answer) if answer
     , 0
     dfd.promise()
+
+_.bindAll App

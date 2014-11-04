@@ -1,27 +1,23 @@
 class App.ApplicationView extends Backbone.View
+  className: 'container application'
   template: JST['application']
-  el: '#root'
 
   events:
     'click .connect-dropbox': 'connectDropbox'
 
   initialize: ->
     @dropboxAuth = Backbone.DropboxDatastore.client.isAuthenticated()
-    @render()
     @setupCollections()
-    @setupViews()
-    @setupShortcuts()
 
   render: ->
     @$el.html @template()
+    @setupViews()
+    @setupShortcuts()
+    @el
 
   setupCollections: ->
-    collections =
-      services: new App.ServicesCollection
-
-    _.each collections, (v, k) ->
-      App.collections[k] = v
-      v.fetch()
+    _.each App.collections, (c, k) ->
+      c.fetch()
 
   setupViews: ->
     views =

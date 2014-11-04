@@ -21,18 +21,21 @@ class App.PhraseModel extends Backbone.Model
   hasSavedPhrase: ->
     !!@store.get('phrase')
 
+  toPlainTextJSON: ->
+    _.clone @attributes
+
   toJSON: ->
     phrase = @get('phrase')
 
     if phrase
       attrs     = _.clone @attributes
-      key       = @settings.get('key')
+      key       = App.models.settings.get('key')
       encrypted = CryptoJS.TripleDES.encrypt(phrase, key)
       _.extend attrs, phrase: encrypted.toString()
 
   parse: (data) ->
     return unless data
-    key = @settings.get('key')
+    key = App.models.settings.get('key')
     decrypted = CryptoJS.TripleDES.decrypt(data.phrase, key)
     data.phrase = decrypted.toString(CryptoJS.enc.Utf8)
     data
