@@ -22,8 +22,12 @@ class App.GeneratorView extends Backbone.View
     @listenToOnce App.collections.services, 'sync', ->
       @typeahead()
 
+    @listenTo App.models.phrase, 'change', @render
+
   render: ->
-    @$el.html @template()
+    @$el.html @template
+      phrase: App.models.phrase.toPlainTextJSON()
+
     @$el.append @suggestionsView.render()
 
     @$service = @$('#service')

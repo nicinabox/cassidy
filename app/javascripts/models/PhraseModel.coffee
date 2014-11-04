@@ -17,6 +17,7 @@ class App.PhraseModel extends Backbone.Model
   fetch: ->
     @set @parse(@store.get('phrase')),
       silent: true
+    @trigger('sync')
 
   hasSavedPhrase: ->
     !!@store.get('phrase')
