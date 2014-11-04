@@ -15,9 +15,8 @@ class App.PhraseModel extends Backbone.Model
         @store.remove('phrase')
 
   fetch: ->
-    $.when(@settings.fetch()).then =>
-      @set @parse(@store.get('phrase')),
-        silent: true
+    @set @parse(@store.get('phrase')),
+      silent: true
 
   hasSavedPhrase: ->
     !!@store.get('phrase')
@@ -27,13 +26,13 @@ class App.PhraseModel extends Backbone.Model
 
     if phrase
       attrs     = _.clone @attributes
-      key       = App.views.settings.model.get('key')
+      key       = @settings.get('key')
       encrypted = CryptoJS.TripleDES.encrypt(phrase, key)
       _.extend attrs, phrase: encrypted.toString()
 
   parse: (data) ->
     return unless data
-    key = App.views.settings.model.get('key')
+    key = @settings.get('key')
     decrypted = CryptoJS.TripleDES.decrypt(data.phrase, key)
     data.phrase = decrypted.toString(CryptoJS.enc.Utf8)
     data

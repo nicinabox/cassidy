@@ -22,11 +22,12 @@ class App.SettingsView extends Backbone.View
       @model.saveKey()
 
     @model.fetch()
-    @phraseView.model.fetch().done (model) =>
-      if _.isEmpty model.get('phrase')
-        App.router.redirectTo 'welcome'
-      else
-        @render()
+      .then(=> @phraseView.model.fetch())
+      .then =>
+        if _.isEmpty @phraseView.model.get('phrase')
+          App.router.redirectTo 'welcome'
+        else
+          @render()
 
   render: ->
     @$('[title]').tooltip('destroy')
