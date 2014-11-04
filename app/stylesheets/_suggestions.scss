@@ -1,0 +1,17 @@
+#suggestions {
+  color: #aaa;
+
+  a {
+    display: inline-block;
+    padding: 5px;
+    color: inherit;
+
+    &:hover {
+      color: $brand-primary;
+    }
+  }
+
+  .remove {
+    display: none;
+  }
+}

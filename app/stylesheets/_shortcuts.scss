@@ -1,0 +1,16 @@
+.keyboard-mappings {
+  width: 100%;
+
+  td {
+    padding: 3px 0;
+    vertical-align: top;
+    line-height: 1.6;
+  }
+
+  .keys {
+    padding-right: 10px;
+    color: #999;
+    text-align: right;
+    white-space: nowrap;
+  }
+}

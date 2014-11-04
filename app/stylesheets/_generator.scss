@@ -1,0 +1,46 @@
+#generator {
+  margin: 30px 0;
+  #result {
+    background: none;
+    border: none;
+    font-size: 20px;
+    font-family: Monaco, monospace;
+    width: 100%;
+    outline: none;
+    cursor: pointer;
+  }
+  .hint {
+    color: #ddd;
+    margin-top: 3px;
+    @include opacity(0);
+    @include transition(opacity 200ms ease-out);
+    @include inline-block;
+    &.visible {
+      @include opacity(1);
+    }
+  }
+  .clear {
+    font-weight: bold;
+    position: absolute;
+    right: 19px;
+    top: 5px;
+    font-size: 20px;
+    color: #ddd;
+    padding: 8px 12px 12px;
+    line-height: 0.8;
+    @include inline-block;
+    display: none;
+    &:hover {
+      text-decoration: none;
+      color: #aaa;
+    }
+  }
+  .errors {
+    margin: 10px 0;
+    font-size: 16px;
+    color: $brand-warning;
+  }
+
+  @include respond-to($container-sm) {
+  }
+}

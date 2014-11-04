@@ -1,0 +1,46 @@
+#settings {
+  .toggle {
+    margin-bottom: 0;
+    border-bottom: 1px solid #eee;
+
+    label {
+      display: block;
+      cursor: pointer;
+      padding: 10px 0;
+      font-weight: normal;
+      margin: 0;
+      color: #ccc;
+      @include border-radius(3px);
+      @include transition(background 200ms ease-out);
+
+      i {
+        line-height: 1;
+        color: #888;
+      }
+    }
+    input[type="checkbox"] {
+      display: none;
+
+      &:checked {
+        + label {
+          color: #666;
+
+          i {
+            color: $brand-primary;
+          }
+
+          &:hover {
+            color: #222;
+
+            i {
+              color: darken($brand-primary, 10%);
+            }
+          }
+        }
+      }
+    }
+  }
+  .danger-zone {
+    margin-top: 30px;
+  }
+}

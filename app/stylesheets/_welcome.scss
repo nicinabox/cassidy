@@ -1,0 +1,26 @@
+#welcome {
+  margin: 100px 0;
+  font-size: 16px;
+
+  form {
+    margin: 50px 0;
+
+    input {
+      width: 60%;
+    }
+
+    .form-group {
+      width: 80%;
+    }
+
+    @include respond-to($container-sm) {
+      input, .form-group {
+        width: 100%;
+      }
+    }
+  }
+
+  .footer {
+    margin: 50px 0;
+  }
+}
