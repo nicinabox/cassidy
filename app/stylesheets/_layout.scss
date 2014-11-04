@@ -4,8 +4,11 @@ body.docs {
   margin-bottom: 50px;
 }
 
+.container {
+  margin: 0;
+}
+
 #root {
-  @extend .container;
   margin: 0;
   @include respond-to($container-sm) {
     margin-top: 20px;
@@ -19,6 +22,10 @@ body.docs {
     float: left;
     display: block;
   }
+}
+
+html, body, #root, .application, .application > .row, #sidebar {
+  height: 100%;
 }
 
 #sidebar {
@@ -186,6 +193,7 @@ body.docs {
   right: 0;
   bottom: 0;
   font-size: 14px;
+  width: 100%;
   .wrapper {
     padding: 20px;
     @include clearfix;
