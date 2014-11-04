@@ -76,7 +76,7 @@ class App.GeneratorView extends Backbone.View
       @$('#result').val generator.result
 
   saveService: (e) ->
-    settings = App.views.settings.model
+    settings = App.models.settings
     data = @serviceData()
 
     _.each settings.protectedAttributes, (attr) -> delete data.settings[attr]
@@ -174,12 +174,11 @@ class App.GeneratorView extends Backbone.View
     servicesView.render()
 
   serviceData: ->
-    settingsView = App.views.settings
     form_data = @$('form').serializeObject()
 
     # Merge phrase with settings
-    settings  = _.merge settingsView.model.attributes,
-      settingsView.phraseView.model.attributes
+    settings  = _.merge App.models.settings.toJSON(),
+      App.models.phrase.toPlainTextJSON()
 
     # Merge form data with settings
     _.merge form_data, settings: settings

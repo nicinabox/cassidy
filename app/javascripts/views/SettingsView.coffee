@@ -15,15 +15,15 @@ class App.SettingsView extends Backbone.View
     @phraseView = new App.PhraseView
 
     @listenTo @model, 'change', @render
-    @listenTo @phraseView.model, 'change', @render
+    @listenTo App.models.phrase, 'change', @render
 
     @listenTo @model, 'change:key', (model, prop) ->
       @model.saveKey()
 
     @model.fetch()
-      .then(=> @phraseView.model.fetch())
+      .then(=> App.models.phrase.fetch())
       .then =>
-        if _.isEmpty @phraseView.model.get('phrase')
+        if _.isEmpty App.models.phrase.get('phrase')
           App.router.redirectTo 'welcome'
         else
           @render()
