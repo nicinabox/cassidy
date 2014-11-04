@@ -2,6 +2,8 @@ class App.ApplicationRouter extends Backbone.Router
   routes:
     '': 'application'
     'welcome': 'welcome'
+    'beer': 'beer'
+    'help': 'help'
 
   # Helpers
   render: (view) ->
@@ -16,3 +18,9 @@ class App.ApplicationRouter extends Backbone.Router
 
   welcome: ->
     @render new App.WelcomeView
+
+  beer: ->
+    @render new App.BeerView
+
+  help: ->
+    @render new App.HelpView

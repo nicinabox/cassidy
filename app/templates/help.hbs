@@ -1,0 +1,76 @@
+<div class="row">
+  <div class="col-sm-7 center-block">
+    {{> primary_nav }}
+
+    <h1>Help</h1>
+
+    <h2>Overview</h2>
+
+    <p>
+      Cassidy generates unique passwords by combining a <strong>service</strong>, <strong>key</strong>, and <strong>phrase</strong>.
+
+      Add your own phrase under the Settings tab. A key will be generated pseudo-randomly for you.
+    </p>
+
+    <p>
+      Write it down or remember your key! You must have it to recreate the same passwords.
+    </p>
+
+    <h2>Services</h2>
+
+    <p>
+      Recent services appear on the left side. When typing in the service field, you may select from recent services using the autocomplete dropdown.
+    </p>
+
+    <h3>Saving services</h3>
+    <p>
+      When entering a service, use <kbd>Enter</kbd> or <kbd>Tab</kbd> to save the service in the sidebar.
+    </p>
+    <p>
+      A saved service will also save all the current settings with it. Selecting a saved service will repopulate the settings that it was created with.
+    </p>
+
+    <h3>Removing services</h3>
+    <p>
+      Hover over a service in the sidebar and click the &times; on the right side.
+    </p>
+
+    <h2>Settings</h2>
+
+    <p>
+      You may influence the creation of a password by turning on or off several options, including lowercase letters, capital letters, numbers, dashes, sumbols, and length.
+    </p>
+
+    <h3>Key</h3>
+
+    <p>
+      Your key makes your passwords unique. No one else can have the same generated password for a given service + key combination.
+    </p>
+
+    <h3>Phrase</h3>
+
+    <p>
+      Unlike the settings and key, your phrase is not saved with a service. It will be encrypted and persisted in localStorage for your convenience.
+    </p>
+
+    <h2>Syncing with Dropbox</h2>
+    <p>
+      If you connect to Dropbox, your services will be saved to Dropbox instead of localStorage. This means you can connect several devices (computers, phones, tablets) and have the same services available everywhere.
+    </p>
+
+    <p>
+      <strong>Cassidy does not save passwords, only most of the information required to recreate passwords.</strong> Each service will have settings data attached, including the key. You must reenter your Phrase on every new device.
+    </p>
+
+    <h2>Clearing Data</h2>
+
+    <p>
+      Application data is stored in localStorage by default. Under <strong>Settings</strong>, click <strong>Clear local data</strong> to reset the application and remove all saved settings and services.
+    </p>
+
+    <p>
+      Additionally, <strong>Reset Settings</strong> will restore the settings to your original key and default settings. It is not a dangerous action.
+    </p>
+
+  </div>
+</div>
