@@ -1,7 +1,5 @@
 class App.PhraseModel extends Backbone.Model
-  defaultPhrase: (->
-    Math.random().toString(36).slice(2)
-  )()
+  defaultPhrase: Math.random().toString(36).slice(2)
 
   initialize: ->
     @usingDefaultPhrase = false
