@@ -82,6 +82,7 @@ module.exports = (grunt) ->
     compass:
       options:
         importPath: [
+          'bower_components'
           'bower_components/bootstrap-sass/vendor/assets/stylesheets'
         ]
         sassDir: "app/stylesheets"
@@ -101,6 +102,14 @@ module.exports = (grunt) ->
       server: '.tmp'
 
     copy:
+      fontawesome:
+        expand: true
+        cwd: 'bower_components/fontawesome/'
+        dest: '.tmp'
+        src: [
+          'fonts/*'
+        ]
+
       images:
         expand: true
         cwd: 'app/'
@@ -114,6 +123,7 @@ module.exports = (grunt) ->
         cwd: '.tmp'
         dest: 'dist'
         src: [
+          'fonts/*'
           'images/*'
           '*.html'
         ]
