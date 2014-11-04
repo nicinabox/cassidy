@@ -203,6 +203,12 @@ module.exports = (grunt) ->
               connect().use('/vendor', connect.static('./vendor'))
             ]
 
+      dist:
+        options:
+          open: true
+          keepalive: true
+          base: 'dist'
+
     invalidate_cloudfront:
       options:
         key: '<%= aws.key %>'
@@ -222,7 +228,7 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'default', [
     'compile'
-    'connect'
+    'connect:server'
     'watch'
   ]
 
