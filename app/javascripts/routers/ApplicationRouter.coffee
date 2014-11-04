@@ -8,8 +8,8 @@ class App.ApplicationRouter extends Backbone.Router
   redirectTo: (path) ->
     @navigate path, trigger: true
 
-  root: ->
-    App.root = new App.ApplicationView
+  reloadPage: ->
+    location.reload()
 
   welcome: ->
     @render new App.WelcomeView
