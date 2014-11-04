@@ -11,7 +11,9 @@ window.App =
     dropbox = new App.DropboxClient
     Backbone.DropboxDatastore.client = dropbox.client
 
-    App.root = new App.ApplicationView
+    App.router = new App.ApplicationRouter
+    App.root   = new App.ApplicationView
+    Backbone.history.start()
 
   noResults: (message) ->
     template = JST['no_results']

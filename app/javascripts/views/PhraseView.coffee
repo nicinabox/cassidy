@@ -15,7 +15,8 @@ class App.PhraseView extends Backbone.View
     return if e.type == 'keyup' and e.which != 13
 
     val = e.target.value
-    @model.set('phrase', val)
+    @model.set phrase: val
+    @model.unset 'defaultPhrase'
     App.views.settings.updateService()
 
   toggleInputType: (e) ->

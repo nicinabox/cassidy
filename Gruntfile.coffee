@@ -71,6 +71,7 @@ module.exports = (grunt) ->
             'app/environments/<%= env %>.coffee'
             'app/javascripts/*.coffee'
             'app/javascripts/utils/*.coffee'
+            'app/javascripts/routers/*.coffee'
             'app/javascripts/models/*.coffee'
             'app/javascripts/collections/*.coffee'
             'app/javascripts/views/*.coffee'

@@ -24,8 +24,7 @@ class App.SettingsView extends Backbone.View
     @model.fetch()
     @phraseView.model.fetch().done (model) =>
       if _.isEmpty model.get('phrase')
-        view = new App.NewUserView
-        App.root.$el.append view.render()
+        App.router.redirectTo 'welcome'
       else
         @render()
 
