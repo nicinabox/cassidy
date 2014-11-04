@@ -180,6 +180,15 @@ module.exports = (grunt) ->
         files:
           src: ['dist/**/*.{js,css}']
 
+    appcache:
+      options:
+        basePath: 'dist'
+
+      all:
+        dest: 'dist/manifest.appcache'
+        cache: 'dist/**/*'
+        network: '*'
+
     connect:
       server:
         options:
@@ -237,6 +246,7 @@ module.exports = (grunt) ->
     'rev'
     'usemin'
     'htmlmin'
+    'appcache'
   ]
 
   grunt.registerTask 'deploy', [
