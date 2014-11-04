@@ -248,6 +248,12 @@ body.docs {
     .form-group {
       width: 80%;
     }
+
+    @include respond-to($container-sm) {
+      input, .form-group {
+        width: 100%;
+      }
+    }
   }
 
   .footer {
