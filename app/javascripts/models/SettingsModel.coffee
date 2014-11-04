@@ -72,10 +72,9 @@ class App.SettingsModel extends Backbone.Model
     else
       @store.set 'defaults', @toJSON()
 
-    setTimeout =>
+    _.defer =>
       dfd.resolve this
       @trigger 'sync'
-    , 0
 
     dfd.promise()
 

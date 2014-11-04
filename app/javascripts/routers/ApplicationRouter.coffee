@@ -1,6 +1,5 @@
 class App.ApplicationRouter extends Backbone.Router
   routes:
-    '': 'root'
     'welcome': 'welcome'
 
   render: (view) ->
