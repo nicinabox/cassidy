@@ -7,7 +7,7 @@ class App.WelcomeView extends Backbone.View
     'click .skip': 'skipOnboarding'
 
   initialize: ->
-    @model = App.views.settings.phraseView.model
+    @model = App.models.phrase
 
     @listenTo @model, 'change', ->
       App.router.redirectTo ''
