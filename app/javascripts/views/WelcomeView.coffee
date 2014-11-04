@@ -11,7 +11,6 @@ class App.WelcomeView extends Backbone.View
 
     @listenTo @model, 'change', ->
       App.router.redirectTo ''
-      App.router.reloadPage()
 
   render: ->
     @$el.html @template()
