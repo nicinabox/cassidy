@@ -24,14 +24,8 @@ class App.SettingsView extends Backbone.View
     @model.fetch()
     @phraseView.model.fetch().done (model) =>
       if _.isEmpty model.get('phrase')
-        message = 'Please enter your phrase:'
-
-        if model.hasSavedPhrase()
-          message = 'Please re-enter your phrase:'
-
-        App.prompt(message).done (answer) =>
-          model.set('phrase', answer) if answer
-
+        view = new App.NewUserView
+        App.root.$el.append view.render()
       else
         @render()
 

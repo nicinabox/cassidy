@@ -11,7 +11,7 @@ window.App =
     dropbox = new App.DropboxClient
     Backbone.DropboxDatastore.client = dropbox.client
 
-    new App.ApplicationView
+    App.root = new App.ApplicationView
 
   noResults: (message) ->
     template = JST['no_results']

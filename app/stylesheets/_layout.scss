@@ -234,6 +234,34 @@ body.docs {
   }
 }
 
+#new-user {
+  position: fixed;
+  background: #fff;
+  padding: 100px 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  font-size: 16px;
+  overflow: auto;
+
+  form {
+    margin: 50px 0;
+
+    input {
+      width: 60%;
+    }
+
+    .form-group {
+      width: 80%;
+    }
+  }
+
+  .footer {
+    margin: 50px 0;
+  }
+}
+
 #suggestions {
   color: #aaa;
 
