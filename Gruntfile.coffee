@@ -23,6 +23,8 @@ module.exports = (grunt) ->
         upload: [
           src: 'dist/**/*'
           rel: 'dist'
+          options:
+            gzip: true
         ]
 
     watch:
