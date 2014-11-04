@@ -8,7 +8,7 @@ class App.PhraseView extends Backbone.View
     @model = App.models.phrase
 
   render: ->
-    @$el.html @template @model.attributes
+    @$el.html @template @model.toPlainTextJSON()
     @el
 
   save: (e) ->
