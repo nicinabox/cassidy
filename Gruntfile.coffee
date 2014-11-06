@@ -240,7 +240,9 @@ module.exports = (grunt) ->
   ]
 
   grunt.registerTask 'build', [
-    'clean:dist'
+    'clean'
+    'copy:fontawesome'
+    'copy:images'
     'includereplace'
     'useminPrepare'
     'handlebars'
