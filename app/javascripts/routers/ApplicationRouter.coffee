@@ -19,7 +19,7 @@ class App.ApplicationRouter extends Backbone.Router
   render: (view) ->
     App.root.$el.html view.render()
     App.currentView = view
-    _gauges.push(['track']);
+    _gauges.push(['track']) if _gauges
 
   redirectTo: (path) ->
     @navigate path, trigger: true
