@@ -15,9 +15,9 @@ module.exports = (grunt) ->
         bucket: '<%= aws.bucket %>'
         access: 'public-read'
         headers:
-          # Two Year cache policy (1000 * 60 * 60 * 12 * 730)
-          "Cache-Control": "max-age=31536000000, public",
-          "Expires": new Date(Date.now() + 31536000000).toUTCString()
+          # Two hour cache
+          "Cache-Control": "max-age=7200, public",
+          "Expires": new Date(Date.now() + 7200).toUTCString()
 
       production:
         upload: [
