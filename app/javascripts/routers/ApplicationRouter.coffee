@@ -10,7 +10,6 @@ class App.ApplicationRouter extends Backbone.Router
       if @constructor::[method] == undefined
         @constructor::[method] = (options...) ->
           className = _.capitalize(method) + 'View'
-
           @render(new App[className], options...)
 
     super
