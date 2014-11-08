@@ -1,4 +1,5 @@
-_ = require('lodash')
+_    = require('lodash')
+glob = require('glob')
 
 module.exports = (grunt) ->
   require('load-grunt-tasks')(grunt)
@@ -10,22 +11,26 @@ module.exports = (grunt) ->
 
     s3:
       options:
-        key: '<%= aws.key %>'
-        secret: '<%= aws.secret %>'
+        accessKeyId: '<%= aws.key %>'
+        secretAccessKey: '<%= aws.secret %>'
         bucket: '<%= aws.bucket %>'
         access: 'public-read'
         headers:
-          # Two hour cache
-          "Cache-Control": "max-age=7200, public",
-          "Expires": new Date(Date.now() + 7200).toUTCString()
+          CacheControl: 7200
 
       production:
-        upload: [
-          src: 'dist/**/*'
-          rel: 'dist'
-          options:
-            gzip: true
-        ]
+        cwd: 'dist'
+        src: '**/*'
+        options:
+          gzip: true
+
+    cloudfront:
+      options:
+        accessKeyId: '<%= aws.key %>'
+        secretAccessKey: '<%= aws.secret %>'
+        distributionId: '<%= aws.distribution %>'
+        invalidations: _(glob.sync('dist/**/*.{html,png,appcache}')).map((f) ->
+          "/#{f}").value()
 
     watch:
       options:
@@ -209,22 +214,7 @@ module.exports = (grunt) ->
           keepalive: true
           base: 'dist'
 
-    invalidate_cloudfront:
-      options:
-        key: '<%= aws.key %>'
-        secret: '<%= aws.secret %>'
-        distribution: 'E304OOCZVQB21'
-      production:
-        files: [
-          expand: true
-          cwd: 'dist'
-          src: ['**/*.{html,png,appcache}']
-          filter: 'isFile'
-          dest: ''
-        ]
-
   grunt.initConfig config
-
 
   grunt.registerTask 'default', [
     'compile'
@@ -260,5 +250,5 @@ module.exports = (grunt) ->
   grunt.registerTask 'deploy', [
     'build'
     's3:production'
-    'invalidate_cloudfront'
+    'cloudfront'
   ]
