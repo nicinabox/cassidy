@@ -7,6 +7,7 @@ class App.SettingsView extends Backbone.View
     'change form': 'updateSettings'
     'click .reset-settings': 'resetSettings'
     'click .clear-data': 'clearData'
+    'click .length-presets a': 'setLength'
 
   initialize: ->
     _.bindAll this, 'render'
@@ -85,3 +86,9 @@ class App.SettingsView extends Backbone.View
       @model.set JSON.parse settings
     else
       @model.set settings
+
+  setLength: (e) ->
+    e.preventDefault()
+    @$('#length')
+      .val($(e.currentTarget).text())
+      .trigger('change')
