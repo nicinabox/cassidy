@@ -1,5 +1,10 @@
 #generator {
   margin: 30px 0;
+
+  form {
+    border-bottom: 1px solid #efefef;
+  }
+
   #result {
     background: none;
     border: none;
@@ -9,6 +14,7 @@
     outline: none;
     cursor: pointer;
   }
+
   .hint {
     color: #ddd;
     margin-top: 3px;
@@ -19,6 +25,7 @@
       @include opacity(1);
     }
   }
+
   .clear {
     font-weight: bold;
     position: absolute;
@@ -35,6 +42,7 @@
       color: #aaa;
     }
   }
+
   .errors {
     margin: 10px 0;
     font-size: 16px;
@@ -42,5 +50,6 @@
   }
 
   @include respond-to($container-sm) {
+    margin: 0;
   }
 }
