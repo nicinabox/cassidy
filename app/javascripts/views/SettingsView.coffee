@@ -59,14 +59,9 @@ class App.SettingsView extends Backbone.View
     @el
 
   updateSettings: (e) ->
-    data = $(e.currentTarget).serializeObject()
-    defaults = @model.defaults()
+    data = Backbone.Syphon.serialize(this)
 
-    # Fix checkbox data
-    _.forEach data, (v, k) -> data[k] = defaults[k] if v == 'on'
-    data = _.merge @model.inverseDefaults(), data
-
-    @model.clear silent: true
+    # @model.clear silent: true
     @model.set data
     @updateService()
 

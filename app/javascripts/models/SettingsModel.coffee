@@ -10,21 +10,13 @@ class App.SettingsModel extends Backbone.Model
 
   defaults: ->
     length: 20
-    upper: 1
-    lower: 1
-    number: 1
-    symbol: 1
-    dash: 1
-    space: 0
+    upper: true
+    lower: true
+    number: true
+    symbol: true
+    dash: true
+    space: false
     key: @newKey()
-
-  inverseDefaults: ->
-    space: 0
-    upper: 0
-    lower: 0
-    number: 0
-    symbol: 0
-    dash: 0
 
   initialize: ->
     @setStorage()

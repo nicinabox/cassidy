@@ -16,8 +16,7 @@ class App.PhraseView extends Backbone.View
 
   updateSettings: (e) ->
     e.preventDefault()
-    data = $(e.currentTarget).serializeObject()
-    data = _.merge {}, @model.defaults(), data
+    data = Backbone.Syphon.serialize(this)
 
     @model.set data
     @model.unset 'defaultPhrase' if data.phrase
