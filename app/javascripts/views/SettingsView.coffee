@@ -27,15 +27,16 @@ class App.SettingsView extends Backbone.View
         hasPhrase      = !_.isEmpty(App.models.phrase.get('phrase'))
         requiresPhrase = App.models.phrase.get('require_always')
 
-        if requiresPhrase or hasPhrase
-          if requiresPhrase
-            App.models.phrase.unset 'phrase'
-            App.prompt('Please enter your phrase:').then (answer) ->
-              App.models.phrase.set phrase: answer
-
+        if requiresPhrase
+          App.models.phrase.unset 'phrase'
+          App.prompt('Please enter your phrase:').then (answer) ->
+            App.models.phrase.set phrase: answer
           @render()
         else
-          App.router.redirectTo 'welcome'
+          if hasPhrase
+            @render()
+          else
+            App.router.redirectTo 'welcome'
 
   render: ->
     @$('[title]').tooltip('destroy')

@@ -34,7 +34,7 @@ class App.PhraseModel extends Backbone.Model
     else
       attrs
 
-  parse: (data) ->
+  parse: (data = {}) ->
     if data.phrase
       key         = App.models.settings.get('key')
       decrypted   = CryptoJS.TripleDES.decrypt(data.phrase, key)
