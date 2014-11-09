@@ -22,7 +22,7 @@ class App.GeneratorView extends Backbone.View
     @listenToOnce App.collections.services, 'sync', ->
       @typeahead()
 
-    @listenTo App.models.phrase, 'change', @render
+    @listenTo App.models.phrase, 'sync change', @render
 
   render: ->
     @$el.html @template
