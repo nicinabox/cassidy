@@ -1,12 +1,3 @@
-Handlebars.registerHelper 'checked', (attr) ->
-  'checked' if attr
-
-Handlebars.registerHelper 'settingsIcon', (attr) ->
-  if attr
-    'fa-toggle-on'
-  else
-    'fa-toggle-off'
-
 Handlebars.registerHelper 'toggle', (name, obj) ->
   template = JST['toggle']
   value    = obj[name]
