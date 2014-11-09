@@ -3,11 +3,7 @@
     margin: 50px 0;
 
     input {
-      width: 60%;
-    }
-
-    .form-group {
-      width: 80%;
+      width: 72%;
     }
 
     @include respond-to($container-sm) {
