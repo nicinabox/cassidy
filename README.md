@@ -4,6 +4,8 @@
 
 A password generator backed by [vault](https://github.com/jcoglan/vault) and grown from [Hatchpass](https://github.com/nicinabox/Hatchpass-BackboneJS).
 
+![](http://i.imgur.com/ggLPzGp.gif)
+
 ## About
 
 Cassidy generates passwords based on a service (eg, google.com). Combine this with a passphrase and a key (think salt) and you have very strong, unique passwords. No two are alike, even if you use the same service and password as someone else.
