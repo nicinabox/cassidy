@@ -195,7 +195,6 @@ class App.GeneratorView extends Backbone.View
       .typeahead('close')
       .val(service_name)
       .trigger('change')
-    model.setUsage().save() if @hasChanged()
     @selectResult()
 
   hasChanged: ->
