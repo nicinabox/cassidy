@@ -34,6 +34,12 @@ class App.SettingsView extends Backbone.View
 
     @$el.html @template _.extend @model.toJSON(),
       dropbox_auth: Backbone.DropboxDatastore.client.isAuthenticated()
+      toggles:
+        lower: 'Lowercase'
+        upper: 'Uppercase'
+        number: 'Numbers'
+        dash: 'Dashes & underscore'
+        symbol: 'Symbols'
 
     @$('.placeholder-passphrase').replaceWith @phraseView.render()
     @phraseView.delegateEvents()

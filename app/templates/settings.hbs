@@ -1,45 +1,9 @@
 <form action="" id="settingsForm">
   <div class="form-group">
     <label for="">Attributes</label>
-    <div class="toggle">
-      <input type="checkbox" name="lower" id="lower" {{checked lower}}>
-      <label for="lower">
-        Lowercase
-        <i class="fa {{settingsIcon lower}} fa-lg pull-right"></i>
-      </label>
-    </div>
-
-    <div class="toggle">
-      <input type="checkbox" name="upper" id="upper" {{checked upper}}>
-      <label for="upper">
-        Uppercase
-        <i class="fa {{settingsIcon upper}} fa-lg pull-right"></i>
-      </label>
-    </div>
-
-    <div class="toggle">
-      <input type="checkbox" name="number" id="number" {{checked number}}>
-      <label for="number">
-        Numbers
-        <i class="fa {{settingsIcon number}} fa-lg pull-right"></i>
-      </label>
-    </div>
-
-    <div class="toggle">
-      <input type="checkbox" name="dash" id="dash" {{checked dash}}>
-      <label for="dash">
-        Dashes & underscore
-        <i class="fa {{settingsIcon dash}} fa-lg pull-right"></i>
-      </label>
-    </div>
-
-    <div class="toggle">
-      <input type="checkbox" name="symbol" id="symbol" {{checked symbol}}>
-      <label for="symbol">
-        Symbols
-        <i class="fa {{settingsIcon symbol}} fa-lg pull-right"></i>
-      </label>
-    </div>
+    {{#each toggles}}
+      {{toggle @key ../this}}
+    {{/each}}
   </div>
 
   <div class="form-group">

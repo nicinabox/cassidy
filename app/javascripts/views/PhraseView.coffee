@@ -10,9 +10,8 @@ class App.PhraseView extends Backbone.View
 
   render: ->
     @$el.html @template _.extend @model.toPlainTextJSON(),
-      toggle:
-        require_always:
-          label: 'Require always'
+      toggles:
+        require_always: 'Require always'
     @el
 
   updateSettings: (e) ->

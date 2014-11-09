@@ -12,7 +12,7 @@ Handlebars.registerHelper 'toggle', (name, obj) ->
   value    = obj[name]
 
   attrs =
-    label: obj.toggle[name].label
+    label: obj.toggles[name]
     name: name
     value: value
     toggleClass: (if value then 'fa-toggle-on' else 'fa-toggle-off')
