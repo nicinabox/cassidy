@@ -25,6 +25,7 @@ class App.SettingsView extends Backbone.View
       .then(=> App.models.phrase.fetch())
       .then =>
         hasPhrase      = !_.isEmpty(App.models.phrase.get('phrase'))
+        hasPhrase      ||= App.models.phrase.get('defaultPhrase')
         requiresPhrase = App.models.phrase.get('require_always')
 
         if requiresPhrase

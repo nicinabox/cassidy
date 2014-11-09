@@ -1,9 +1,9 @@
 class App.PhraseView extends Backbone.View
   template: JST['phrase']
   events:
-    'change form#phraseForm': 'updateSettings'
-    'submit form#phraseForm': 'updateSettings'
     'click .toggle-visibility': 'toggleInputType'
+    'submit form#phraseForm': 'updateSettings'
+    'change form#phraseForm': 'updateSettings'
 
   initialize: ->
     @model = App.models.phrase
@@ -16,18 +16,14 @@ class App.PhraseView extends Backbone.View
 
   updateSettings: (e) ->
     e.preventDefault()
+
     data = Backbone.Syphon.serialize(this)
 
     @model.set data
-    @model.unset 'defaultPhrase' if data.phrase
-    App.views.settings.updateService()
+    changed = @model.changedAttributes()
+    if @model.get('defaultPhrase') and changed.phrase
+      @model.unset 'defaultPhrase'
 
-  save: (e) ->
-    return if e.type == 'keyup' and e.which != 13
-
-    val = e.target.value
-    @model.set phrase: val
-    @model.unset 'defaultPhrase'
     App.views.settings.updateService()
 
   toggleInputType: (e) ->
