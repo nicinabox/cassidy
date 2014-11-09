@@ -35,10 +35,9 @@ window.App =
 
   prompt: (message) ->
     dfd = $.Deferred()
-    setTimeout ->
+    _.defer ->
       answer = prompt message
       dfd.resolve(answer) if answer
-    , 0
     dfd.promise()
 
 _.bindAll App

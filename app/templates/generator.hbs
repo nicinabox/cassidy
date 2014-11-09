@@ -5,6 +5,12 @@
   </div>
 {{/if}}
 
+{{#unless phrase.phrase}}
+  <div class="alert alert-warning">
+    You don't have a phrase set.
+  </div>
+{{/unless}}
+
 <form action="">
   <div class="form-group">
     <input type="service" name="service" id="service" class="form-control input-lg" placeholder="Eg, google.com" autocomplete="off" autocapitalize="off" autocorrect="off" autofocus>
