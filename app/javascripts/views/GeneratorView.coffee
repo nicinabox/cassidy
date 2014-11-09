@@ -48,6 +48,7 @@ class App.GeneratorView extends Backbone.View
   submitForm: (e) ->
     @toggleBorderClass()
     @resetFilterServices()
+    App.models.settings.resetOptions()
 
     # Escape
     if e.which == 27
