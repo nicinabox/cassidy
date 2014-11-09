@@ -1,6 +1,10 @@
-<div class="form-group">
-  <label for="phrase">Phrase</label>
-  <a href="#" class="small toggle-visibility">Show</a>
+<form action="" id="phraseForm">
+  <div class="form-group">
+    <label for="phrase">Phrase</label>
+    <a href="#" class="small-settings-button pull-right toggle-visibility">Show</a>
 
-  <input type="password" name="phrase" id="phrase" class="form-control"value="{{phrase}}">
-</div>
+    <input type="password" name="phrase" id="phrase" class="form-control"value="{{phrase}}">
+
+    {{toggle 'require_always' this}}
+  </div>
+</form>

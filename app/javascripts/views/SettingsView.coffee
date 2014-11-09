@@ -4,7 +4,7 @@ class App.SettingsView extends Backbone.View
   className: 'tab-pane'
 
   events:
-    'change form': 'updateSettings'
+    'change form#settingsForm': 'updateSettings'
     'click .reset-settings': 'resetSettings'
     'click .clear-data': 'clearData'
     'click .length-presets a': 'setLength'

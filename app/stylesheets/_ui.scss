@@ -31,3 +31,18 @@
     text-align: center;
   }
 }
+
+a.small-settings-button {
+  @include border-radius(3px);
+  padding: 0px 5px;
+  background: #ccc;
+  color: #fff;
+  font-size: 11px;
+  display: inline-block;
+
+  &:hover {
+    text-decoration: none;
+    background: #bbb;
+    color: #fff
+  }
+}

@@ -1,12 +1,20 @@
 #settings {
+  .form-group {
+    margin-bottom: 25px;
+  }
+
   .toggle {
     margin-bottom: 0;
     border-bottom: 1px solid #eee;
 
+    &:last-child {
+      border-bottom: none;
+    }
+
     label {
       display: block;
       cursor: pointer;
-      padding: 10px 0;
+      padding: 8px 0;
       font-weight: normal;
       margin: 0;
       color: #ccc;
@@ -46,16 +54,7 @@
     float: right;
 
     a {
-      @include border-radius(3px);
-      padding: 2px 5px;
-      background: #ccc;
-      color: #fff;
-      font-size: 11px;
-
-      &:hover {
-        text-decoration: none;
-        background: #bbb;
-      }
+      @extend .small-settings-button;
     }
   }
 

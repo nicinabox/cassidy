@@ -1,15 +1,28 @@
 class App.PhraseView extends Backbone.View
   template: JST['phrase']
   events:
-    'change input': 'save'
+    'change form#phraseForm': 'updateSettings'
+    'submit form#phraseForm': 'updateSettings'
     'click .toggle-visibility': 'toggleInputType'
 
   initialize: ->
     @model = App.models.phrase
 
   render: ->
-    @$el.html @template @model.toPlainTextJSON()
+    @$el.html @template _.extend @model.toPlainTextJSON(),
+      toggle:
+        require_always:
+          label: 'Require always'
     @el
+
+  updateSettings: (e) ->
+    e.preventDefault()
+    data = $(e.currentTarget).serializeObject()
+    data = _.merge {}, @model.defaults(), data
+
+    @model.set data
+    @model.unset 'defaultPhrase' if data.phrase
+    App.views.settings.updateService()
 
   save: (e) ->
     return if e.type == 'keyup' and e.which != 13
@@ -23,7 +36,7 @@ class App.PhraseView extends Backbone.View
     e.preventDefault()
 
     $target = $(e.target)
-    @$('input').attr 'type', (i, attr) ->
+    @$('#phrase').attr 'type', (i, attr) ->
       if attr == 'password'
         $target.text('Hide')
         'text'

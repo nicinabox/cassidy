@@ -1,6 +1,9 @@
 class App.PhraseModel extends Backbone.Model
   defaultPhrase: Math.random().toString(36).slice(2)
 
+  defaults: ->
+    require_always: 0
+
   initialize: ->
     @usingDefaultPhrase = false
     @store = new App.Storage('phrase')
