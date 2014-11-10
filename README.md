@@ -20,10 +20,10 @@ Dropbox syncing of services (using the Datastore API) is also available (https o
 
 ## Todo
 
-[ ] Add X-Frame-Options to prevent iframing
-[ ] Remove subsequent renders from Generator view to prevent keyboard jump
-[ ] Implement service salt
-[ ] Research KDF more. Perhaps don't store phrase
+* [ ] Add X-Frame-Options to prevent iframing
+* [ ] Remove subsequent renders from Generator view to prevent keyboard jump
+* [ ] Implement service salt
+* [ ] Research KDF more. Perhaps don't store phrase
 
 ## Development setup
 
