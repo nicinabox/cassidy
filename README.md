@@ -18,6 +18,13 @@ Dropbox syncing of services (using the Datastore API) is also available (https o
 
 **Cassidy does not protect against physical access to your machine.**
 
+## Todo
+
+[ ] Add X-Frame-Options to prevent iframing
+[ ] Remove subsequent renders from Generator view to prevent keyboard jump
+[ ] Implement service salt
+[ ] Research KDF more. Perhaps don't store phrase
+
 ## Development setup
 
 * bundle install
