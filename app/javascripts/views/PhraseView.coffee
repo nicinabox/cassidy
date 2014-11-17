@@ -7,24 +7,27 @@ class App.PhraseView extends Backbone.View
 
   initialize: ->
     @model = App.models.phrase
+    @listenTo @model, 'change', @render
 
   render: ->
-    @$el.html @template _.extend @model.toPlainTextJSON(),
+    @$el.html @template _.extend @model.toJSON(),
       toggles:
         require_always: 'Require always'
     @el
 
   updateSettings: (e) ->
     e.preventDefault()
-
     data = Backbone.Syphon.serialize(this)
 
-    @model.set data
+    @model.set data, silent: true
     changed = @model.changedAttributes()
     if @model.get('defaultPhrase') and changed.phrase
-      @model.unset 'defaultPhrase'
+      @model.unset 'defaultPhrase', silent: true
 
     App.views.settings.updateService()
+
+    _.defer =>
+      @model.trigger 'change'
 
   toggleInputType: (e) ->
     e.preventDefault()

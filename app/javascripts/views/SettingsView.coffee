@@ -16,7 +16,6 @@ class App.SettingsView extends Backbone.View
     @phraseView = new App.PhraseView
 
     @listenTo @model, 'change', @render
-    @listenTo App.models.phrase, 'change', @render
 
     @listenTo @model, 'change:key', (model, prop) ->
       @model.saveKey()
@@ -62,8 +61,6 @@ class App.SettingsView extends Backbone.View
 
   updateSettings: (e) ->
     data = Backbone.Syphon.serialize(this)
-
-    # @model.clear silent: true
     @model.set data
     @updateService()
 
