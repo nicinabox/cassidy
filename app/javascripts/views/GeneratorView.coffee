@@ -26,7 +26,7 @@ class App.GeneratorView extends Backbone.View
 
   render: ->
     @$el.html @template
-      phrase: App.models.phrase.toPlainTextJSON()
+      phrase: App.models.phrase.toJSON()
 
     @$el.append @suggestionsView.render()
 
@@ -183,7 +183,7 @@ class App.GeneratorView extends Backbone.View
 
     # Merge phrase with settings
     settings  = _.merge App.models.settings.toJSON(),
-      App.models.phrase.toPlainTextJSON()
+      App.models.phrase.toJSON()
 
     # Merge form data with settings
     _.merge form_data, settings: settings

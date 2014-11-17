@@ -6,7 +6,7 @@ class App.PhraseModel extends Backbone.Model
     @store = new App.Storage('phrase')
 
     @on 'change', ->
-      data = @toJSON()
+      data = @toEncryptedJSON()
       if data
         @store.set('phrase', data)
       else
@@ -20,10 +20,7 @@ class App.PhraseModel extends Backbone.Model
   hasSavedPhrase: ->
     !!@store.get('phrase')
 
-  toPlainTextJSON: ->
-    _.clone @attributes
-
-  toJSON: ->
+  toEncryptedJSON: ->
     phrase = @get('phrase')
     attrs  = _.clone @attributes
 
