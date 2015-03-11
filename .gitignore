@@ -23,5 +23,4 @@ bower_components
 node_modules
 dist
 .tmp
-
-s3.json
+.env

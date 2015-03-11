@@ -1,6 +1,6 @@
 {
   "name": "cassidy",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "",
   "repository": {
     "type": "git",
@@ -9,30 +9,13 @@
   "author": "nicinabox",
   "license": "MIT",
   "dependencies": {
-    "grunt": "^0.4.4",
+    "lodash": "^2.4.1",
+    "react": "^0.12.2",
+    "react-router": "^0.12.4",
     "vault": "^0.3.0"
   },
   "devDependencies": {
-    "backbone.dropboxdatastore": "git://github.com/dmytroyarmak/Backbone.dropboxDatastore#master",
-    "glob": "^4.0.6",
-    "grunt-appcache": "^0.1.8",
-    "grunt-aws": "^0.4.0",
-    "grunt-contrib-clean": "^0.5.0",
-    "grunt-contrib-coffee": "^0.10.1",
-    "grunt-contrib-compass": "^0.7.2",
-    "grunt-contrib-concat": "^0.4.0",
-    "grunt-contrib-connect": "^0.7.1",
-    "grunt-contrib-copy": "^0.5.0",
-    "grunt-contrib-handlebars": "^0.7.0",
-    "grunt-contrib-htmlmin": "^0.2.0",
-    "grunt-contrib-uglify": "^0.4.0",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-include-replace": "^2.0.0",
-    "grunt-invalidate-cloudfront": "^0.1.4",
-    "grunt-rev": "^0.1.0",
-    "grunt-shell": "^0.6.4",
-    "grunt-usemin": "^2.1.0",
-    "load-grunt-tasks": "^0.4.0",
-    "lodash": "^2.4.1"
+    "gulp": "^3.8.11",
+    "webpack": "^1.7.2"
   }
 }
