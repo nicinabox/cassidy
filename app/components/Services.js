@@ -2,27 +2,12 @@ var React = require('react');
 var dropbox = require('../utils/dropbox')
 
 var Services = React.createClass({
-  getInitialState() {
-    return {
-      services: []
-    }
-  },
-
-  componentWillMount() {
-    dropbox.openDefaultDatastore((error, datastore) => {
-      var servicesTable = datastore.getTable('services');
-      var results       = servicesTable.query();
-
-      this.setState({
-        services: results.map((item, index) =>
-          item.getFields()
-        )
-      })
-    });
+  propTypes: {
+    services: React.PropTypes.array.isRequired
   },
 
   render() {
-    var services = this.state.services.map((item, index) =>
+    var services = this.props.services.map((item, index) =>
       <a href="#" key={index}>
         <span className="name">{item.service}</span>
         <span className="remove">&times;</span>

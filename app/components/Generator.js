@@ -1,6 +1,10 @@
 var React = require('react');
+var Suggestions = require('./Suggestions');
 
 var Generator = React.createClass({
+  propTypes: {
+    services: React.PropTypes.array.isRequired
+  },
 
   render: function() {
     return (
@@ -28,6 +32,8 @@ var Generator = React.createClass({
             </small>
           </div>
         </form>
+
+        <Suggestions services={this.props.services} />
       </div>
     );
   }

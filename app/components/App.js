@@ -6,8 +6,22 @@ var Generator = require('./Generator');
 var App = React.createClass({
   getInitialState() {
     return {
+      services: [],
       dropboxIsAuthenticated: dropbox.client.isAuthenticated()
     }
+  },
+
+  componentWillMount() {
+    dropbox.openDefaultDatastore((error, datastore) => {
+      var servicesTable = datastore.getTable('services');
+      var results       = servicesTable.query();
+
+      this.setState({
+        services: results.map((item, index) =>
+          item.getFields()
+        )
+      })
+    });
   },
 
   connectDropbox() {
@@ -36,8 +50,8 @@ var App = React.createClass({
             </button>
           )}
 
-          <Generator />
-          <Sidebar />
+          <Generator services={this.state.services} />
+          <Sidebar services={this.state.services} />
         </div>
       </div>
     );
