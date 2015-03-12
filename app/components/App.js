@@ -1,6 +1,7 @@
-var React   = require('react');
-var dropbox = require('../utils/dropbox');
-var Sidebar = require('./Sidebar');
+var React     = require('react');
+var dropbox   = require('../utils/dropbox');
+var Sidebar   = require('./Sidebar');
+var Generator = require('./Generator');
 
 var App = React.createClass({
   getInitialState() {
@@ -35,6 +36,7 @@ var App = React.createClass({
             </button>
           )}
 
+          <Generator />
           <Sidebar />
         </div>
       </div>
