@@ -1,0 +1,64 @@
+#settings {
+  .form-group {
+    margin-bottom: 25px;
+  }
+
+  .toggle {
+    margin-bottom: 0;
+    border-bottom: 1px solid #eee;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    label {
+      display: block;
+      cursor: pointer;
+      padding: 8px 0;
+      font-weight: normal;
+      margin: 0;
+      color: #ccc;
+      border-radius: 3px;
+      @include transition(background 200ms ease-out);
+
+      i {
+        line-height: 1;
+        color: #888;
+      }
+    }
+
+    input[type="checkbox"] {
+      display: none;
+
+      &:checked {
+        + label {
+          color: #666;
+
+          i {
+            color: $brand-primary;
+          }
+
+          &:hover {
+            color: #222;
+
+            i {
+              color: darken($brand-primary, 10%);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .presets {
+    float: right;
+
+    a {
+      @extend .small-settings-button;
+    }
+  }
+
+  .danger-zone {
+    margin-top: 30px;
+  }
+}

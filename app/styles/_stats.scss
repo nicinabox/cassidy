@@ -1,0 +1,15 @@
+#stats {
+  margin: 30px 0;
+  a {
+    color: #aaa;
+    display: block;
+    padding: 3px 0;
+    &:hover {
+      text-decoration: none;
+      color: #666;
+    }
+  }
+  span {
+    float: right;
+  }
+}

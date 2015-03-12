@@ -15,12 +15,10 @@
     "tests"
   ],
   "dependencies": {
-    "lodash": "~2.4.1",
     "jquery": "~2.1.0",
-    "bootstrap-sass": "twbs/bootstrap-sass#~3.1.1",
+    "bootstrap-sass": "~3.3.3",
     "jQuery.serializeObject": "~2.0.3",
     "typeahead.js": "~0.10.2",
-    "fastclick": "~1.0.0",
     "cryptojslib": "~3.1.2",
     "fontawesome": "~4.2.0"
   }
