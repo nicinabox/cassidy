@@ -9,14 +9,17 @@ var top = function(services, limit) {
 };
 
 var Suggestions = React.createClass({
-  propTypes: {
-    services: React.PropTypes.array.isRequired
+  populateGenerator(service, e) {
+    e.preventDefault();
+    this.props.populate(service);
   },
 
   render: function() {
     var services = top(this.props.services, 6);
     var suggestions = services.map((item, index) =>
-      <a href="" key={index}>
+      <a href=""
+        key={index}
+        onClick={this.populateGenerator.bind(null, item)}>
         {item.service}
       </a>
     );

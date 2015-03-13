@@ -2,16 +2,24 @@ var React = require('react');
 var Suggestions = require('./Suggestions');
 
 var Generator = React.createClass({
-  propTypes: {
-    services: React.PropTypes.array.isRequired
+  getInitialState() {
+    return {
+      service: {}
+    }
   },
 
-  render: function() {
+  handleChange() {
+  },
+
+  render() {
     return (
       <div id="generator" className="col-sm-7 col-md-6 col-md-push-4 col-sm-push-5">
         <form>
           <div className="form-group">
-            <input type="service"
+            <input
+              value={this.state.service}
+              onChange={this.handleChange}
+              type="text"
               name="service"
               id="service"
               className="form-control input-lg"
@@ -33,7 +41,9 @@ var Generator = React.createClass({
           </div>
         </form>
 
-        <Suggestions services={this.props.services} />
+        <Suggestions
+          populate={this.props.populate}
+          services={this.props.services} />
       </div>
     );
   }

@@ -3,10 +3,6 @@ var Services = require('./Services');
 var Settings = require('./Settings');
 
 var Sidebar = React.createClass({
-  propTypes: {
-    services: React.PropTypes.array.isRequired
-  },
-
   render() {
     return (
       <div id="sidebar" className="col-sm-4 col-md-3 col-md-pull-6 col-sm-pull-7">
@@ -20,7 +16,7 @@ var Sidebar = React.createClass({
         </ul>
 
         <div className="tab-content">
-          <Services services={this.props.services} />
+          <Services />
           <Settings />
         </div>
       </div>

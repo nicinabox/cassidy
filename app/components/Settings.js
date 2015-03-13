@@ -4,7 +4,7 @@ var Settings = React.createClass({
 
   render() {
     return (
-      <div>Settings</div>
+      <div></div>
     );
   }
 
