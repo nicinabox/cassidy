@@ -1,4 +1,4 @@
-var Vault = require('vault');
+var VaultExtended = require('../utils/VaultExtended');
 var _ = require('lodash');
 
 var coerceSettingsValues = function(obj) {
@@ -19,8 +19,8 @@ var coerceSettingsValues = function(obj) {
 
 var generator = function(service) {
   var vaultSettings = coerceSettingsValues(service.settings);
-  var vault = new Vault(vaultSettings);
-  return vault.generate(service.service);
+  var vault = new VaultExtended(vaultSettings);
+  return vault.generateWithKey(service.service, service.settings.key);
 };
 
 module.exports = generator;
