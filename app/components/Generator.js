@@ -1,5 +1,6 @@
 var React = require('react');
 var servicesStore = require('../stores/servicesStore');
+var generator = require('../utils/generator');
 var Suggestions = require('./Suggestions');
 
 var Generator = React.createClass({
@@ -7,6 +8,7 @@ var Generator = React.createClass({
     this.setState({
       service: servicesStore.getSelectedService()
     });
+    this.handleChange()
   },
 
   getInitialState() {
@@ -25,6 +27,10 @@ var Generator = React.createClass({
   },
 
   handleChange() {
+    var result = generator({ phrase: 'juice' }, this.state.service);
+    this.setState({
+      result: result
+    });
   },
 
   render() {
@@ -51,10 +57,9 @@ var Generator = React.createClass({
 
           {this.state.result ? (
             <div className="form-group">
-              <input type="text" id="result" readOnly />
-              <small className="hint">
-                <span className="super-key"></span>C
-              </small>
+              <input type="text" id="result"
+                value={this.state.result}
+                readOnly />
             </div>
           ) : ''}
         </form>
