@@ -34,7 +34,7 @@ var Suggestions = React.createClass({
 
   populateGenerator(service, e) {
     e.preventDefault();
-    console.log(service);
+    serviceActions.selectService(service);
   },
 
   render: function() {

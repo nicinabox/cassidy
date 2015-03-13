@@ -69,4 +69,6 @@ var storage = {
   }
 };
 
+storage.initialize();
+
 module.exports = storage;

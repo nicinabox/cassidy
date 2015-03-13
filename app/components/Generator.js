@@ -1,11 +1,27 @@
 var React = require('react');
+var servicesStore = require('../stores/servicesStore');
 var Suggestions = require('./Suggestions');
 
 var Generator = React.createClass({
+  _onChange() {
+    this.setState({
+      service: servicesStore.getSelectedService()
+    });
+  },
+
   getInitialState() {
     return {
-      service: {}
+      service: servicesStore.getSelectedService(),
+      result: ''
     }
+  },
+
+  componentDidMount() {
+    servicesStore.addChangeListener(this._onChange);
+  },
+
+  componentWillUnmount() {
+    servicesStore.removeChangeListener(this._onChange);
   },
 
   handleChange() {
@@ -33,12 +49,14 @@ var Generator = React.createClass({
             <div className="errors"></div>
           </div>
 
-          <div className="form-group">
-            <input type="text" id="result" readOnly />
-            <small className="hint">
-              <span className="super-key"></span>C
-            </small>
-          </div>
+          {this.state.result ? (
+            <div className="form-group">
+              <input type="text" id="result" readOnly />
+              <small className="hint">
+                <span className="super-key"></span>C
+              </small>
+            </div>
+          ) : ''}
         </form>
 
         <Suggestions

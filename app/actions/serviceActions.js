@@ -12,6 +12,13 @@ var serviceActions = {
     });
   },
 
+  selectService: function(service) {
+    AppDispatcher.handleAction({
+      actionType: appConstants.SELECT_SERVICE,
+      data: service
+    });
+  },
+
   addService: function(service) {
     AppDispatcher.handleAction({
       actionType: appConstants.ADD_SERVICE,

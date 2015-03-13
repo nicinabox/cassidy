@@ -1,6 +1,5 @@
 var _ = require('lodash');
 var storage = require('./storage');
-storage.initialize();
 
 var DROPBOX_APP_KEY = 'vxgu5nbh2ci3sfe';
 

@@ -6,6 +6,7 @@ var _ = require('lodash');
 
 var CHANGE_EVENT = 'change';
 var _state = {
+  selectedService: {},
   services: []
 };
 
@@ -14,11 +15,15 @@ var addService = function(service) {
 };
 
 var removeService = function(id) {
-
+  // TODO: Implement removeService
 };
 
 var setServices = function(services) {
   _state.services = services;
+};
+
+var setSelectedService = function(service) {
+  _state.selectedService = service;
 };
 
 var servicesStore = _.assign({}, EventEmitter.prototype, {
@@ -28,6 +33,10 @@ var servicesStore = _.assign({}, EventEmitter.prototype, {
 
   removeChangeListener: function(callback) {
     this.removeListener(CHANGE_EVENT, callback);
+  },
+
+  getSelectedService: function() {
+    return _state.selectedService;
   },
 
   getServices: function() {
@@ -42,6 +51,11 @@ AppDispatcher.register(function(payload) {
     case appConstants.LOAD_SERVICES:
       AppDispatcher.waitFor([authStore.dispatchToken])
       setServices(action.data);
+      servicesStore.emit(CHANGE_EVENT);
+      break;
+
+    case appConstants.SELECT_SERVICE:
+      setSelectedService(action.data);
       servicesStore.emit(CHANGE_EVENT);
       break;
 
