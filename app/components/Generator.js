@@ -7,8 +7,9 @@ var Generator = React.createClass({
   _onChange() {
     this.setState({
       service: servicesStore.getSelectedService()
+    }, () => {
+      this.handleChange();
     });
-    this.handleChange()
   },
 
   getInitialState() {
@@ -27,7 +28,13 @@ var Generator = React.createClass({
   },
 
   handleChange() {
-    var result = generator({ phrase: 'juice' }, this.state.service);
+    if (_.isEmpty(this.state.service)) return;
+
+    var service = this.state.service;
+    _.extend(service.settings, { phrase: 'juice' });
+
+    var result = generator(service);
+
     this.setState({
       result: result
     });

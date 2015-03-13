@@ -23,7 +23,9 @@ var setServices = function(services) {
 };
 
 var setSelectedService = function(service) {
-  _state.selectedService = service;
+  var newService = _.clone(service);
+  newService.settings = JSON.parse(newService.settings);
+  _state.selectedService = newService;
 };
 
 var servicesStore = _.assign({}, EventEmitter.prototype, {
