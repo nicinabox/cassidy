@@ -1,11 +1,13 @@
 var _ = require('lodash');
+var storage = require('./storage');
+storage.initialize();
+
 var DROPBOX_APP_KEY = 'vxgu5nbh2ci3sfe';
 
 var client = new Dropbox.Client({
   key: DROPBOX_APP_KEY
 });
 
-var cache = {};
 
 var DropboxClient = {
   client: client,
@@ -48,17 +50,17 @@ var DropboxClient = {
   loadServices(callback) {
     callback = callback || _.noop;
 
-    if (cache.services) {
-      callback(cache.services);
+    if (storage.cache.services) {
+      callback(storage.cache.services);
     } else {
       this.openDefaultDatastore((err, datastore) => {
         var servicesTable = datastore.getTable('services');
         var results       = servicesTable.query();
-        cache.services    = results.map((item, index) =>
+        storage.set('services', results.map((item, index) =>
           item.getFields()
-        )
+        ));
 
-        callback(cache.services);
+        callback(storage.cache.services);
       });
     }
   }
