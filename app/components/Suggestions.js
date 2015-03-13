@@ -34,12 +34,13 @@ var Suggestions = React.createClass({
 
   populateGenerator(service, e) {
     e.preventDefault();
+    console.log(service);
   },
 
   render: function() {
     var services = top(this.state.services, 6);
     var suggestions = services.map((item, index) =>
-      <a href=""
+      <a href="#"
         key={index}
         onClick={this.populateGenerator.bind(null, item)}>
         {item.service}

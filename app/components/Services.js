@@ -26,6 +26,8 @@ var Services = React.createClass({
   },
 
   populateGenerator(service, e) {
+    e.preventDefault();
+    console.log(service);
   },
 
   render() {
