@@ -1,4 +1,6 @@
 var React = require('react');
+var servicesStore = require('../stores/servicesStore');
+var serviceActions = require('../actions/serviceActions');
 var _     = require('lodash');
 
 var top = function(services, limit) {
@@ -9,13 +11,33 @@ var top = function(services, limit) {
 };
 
 var Suggestions = React.createClass({
+  _onChange() {
+    this.setState({
+      services: servicesStore.getServices()
+    });
+  },
+
+  getInitialState() {
+    return {
+      services: servicesStore.getServices()
+    };
+  },
+
+  componentWillMount() {
+    servicesStore.addChangeListener(this._onChange);
+    serviceActions.loadServices();
+  },
+
+  componentWillUnmount() {
+    servicesStore.removeChangeListener(this._onChange);
+  },
+
   populateGenerator(service, e) {
     e.preventDefault();
-    this.props.populate(service);
   },
 
   render: function() {
-    var services = top(this.props.services, 6);
+    var services = top(this.state.services, 6);
     var suggestions = services.map((item, index) =>
       <a href=""
         key={index}

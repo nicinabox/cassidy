@@ -17,7 +17,7 @@ var Generator = React.createClass({
         <form>
           <div className="form-group">
             <input
-              value={this.state.service}
+              value={this.state.service.service}
               onChange={this.handleChange}
               type="text"
               name="service"
