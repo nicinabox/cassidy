@@ -1,14 +1,38 @@
 var storageType = localStorage;
 
+var serialize = (data) => {
+  return JSON.stringify(data);
+};
+
+var deserialize = (data) => {
+  try {
+    return JSON.parse(data);
+  } catch(e) {
+    return data || undefined;
+  }
+};
+
+var setItem = (k, v) => {
+  try {
+    storageType.setItem(k, serialize(v));
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+var getItem = (k) => {
+  return deserialize(storageType.getItem(k));
+};
+
+var initialize = () => {
+  storage.getManifest();
+  storage.cacheAll();
+};
+
 var storage = {
   cache: {},
   manifest: [],
   manifestKey: 'cache.manifest',
-
-  initialize() {
-    this.getManifest();
-    this.cacheAll();
-  },
 
   getManifest() {
     var manifest = this.get(this.manifestKey);
@@ -21,44 +45,47 @@ var storage = {
 
   saveManifest(newManfist) {
     this.manifest = newManfist;
-    storageType.setItem(this.manifestKey,
-      JSON.stringify(this.manifest));
+    setItem(this.manifestKey, this.manifest);
   },
 
   addToManifest(key) {
-    this.saveManifest(
-      _(this.manifest).push(key).uniq().value()
-    );
+    if (!this.manifest[key]) {
+      this.manifest.push(key)
+    }
+
+    this.saveManifest(this.manifest);
     this.cache[key] = this.get(key);
   },
 
   removeFromManifest(key) {
-    this.saveManifest(
-      _(this.manifest).remove(key).uniq().value()
-    );
+    var index = this.manifest.indexOf(key);
+    this.manifest.splice(index, 1);
+    this.saveManifest(this.manifest);
   },
 
   cacheAll() {
-    var toRemove = [];
-
-    _(this.manifest).each((k) => {
+    var toRemove = this.manifest.map((k) => {
       var data = this.get(k);
       if (data) {
         this.cache[k] = data;
       } else {
-        toRemove.push(k);
+        return k;
       }
     });
 
     if (toRemove.length) {
-      this.saveManifest(_.reject(this.manifest, function(k) {
-        return _.contains(toRemove, k);
-      }));
+      toRemove.forEach((key) => {
+        if (key) {
+          var index = this.manifest.indexOf(key);
+          this.manifest.splice(index, 1);
+        }
+      });
+      this.saveManifest(this.manifest);
     }
   },
 
   set(key, value) {
-    storageType.setItem(key, JSON.stringify(value))
+    setItem(key, value);
     this.addToManifest(key);
   },
 
@@ -82,6 +109,6 @@ var storage = {
   }
 };
 
-storage.initialize();
+initialize();
 
-module.exports = storage;
+module.exports = window.storage = storage;
