@@ -6,6 +6,7 @@ var authActions = require('../actions/authActions');
 var dropbox = require('../utils/dropbox');
 var Sidebar   = require('./Sidebar');
 var Generator = require('./Generator');
+var Footer = require('./Footer');
 
 var App = React.createClass({
   _onChange() {
@@ -38,23 +39,16 @@ var App = React.createClass({
   },
 
   render() {
-    var dropboxButton = this.state.dropboxIsAuth ? (
-      <button className="btn" onClick={this.disconnectDropbox}>
-        Disconnect Dropbox
-      </button>
-    ) : (
-      <button className="btn btn-primary" onClick={this.connectDropbox}>
-        Connect Dropbox
-      </button>
-    )
-
     return (
       <div className="container application">
-        {dropboxButton}
-
         <div className="row">
           <Generator />
           <Sidebar />
+
+          <Footer
+            connectDropbox={this.connectDropbox}
+            disconnectDropbox={this.disconnectDropbox}
+            dropboxIsAuth={this.state.dropboxIsAuth} />
         </div>
       </div>
     );
