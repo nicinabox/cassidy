@@ -49,7 +49,7 @@ var storage = {
   },
 
   addToManifest(key) {
-    if (!this.manifest[key]) {
+    if (this.manifest.indexOf(key) < 0) {
       this.manifest.push(key)
     }
 
