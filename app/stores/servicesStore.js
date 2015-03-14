@@ -73,7 +73,7 @@ var servicesStore = _.assign({}, EventEmitter.prototype, {
   }
 });
 
-AppDispatcher.register(function(payload) {
+servicesStore.dispatchToken = AppDispatcher.register(function(payload) {
   var action = payload.action;
 
   switch(action.actionType) {

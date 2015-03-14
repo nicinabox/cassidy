@@ -17,6 +17,13 @@ var settingsActions = {
       actionType: appConstants.CHANGE_PHRASE,
       data: phrase
     });
+  },
+
+  toggle: function(name) {
+    AppDispatcher.handleAction({
+      actionType: appConstants.TOGGLE_SETTING,
+      data: name
+    });
   }
 };
 

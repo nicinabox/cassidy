@@ -3,7 +3,6 @@ var keyMirror = require('react/lib/keyMirror');
 module.exports = keyMirror({
   DROPBOX_SIGN_IN: null,
   DROPBOX_SIGN_OUT: null,
-  DROPBOX_AUTHENTICATE: null,
 
   LOAD_SERVICES: null,
   LOAD_SETTINGS: null,
@@ -14,5 +13,6 @@ module.exports = keyMirror({
   CLEAR_SELECTED_SERVICE: null,
   FILTER_SERVICES: null,
 
-  CHANGE_PHRASE: null
+  CHANGE_PHRASE: null,
+  TOGGLE_SETTING: null,
 });

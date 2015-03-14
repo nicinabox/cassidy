@@ -1,7 +1,8 @@
 var React = require('react');
 var servicesStore = require('../stores/servicesStore');
-var settingsStore = require('../stores/settingsStore');
 var serviceActions = require('../actions/serviceActions');
+var settingsStore = require('../stores/settingsStore');
+var settingsActions = require('../actions/settingsActions');
 var generator = require('../utils/generator');
 var Suggestions = require('./Suggestions');
 
@@ -39,7 +40,7 @@ var Generator = React.createClass({
   generateFromSelectedService() {
     if (_.isEmpty(this.state.service)) return;
 
-    var service = this.state.service;
+    var service = _.clone(this.state.service);
 
     _.extend(service.settings,
       settingsStore.getSettings(), {
@@ -128,6 +129,7 @@ var Generator = React.createClass({
                 ref="result"
                 value={this.state.result}
                 onFocus={this.selectResult}
+                onClick={this.selectResult}
                 readOnly />
             </div>
           ) : ''}

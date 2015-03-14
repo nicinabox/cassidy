@@ -1,6 +1,8 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var appConstants = require('../constants/appConstants');
 var authStore = require('./authStore');
+var servicesStore = require('./servicesStore');
+
 var EventEmitter = require('events').EventEmitter;
 var CryptoJS = require('crypto-js');
 var storage = require('../utils/storage');
@@ -9,7 +11,7 @@ var _ = require('lodash');
 var CHANGE_EVENT = 'change';
 
 var helpers = {
-  defaultSettings: function() {
+  newDefaultSettings: function() {
     return {
       length: 20,
       upper: true,
@@ -39,17 +41,38 @@ var helpers = {
       var decrypted = CryptoJS.TripleDES.decrypt(str, _state.settings.key);
       return decrypted.toString(CryptoJS.enc.Utf8);
     }
+  },
+
+  coerceAttrsToBool: function(settings) {
+    var attrs = ['upper', 'lower', 'number', 'symbol', 'dash', 'space'];
+    _.each(attrs, function(attr) {
+      if (!_.isBoolean(settings[attr])) {
+        settings[attr] = !!settings[attr];
+      }
+    });
+    return settings;
   }
 };
 
 var _state = {
-  defaults: helpers.defaultSettings(),
+  defaults: helpers.newDefaultSettings(),
   settings: {},
   phrase: storage.cache.phrase
 };
 
+window.settings_state = _state;
+
 var setSettings = function(settings) {
-  _state.settings = settings;
+  _.merge(_state.settings,
+    helpers.coerceAttrsToBool(settings));
+};
+
+var setDefaultSettings = function(settings) {
+  _state.defaults = helpers.coerceAttrsToBool(settings);
+};
+
+var resetSettings = function() {
+  _state.settings = _.clone(_state.defaults);
 };
 
 var setPhrase = function(phrase) {
@@ -57,7 +80,16 @@ var setPhrase = function(phrase) {
   storage.set('phrase', _state.phrase);
 };
 
+var toggle = function(name) {
+  _state.settings[name] = !_state.settings[name];
+  return _state.settings;
+}
+
 var settingsStore = _.assign({}, EventEmitter.prototype, {
+  emitChange: function() {
+    this.emit(CHANGE_EVENT);
+  },
+
   addChangeListener: function(callback) {
     this.on(CHANGE_EVENT, callback);
   },
@@ -86,12 +118,30 @@ AppDispatcher.register(function(payload) {
     case appConstants.LOAD_SETTINGS:
       AppDispatcher.waitFor([authStore.dispatchToken])
       setSettings(action.data);
-      settingsStore.emit(CHANGE_EVENT);
+      setDefaultSettings(action.data);
+      settingsStore.emitChange();
+      break;
+
+    case appConstants.SELECT_SERVICE:
+      AppDispatcher.waitFor([servicesStore.dispatchToken]);
+      var service = servicesStore.getSelectedService();
+      setSettings(service.settings);
+      settingsStore.emitChange();
+      break;
+
+    case appConstants.CLEAR_SELECTED_SERVICE:
+      resetSettings();
+      settingsStore.emitChange();
       break;
 
     case appConstants.CHANGE_PHRASE:
       setPhrase(action.data);
-      settingsStore.emit(CHANGE_EVENT);
+      settingsStore.emitChange();
+      break;
+
+    case appConstants.TOGGLE_SETTING:
+      toggle(action.data);
+      settingsStore.emitChange();
       break;
 
     default:

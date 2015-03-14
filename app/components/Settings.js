@@ -9,6 +9,7 @@ var toggleFields = {
   number: 'Numbers',
   dash: 'Dashes & underscore',
   symbol: 'Symbols',
+  space: 'Space',
   require_always: 'Require always'
 };
 
@@ -21,37 +22,12 @@ var Settings = React.createClass({
     });
   },
 
-  clearDropboxData() {
-
-  },
-
-  clearLocalData() {
-
-  },
-
   getInitialState() {
     return {
       isDropboxAuth: authStore.isAuth(),
       settings: settingsStore.getSettings(),
       phrase: settingsStore.getDecryptedPhrase()
     };
-  },
-
-  toggleSetting(name, e) {
-    console.log(name);
-  },
-
-  handleLengthChange() {
-
-  },
-
-  handleKeyChange() {
-
-  },
-
-  handlePhraseChange() {
-    var value = this.refs.phrase.getDOMNode().value;
-    settingsActions.changePhrase(value);
   },
 
   componentWillMount() {
@@ -63,10 +39,35 @@ var Settings = React.createClass({
     settingsStore.removeChangeListener(this._onChange);
   },
 
+  handleToggleChange(name, e) {
+    settingsActions.toggle(name);
+  },
+
+  handleLengthChange(e) {
+
+  },
+
+  handleKeyChange(e) {
+
+  },
+
+  handlePhraseChange() {
+    var value = this.refs.phrase.getDOMNode().value;
+    settingsActions.changePhrase(value);
+  },
+
+  clearDropboxData(e) {
+    e.preventDefault();
+  },
+
+  clearLocalData(e) {
+    e.preventDefault();
+  },
+
   render() {
     var toggles = _(toggleFields).omit('require_always').map((v, k) =>
       <Toggle key={k} name={k}
-        toggleSetting={this.toggleSetting.bind(null, k)}
+        handleToggleChange={this.handleToggleChange.bind(null, k)}
         settings={this.state.settings} />
     ).value();
 
@@ -119,7 +120,7 @@ var Settings = React.createClass({
               className="form-control" value={this.state.phrase} />
 
             <Toggle name="require_always"
-              toggleSetting={this.toggleSetting.bind(null, 'require_always')}
+              handleToggleChange={this.handleToggleChange.bind(null, 'require_always')}
               settings={this.state.settings} />
           </div>
         </form>
@@ -153,7 +154,7 @@ var Settings = React.createClass({
 var Toggle = React.createClass({
   propTypes: {
     name: React.PropTypes.string.isRequired,
-    toggleSetting: React.PropTypes.func.isRequired,
+    handleToggleChange: React.PropTypes.func.isRequired,
     settings: React.PropTypes.object.isRequired
   },
 
@@ -185,7 +186,7 @@ var Toggle = React.createClass({
           name={this.props.name}
           id={this.props.name}
           value={this.getValue()}
-          onChange={this.props.toggleSetting}
+          onChange={this.props.handleToggleChange}
           checked={!!this.getValue()} />
 
         <label htmlFor={this.props.name}>

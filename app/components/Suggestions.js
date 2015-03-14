@@ -16,9 +16,8 @@ var Suggestions = React.createClass({
     };
   },
 
-  componentWillMount() {
+  componentDidMount() {
     servicesStore.addChangeListener(this._onChange);
-    serviceActions.loadServices();
   },
 
   componentWillUnmount() {
