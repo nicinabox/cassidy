@@ -6,13 +6,15 @@ var _ = require('lodash');
 var Services = React.createClass({
   _onChange() {
     this.setState({
-      services: servicesStore.getServices()
+      services: servicesStore.getServices(),
+      filteredServices: servicesStore.getFilteredServices()
     });
   },
 
   getInitialState() {
     return {
-      services: servicesStore.getServices()
+      services: servicesStore.getServices(),
+      filteredServices: servicesStore.getFilteredServices()
     };
   },
 
@@ -30,8 +32,18 @@ var Services = React.createClass({
     serviceActions.selectService(service);
   },
 
+  getServices() {
+    var filtered = this.state.filteredServices
+    var services = this.state.services
+    if (!_.isEmpty(filtered)) {
+      services = filtered;
+    }
+    return _.sortBy(services, 'service');
+  },
+
   render() {
-    var services = _.sortBy(this.state.services, 'service');
+    var services = this.getServices()
+
     services = services.map((item, index) =>
       <a href="#"
         onClick={this.populateGenerator.bind(null, item)}

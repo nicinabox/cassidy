@@ -19,6 +19,19 @@ var serviceActions = {
     });
   },
 
+  clearSelectedService: function() {
+    AppDispatcher.handleAction({
+      actionType: appConstants.CLEAR_SELECTED_SERVICE
+    });
+  },
+
+  filterServices: function(name) {
+    AppDispatcher.handleAction({
+      actionType: appConstants.FILTER_SERVICES,
+      data: name
+    });
+  },
+
   addService: function(service) {
     AppDispatcher.handleAction({
       actionType: appConstants.ADD_SERVICE,

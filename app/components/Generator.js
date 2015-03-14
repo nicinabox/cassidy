@@ -7,11 +7,14 @@ var Suggestions = require('./Suggestions');
 
 var Generator = React.createClass({
   _onChange() {
-    this.setState({
-      service: servicesStore.getSelectedService()
-    }, () => {
-      this.generateFromExistingService();
-    });
+    var service = servicesStore.getSelectedService();
+    if (!_.isEmpty(service)) {
+      this.setState({
+        service: service
+      }, () => {
+        this.generateFromSelectedService();
+      });
+    }
   },
 
   getInitialState() {
@@ -33,7 +36,7 @@ var Generator = React.createClass({
     servicesStore.removeChangeListener(this._onChange);
   },
 
-  generateFromExistingService() {
+  generateFromSelectedService() {
     if (_.isEmpty(this.state.service)) return;
 
     var service = this.state.service;
@@ -52,6 +55,7 @@ var Generator = React.createClass({
 
   generateFromNewService(e) {
     var value = e.target.value;
+    serviceActions.clearSelectedService();
 
     var service = {
       service: value,
@@ -62,13 +66,17 @@ var Generator = React.createClass({
       phrase: settingsStore.getDecryptedPhrase()
     });
 
+    serviceActions.filterServices(value);
     this.setState({
       service: service,
       result: generator(service)
     });
   },
 
-  clearService() {
+  clearService(e) {
+    e.preventDefault();
+    serviceActions.clearSelectedService();
+    serviceActions.filterServices();
     this.setState({
       service: {}
     });

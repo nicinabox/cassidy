@@ -7,7 +7,8 @@ var _ = require('lodash');
 var CHANGE_EVENT = 'change';
 var _state = {
   selectedService: {},
-  services: []
+  services: [],
+  filteredServices: []
 };
 
 var addService = function(service) {
@@ -28,7 +29,22 @@ var setSelectedService = function(service) {
   _state.selectedService = newService;
 };
 
+var clearSelectedService = function() {
+  _state.selectedService = {};
+};
+
+var setFilteredServices = function(name) {
+  var re = new RegExp('^' + name, 'g')
+  _state.filteredServices = _.filter(_state.services, function(service) {
+    return service.service.match(re);
+  });
+};
+
 var servicesStore = _.assign({}, EventEmitter.prototype, {
+  emitChange: function() {
+    this.emit(CHANGE_EVENT);
+  },
+
   addChangeListener: function(callback) {
     this.on(CHANGE_EVENT, callback);
   },
@@ -50,6 +66,10 @@ var servicesStore = _.assign({}, EventEmitter.prototype, {
       .reject((s) => !s.usage)
       .sortBy((s) => s.usage)
       .last(limit).reverse().value();
+  },
+
+  getFilteredServices: function(name) {
+    return _state.filteredServices;
   }
 });
 
@@ -60,27 +80,37 @@ AppDispatcher.register(function(payload) {
     case appConstants.LOAD_SERVICES:
       AppDispatcher.waitFor([authStore.dispatchToken])
       setServices(action.data);
-      servicesStore.emit(CHANGE_EVENT);
+      servicesStore.emitChange();
       break;
 
     case appConstants.SELECT_SERVICE:
       setSelectedService(action.data);
-      servicesStore.emit(CHANGE_EVENT);
+      servicesStore.emitChange();
+      break;
+
+    case appConstants.CLEAR_SELECTED_SERVICE:
+      clearSelectedService();
+      servicesStore.emitChange();
+      break;
+
+    case appConstants.FILTER_SERVICES:
+      setFilteredServices(action.data);
+      servicesStore.emitChange();
       break;
 
     case appConstants.ADD_SERVICE:
       addService(action.data);
-      servicesStore.emit(CHANGE_EVENT);
+      servicesStore.emitChange();
       break;
 
     case appConstants.REMOVE_SERVICE:
       removeService(action.data);
-      servicesStore.emit(CHANGE_EVENT);
+      servicesStore.emitChange();
       break;
 
     case appConstants.DROPBOX_SIGN_OUT:
       setServices([]);
-      servicesStore.emit(CHANGE_EVENT);
+      servicesStore.emitChange();
       break;
 
     default:
