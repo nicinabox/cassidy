@@ -18,9 +18,11 @@ var coerceSettingsValues = function(obj) {
 };
 
 var generator = function(service) {
-  var vaultSettings = coerceSettingsValues(service.settings);
-  var vault = new VaultExtended(vaultSettings);
-  return vault.generateWithKey(service.service, service.settings.key);
+  if (service.service) {
+    var vaultSettings = coerceSettingsValues(service.settings);
+    var vault = new VaultExtended(vaultSettings);
+    return vault.generateWithKey(service.service, service.settings.key);
+  }
 };
 
 module.exports = generator;
