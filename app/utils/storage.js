@@ -39,9 +39,22 @@ var storage = {
   },
 
   cacheAll() {
+    var toRemove = [];
+
     _(this.manifest).each((k) => {
-      this.cache[k] = this.get(k);
+      var data = this.get(k);
+      if (data) {
+        this.cache[k] = data;
+      } else {
+        toRemove.push(k);
+      }
     });
+
+    if (toRemove.length) {
+      this.saveManifest(_.reject(this.manifest, function(k) {
+        return _.contains(toRemove, k);
+      }));
+    }
   },
 
   set(key, value) {
