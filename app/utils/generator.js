@@ -1,4 +1,5 @@
 var VaultExtended = require('../utils/VaultExtended');
+var settingsStore = require('../stores/settingsStore');
 var _ = require('lodash');
 
 var coerceSettingsValues = function(obj) {
@@ -17,11 +18,13 @@ var coerceSettingsValues = function(obj) {
   return newSettings;
 };
 
-var generator = function(service) {
-  if (service.service) {
-    var vaultSettings = coerceSettingsValues(service.settings);
-    var vault = new VaultExtended(vaultSettings);
-    return vault.generateWithKey(service.service, service.settings.key);
+var generator = function(obj) {
+  if (obj.service) {
+    var vault, vaultSettings = coerceSettingsValues(obj.settings);
+    vaultSettings.phrase = settingsStore.getDecryptedPhrase();
+
+    vault = new VaultExtended(vaultSettings);
+    return vault.generateWithKey(obj.service, obj.settings.key);
   }
 };
 

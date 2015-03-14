@@ -8,19 +8,26 @@ var Suggestions = require('./Suggestions');
 
 var Generator = React.createClass({
   _onChange() {
-    var service = servicesStore.getSelectedService();
-    if (!_.isEmpty(service)) {
-      this.setState({
-        service: service
-      }, () => {
-        this.generateFromSelectedService();
-      });
+    var selectedService = servicesStore.getSelectedService().service;
+    var state = {
+      settings: settingsStore.getSettings()
+    };
+
+    if (selectedService) {
+      state.service = selectedService;
     }
+
+    this.setState(state, () => {
+      if (selectedService) {
+        this.selectResult();
+      }
+    });
   },
 
   getInitialState() {
     return {
-      service: servicesStore.getSelectedService(),
+      service: servicesStore.getSelectedService().service,
+      settings: settingsStore.getSettings(),
       interestingDomain: 'google.com',
       result: ''
     }
@@ -28,6 +35,8 @@ var Generator = React.createClass({
 
   componentDidMount() {
     servicesStore.addChangeListener(this._onChange);
+    settingsStore.addChangeListener(this._onChange);
+
     this.setState({
       interestingDomain: this.generateInterestingDomain()
     });
@@ -35,42 +44,15 @@ var Generator = React.createClass({
 
   componentWillUnmount() {
     servicesStore.removeChangeListener(this._onChange);
+    settingsStore.removeChangeListener(this._onChange);
   },
 
-  generateFromSelectedService() {
-    if (_.isEmpty(this.state.service)) return;
-
-    var service = _.clone(this.state.service);
-
-    _.extend(service.settings,
-      settingsStore.getSettings(), {
-      phrase: settingsStore.getDecryptedPhrase()
-    });
-
-    this.setState({
-      result: generator(service)
-    }, () => {
-      this.selectResult();
-    });
-  },
-
-  generateFromNewService(e) {
+  handleServiceChange(e) {
     var value = e.target.value;
-    serviceActions.clearSelectedService();
-
-    var service = {
-      service: value,
-      settings: settingsStore.getSettings()
-    };
-
-    _.extend(service.settings, {
-      phrase: settingsStore.getDecryptedPhrase()
-    });
 
     serviceActions.filterServices(value);
     this.setState({
-      service: service,
-      result: generator(service)
+      service: value
     });
   },
 
@@ -79,12 +61,15 @@ var Generator = React.createClass({
     serviceActions.clearSelectedService();
     serviceActions.filterServices();
     this.setState({
-      service: {}
+      service: ''
+    }, () => {
+      this.refs.service.getDOMNode().focus();
     });
   },
 
   selectResult() {
-    this.refs.result.getDOMNode().select();
+    var node = this.refs.result.getDOMNode();
+    node.setSelectionRange(0, node.value.length);
   },
 
   generateInterestingDomain() {
@@ -96,6 +81,7 @@ var Generator = React.createClass({
 
   render() {
     var placeholder = "Eg, " + this.state.interestingDomain;
+    var result = generator(this.state);
 
     return (
       <div id="generator" className="col-sm-7 col-md-6 col-md-push-4 col-sm-push-5">
@@ -104,8 +90,8 @@ var Generator = React.createClass({
             <input
               type="text"
               className="form-control input-lg"
-              value={this.state.service.service}
-              onChange={this.generateFromNewService}
+              value={this.state.service}
+              onChange={this.handleServiceChange}
               placeholder={placeholder}
               ref="service"
               autoComplete="off"
@@ -113,7 +99,7 @@ var Generator = React.createClass({
               autoCorrect="off"
               autoFocus={true} />
 
-            {this.state.service.service ? (
+            {this.state.service ? (
               <a href="#" className="clear" tabIndex="-1"
                 onClick={this.clearService}>
                 &times;
@@ -123,11 +109,11 @@ var Generator = React.createClass({
             <div className="errors"></div>
           </div>
 
-          {this.state.service.service && this.state.result ? (
+          {result ? (
             <div className="form-group">
               <input type="text" id="result"
                 ref="result"
-                value={this.state.result}
+                value={result}
                 onFocus={this.selectResult}
                 onClick={this.selectResult}
                 readOnly />
