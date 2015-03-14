@@ -15,5 +15,13 @@ module.exports = {
         loader: 'jsx-loader?harmony'
       }
     ]
+  },
+
+  resolve: {
+    modulesDirectories: [
+      'node_modules',
+      'bower_components'
+    ]
   }
+
 };

@@ -1,5 +1,6 @@
 var React = require('react');
 var servicesStore = require('../stores/servicesStore');
+var settingsStore = require('../stores/settingsStore');
 var generator = require('../utils/generator');
 var Suggestions = require('./Suggestions');
 
@@ -31,7 +32,10 @@ var Generator = React.createClass({
     if (_.isEmpty(this.state.service)) return;
 
     var service = this.state.service;
-    _.extend(service.settings, { phrase: 'juice' });
+    _.extend(service.settings,
+      settingsStore.getSettings(), {
+      phrase: settingsStore.getDecryptedPhrase()
+    });
 
     var result = generator(service);
 

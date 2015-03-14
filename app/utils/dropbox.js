@@ -53,13 +53,28 @@ var DropboxClient = {
       callback(storage.cache.services);
     } else {
       this.openDefaultDatastore((err, datastore) => {
-        var servicesTable = datastore.getTable('services');
-        var results       = servicesTable.query();
+        var table   = datastore.getTable('services');
+        var results = table.query();
         storage.set('services', results.map((item, index) =>
           item.getFields()
         ));
 
         callback(storage.cache.services);
+      });
+    }
+  },
+
+  loadSettings(callback) {
+    if (storage.cache.settings) {
+      callback(storage.cache.settings);
+    } else {
+      this.openDefaultDatastore((err, datastore) => {
+        var table   = datastore.getTable('default-settings');
+        var results = table.query();
+        var result  = results[0]
+
+        storage.set('settings', result.getFields());
+        callback(storage.cache.settings);
       });
     }
   }
