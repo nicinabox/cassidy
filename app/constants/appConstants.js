@@ -11,6 +11,7 @@ module.exports = keyMirror({
   ADD_SERVICE: null,
   REMOVE_SERVICE: null,
   SELECT_SERVICE: null,
+  GET_TOP_SERVICES: null,
 
   CHANGE_PHRASE: null
 });

@@ -3,13 +3,6 @@ var servicesStore = require('../stores/servicesStore');
 var serviceActions = require('../actions/serviceActions');
 var _     = require('lodash');
 
-var top = function(services, limit) {
-  return _(services)
-    .reject((s) => !s.usage)
-    .sortBy((s) => s.usage)
-    .last(limit).reverse().value();
-};
-
 var Suggestions = React.createClass({
   _onChange() {
     this.setState({
@@ -38,7 +31,7 @@ var Suggestions = React.createClass({
   },
 
   render: function() {
-    var services = top(this.state.services, 6);
+    var services = servicesStore.getTopServices(6);
     var suggestions = services.map((item, index) =>
       <a href="#"
         key={index}

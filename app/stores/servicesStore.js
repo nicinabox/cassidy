@@ -43,6 +43,13 @@ var servicesStore = _.assign({}, EventEmitter.prototype, {
 
   getServices: function() {
     return _state.services;
+  },
+
+  getTopServices: function(limit) {
+    return _(_state.services)
+      .reject((s) => !s.usage)
+      .sortBy((s) => s.usage)
+      .last(limit).reverse().value();
   }
 });
 

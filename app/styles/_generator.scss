@@ -37,10 +37,16 @@
     padding: 8px 12px 12px;
     line-height: 0.8;
     display: inline-block;
-    display: none;
+    outline: none;
+
     &:hover {
       text-decoration: none;
       color: #aaa;
+    }
+
+    &:active {
+      text-decoration: none;
+      color: #999;
     }
   }
 

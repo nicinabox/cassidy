@@ -1,6 +1,7 @@
 var React = require('react');
 var servicesStore = require('../stores/servicesStore');
 var settingsStore = require('../stores/settingsStore');
+var serviceActions = require('../actions/serviceActions');
 var generator = require('../utils/generator');
 var Suggestions = require('./Suggestions');
 
@@ -16,12 +17,16 @@ var Generator = React.createClass({
   getInitialState() {
     return {
       service: servicesStore.getSelectedService(),
+      interestingDomain: 'google.com',
       result: ''
     }
   },
 
   componentDidMount() {
     servicesStore.addChangeListener(this._onChange);
+    this.setState({
+      interestingDomain: this.generateInterestingDomain()
+    });
   },
 
   componentWillUnmount() {
@@ -63,38 +68,53 @@ var Generator = React.createClass({
     });
   },
 
+  clearService() {
+    this.setState({
+      service: {}
+    });
+  },
+
   selectResult() {
     this.refs.result.getDOMNode().select();
   },
 
   generateInterestingDomain() {
-    var domains = ['google.com', 'dropbox.com', 'apple.com'];
-    return _.sample(domains);
+    var service = _(servicesStore.getTopServices(10)).sample()
+    if (service) {
+      return service.service;
+    }
   },
 
   render() {
-    var placeholder = "Eg, " + this.generateInterestingDomain();
+    var placeholder = "Eg, " + this.state.interestingDomain;
 
     return (
       <div id="generator" className="col-sm-7 col-md-6 col-md-push-4 col-sm-push-5">
         <form>
           <div className="form-group">
             <input
-              value={this.state.service.service}
-              onChange={this.generateFromNewService}
               type="text"
               className="form-control input-lg"
+              value={this.state.service.service}
+              onChange={this.generateFromNewService}
               placeholder={placeholder}
+              ref="service"
               autoComplete="off"
               autoCapitalize="off"
               autoCorrect="off"
               autoFocus={true} />
-            <a href="#" className="clear" tabIndex="-1">&times;</a>
+
+            {this.state.service.service ? (
+              <a href="#" className="clear" tabIndex="-1"
+                onClick={this.clearService}>
+                &times;
+              </a>
+            ) : ''}
 
             <div className="errors"></div>
           </div>
 
-          {this.state.result ? (
+          {this.state.service.service && this.state.result ? (
             <div className="form-group">
               <input type="text" id="result"
                 ref="result"
