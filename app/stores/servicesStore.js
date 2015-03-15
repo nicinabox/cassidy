@@ -1,6 +1,8 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var appConstants = require('../constants/appConstants');
 var authStore = require('./authStore');
+var registerActions = require('../utils/registerActions');
+
 var EventEmitter = require('events').EventEmitter;
 var _ = require('lodash');
 
@@ -73,48 +75,34 @@ var servicesStore = _.assign({}, EventEmitter.prototype, {
   }
 });
 
-servicesStore.dispatchToken = AppDispatcher.register(function(payload) {
-  var action = payload.action;
+registerActions(servicesStore, {
+  LOAD_SERVICES: function(action) {
+    AppDispatcher.waitFor([authStore.dispatchToken])
+    setServices(action.data);
+  },
 
-  switch(action.actionType) {
-    case appConstants.LOAD_SERVICES:
-      AppDispatcher.waitFor([authStore.dispatchToken])
-      setServices(action.data);
-      servicesStore.emitChange();
-      break;
+  SELECT_SERVICE: function(action) {
+    setSelectedService(action.data);
+  },
 
-    case appConstants.SELECT_SERVICE:
-      setSelectedService(action.data);
-      servicesStore.emitChange();
-      break;
+  CLEAR_SELECTED_SERVICE: function(action) {
+    clearSelectedService();
+  },
 
-    case appConstants.CLEAR_SELECTED_SERVICE:
-      clearSelectedService();
-      servicesStore.emitChange();
-      break;
+  FILTER_SERVICES: function(action) {
+    setFilteredServices(action.data);
+  },
 
-    case appConstants.FILTER_SERVICES:
-      setFilteredServices(action.data);
-      servicesStore.emitChange();
-      break;
+  ADD_SERVICE: function(action) {
+    addService(action.data);
+  },
 
-    case appConstants.ADD_SERVICE:
-      addService(action.data);
-      servicesStore.emitChange();
-      break;
+  REMOVE_SERVICE: function(action) {
+    removeService(action.data);
+  },
 
-    case appConstants.REMOVE_SERVICE:
-      removeService(action.data);
-      servicesStore.emitChange();
-      break;
-
-    case appConstants.DROPBOX_SIGN_OUT:
-      setServices([]);
-      servicesStore.emitChange();
-      break;
-
-    default:
-      return true;
+  DROPBOX_SIGN_OUT: function(action) {
+    setServices([]);
   }
 });
 

@@ -1,21 +1,19 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 
-var registeredActions = {}, store;
-
-var initializeActions = () => {
+var initializeActions = (store, actions) => {
   return AppDispatcher.register(function(payload) {
     var action = payload.action;
 
-    if (registeredActions[action.actionType]) {
-      registeredActions[action.actionType].call(this, action);
+    if (actions[action.actionType]) {
+      actions[action.actionType].call(this, action);
       store.emitChange();
     }
   });
 };
 
 var registerActions = (store, actions) => {
-  registeredActions = actions;
-  return initializeActions(store);
+  store.dispatchToken = initializeActions(store, actions);
+  return store.dispatchToken;
 };
 
 module.exports = registerActions;

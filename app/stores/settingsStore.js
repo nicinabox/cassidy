@@ -124,7 +124,7 @@ var settingsStore = _.assign({}, EventEmitter.prototype, {
   }
 });
 
-var actions = {
+registerActions(settingsStore, {
   LOAD_SETTINGS: function(action) {
     AppDispatcher.waitFor([authStore.dispatchToken])
     setSettings(action.data);
@@ -148,7 +148,6 @@ var actions = {
   TOGGLE_SETTING: function(action) {
     toggle(action.data);
   }
-};
+});
 
-settingsStore.dispatchToken = registerActions(settingsStore, actions);
 module.exports = settingsStore;

@@ -1,6 +1,9 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var appConstants = require('../constants/appConstants');
 var dropbox = require('../utils/dropbox');
+var storage = require('../utils/storage');
+var registerActions = require('../utils/registerActions');
+
 var EventEmitter = require('events').EventEmitter;
 var _ = require('lodash');
 
@@ -13,7 +16,15 @@ var setState = function(data) {
   _state = data;
 };
 
+var clearCache = function() {
+  storage.clear();
+};
+
 var authStore = _.assign({}, EventEmitter.prototype, {
+  emitChange: function() {
+    this.emit(CHANGE_EVENT);
+  },
+
   addChangeListener: function(callback) {
     this.on(CHANGE_EVENT, callback);
   },
@@ -27,22 +38,14 @@ var authStore = _.assign({}, EventEmitter.prototype, {
   }
 });
 
-authStore.dispatchToken = AppDispatcher.register(function(payload) {
-  var action = payload.action;
+registerActions(authStore, {
+  DROPBOX_SIGN_IN: function(action) {
+    setState(action.data);
+  },
 
-  switch(action.actionType) {
-    case appConstants.DROPBOX_SIGN_IN:
-      setState(action.data);
-      authStore.emit(CHANGE_EVENT);
-      break;
-
-    case appConstants.DROPBOX_SIGN_OUT:
-      setState(action.data);
-      authStore.emit(CHANGE_EVENT);
-      break;
-
-    default:
-      return true;
+  DROPBOX_SIGN_OUT: function(action) {
+    setState(action.data);
+    clearCache();
   }
 });
 

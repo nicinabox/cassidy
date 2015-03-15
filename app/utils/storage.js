@@ -106,6 +106,12 @@ var storage = {
 
   invalidate(key) {
     this.removeFromManifest(key);
+  },
+
+  clear() {
+    this.manifest.forEach((key) => {
+      this.remove(key);
+    });
   }
 };
 
