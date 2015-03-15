@@ -1,7 +1,7 @@
 var React = require('react/addons');
 var settingsStore = require('../stores/settingsStore');
 
-var toggleFields = settingsStore.getToggleFields()
+var toggleFields = settingsStore.getToggleFields();
 
 var Toggle = React.createClass({
   propTypes: {
