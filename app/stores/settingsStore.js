@@ -66,6 +66,14 @@ var helpers = {
       }
     });
     return settings;
+  },
+
+  createInitialState: function() {
+    if (!_state.settings) {
+      copyDefaultsToSettings();
+    }
+
+    cacheSettings();
   }
 };
 
@@ -174,9 +182,5 @@ registerActions(settingsStore, {
   }
 });
 
-if (!_state.settings) {
-  copyDefaultsToSettings();
-}
-
-cacheSettings();
+helpers.createInitialState();
 module.exports = settingsStore;
