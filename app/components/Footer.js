@@ -28,14 +28,14 @@ var Footer = React.createClass({
         className={dropboxClasses}
         onClick={this.handleDisconnectDropbox}
         title="Disconnect Dropbox">
-        <i className="fa fa-dropbox fa-lg"></i>
+        <i className="fa fa-dropbox fa-lg"></i> Disconnect Dropbox
       </a>
     ) : (
       <a href="#"
         className={dropboxClasses}
         onClick={this.handleConnectDropbox}
         title="Connect Dropbox">
-        <i className="fa fa-dropbox fa-lg"></i>
+        <i className="fa fa-dropbox fa-lg"></i> Connect Dropbox
       </a>
     )
 
