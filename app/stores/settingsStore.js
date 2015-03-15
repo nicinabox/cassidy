@@ -2,6 +2,7 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var appConstants = require('../constants/appConstants');
 var authStore = require('./authStore');
 var servicesStore = require('./servicesStore');
+var registerActions = require('../utils/registerActions');
 
 var EventEmitter = require('events').EventEmitter;
 var CryptoJS = require('crypto-js');
@@ -123,42 +124,31 @@ var settingsStore = _.assign({}, EventEmitter.prototype, {
   }
 });
 
-AppDispatcher.register(function(payload) {
-  var action = payload.action;
+var actions = {
+  LOAD_SETTINGS: function(action) {
+    AppDispatcher.waitFor([authStore.dispatchToken])
+    setSettings(action.data);
+    setDefaultSettings(action.data);
+  },
 
-  switch(action.actionType) {
-    case appConstants.LOAD_SETTINGS:
-      AppDispatcher.waitFor([authStore.dispatchToken])
-      setSettings(action.data);
-      setDefaultSettings(action.data);
-      settingsStore.emitChange();
-      break;
+  SELECT_SERVICE: function(action) {
+    AppDispatcher.waitFor([servicesStore.dispatchToken]);
+    var service = servicesStore.getSelectedService();
+    setSettings(service.settings);
+  },
 
-    case appConstants.SELECT_SERVICE:
-      AppDispatcher.waitFor([servicesStore.dispatchToken]);
-      var service = servicesStore.getSelectedService();
-      setSettings(service.settings);
-      settingsStore.emitChange();
-      break;
+  CLEAR_SELECTED_SERVICE: function(action) {
+    resetSettings();
+  },
 
-    case appConstants.CLEAR_SELECTED_SERVICE:
-      resetSettings();
-      settingsStore.emitChange();
-      break;
+  CHANGE_PHRASE: function(action) {
+    setPhrase(action.data);
+  },
 
-    case appConstants.CHANGE_PHRASE:
-      setPhrase(action.data);
-      settingsStore.emitChange();
-      break;
-
-    case appConstants.TOGGLE_SETTING:
-      toggle(action.data);
-      settingsStore.emitChange();
-      break;
-
-    default:
-      return true;
+  TOGGLE_SETTING: function(action) {
+    toggle(action.data);
   }
-});
+};
 
+settingsStore.dispatchToken = registerActions(settingsStore, actions);
 module.exports = settingsStore;
