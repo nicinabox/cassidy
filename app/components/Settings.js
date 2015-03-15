@@ -29,6 +29,20 @@ var Settings = React.createClass({
     settingsActions.loadSettings();
   },
 
+  componentDidMount() {
+    if (this.state.settings.require_always) {
+      storage.remove('phrase');
+      this.setState({
+        phrase: ''
+      });
+
+      setTimeout(function() {
+        var answer = prompt('Please enter your phrase');
+        settingsActions.changePhrase(answer);
+      }, 0);
+    }
+  },
+
   componentWillUnmount() {
     settingsStore.removeChangeListener(this._onChange);
   },
