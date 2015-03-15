@@ -35,14 +35,20 @@
 a.small-settings-button {
   border-radius: 3px;
   padding: 0px 5px;
-  background: #ccc;
+  background: $brand-primary;
+  border-bottom: 1px solid darken($brand-primary, 10%);;
   color: #fff;
   font-size: 11px;
   display: inline-block;
+  text-decoration: none;
+
+  &:active {
+    text-decoration: none;
+  }
 
   &:hover {
     text-decoration: none;
-    background: #bbb;
+    background: darken($brand-primary, 10%);
     color: #fff
   }
 }
