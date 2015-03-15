@@ -3,6 +3,8 @@ var servicesStore = require('../stores/servicesStore');
 var serviceActions = require('../actions/serviceActions');
 var _ = require('lodash');
 
+var NoResults = require('./NoResults');
+
 var Services = React.createClass({
   _onChange() {
     this.setState({
@@ -42,9 +44,7 @@ var Services = React.createClass({
   },
 
   render() {
-    var services = this.getServices()
-
-    services = services.map((item, index) =>
+    var services = this.getServices().map((item, index) =>
       <a href="#"
         onClick={this.populateGenerator.bind(null, item)}
         key={index}>
@@ -55,7 +55,9 @@ var Services = React.createClass({
 
     return (
       <nav id="services" className="tab-pane active">
-        {services}
+        {services ? (
+          <NoResults message="Your recent services will appear here." />
+        ) : services}
       </nav>
     );
   }
