@@ -49,8 +49,12 @@ var helpers = {
 
   decryptPhrase: function(str) {
     if (str && _state.settings.key) {
-      var decrypted = CryptoJS.TripleDES.decrypt(str, _state.settings.key);
-      return decrypted.toString(CryptoJS.enc.Utf8);
+      try {
+        var decrypted = CryptoJS.TripleDES.decrypt(str, _state.settings.key);
+        return decrypted.toString(CryptoJS.enc.Utf8);
+      } catch(e) {
+        console.warn('Could not decrypt phrase.');
+      }
     }
   },
 
@@ -67,7 +71,7 @@ var helpers = {
 
 var _state = {
   defaults: helpers.newDefaultSettings(),
-  settings: {},
+  settings: storage.cache.settings,
   phrase: storage.cache.phrase
 };
 
@@ -80,7 +84,7 @@ var setDefaultSettings = function(settings) {
   _state.defaults = helpers.coerceAttrsToBool(settings);
 };
 
-var resetSettings = function() {
+var copyDefaultsToSettings = function() {
   _state.settings = _.clone(_state.defaults);
 };
 
@@ -91,6 +95,7 @@ var setPhrase = function(phrase) {
 
 var toggle = function(name) {
   _state.settings[name] = !_state.settings[name];
+  cacheSettings();
   return _state.settings;
 };
 
@@ -129,7 +134,9 @@ var settingsStore = _.assign({}, EventEmitter.prototype, {
   },
 
   getDecryptedPhrase: function() {
-    return helpers.decryptPhrase(_state.phrase);
+    if (_state.phrase) {
+      return helpers.decryptPhrase(_state.phrase);
+    }
   },
 
   getToggleFields: function() {
@@ -151,7 +158,7 @@ registerActions(settingsStore, {
   },
 
   CLEAR_SELECTED_SERVICE: function(action) {
-    resetSettings();
+    copyDefaultsToSettings();
   },
 
   CHANGE_PHRASE: function(action) {
@@ -167,4 +174,9 @@ registerActions(settingsStore, {
   }
 });
 
+if (!_state.settings) {
+  copyDefaultsToSettings();
+}
+
+cacheSettings();
 module.exports = settingsStore;
