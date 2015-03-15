@@ -70,8 +70,6 @@ var _state = {
   phrase: storage.cache.phrase
 };
 
-window.settings_state = _state;
-
 var setSettings = function(settings) {
   _.merge(_state.settings,
     helpers.coerceAttrsToBool(settings));
