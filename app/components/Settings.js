@@ -26,7 +26,8 @@ var Settings = React.createClass({
     return {
       isDropboxAuth: authStore.isAuth(),
       settings: settingsStore.getSettings(),
-      phrase: settingsStore.getDecryptedPhrase()
+      phrase: settingsStore.getDecryptedPhrase(),
+      phraseIsVisible: false
     };
   },
 
@@ -43,17 +44,34 @@ var Settings = React.createClass({
     settingsActions.toggle(name);
   },
 
-  handleLengthChange(e) {
+  handleInputChange(e) {
+    var settings = _.clone(this.state.settings);
+    settings[e.target.name] = e.target.value;
 
+    this.setState({
+      settings: settings
+    });
   },
 
-  handleKeyChange(e) {
-
+  handlePresetLength(number, e) {
+    e.preventDefault();
+    var settings = _.clone(this.state.settings);
+    settings.length = number;
+    this.setState({
+      settings: settings
+    });
   },
 
   handlePhraseChange() {
     var value = this.refs.phrase.getDOMNode().value;
     settingsActions.changePhrase(value);
+  },
+
+  togglePhraseVisibility(e) {
+    e.preventDefault();
+    this.setState({
+      phraseIsVisible: !this.state.phraseIsVisible
+    });
   },
 
   clearDropboxData(e) {
@@ -65,6 +83,16 @@ var Settings = React.createClass({
   },
 
   render() {
+    var presetLengths = _.map([16, 20, 26, 34], (n, i) => {
+      var key = "length-" + i;
+      return (
+        <a href="#" key={key}
+          onClick={this.handlePresetLength.bind(null, n)}>
+          {n}
+        </a>
+      );
+    });
+
     var toggles = _(toggleFields).omit('require_always').map((v, k) =>
       <Toggle key={k} name={k}
         handleToggleChange={this.handleToggleChange.bind(null, k)}
@@ -82,15 +110,12 @@ var Settings = React.createClass({
           <div className="form-group">
             <label htmlFor="length">Length</label>
             <div className="presets length-presets" title="Length presets for easy access">
-              <a href="#">16</a>{' '}
-              <a href="#">20</a>{' '}
-              <a href="#">26</a>{' '}
-              <a href="#">34</a>
+              {presetLengths}
             </div>
             <input type="number" name="length" id="length"
               className="form-control"
               value={this.state.settings.length}
-              onChange={this.handleLengthChange}
+              onChange={this.handleInputChange}
               />
           </div>
 
@@ -99,7 +124,7 @@ var Settings = React.createClass({
             <input type="text" name="key" id="key"
               className="form-control"
               value={this.state.settings.key}
-              onChange={this.handleKeyChange}
+              onChange={this.handleInputChange}
               autoComplete="off"
               autoCorrect="off" />
 
@@ -112,9 +137,13 @@ var Settings = React.createClass({
         <form id="phraseForm">
           <div className="form-group">
             <label htmlFor="phrase">Phrase</label>
-            <a href="#" className="small-settings-button pull-right toggle-visibility">Show</a>
+            <a href="#"
+              onClick={this.togglePhraseVisibility}
+              className="small-settings-button pull-right">
+              {this.state.phraseIsVisible ? 'Hide' : 'Show'}
+            </a>
 
-            <input type="password" name="phrase" id="phrase"
+            <input type={this.state.phraseIsVisible ? 'text' : 'password'} name="phrase" id="phrase"
               ref="phrase"
               onChange={this.handlePhraseChange}
               className="form-control" value={this.state.phrase} />

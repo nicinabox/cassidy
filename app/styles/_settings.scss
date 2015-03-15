@@ -55,6 +55,10 @@
 
     a {
       @extend .small-settings-button;
+
+      + a {
+        margin-left: 3px;
+      }
     }
   }
 
