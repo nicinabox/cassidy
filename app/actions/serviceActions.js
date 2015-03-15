@@ -39,10 +39,10 @@ var serviceActions = {
     });
   },
 
-  removeService: function(id) {
+  removeService: function(service) {
     AppDispatcher.handleAction({
       actionType: appConstants.REMOVE_SERVICE,
-      data: id
+      data: service
     });
   }
 };

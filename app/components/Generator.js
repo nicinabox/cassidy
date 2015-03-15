@@ -78,6 +78,14 @@ var Generator = React.createClass({
     }
   },
 
+  saveService() {
+    var service = {
+      service: this.state.service,
+      settings: this.state.settings
+    };
+    serviceActions.addService(service);
+  },
+
   render() {
     var placeholder = "Eg, " + this.state.interestingDomain;
     var result = generator(this.state);
@@ -115,6 +123,7 @@ var Generator = React.createClass({
                 value={result}
                 onFocus={this.selectResult}
                 onClick={this.selectResult}
+                onCopy={this.saveService}
                 readOnly />
             </div>
           ) : ''}

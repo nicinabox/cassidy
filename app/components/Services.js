@@ -31,7 +31,12 @@ var Services = React.createClass({
 
   populateGenerator(service, e) {
     e.preventDefault();
+    if (e.target.className === 'remove') return;
     serviceActions.selectService(service);
+  },
+
+  removeService(service, e) {
+    serviceActions.removeService(service);
   },
 
   getServices() {
@@ -49,15 +54,20 @@ var Services = React.createClass({
         onClick={this.populateGenerator.bind(null, item)}
         key={index}>
         <span className="name">{item.service}</span>
-        <span className="remove">&times;</span>
+        <span className="remove"
+          onClick={this.removeService.bind(null, item)}>
+          &times;
+        </span>
       </a>
     );
 
     return (
       <nav id="services" className="tab-pane active">
-        {services ? (
+        {services.length ? (
+          services
+        ) : (
           <NoResults message="Your recent services will appear here." />
-        ) : services}
+        )}
       </nav>
     );
   }

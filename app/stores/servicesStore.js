@@ -14,11 +14,14 @@ var _state = {
 };
 
 var addService = function(service) {
-  _state.services.push(service);
+  var existing = _.find(_state.services, { service: service.service });
+  if (!existing) {
+    _state.services.push(service);
+  }
 };
 
-var removeService = function(id) {
-  // TODO: Implement removeService
+var removeService = function(service) {
+  _.remove(_state.services, service);
 };
 
 var setServices = function(services) {
@@ -27,7 +30,9 @@ var setServices = function(services) {
 
 var setSelectedService = function(service) {
   var newService = _.clone(service);
-  newService.settings = JSON.parse(newService.settings);
+  try {
+    newService.settings = JSON.parse(newService.settings);
+  } catch(e) {}
   _state.selectedService = newService;
 };
 
