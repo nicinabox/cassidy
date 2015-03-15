@@ -10,6 +10,16 @@ var _ = require('lodash');
 
 var CHANGE_EVENT = 'change';
 
+var toggleFields = {
+  lower: 'Lowercase',
+  upper: 'Uppercase',
+  number: 'Numbers',
+  dash: 'Dashes & underscore',
+  symbol: 'Symbols',
+  space: 'Spaces',
+  require_always: 'Require always'
+};
+
 var helpers = {
   newDefaultSettings: function() {
     return {
@@ -108,6 +118,10 @@ var settingsStore = _.assign({}, EventEmitter.prototype, {
 
   getDecryptedPhrase: function() {
     return helpers.decryptPhrase(_state.phrase);
+  },
+
+  getToggleFields: function() {
+    return toggleFields;
   }
 });
 

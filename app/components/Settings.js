@@ -3,15 +3,8 @@ var settingsStore = require('../stores/settingsStore');
 var settingsActions = require('../actions/settingsActions');
 var authStore = require('../stores/authStore');
 
-var toggleFields = {
-  lower: 'Lowercase',
-  upper: 'Uppercase',
-  number: 'Numbers',
-  dash: 'Dashes & underscore',
-  symbol: 'Symbols',
-  space: 'Space',
-  require_always: 'Require always'
-};
+var Toggle = require('./Toggle');
+var toggleFields = settingsStore.getToggleFields();
 
 var Settings = React.createClass({
   _onChange() {
@@ -179,52 +172,5 @@ var Settings = React.createClass({
   }
 
 });
-
-var Toggle = React.createClass({
-  propTypes: {
-    name: React.PropTypes.string.isRequired,
-    handleToggleChange: React.PropTypes.func.isRequired,
-    settings: React.PropTypes.object.isRequired
-  },
-
-  getToggleClass() {
-    var value = this.getValue()
-    if (value) {
-      return 'fa-toggle-on';
-    } else {
-      return 'fa-toggle-off';
-    }
-  },
-
-  getValue() {
-    return this.props.settings[this.props.name];
-  },
-
-  getLabel() {
-    return toggleFields[this.props.name];
-  },
-
-  render() {
-    var cx = React.addons.classSet;
-    var iconClasses = cx("fa fa-lg pull-right", this.getToggleClass());
-
-    return (
-      <div className="toggle">
-        <input
-          type="checkbox"
-          name={this.props.name}
-          id={this.props.name}
-          value={this.getValue()}
-          onChange={this.props.handleToggleChange}
-          checked={!!this.getValue()} />
-
-        <label htmlFor={this.props.name}>
-          {this.getLabel()}
-          <i className={iconClasses}></i>
-        </label>
-      </div>
-    );
-  }
-})
 
 module.exports = Settings;
