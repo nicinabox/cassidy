@@ -10,12 +10,14 @@ var Sidebar = React.createClass({
       <div id="sidebar" className="col-sm-4 col-md-3 col-md-pull-6 col-sm-pull-7">
         <ul className="nav nav-pills">
           <li className="active">
-            <a href="#services" data-toggle="pill">
+            <a href="#services" data-toggle="pill"
+              className="btn-sm">
               Services
             </a>
           </li>
           <li>
-            <a href="#settings" data-toggle="pill">
+            <a href="#settings" data-toggle="pill"
+              className="btn-sm">
               Settings
             </a>
           </li>

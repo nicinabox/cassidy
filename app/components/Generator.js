@@ -28,7 +28,6 @@ var Generator = React.createClass({
     return {
       service: servicesStore.getSelectedService().service,
       settings: settingsStore.getSettings(),
-      interestingDomain: 'google.com',
       result: ''
     }
   },
@@ -38,7 +37,7 @@ var Generator = React.createClass({
     settingsStore.addChangeListener(this._onChange);
 
     this.setState({
-      interestingDomain: this.generateInterestingDomain()
+      interestingDomain: this.generateInterestingDomain() || 'google.com'
     });
   },
 

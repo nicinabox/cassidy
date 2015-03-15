@@ -40,9 +40,13 @@ var Suggestions = React.createClass({
     );
 
     return (
-      <div id="suggestions">
-        <strong>Most used: </strong>
-        {suggestions}
+      <div>
+        {services.length ? (
+          <div id="suggestions">
+            <strong>Most used: </strong>
+            {suggestions}
+          </div>
+        ) : ''}
       </div>
     );
   }
