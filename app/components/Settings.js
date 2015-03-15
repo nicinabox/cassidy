@@ -38,21 +38,12 @@ var Settings = React.createClass({
   },
 
   handleInputChange(e) {
-    var settings = _.clone(this.state.settings);
-    settings[e.target.name] = e.target.value;
-
-    this.setState({
-      settings: settings
-    });
+    settingsActions.setSetting(e.target.name, e.target.value);
   },
 
   handlePresetLength(number, e) {
     e.preventDefault();
-    var settings = _.clone(this.state.settings);
-    settings.length = number;
-    this.setState({
-      settings: settings
-    });
+    settingsActions.setSetting('length', number);
   },
 
   handlePhraseChange() {

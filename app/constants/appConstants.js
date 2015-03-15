@@ -15,4 +15,5 @@ module.exports = keyMirror({
 
   CHANGE_PHRASE: null,
   TOGGLE_SETTING: null,
+  CHANGE_SETTING: null,
 });

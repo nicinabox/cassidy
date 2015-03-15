@@ -24,6 +24,16 @@ var settingsActions = {
       actionType: appConstants.TOGGLE_SETTING,
       data: name
     });
+  },
+
+  setSetting: function(name, value) {
+    AppDispatcher.handleAction({
+      actionType: appConstants.CHANGE_SETTING,
+      data: {
+        name: name,
+        value: value
+      }
+    });
   }
 };
 

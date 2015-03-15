@@ -92,7 +92,20 @@ var setPhrase = function(phrase) {
 var toggle = function(name) {
   _state.settings[name] = !_state.settings[name];
   return _state.settings;
-}
+};
+
+var setSetting = function(name, value) {
+  _state.settings[name] = value;
+  if (_state.settings.key && storage.cache.phrase) {
+    _state.phrase = storage.cache.phrase;
+  }
+  cacheSettings();
+  return _state.settings;
+};
+
+var cacheSettings = function() {
+  storage.set('settings', _state.settings);
+};
 
 var settingsStore = _.assign({}, EventEmitter.prototype, {
   emitChange: function() {
@@ -147,6 +160,10 @@ registerActions(settingsStore, {
 
   TOGGLE_SETTING: function(action) {
     toggle(action.data);
+  },
+
+  CHANGE_SETTING: function(action) {
+    setSetting(action.data.name, action.data.value);
   }
 });
 
