@@ -1,6 +1,7 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var appConstants = require('../constants/appConstants');
 var authStore = require('./authStore');
+var dropbox = require('../utils/dropbox');
 var registerActions = require('../utils/registerActions');
 
 var EventEmitter = require('events').EventEmitter;
@@ -17,6 +18,7 @@ var addService = function(service) {
   var existing = _.find(_state.services, { service: service.service });
   if (!existing) {
     _state.services.push(service);
+    storage.set('services', _state.services);
   }
 };
 
@@ -26,6 +28,7 @@ var removeService = function(service) {
 
 var setServices = function(services) {
   _state.services = services;
+  storage.set('services', _state.services);
 };
 
 var setSelectedService = function(service) {
@@ -104,6 +107,13 @@ registerActions(servicesStore, {
 
   REMOVE_SERVICE: function(action) {
     removeService(action.data);
+  },
+
+  DROPBOX_SIGN_IN: function() {
+    dropbox.loadServices(function(services) {
+      setServices(services);
+      servicesStore.emitChange();
+    });
   },
 
   DROPBOX_SIGN_OUT: function(action) {

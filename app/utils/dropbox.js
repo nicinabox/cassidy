@@ -49,7 +49,7 @@ var DropboxClient = {
   loadServices(callback) {
     callback = callback || _.noop;
 
-    if (storage.cache.services) {
+    if (storage.cache.services && storage.cache.services.length) {
       callback(storage.cache.services);
     } else {
       this.openDefaultDatastore((err, datastore) => {

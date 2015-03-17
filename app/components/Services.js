@@ -22,7 +22,6 @@ var Services = React.createClass({
 
   componentWillMount() {
     servicesStore.addChangeListener(this._onChange);
-    serviceActions.loadServices();
   },
 
   componentWillUnmount() {

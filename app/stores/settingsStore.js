@@ -86,6 +86,7 @@ var _state = {
 var setSettings = function(settings) {
   _.merge(_state.settings,
     helpers.coerceAttrsToBool(settings));
+  cacheSettings();
 };
 
 var setDefaultSettings = function(settings) {

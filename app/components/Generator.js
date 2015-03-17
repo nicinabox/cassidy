@@ -69,6 +69,10 @@ var Generator = React.createClass({
   selectResult() {
     var node = this.refs.result.getDOMNode();
     node.setSelectionRange(0, node.value.length);
+
+    if (!servicesStore.getSelectedService().service) {
+      this.saveService();
+    }
   },
 
   generateInterestingDomain() {
@@ -123,7 +127,6 @@ var Generator = React.createClass({
                 value={result}
                 onFocus={this.selectResult}
                 onClick={this.selectResult}
-                onCopy={this.saveService}
                 readOnly />
             </div>
           ) : ''}
