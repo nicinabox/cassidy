@@ -16,10 +16,6 @@ var setState = function(data) {
   _state = data;
 };
 
-var clearCache = function() {
-  storage.clear();
-};
-
 var authStore = _.assign({}, EventEmitter.prototype, {
   emitChange: function() {
     this.emit(CHANGE_EVENT);
@@ -45,7 +41,6 @@ registerActions(authStore, {
 
   DROPBOX_SIGN_OUT: function(action) {
     setState(action.data);
-    clearCache();
   }
 });
 

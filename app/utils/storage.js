@@ -26,7 +26,7 @@ var getItem = (k) => {
 
 var initialize = () => {
   storage.getManifest();
-  storage.cacheAll();
+  storage.setCache();
 };
 
 var storage = {
@@ -45,6 +45,7 @@ var storage = {
 
   saveManifest(newManfist) {
     this.manifest = newManfist;
+    this.cacheManifestItems()
     setItem(this.manifestKey, this.manifest);
   },
 
@@ -54,17 +55,17 @@ var storage = {
     }
 
     this.saveManifest(this.manifest);
-    this.cache[key] = this.get(key);
   },
 
   removeFromManifest(key) {
     var index = this.manifest.indexOf(key);
     this.manifest.splice(index, 1);
+    delete this.cache[key];
     this.saveManifest(this.manifest);
   },
 
-  cacheAll() {
-    var toRemove = this.manifest.map((k) => {
+  cacheManifestItems() {
+    return this.manifest.map((k) => {
       var data = this.get(k);
       if (data) {
         this.cache[k] = data;
@@ -72,6 +73,10 @@ var storage = {
         return k;
       }
     });
+  },
+
+  setCache() {
+    var toRemove = this.cacheManifestItems();
 
     if (toRemove.length) {
       toRemove.forEach((key) => {

@@ -65,9 +65,7 @@ var DropboxClient = {
   },
 
   loadSettings(callback) {
-    if (storage.cache.settings) {
-      callback(storage.cache.settings);
-    } else {
+    if (_.isEmpty(storage.cache.settings)) {
       this.openDefaultDatastore((err, datastore) => {
         var table   = datastore.getTable('default-settings');
         var results = table.query();
@@ -76,6 +74,8 @@ var DropboxClient = {
         storage.set('settings', result.getFields());
         callback(storage.cache.settings);
       });
+    } else {
+      callback(storage.cache.settings);
     }
   }
 }

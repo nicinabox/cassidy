@@ -83,14 +83,21 @@ var _state = {
   phrase: storage.cache.phrase
 };
 
-var setSettings = function(settings) {
+var mergeSettings = function(settings) {
   _.merge(_state.settings,
     helpers.coerceAttrsToBool(settings));
   cacheSettings();
 };
 
+var setSettings = function(settings) {
+  _state.settings = helpers.coerceAttrsToBool(settings);
+  cacheSettings();
+};
+
 var setDefaultSettings = function(settings) {
-  _state.defaults = helpers.coerceAttrsToBool(settings);
+  if (_.isEmpty(_state.settings)) {
+    _state.defaults = helpers.coerceAttrsToBool(settings);
+  }
 };
 
 var copyDefaultsToSettings = function() {
@@ -163,7 +170,7 @@ registerActions(settingsStore, {
   SELECT_SERVICE: function(action) {
     AppDispatcher.waitFor([servicesStore.dispatchToken]);
     var service = servicesStore.getSelectedService();
-    setSettings(service.settings);
+    mergeSettings(service.settings);
   },
 
   CLEAR_SELECTED_SERVICE: function(action) {
@@ -180,6 +187,10 @@ registerActions(settingsStore, {
 
   CHANGE_SETTING: function(action) {
     setSetting(action.data.name, action.data.value);
+  },
+
+  DROPBOX_SIGN_OUT: function(action) {
+    copyDefaultsToSettings();
   }
 });
 
