@@ -11,7 +11,7 @@ var Toggle = React.createClass({
   },
 
   getToggleClass() {
-    var value = this.getValue()
+    var value = this.getValue();
     if (value) {
       return 'fa-toggle-on';
     } else {

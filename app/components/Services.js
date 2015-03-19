@@ -39,8 +39,8 @@ var Services = React.createClass({
   },
 
   getServices() {
-    var filtered = this.state.filteredServices
-    var services = this.state.services
+    var filtered = this.state.filteredServices;
+    var services = this.state.services;
     if (!_.isEmpty(filtered)) {
       services = filtered;
     }

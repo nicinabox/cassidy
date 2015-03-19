@@ -28,5 +28,10 @@
     "node-sass": "^3.0.0-pre",
     "sass-loader": "^0.4.2",
     "webpack": "^1.7.2"
+  },
+
+  "jshintConfig": {
+    "strict": false,
+    "esnext": true
   }
 }

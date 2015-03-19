@@ -36,10 +36,10 @@ var helpers = {
   },
 
   newKey: function() {
-    time = new Date().getTime().toString() + Math.floor(Math.random() * 100000)
+    var time = new Date().getTime().toString() + Math.floor(Math.random() * 100000);
     return CryptoJS.PBKDF2(time, '', {
       keySize: 128 / 32
-    }).toString().substr(0, 5)
+    }).toString().substr(0, 5);
   },
 
   encryptPhrase: function(phrase) {
@@ -162,7 +162,7 @@ var settingsStore = _.assign({}, EventEmitter.prototype, {
 
 registerActions(settingsStore, {
   LOAD_SETTINGS: function(action) {
-    AppDispatcher.waitFor([authStore.dispatchToken])
+    AppDispatcher.waitFor([authStore.dispatchToken]);
     setSettings(action.data);
     setDefaultSettings(action.data);
   },

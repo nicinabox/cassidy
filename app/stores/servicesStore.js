@@ -44,7 +44,7 @@ var clearSelectedService = function() {
 };
 
 var setFilteredServices = function(name) {
-  var re = new RegExp('^' + name, 'g')
+  var re = new RegExp('^' + name, 'g');
   _state.filteredServices = _.filter(_state.services, function(service) {
     return service.service.match(re);
   });
@@ -78,14 +78,14 @@ var servicesStore = _.assign({}, EventEmitter.prototype, {
       .last(limit).reverse().value();
   },
 
-  getFilteredServices: function(name) {
+  getFilteredServices: function() {
     return _state.filteredServices;
   }
 });
 
 registerActions(servicesStore, {
   LOAD_SERVICES: function(action) {
-    AppDispatcher.waitFor([authStore.dispatchToken])
+    AppDispatcher.waitFor([authStore.dispatchToken]);
     setServices(action.data);
   },
 

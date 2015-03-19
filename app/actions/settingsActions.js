@@ -4,7 +4,7 @@ var dropbox = require('../utils/dropbox');
 
 var settingsActions = {
   loadSettings: function() {
-    delete storage.cache.settings
+    delete storage.cache.settings;
     dropbox.loadSettings(function(settings) {
       AppDispatcher.handleAction({
         actionType: appConstants.LOAD_SETTINGS,

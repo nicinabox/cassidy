@@ -45,13 +45,13 @@ var storage = {
 
   saveManifest(newManfist) {
     this.manifest = newManfist;
-    this.cacheManifestItems()
+    this.cacheManifestItems();
     setItem(this.manifestKey, this.manifest);
   },
 
   addToManifest(key) {
     if (this.manifest.indexOf(key) < 0) {
-      this.manifest.push(key)
+      this.manifest.push(key);
     }
 
     this.saveManifest(this.manifest);
@@ -98,9 +98,7 @@ var storage = {
     var val = storageType.getItem(key);
     try {
       val = JSON.parse(val);
-    } catch (e) {
-      val
-    }
+    } catch (e) {}
     return val;
   },
 

@@ -10,18 +10,18 @@ var Footer = React.createClass({
   },
 
   handleConnectDropbox(e) {
-    e.preventDefault()
+    e.preventDefault();
     this.props.connectDropbox();
   },
 
   handleDisconnectDropbox(e) {
-    e.preventDefault()
+    e.preventDefault();
     this.props.disconnectDropbox();
   },
 
   render() {
     var cx = React.addons.classSet;
-    var dropboxClasses = cx('btn btn-link connect-dropbox', this.connectedClassName())
+    var dropboxClasses = cx('btn btn-link connect-dropbox', this.connectedClassName());
 
     var dropboxButton = this.props.dropboxIsAuth ? (
       <a href="#"
@@ -37,7 +37,7 @@ var Footer = React.createClass({
         title="Connect Dropbox">
         <i className="fa fa-dropbox fa-lg"></i> Connect Dropbox
       </a>
-    )
+    );
 
     return (
       <div id="footer" className="col-sm-9 col-md-9 col-md-push-3 col-sm-push-3">

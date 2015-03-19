@@ -29,7 +29,7 @@ var Generator = React.createClass({
       service: servicesStore.getSelectedService().service,
       settings: settingsStore.getSettings(),
       result: ''
-    }
+    };
   },
 
   componentDidMount() {
@@ -76,7 +76,7 @@ var Generator = React.createClass({
   },
 
   generateInterestingDomain() {
-    var service = _(servicesStore.getTopServices(10)).sample()
+    var service = _(servicesStore.getTopServices(10)).sample();
     if (service) {
       return service.service;
     }

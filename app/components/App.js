@@ -15,7 +15,7 @@ var App = React.createClass({
   getInitialState() {
     return {
       dropboxIsAuth: authStore.isAuth()
-    }
+    };
   },
 
   componentWillMount() {

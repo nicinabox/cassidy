@@ -28,14 +28,14 @@ var DropboxClient = {
       if (error) {
         console.log(error);
       } else {
-        callback && callback()
+        callback && callback();
       }
-    })
+    });
   },
 
   signOut(callback) {
     client.signOut(null, function() {
-      callback && callback()
+      callback && callback();
     });
   },
 
@@ -55,7 +55,7 @@ var DropboxClient = {
       this.openDefaultDatastore((err, datastore) => {
         var table   = datastore.getTable('services');
         var results = table.query();
-        storage.set('services', results.map((item, index) =>
+        storage.set('services', results.map((item) =>
           item.getFields()
         ));
 
@@ -69,7 +69,7 @@ var DropboxClient = {
       this.openDefaultDatastore((err, datastore) => {
         var table   = datastore.getTable('default-settings');
         var results = table.query();
-        var result  = results[0]
+        var result  = results[0];
 
         storage.set('settings', result.getFields());
         callback(storage.cache.settings);
@@ -78,6 +78,6 @@ var DropboxClient = {
       callback(storage.cache.settings);
     }
   }
-}
+};
 
 module.exports = DropboxClient;
