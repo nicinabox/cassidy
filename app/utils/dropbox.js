@@ -17,7 +17,7 @@ var DropboxClient = {
 
   signIn(callback) {
     client.authenticate({}, function() {
-      callback && callback();
+      return callback && callback();
     });
   },
 
@@ -28,14 +28,14 @@ var DropboxClient = {
       if (error) {
         console.log(error);
       } else {
-        callback && callback();
+        return callback && callback();
       }
     });
   },
 
   signOut(callback) {
     client.signOut(null, function() {
-      callback && callback();
+      return callback && callback();
     });
   },
 

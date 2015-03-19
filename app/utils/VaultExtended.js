@@ -46,7 +46,7 @@ VaultExtended.Stream = function(phrase, service, key, entropy) {
       bits = Vault.map(hash.split(''), Vault.toBits).join('').split('');
 
   this._bases = {
-    '2': Vault.map(bits, function(s) { return parseInt(s, 2) })
+    '2': Vault.map(bits, function(s) { return parseInt(s, 2); })
   };
 };
 
