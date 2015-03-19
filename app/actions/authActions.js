@@ -3,19 +3,8 @@ var appConstants = require('../constants/appConstants');
 var dropbox = require('../utils/dropbox');
 
 var authActions = {
-  tryAuth: function() {
-    dropbox.tryAuth(function() {
-      AppDispatcher.handleAction({
-        actionType: appConstants.DROPBOX_SIGN_IN,
-        data: {
-          auth: dropbox.isAuth()
-        }
-      });
-    })
-  },
-
-  signIn: function() {
-    dropbox.signIn(function() {
+  tryAuth: () => {
+    dropbox.tryAuth(() => {
       AppDispatcher.handleAction({
         actionType: appConstants.DROPBOX_SIGN_IN,
         data: {
@@ -25,8 +14,19 @@ var authActions = {
     });
   },
 
-  signOut: function() {
-    dropbox.signOut(function() {
+  signIn: () => {
+    dropbox.signIn(() => {
+      AppDispatcher.handleAction({
+        actionType: appConstants.DROPBOX_SIGN_IN,
+        data: {
+          auth: dropbox.isAuth()
+        }
+      });
+    });
+  },
+
+  signOut: () => {
+    dropbox.signOut(() => {
       AppDispatcher.handleAction({
         actionType: appConstants.DROPBOX_SIGN_OUT,
         data: {
