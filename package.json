@@ -6,6 +6,11 @@
     "type": "git",
     "url": "https://github.com/nicinabox/cassidy.git"
   },
+  "scripts": {
+    "server": "python -m SimpleHTTPServer 8080",
+    "webpack": "webpack -wd",
+    "start": "npm run webpack | npm run server"
+  },
   "author": "nicinabox",
   "license": "MIT",
   "dependencies": {
