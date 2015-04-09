@@ -7,7 +7,7 @@ var settingsUtils = require('../utils/settingsUtils');
 var authStore = require('../stores/authStore');
 
 var Toggle = require('./Toggle');
-var toggleFields = settingsStore.getToggleFields();
+var toggleFields = settingsUtils.toggleFields;
 
 var Settings = React.createClass({
   _onChange() {
