@@ -1,3 +1,5 @@
+'use strict';
+
 var React = require('react/addons');
 var settingsActions = require('../actions/settingsActions');
 var settingsStore = require('../stores/settingsStore');

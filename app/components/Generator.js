@@ -1,3 +1,4 @@
+'use strict';
 var React = require('react');
 var servicesStore = require('../stores/servicesStore');
 var serviceActions = require('../actions/serviceActions');
