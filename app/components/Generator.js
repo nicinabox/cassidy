@@ -55,6 +55,11 @@ var Generator = React.createClass({
     });
   },
 
+  handleSubmit(e) {
+    e.preventDefault();
+    React.findDOMNode(this.refs.service).focus();
+  },
+
   clearService(e) {
     e.preventDefault();
     serviceActions.clearSelectedService();
@@ -62,12 +67,12 @@ var Generator = React.createClass({
     this.setState({
       service: ''
     }, () => {
-      this.refs.service.getDOMNode().focus();
+      React.findDOMNode(this.refs.service).focus();
     });
   },
 
   selectResult() {
-    var node = this.refs.result.getDOMNode();
+    var node = React.findDOMNode(this.refs.result);
     node.setSelectionRange(0, node.value.length);
 
     if (!servicesStore.getSelectedService().service) {
@@ -96,7 +101,7 @@ var Generator = React.createClass({
 
     return (
       <div id="generator" className="col-sm-7 col-md-6 col-md-push-4 col-sm-push-5">
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <input
               type="text"
