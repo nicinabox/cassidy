@@ -9,11 +9,11 @@ module.exports = keyMirror({
 
   ADD_SERVICE: null,
   REMOVE_SERVICE: null,
-  SELECT_SERVICE: null,
-  CLEAR_SELECTED_SERVICE: null,
+  SET_ACTIVE_SERVICE: null,
+  CLEAR_ACTIVE_SERVICE: null,
   FILTER_SERVICES: null,
 
   CHANGE_PHRASE: null,
-  TOGGLE_SETTING: null,
   CHANGE_SETTING: null,
+  INITIALIZE_SETTINGS: null
 });

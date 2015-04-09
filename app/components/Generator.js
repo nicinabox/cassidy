@@ -10,7 +10,7 @@ var Generator = React.createClass({
   _onChange() {
     var selectedService = servicesStore.getSelectedService().service;
     var state = {
-      settings: settingsStore.getSettings()
+      settings: settingsStore.getState().settings
     };
 
     if (selectedService) {
@@ -27,7 +27,7 @@ var Generator = React.createClass({
   getInitialState() {
     return {
       service: servicesStore.getSelectedService().service,
-      settings: settingsStore.getSettings(),
+      settings: settingsStore.getState().settings,
       result: ''
     };
   },

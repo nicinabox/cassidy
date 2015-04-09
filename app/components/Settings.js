@@ -1,6 +1,7 @@
 var React = require('react/addons');
-var settingsStore = require('../stores/settingsStore');
 var settingsActions = require('../actions/settingsActions');
+var settingsStore = require('../stores/settingsStore');
+var settingsUtils = require('../utils/settingsUtils');
 var authStore = require('../stores/authStore');
 
 var Toggle = require('./Toggle');
@@ -10,7 +11,7 @@ var Settings = React.createClass({
   _onChange() {
     this.setState({
       isDropboxAuth: authStore.isAuth(),
-      settings: settingsStore.getSettings(),
+      settings: settingsStore.getState().settings,
       phrase: settingsStore.getDecryptedPhrase()
     });
   },
@@ -18,7 +19,7 @@ var Settings = React.createClass({
   getInitialState() {
     return {
       isDropboxAuth: authStore.isAuth(),
-      settings: settingsStore.getSettings(),
+      settings: settingsStore.getState().settings,
       phrase: settingsStore.getDecryptedPhrase(),
       phraseIsVisible: false
     };
@@ -26,7 +27,6 @@ var Settings = React.createClass({
 
   componentWillMount() {
     settingsStore.addChangeListener(this._onChange);
-    settingsActions.loadSettings();
   },
 
   componentDidMount() {

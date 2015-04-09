@@ -13,7 +13,7 @@ var initializeActions = (store, actions) => {
 
 var registerActions = (store, actions) => {
   store.dispatchToken = initializeActions(store, actions);
-  return store.dispatchToken;
+  return store;
 };
 
 module.exports = registerActions;

@@ -20,13 +20,6 @@ var settingsActions = {
     });
   },
 
-  toggle: function(name) {
-    AppDispatcher.handleAction({
-      actionType: appConstants.TOGGLE_SETTING,
-      data: name
-    });
-  },
-
   setSetting: function(name, value) {
     AppDispatcher.handleAction({
       actionType: appConstants.CHANGE_SETTING,

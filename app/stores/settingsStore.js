@@ -1,131 +1,55 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher');
-var appConstants = require('../constants/appConstants');
-var authStore = require('./authStore');
-var servicesStore = require('./servicesStore');
-var registerActions = require('../utils/registerActions');
-
+'use strict';
 var EventEmitter = require('events').EventEmitter;
-var CryptoJS = require('crypto-js');
+var AppDispatcher = require('../dispatcher/AppDispatcher');
+var registerActions = require('../utils/registerActions');
 var storage = require('../utils/storage');
+var settingsUtils = require('../utils/settingsUtils');
 var _ = require('lodash');
 
 var CHANGE_EVENT = 'change';
 
-var toggleFields = {
-  lower: 'Lowercase',
-  upper: 'Uppercase',
-  number: 'Numbers',
-  dash: 'Dashes & underscore',
-  symbol: 'Symbols',
-  space: 'Spaces',
-  require_always: 'Require always'
-};
-
-var helpers = {
-  newDefaultSettings: function() {
-    return {
-      length: 20,
-      upper: true,
-      lower: true,
-      number: true,
-      symbol: true,
-      dash: true,
-      space: false,
-      key: this.newKey()
-    };
-  },
-
-  newKey: function() {
-    var time = new Date().getTime().toString() + Math.floor(Math.random() * 100000);
-    return CryptoJS.PBKDF2(time, '', {
-      keySize: 128 / 32
-    }).toString().substr(0, 5);
-  },
-
-  encryptPhrase: function(phrase) {
-    var encrypted = CryptoJS.TripleDES.encrypt(phrase, _state.settings.key);
-    return encrypted.toString();
-  },
-
-  decryptPhrase: function(str) {
-    if (str && _state.settings.key) {
-      try {
-        var decrypted = CryptoJS.TripleDES.decrypt(str, _state.settings.key);
-        return decrypted.toString(CryptoJS.enc.Utf8);
-      } catch(e) {
-        console.warn('Could not decrypt phrase.');
-      }
-    }
-  },
-
-  coerceAttrsToBool: function(settings) {
-    var attrs = ['upper', 'lower', 'number', 'symbol', 'dash', 'space'];
-    _.each(attrs, function(attr) {
-      if (!_.isBoolean(settings[attr])) {
-        settings[attr] = !!settings[attr];
-      }
-    });
-    return settings;
-  },
-
-  createInitialState: function() {
-    if (!_state.settings) {
-      copyDefaultsToSettings();
-    }
-
-    cacheSettings();
-  }
-};
+var _serviceIsActive = false;
 
 var _state = {
-  defaults: helpers.newDefaultSettings(),
-  settings: storage.cache.settings,
-  phrase: storage.cache.phrase
+  settings: {},
+  phrase: ''
 };
 
-var mergeSettings = function(settings) {
-  _.merge(_state.settings,
-    helpers.coerceAttrsToBool(settings));
-  cacheSettings();
-};
-
-var setSettings = function(settings) {
-  _state.settings = helpers.coerceAttrsToBool(settings);
-  cacheSettings();
-};
-
-var setDefaultSettings = function(settings) {
-  if (_.isEmpty(_state.settings)) {
-    _state.defaults = helpers.coerceAttrsToBool(settings);
-  }
-};
-
-var copyDefaultsToSettings = function() {
-  _state.settings = _.clone(_state.defaults);
-};
-
-var setPhrase = function(phrase) {
-  _state.phrase = helpers.encryptPhrase(phrase);
-  storage.set('phrase', _state.phrase);
-};
-
-var toggle = function(name) {
-  _state.settings[name] = !_state.settings[name];
-  cacheSettings();
-  return _state.settings;
-};
-
-var setSetting = function(name, value) {
-  _state.settings[name] = value;
-  if (_state.settings.key && storage.cache.phrase) {
-    _state.phrase = storage.cache.phrase;
-  }
-  cacheSettings();
-  return _state.settings;
-};
-
-var cacheSettings = function() {
+var _updateCache = function () {
   storage.set('settings', _state.settings);
+};
+
+var initialize = function () {
+  var savedSettings = storage.get('settings');
+  var savedPhrase   = storage.get('phrase');
+
+  _state.settings = savedSettings || settingsUtils.createDefaultSettings();
+  _state.phrase = savedPhrase;
+
+  _updateCache();
+};
+
+var update = function (data) {
+  _state.settings[data.name] = data.value;
+  if (!_serviceIsActive) {
+    _updateCache();
+  }
+};
+
+var applySettings = function (data) {
+  _state.settings = data.settings;
+};
+
+var savePhrase = function (phrase) {
+  var phrase = settingsUtils.encryptPhrase(phrase, _state.settings.key);
+  if (phrase) {
+    _state.phrase = phrase;
+    storage.set('phrase', _state.phrase);
+  }
+};
+
+var decryptPhrase = function () {
+  return settingsUtils.decryptPhrase(_state.phrase, _state.settings.key);
 };
 
 var settingsStore = _.assign({}, EventEmitter.prototype, {
@@ -141,58 +65,38 @@ var settingsStore = _.assign({}, EventEmitter.prototype, {
     this.removeListener(CHANGE_EVENT, callback);
   },
 
-  getDefaultSettings: function() {
-    return _state.defaults;
+  getState: function () {
+    return _state;
   },
 
-  getSettings: function() {
-    return _state.settings;
+  getDecryptedPhrase: function () {
+    return decryptPhrase();
   },
-
-  getDecryptedPhrase: function() {
-    if (_state.phrase) {
-      return helpers.decryptPhrase(_state.phrase);
-    }
-  },
-
-  getToggleFields: function() {
-    return toggleFields;
-  }
 });
 
 registerActions(settingsStore, {
-  LOAD_SETTINGS: function(action) {
-    AppDispatcher.waitFor([authStore.dispatchToken]);
-    setSettings(action.data);
-    setDefaultSettings(action.data);
+  INITIALIZE_SETTINGS: function () {
+    initialize();
   },
 
-  SELECT_SERVICE: function(action) {
-    AppDispatcher.waitFor([servicesStore.dispatchToken]);
-    var service = servicesStore.getSelectedService();
-    mergeSettings(service.settings);
+  CHANGE_SETTING: function (action) {
+    update(action.data)
   },
 
-  CLEAR_SELECTED_SERVICE: function(action) {
-    copyDefaultsToSettings();
+  SET_ACTIVE_SERVICE: function (action) {
+    _serviceIsActive = true;
+    applySettings(action.data)
   },
 
-  CHANGE_PHRASE: function(action) {
-    setPhrase(action.data);
+  CLEAR_ACTIVE_SERVICE: function () {
+    _serviceIsActive = false;
+    initialize();
   },
 
-  TOGGLE_SETTING: function(action) {
-    toggle(action.data);
-  },
-
-  CHANGE_SETTING: function(action) {
-    setSetting(action.data.name, action.data.value);
-  },
-
-  DROPBOX_SIGN_OUT: function(action) {
-    copyDefaultsToSettings();
+  CHANGE_PHRASE: function (action) {
+    savePhrase(action.data);
   }
 });
 
-helpers.createInitialState();
+initialize();
 module.exports = settingsStore;

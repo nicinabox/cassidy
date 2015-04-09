@@ -1,4 +1,5 @@
 var React = require('react/addons');
+var settingsUtils = require('../utils/settingsUtils');
 var settingsStore = require('../stores/settingsStore');
 
 var toggleFields = settingsStore.getToggleFields();

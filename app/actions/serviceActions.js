@@ -14,14 +14,14 @@ var serviceActions = {
 
   selectService: function(service) {
     AppDispatcher.handleAction({
-      actionType: appConstants.SELECT_SERVICE,
+      actionType: appConstants.SET_ACTIVE_SERVICE,
       data: service
     });
   },
 
   clearSelectedService: function() {
     AppDispatcher.handleAction({
-      actionType: appConstants.CLEAR_SELECTED_SERVICE
+      actionType: appConstants.CLEAR_ACTIVE_SERVICE
     });
   },
 
