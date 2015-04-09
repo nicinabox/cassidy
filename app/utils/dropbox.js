@@ -7,7 +7,6 @@ var client = new Dropbox.Client({
   key: DROPBOX_APP_KEY
 });
 
-
 var DropboxClient = {
   client: client,
 

@@ -1,4 +1,4 @@
-var storageType = localStorage;
+var medium = localStorage;
 
 var serialize = (data) => {
   return JSON.stringify(data);
@@ -14,14 +14,14 @@ var deserialize = (data) => {
 
 var setItem = (k, v) => {
   try {
-    storageType.setItem(k, serialize(v));
+    medium.setItem(k, serialize(v));
   } catch (e) {
     console.error(e);
   }
 };
 
 var getItem = (k) => {
-  return deserialize(storageType.getItem(k));
+  return deserialize(medium.getItem(k));
 };
 
 var initialize = () => {
@@ -95,7 +95,7 @@ var storage = {
   },
 
   get(key) {
-    var val = storageType.getItem(key);
+    var val = getItem(key);
     try {
       val = JSON.parse(val);
     } catch (e) {}
@@ -104,7 +104,7 @@ var storage = {
 
   remove(key) {
     this.removeFromManifest(key);
-    storageType.removeItem(key);
+    medium.removeItem(key);
   },
 
   invalidate(key) {
