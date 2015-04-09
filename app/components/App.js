@@ -2,17 +2,12 @@
 var React     = require('react');
 var authStore = require('../stores/authStore');
 var authActions = require('../actions/authActions');
+var serviceActions = require('../actions/serviceActions');
 var Sidebar   = require('./Sidebar');
 var Generator = require('./Generator');
 var Footer = require('./Footer');
 
 var App = React.createClass({
-  _onChange() {
-    this.setState({
-      dropboxIsAuth: authStore.isAuth()
-    });
-  },
-
   getInitialState() {
     return {
       dropboxIsAuth: authStore.isAuth()
@@ -24,16 +19,26 @@ var App = React.createClass({
     authActions.tryAuth();
   },
 
+  componentDidMount: function() {
+    serviceActions.loadServices();
+  },
+
   componentWillUnmount() {
     authStore.removeChangeListener(this._onChange);
   },
 
-  connectDropbox() {
+  _connectDropbox() {
     authActions.signIn();
   },
 
-  disconnectDropbox() {
+  _disconnectDropbox() {
     authActions.signOut();
+  },
+
+  _onChange() {
+    this.setState({
+      dropboxIsAuth: authStore.isAuth()
+    });
   },
 
   render() {
@@ -44,8 +49,8 @@ var App = React.createClass({
           <Sidebar />
 
           <Footer
-            connectDropbox={this.connectDropbox}
-            disconnectDropbox={this.disconnectDropbox}
+            connectDropbox={this._connectDropbox}
+            disconnectDropbox={this._disconnectDropbox}
             dropboxIsAuth={this.state.dropboxIsAuth} />
         </div>
       </div>

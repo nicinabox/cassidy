@@ -5,35 +5,35 @@ var Footer = React.createClass({
     dropboxIsAuth: React.PropTypes.bool.isRequired
   },
 
-  connectedClassName() {
+  _connectedClassName() {
     return this.props.dropboxIsAuth ? 'connected' : '';
   },
 
-  handleConnectDropbox(e) {
+  _handleConnectDropbox(e) {
     e.preventDefault();
     this.props.connectDropbox();
   },
 
-  handleDisconnectDropbox(e) {
+  _handleDisconnectDropbox(e) {
     e.preventDefault();
     this.props.disconnectDropbox();
   },
 
   render() {
     var cx = React.addons.classSet;
-    var dropboxClasses = cx('btn btn-link connect-dropbox', this.connectedClassName());
+    var dropboxClasses = cx('btn btn-link connect-dropbox', this._connectedClassName());
 
     var dropboxButton = this.props.dropboxIsAuth ? (
       <a href="#"
         className={dropboxClasses}
-        onClick={this.handleDisconnectDropbox}
+        onClick={this._handleDisconnectDropbox}
         title="Disconnect Dropbox">
         <i className="fa fa-dropbox fa-lg"></i> Disconnect Dropbox
       </a>
     ) : (
       <a href="#"
         className={dropboxClasses}
-        onClick={this.handleConnectDropbox}
+        onClick={this._handleConnectDropbox}
         title="Connect Dropbox">
         <i className="fa fa-dropbox fa-lg"></i> Connect Dropbox
       </a>
