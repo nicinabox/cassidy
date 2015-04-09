@@ -1,17 +1,22 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher');
-var appConstants = require('../constants/appConstants');
-var authStore = require('./authStore');
-var dropbox = require('../utils/dropbox');
-var registerActions = require('../utils/registerActions');
+'use strict';
 
+var AppDispatcher = require('../dispatcher/AppDispatcher');
+var authStore = require('./authStore');
+var storage = require('../utils/storage');
+var settingsStore = require('./settingsStore');
+var registerActions = require('../utils/registerActions');
 var EventEmitter = require('events').EventEmitter;
 var _ = require('lodash');
 
 var CHANGE_EVENT = 'change';
+
 var _state = {
-  selectedService: {},
-  services: [],
-  filteredServices: []
+  activeService: {},
+  services: []
+};
+
+var _cacheServices = function() {
+  storage.set('services', _state.services);
 };
 
 var addService = function(service) {
@@ -31,16 +36,20 @@ var setServices = function(services) {
   storage.set('services', _state.services);
 };
 
-var setSelectedService = function(service) {
-  var newService = _.clone(service);
-  try {
-    newService.settings = JSON.parse(newService.settings);
-  } catch(e) {}
-  _state.selectedService = newService;
+var setActiveService = function(service) {
+  _state.activeService = service;
 };
 
-var clearSelectedService = function() {
-  _state.selectedService = {};
+var clearActiveService = function() {
+  _state.activeService = {};
+};
+
+var saveActiveService = function() {
+  var service = _.find(_state.services, _state.activeService);
+  if (service) {
+    service.settings = settingsStore.getState().settings;
+    _cacheServices();
+  }
 };
 
 var setFilteredServices = function(name) {
@@ -63,8 +72,8 @@ var servicesStore = _.assign({}, EventEmitter.prototype, {
     this.removeListener(CHANGE_EVENT, callback);
   },
 
-  getSelectedService: function() {
-    return _state.selectedService;
+  getActiveService: function() {
+    return _state.activeService;
   },
 
   getServices: function() {
@@ -89,12 +98,12 @@ registerActions(servicesStore, {
     setServices(action.data);
   },
 
-  SELECT_SERVICE: function(action) {
-    setSelectedService(action.data);
+  SET_ACTIVE_SERVICE: function(action) {
+    setActiveService(action.data);
   },
 
   CLEAR_SELECTED_SERVICE: function(action) {
-    clearSelectedService();
+    clearActiveService();
   },
 
   FILTER_SERVICES: function(action) {
@@ -109,11 +118,12 @@ registerActions(servicesStore, {
     removeService(action.data);
   },
 
-  DROPBOX_SIGN_IN: function() {
-    dropbox.loadServices(function(services) {
-      setServices(services);
-      servicesStore.emitChange();
-    });
+  CHANGE_PHRASE: function (action) {
+    clearActiveService();
+  },
+
+  CHANGE_SETTING: function (action) {
+    saveActiveService();
   },
 
   DROPBOX_SIGN_OUT: function(action) {
