@@ -50,7 +50,7 @@ var Settings = React.createClass({
   },
 
   handleToggleChange(name, e) {
-    settingsActions.toggle(name);
+    settingsActions.setSetting(name, !this.state.settings[name]);
   },
 
   handleInputChange(e) {
