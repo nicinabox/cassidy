@@ -6,13 +6,13 @@ var _     = require('lodash');
 var Suggestions = React.createClass({
   _onChange() {
     this.setState({
-      services: servicesStore.getServices()
+      services: servicesStore.getState().services
     });
   },
 
   getInitialState() {
     return {
-      services: servicesStore.getServices()
+      services: servicesStore.getState().services
     };
   },
 

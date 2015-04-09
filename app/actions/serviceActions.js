@@ -32,9 +32,9 @@ var serviceActions = {
     });
   },
 
-  addService: function(service) {
+  saveService: function(service) {
     AppDispatcher.handleAction({
-      actionType: appConstants.ADD_SERVICE,
+      actionType: appConstants.SAVE_SERVICE,
       data: service
     });
   },

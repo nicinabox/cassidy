@@ -7,7 +7,7 @@ module.exports = keyMirror({
   LOAD_SERVICES: null,
   LOAD_SETTINGS: null,
 
-  ADD_SERVICE: null,
+  SAVE_SERVICE: null,
   REMOVE_SERVICE: null,
   SET_ACTIVE_SERVICE: null,
   CLEAR_ACTIVE_SERVICE: null,

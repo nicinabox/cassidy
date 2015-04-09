@@ -9,17 +9,17 @@ var Suggestions = require('./Suggestions');
 
 var Generator = React.createClass({
   _onChange() {
-    var selectedService = servicesStore.getActiveService().service;
+    var activeService = servicesStore.getState().activeService;
     var state = {
       settings: settingsStore.getState().settings
     };
 
-    if (selectedService) {
-      state.service = selectedService;
+    if (activeService) {
+      state.service = activeService;
     }
 
     this.setState(state, () => {
-      if (selectedService) {
+      if (activeService) {
         this.selectResult();
       }
     });
@@ -27,7 +27,7 @@ var Generator = React.createClass({
 
   getInitialState() {
     return {
-      service: servicesStore.getActiveService().service,
+      service: servicesStore.getState().activeService,
       settings: settingsStore.getState().settings,
       result: ''
     };
@@ -76,7 +76,7 @@ var Generator = React.createClass({
     var node = React.findDOMNode(this.refs.result);
     node.setSelectionRange(0, node.value.length);
 
-    if (!servicesStore.getActiveService().service) {
+    if (!servicesStore.getState().activeService) {
       this.saveService();
     }
   },

@@ -15,20 +15,26 @@ var _state = {
   services: []
 };
 
-var _cacheServices = function() {
+var _updateCache = function() {
   storage.set('services', _state.services);
 };
 
-var addService = function(service) {
+var initialize = function () {
+  var savedServices = storage.get('services');
+  if (savedServices) _state.services = savedServices;
+};
+
+var saveService = function(service) {
   var existing = _.find(_state.services, { service: service.service });
   if (!existing) {
     _state.services.push(service);
-    storage.set('services', _state.services);
+    _updateCache();
   }
 };
 
 var removeService = function(service) {
   _.remove(_state.services, service);
+  _updateCache();
 };
 
 var setServices = function(services) {
@@ -48,7 +54,7 @@ var saveActiveService = function() {
   var service = _.find(_state.services, _state.activeService);
   if (service) {
     service.settings = settingsStore.getState().settings;
-    _cacheServices();
+    _updateCache();
   }
 };
 
@@ -72,12 +78,8 @@ var servicesStore = _.assign({}, EventEmitter.prototype, {
     this.removeListener(CHANGE_EVENT, callback);
   },
 
-  getActiveService: function() {
-    return _state.activeService;
-  },
-
-  getServices: function() {
-    return _state.services;
+  getState: function () {
+    return _state;
   },
 
   getTopServices: function(limit) {
@@ -106,29 +108,14 @@ registerActions(servicesStore, {
     clearActiveService();
   },
 
-  FILTER_SERVICES: function(action) {
-    setFilteredServices(action.data);
-  },
-
-  ADD_SERVICE: function(action) {
-    addService(action.data);
+  SAVE_SERVICE: function(action) {
+    saveService(action.data);
   },
 
   REMOVE_SERVICE: function(action) {
     removeService(action.data);
   },
-
-  CHANGE_PHRASE: function (action) {
-    clearActiveService();
-  },
-
-  CHANGE_SETTING: function (action) {
-    saveActiveService();
-  },
-
-  DROPBOX_SIGN_OUT: function(action) {
-    setServices([]);
-  }
 });
 
+initialize();
 module.exports = servicesStore;

@@ -7,17 +7,11 @@ var NoResults = require('./NoResults');
 
 var Services = React.createClass({
   _onChange() {
-    this.setState({
-      services: servicesStore.getServices(),
-      filteredServices: servicesStore.getFilteredServices()
-    });
+    this.setState(servicesStore.getState());
   },
 
   getInitialState() {
-    return {
-      services: servicesStore.getServices(),
-      filteredServices: servicesStore.getFilteredServices()
-    };
+    return servicesStore.getState();
   },
 
   componentWillMount() {
