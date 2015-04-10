@@ -25,7 +25,7 @@ var Services = React.createClass({
   populateGenerator(service, e) {
     e.preventDefault();
     if (e.target.className === 'remove') return;
-    serviceActions.selectService(service);
+    serviceActions.setActiveService(service);
   },
 
   removeService(service, e) {

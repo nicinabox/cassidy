@@ -6,10 +6,11 @@ var settingsStore = require('../stores/settingsStore');
 var settingsActions = require('../actions/settingsActions');
 var generator = require('../utils/generator');
 var Suggestions = require('./Suggestions');
+var _ = require('lodash');
 
 var Generator = React.createClass({
   _onChange() {
-    var activeService = servicesStore.getState().activeService;
+    var activeService = servicesStore.getActiveServiceName();
     var state = {
       settings: settingsStore.getState().settings
     };
@@ -27,7 +28,7 @@ var Generator = React.createClass({
 
   getInitialState() {
     return {
-      service: servicesStore.getState().activeService,
+      service: servicesStore.getActiveServiceName(),
       settings: settingsStore.getState().settings,
       result: ''
     };
@@ -89,11 +90,11 @@ var Generator = React.createClass({
       service: this.state.service,
       settings: this.state.settings
     };
-    serviceActions.addService(service);
+    serviceActions.saveService(service);
   },
 
   render() {
-    var placeholder = "Eg, " + this.state.interestingDomain;
+    var placeholder = 'Eg, ' + this.state.interestingDomain;
     var result = generator(this.state);
 
     return (
@@ -112,19 +113,18 @@ var Generator = React.createClass({
               autoCorrect="off"
               autoFocus={true} />
 
-            {this.state.service ? (
+            {this.state.service && (
               <a href="#" className="clear" tabIndex="-1"
                 onClick={this.clearService}>
                 &times;
               </a>
-            ) : ''}
-
-            <div className="errors"></div>
+            )}
           </div>
 
-          {result ? (
+          {result && (
             <div className="form-group">
               <input type="text" id="result"
+                className="result"
                 ref="result"
                 value={result}
                 onFocus={this.selectResult}
@@ -132,7 +132,7 @@ var Generator = React.createClass({
                 onCopy={this.saveService}
                 readOnly />
             </div>
-          ) : ''}
+          )}
         </form>
 
         <Suggestions

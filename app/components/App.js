@@ -19,10 +19,6 @@ var App = React.createClass({
     authActions.tryAuth();
   },
 
-  componentDidMount: function() {
-    serviceActions.loadServices();
-  },
-
   componentWillUnmount() {
     authStore.removeChangeListener(this._onChange);
   },

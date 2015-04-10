@@ -26,7 +26,7 @@ var Suggestions = React.createClass({
 
   populateGenerator(service, e) {
     e.preventDefault();
-    serviceActions.selectService(service);
+    serviceActions.setActiveService(service);
   },
 
   render: function() {

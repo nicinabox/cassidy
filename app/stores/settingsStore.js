@@ -85,7 +85,7 @@ registerActions(settingsStore, {
 
   SET_ACTIVE_SERVICE: function (action) {
     _serviceIsActive = true;
-    applySettings(action.data)
+    applySettings(action.data);
   },
 
   CLEAR_ACTIVE_SERVICE: function () {

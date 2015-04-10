@@ -87,6 +87,11 @@ var servicesStore = _.assign({}, EventEmitter.prototype, {
     return _state;
   },
 
+  getActiveServiceName: function () {
+    var service = _state.activeService;
+    if (!_.isEmpty(service)) return service.service;
+  },
+
   getTopServices: function(limit) {
     return _(_state.services)
       .reject((s) => !s.usage)
@@ -109,7 +114,7 @@ registerActions(servicesStore, {
     setActiveService(action.data);
   },
 
-  CLEAR_SELECTED_SERVICE: function(action) {
+  CLEAR_ACTIVE_SERVICE: function(action) {
     clearActiveService();
   },
 

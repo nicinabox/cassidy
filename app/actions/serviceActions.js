@@ -3,16 +3,7 @@ var appConstants = require('../constants/appConstants');
 var dropbox = require('../utils/dropbox');
 
 var serviceActions = {
-  loadServices: function() {
-    dropbox.loadServices(function(services) {
-      AppDispatcher.handleAction({
-        actionType: appConstants.LOAD_SERVICES,
-        data: services
-      });
-    });
-  },
-
-  selectService: function(service) {
+  setActiveService: function(service) {
     AppDispatcher.handleAction({
       actionType: appConstants.SET_ACTIVE_SERVICE,
       data: service

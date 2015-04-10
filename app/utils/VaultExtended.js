@@ -1,4 +1,5 @@
 var Vault = require('vault');
+var _ = require('lodash');
 
 var VaultExtended = function() {
   Vault.apply(this, arguments);
