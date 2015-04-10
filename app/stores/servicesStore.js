@@ -26,10 +26,15 @@ var initialize = function () {
 
 var saveService = function(service) {
   var existing = _.find(_state.services, { service: service.service });
-  if (!existing) {
+  if (existing) {
+    existing.usage = existing.usage || 0;
+    existing.usage += 1
+  } else {
+    service.usage = 1
     _state.services.push(service);
-    _updateCache();
   }
+
+  _updateCache();
 };
 
 var removeService = function(service) {

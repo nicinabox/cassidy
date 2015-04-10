@@ -2,6 +2,7 @@ jest.dontMock('../../constants/appConstants');
 jest.dontMock('../../utils/registerActions');
 jest.dontMock('../../utils/storage');
 jest.dontMock('../servicesStore');
+var _ = require('lodash');
 
 describe('servicesStore', function () {
   var appConstants = require('../../constants/appConstants');
@@ -16,6 +17,14 @@ describe('servicesStore', function () {
         actionType: appConstants.SAVE_SERVICE,
         data: {
           service: 'new service'
+        }
+      }
+    },
+    SAVE_EXISTING_SERVICE: {
+      action: {
+        actionType: appConstants.SAVE_SERVICE,
+        data: {
+          service: 'test1'
         }
       }
     },
@@ -68,6 +77,29 @@ describe('servicesStore', function () {
     expect(cache.length).toBe(4);
   });
 
+  it('does not save service if matching service', function () {
+    callback(payloads.SAVE_EXISTING_SERVICE);
+    var state = servicesStore.getState();
+    var cache = storage.get('services');
+    expect(state.services.length).toBe(3);
+    expect(cache.length).toBe(3);
+  });
+
+  it('increments usage when service saved', function () {
+    callback(payloads.SAVE_SERVICE);
+    var state = servicesStore.getState();
+    var last = _.last(state.services)
+
+    var cache = storage.get('services');
+    expect(last.usage).toBe(1);
+    expect(_.last(cache).usage).toBe(1);
+
+    callback(payloads.SAVE_SERVICE);
+    cache = storage.get('services');
+    expect(last.usage).toBe(2);
+    expect(_.last(cache).usage).toBe(2);
+  });
+
   it('removes service', function () {
     callback(payloads.REMOVE_SERVICE);
     var state = servicesStore.getState();
@@ -81,6 +113,15 @@ describe('servicesStore', function () {
     callback(payloads.SET_ACTIVE_SERVICE);
     var state = servicesStore.getState();
     expect(state.activeService).toEqual({ service: 'test1' });
+  });
+
+  it('returns active service', function () {
+    callback(payloads.SET_ACTIVE_SERVICE);
+    expect(servicesStore.getActiveServiceName()).toEqual('test1');
+  });
+
+  it('returns undefined if no active service', function () {
+    expect(servicesStore.getActiveServiceName()).toEqual(undefined);
   });
 
   it('clears active service', function () {
