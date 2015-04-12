@@ -51,7 +51,7 @@ var Generator = React.createClass({
   handleServiceChange(e) {
     var value = e.target.value;
 
-    serviceActions.filterServices(value);
+    serviceActions.matchSavedService(value);
     this.setState({
       service: value
     });

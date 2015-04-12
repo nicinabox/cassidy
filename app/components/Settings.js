@@ -5,6 +5,7 @@ var settingsActions = require('../actions/settingsActions');
 var settingsStore = require('../stores/settingsStore');
 var settingsUtils = require('../utils/settingsUtils');
 var authStore = require('../stores/authStore');
+var _ = require('lodash');
 
 var Toggle = require('./Toggle');
 var toggleFields = settingsUtils.toggleFields;
@@ -74,12 +75,24 @@ var Settings = React.createClass({
     });
   },
 
-  clearDropboxData(e) {
+  clearDropboxData() {
+  },
+
+  clearLocalData() {
+  },
+
+  handleResetSettings (e) {
     e.preventDefault();
   },
 
-  clearLocalData(e) {
+  handleClearData (e) {
     e.preventDefault();
+
+    if (this.state.isDropboxAuth) {
+      this.clearDropboxData();
+    } else {
+      this.clearDropboxData();
+    }
   },
 
   render() {
@@ -155,24 +168,23 @@ var Settings = React.createClass({
         </form>
 
         <div className="danger-zone">
-          <a href="#" className="btn btn-link"
-            onClick={this.resetSettings}
+          <a href="#"
+            className="btn btn-link"
+            ref="resetSettings"
+            onClick={this.handleResetSettings}
             title="Reset all settings except for key and phrase">
             Reset settings
           </a>
           <br />
 
-          {this.state.isDropboxAuth ? (
-            <a href="#" className="btn btn-link btn-link-danger"
-              onClick={this.clearDropboxData}>
-              Clear Dropbox data
-            </a>
-          ) : (
-            <a href="#" className="btn btn-link btn-link-danger clear-data"
-              onClick={this.clearLocalData}>
-              Clear local data
-            </a>
-          )}
+          <a href="#" className="btn btn-link btn-link-danger"
+            onClick={this.handleClearData}>
+            {this.state.isDropboxAuth ? (
+              "Clear Dropbox data"
+            ) : (
+              "Clear local data"
+            )}
+          </a>
         </div>
       </div>
     );

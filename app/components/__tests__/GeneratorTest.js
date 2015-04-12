@@ -1,6 +1,7 @@
 jest.dontMock('../Generator');
 jest.dontMock('../../stores/settingsStore');
 jest.dontMock('../../stores/servicesStore');
+jest.dontMock('../../utils/storage');
 
 describe('Generator', function () {
   var React = require('react/addons');
@@ -44,8 +45,4 @@ describe('Generator', function () {
     Simulate.click(clear);
     expect(serviceInput.value).toBe('');
   });
-
-  // it('filters services on change');
-  // it('makes a matching service active');
-  // it('clears an active service when no longer matched');
 });
