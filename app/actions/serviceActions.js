@@ -23,6 +23,13 @@ var serviceActions = {
     });
   },
 
+  matchSavedService: function (name) {
+    AppDispatcher.handleAction({
+      actionType: appConstants.MATCH_SAVED_SERVICE,
+      data: name
+    });
+  },
+
   saveService: function(service) {
     AppDispatcher.handleAction({
       actionType: appConstants.SAVE_SERVICE,

@@ -49,6 +49,18 @@ describe('servicesStore', function () {
         actionType: appConstants.CLEAR_ACTIVE_SERVICE
       }
     },
+    MATCH_SAVED_SERVICE: {
+      action: {
+        actionType: appConstants.MATCH_SAVED_SERVICE,
+        data: 'test1'
+      }
+    },
+    NO_MATCH_SAVED_SERVICE: {
+      action: {
+        actionType: appConstants.MATCH_SAVED_SERVICE,
+        data: 'nope'
+      }
+    },
   };
 
   beforeEach(function(e) {
@@ -126,6 +138,19 @@ describe('servicesStore', function () {
 
   it('clears active service', function () {
     callback(payloads.CLEAR_ACTIVE_SERVICE);
+    var state = servicesStore.getState();
+    expect(state.activeService).toEqual({});
+  });
+
+  it('makes a matching service active', function () {
+    callback(payloads.MATCH_SAVED_SERVICE);
+    var state = servicesStore.getState();
+    expect(state.activeService).toEqual({ service: 'test1' });
+  });
+
+  it('clears active service when no longer matched', function () {
+    callback(payloads.MATCH_SAVED_SERVICE);
+    callback(payloads.NO_MATCH_SAVED_SERVICE);
     var state = servicesStore.getState();
     expect(state.activeService).toEqual({});
   });

@@ -63,6 +63,15 @@ var saveActiveService = function() {
   }
 };
 
+var matchSavedService = function (name) {
+  var service = _.findWhere(_state.services, { service: name });
+  if (service) {
+    setActiveService(service);
+  } else {
+    clearActiveService();
+  }
+};
+
 var setFilteredServices = function(name) {
   var re = new RegExp('^' + name, 'g');
   _state.filteredServices = _.filter(_state.services, function(service) {
@@ -124,6 +133,10 @@ registerActions(servicesStore, {
 
   REMOVE_SERVICE: function(action) {
     removeService(action.data);
+  },
+
+  MATCH_SAVED_SERVICE: function (action) {
+    matchSavedService(action.data);
   },
 });
 

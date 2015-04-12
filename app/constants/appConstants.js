@@ -12,6 +12,7 @@ module.exports = keyMirror({
   SET_ACTIVE_SERVICE: null,
   CLEAR_ACTIVE_SERVICE: null,
   FILTER_SERVICES: null,
+  MATCH_SAVED_SERVICE: null,
 
   CHANGE_PHRASE: null,
   CHANGE_SETTING: null,
