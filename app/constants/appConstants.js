@@ -16,7 +16,7 @@ module.exports = keyMirror({
 
   CHANGE_PHRASE: null,
   CHANGE_SETTING: null,
-  INITIALIZE_SETTINGS: null,
+  HYDRATE_SETTINGS: null,
   RESET_SETTINGS: null,
 
   FOCUS_RESULT: null,

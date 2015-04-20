@@ -11,9 +11,9 @@ describe('settingsStore', function () {
   var callback;
 
   var payloads = {
-    INITIALIZE_SETTINGS: {
+    HYDRATE_SETTINGS: {
       action: {
-        actionType: appConstants.INITIALIZE_SETTINGS
+        actionType: appConstants.HYDRATE_SETTINGS
       }
     },
 
@@ -111,7 +111,7 @@ describe('settingsStore', function () {
     });
 
     it('loads existing settings', function () {
-      callback(payloads.INITIALIZE_SETTINGS);
+      callback(payloads.HYDRATE_SETTINGS);
 
       var state = settingsStore.getState();
       expect(state.settings).toEqual({
@@ -233,20 +233,21 @@ describe('settingsStore', function () {
 
     it('should not be decrypted on initialize', function () {
       storage.set('phrase', 'lolencrypted');
-      callback(payloads.INITIALIZE_SETTINGS);
+      callback(payloads.HYDRATE_SETTINGS);
       var state = settingsStore.getState();
       expect(state.phrase).toEqual('lolencrypted');
     });
 
     it('should be decrypted on demand', function () {
       storage.set('phrase', 'lolencrypted');
-      callback(payloads.INITIALIZE_SETTINGS);
+      callback(payloads.HYDRATE_SETTINGS);
       var phrase = settingsStore.getDecryptedPhrase();
       expect(phrase).toEqual('juice');
     });
   });
 
   it('resets settings', function () {
+    callback(payloads.HYDRATE_SETTINGS);
     callback(payloads.CHANGE_SETTING);
     callback(payloads.RESET_SETTINGS);
     var state = settingsStore.getState();

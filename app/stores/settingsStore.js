@@ -19,7 +19,7 @@ var _updateCache = function () {
   storage.set('settings', _state.settings);
 };
 
-var initialize = function () {
+var hydrate = function () {
   var savedSettings = storage.get('settings');
   var savedPhrase   = storage.get('phrase');
 
@@ -83,8 +83,8 @@ var settingsStore = _.assign({}, EventEmitter.prototype, {
 });
 
 registerActions(settingsStore, {
-  INITIALIZE_SETTINGS: function () {
-    initialize();
+  HYDRATE_SETTINGS: function () {
+    hydrate();
   },
 
   CHANGE_SETTING: function (action) {
@@ -98,7 +98,7 @@ registerActions(settingsStore, {
 
   CLEAR_ACTIVE_SERVICE: function () {
     _serviceIsActive = false;
-    initialize();
+    hydrate();
   },
 
   CHANGE_PHRASE: function (action) {
@@ -110,5 +110,5 @@ registerActions(settingsStore, {
   },
 });
 
-initialize();
+hydrate();
 module.exports = settingsStore;
