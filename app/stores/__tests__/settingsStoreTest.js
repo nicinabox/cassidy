@@ -57,7 +57,13 @@ describe('settingsStore', function () {
         actionType: appConstants.CHANGE_PHRASE,
         data: 'juice'
       }
-    }
+    },
+
+    RESET_SETTINGS: {
+      action: {
+        actionType: appConstants.RESET_SETTINGS
+      }
+    },
   };
 
   beforeEach(function(e) {
@@ -238,5 +244,21 @@ describe('settingsStore', function () {
       var phrase = settingsStore.getDecryptedPhrase();
       expect(phrase).toEqual('juice');
     });
+  });
+
+  it('resets settings', function () {
+    callback(payloads.CHANGE_SETTING);
+    callback(payloads.RESET_SETTINGS);
+    var state = settingsStore.getState();
+    expect(state.settings).toEqual({
+      length: 20,
+      upper: true,
+      lower: true,
+      number: true,
+      symbol: true,
+      dash: true,
+      space: false,
+      key: 'abc123'
+    })
   });
 });

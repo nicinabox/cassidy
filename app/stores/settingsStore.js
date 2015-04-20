@@ -36,6 +36,14 @@ var update = function (data) {
   }
 };
 
+var resetSettings = function () {
+  var newSettings = settingsUtils.createDefaultSettings();
+  var key = _state.settings.key;
+  _state.settings = newSettings;
+  _state.settings.key = key;
+  _updateCache();
+};
+
 var applySettings = function (data) {
   _state.settings = data.settings;
 };
@@ -95,6 +103,10 @@ registerActions(settingsStore, {
 
   CHANGE_PHRASE: function (action) {
     savePhrase(action.data);
+  },
+
+  RESET_SETTINGS: function () {
+    resetSettings();
   },
 });
 
