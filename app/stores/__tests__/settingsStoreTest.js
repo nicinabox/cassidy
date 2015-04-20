@@ -64,6 +64,12 @@ describe('settingsStore', function () {
         actionType: appConstants.RESET_SETTINGS
       }
     },
+
+    CLEAR_LOCAL_DATA: {
+      action: {
+        actionType: appConstants.CLEAR_LOCAL_DATA
+      }
+    },
   };
 
   beforeEach(function(e) {
@@ -250,6 +256,7 @@ describe('settingsStore', function () {
     callback(payloads.HYDRATE_SETTINGS);
     callback(payloads.CHANGE_SETTING);
     callback(payloads.RESET_SETTINGS);
+
     var state = settingsStore.getState();
     expect(state.settings).toEqual({
       length: 20,
@@ -261,5 +268,27 @@ describe('settingsStore', function () {
       space: false,
       key: 'abc123'
     })
+  });
+
+  it('clears local settings', function () {
+    storage.set('phrase', 'lolencrypted');
+    callback(payloads.HYDRATE_SETTINGS);
+    callback(payloads.CHANGE_SETTING);
+    callback(payloads.CLEAR_LOCAL_DATA);
+    var state = settingsStore.getState();
+
+    expect(storage.get('settings')).toBe(undefined);
+    expect(storage.get('phrase')).toBe(undefined);
+    expect(state.settings).toEqual({
+      length: 20,
+      upper: true,
+      lower: true,
+      number: true,
+      symbol: true,
+      dash: true,
+      space: false,
+      key: 'abc123'
+    });
+    expect(state.phrase).toEqual('');
   });
 });

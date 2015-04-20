@@ -44,6 +44,15 @@ var resetSettings = function () {
   _updateCache();
 };
 
+var clearLocalSettings = function () {
+  storage.remove('settings');
+  storage.remove('phrase');
+  _state = {
+    settings: settingsUtils.createDefaultSettings(),
+    phrase: ''
+  };
+};
+
 var applySettings = function (data) {
   _state.settings = data.settings;
 };
@@ -108,6 +117,10 @@ registerActions(settingsStore, {
   RESET_SETTINGS: function () {
     resetSettings();
   },
+
+  CLEAR_LOCAL_DATA: function () {
+    clearLocalSettings();
+  }
 });
 
 hydrate();
