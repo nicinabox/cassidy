@@ -10,17 +10,18 @@ var _ = require('lodash');
 
 var Generator = React.createClass({
   _onChange() {
-    var activeService = servicesStore.getActiveServiceName();
+    var servicesState = servicesStore.getState();
+
     var state = {
       settings: settingsStore.getState().settings
     };
 
-    if (activeService) {
-      state.service = activeService;
+    if (servicesState.activeService) {
+      state.service = servicesState.activeService.service;
     }
 
     this.setState(state, () => {
-      if (activeService) {
+      if (servicesState.focusResult) {
         this.selectResult();
       }
     });
@@ -64,7 +65,7 @@ var Generator = React.createClass({
 
   clearService(e) {
     e.preventDefault();
-    serviceActions.clearSelectedService();
+    serviceActions.clearActiveService();
     serviceActions.filterServices();
     this.setState({
       service: ''

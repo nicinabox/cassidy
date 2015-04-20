@@ -10,7 +10,7 @@ var serviceActions = {
     });
   },
 
-  clearSelectedService: function() {
+  clearActiveService: function() {
     AppDispatcher.handleAction({
       actionType: appConstants.CLEAR_ACTIVE_SERVICE
     });

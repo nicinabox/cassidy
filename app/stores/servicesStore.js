@@ -96,6 +96,10 @@ var servicesStore = _.assign({}, EventEmitter.prototype, {
     return _state;
   },
 
+  getActiveService: function () {
+    return _state.activeService;
+  },
+
   getActiveServiceName: function () {
     var service = _state.activeService;
     if (!_.isEmpty(service)) return service.service;
