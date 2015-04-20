@@ -169,6 +169,9 @@ var Settings = React.createClass({
         </form>
 
         <div className="danger-zone">
+          <label>Danger Zone</label>
+          <br />
+
           <a href="#"
             className="btn btn-link"
             ref="resetSettings"
