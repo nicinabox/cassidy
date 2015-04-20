@@ -94,6 +94,7 @@ var Generator = React.createClass({
       settings: this.state.settings
     };
     serviceActions.saveService(service);
+    this.setState(service);
   },
 
   render() {
