@@ -98,7 +98,7 @@ var Settings = React.createClass({
     if (this.state.isDropboxAuth) {
       this.clearDropboxData();
     } else {
-      this.clearDropboxData();
+      this.clearLocalData();
     }
   },
 
@@ -184,7 +184,9 @@ var Settings = React.createClass({
           </a>
           <br />
 
-          <a href="#" className="btn btn-link btn-link-danger"
+          <a href="#"
+            className="btn btn-link btn-link-danger"
+            ref="clearData"
             onClick={this.handleClearData}>
             {this.state.isDropboxAuth ? (
               "Clear Dropbox data"

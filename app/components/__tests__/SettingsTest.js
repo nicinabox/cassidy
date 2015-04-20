@@ -21,6 +21,10 @@ describe('Settings', function () {
     expect(component.resetSettings).toBeCalled();
   });
 
-  // it('clears local data')
-  // it('saves service when changed')
+  it('clears local data', function () {
+    component.clearLocalData = jest.genMockFn();
+
+    Simulate.click(React.findDOMNode(component.refs.clearData));
+    expect(component.clearLocalData).toBeCalled();
+  });
 });
