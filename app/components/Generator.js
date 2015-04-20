@@ -5,6 +5,8 @@ var serviceActions = require('../actions/serviceActions');
 var settingsStore = require('../stores/settingsStore');
 var settingsActions = require('../actions/settingsActions');
 var generator = require('../utils/generator');
+var activeSettings = require('../utils/activeSettings');
+
 var Suggestions = require('./Suggestions');
 var _ = require('lodash');
 
@@ -13,7 +15,7 @@ var Generator = React.createClass({
     var servicesState = servicesStore.getState();
 
     var state = {
-      settings: settingsStore.getState().settings
+      settings: activeSettings()
     };
 
     if (servicesState.activeService) {
@@ -30,7 +32,7 @@ var Generator = React.createClass({
   getInitialState() {
     return {
       service: servicesStore.getActiveServiceName(),
-      settings: settingsStore.getState().settings,
+      settings: activeSettings(),
       result: ''
     };
   },

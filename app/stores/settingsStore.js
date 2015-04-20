@@ -2,8 +2,8 @@
 var EventEmitter = require('events').EventEmitter;
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var registerActions = require('../utils/registerActions');
-var storage = require('../utils/storage');
 var settingsUtils = require('../utils/settingsUtils');
+var storage = require('../utils/storage');
 var _ = require('lodash');
 
 var CHANGE_EVENT = 'change';
