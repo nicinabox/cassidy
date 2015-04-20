@@ -95,7 +95,7 @@ registerActions(settingsStore, {
 
   CHANGE_PHRASE: function (action) {
     savePhrase(action.data);
-  }
+  },
 });
 
 initialize();

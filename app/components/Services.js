@@ -26,6 +26,7 @@ var Services = React.createClass({
     e.preventDefault();
     if (e.target.className === 'remove') return;
     serviceActions.setActiveService(service);
+    serviceActions.focusResult();
   },
 
   removeService(service, e) {

@@ -2,6 +2,7 @@
 
 var React = require('react/addons');
 var settingsActions = require('../actions/settingsActions');
+var serviceActions = require('../actions/serviceActions');
 var settingsStore = require('../stores/settingsStore');
 var settingsUtils = require('../utils/settingsUtils');
 var authStore = require('../stores/authStore');
@@ -55,6 +56,7 @@ var Settings = React.createClass({
   },
 
   handleInputChange(e) {
+    serviceActions.blurResult();
     settingsActions.setSetting(e.target.name, e.target.value);
   },
 

@@ -16,6 +16,18 @@ var serviceActions = {
     });
   },
 
+  focusResult: function () {
+    AppDispatcher.handleAction({
+      actionType: appConstants.FOCUS_RESULT
+    });
+  },
+
+  blurResult: function () {
+    AppDispatcher.handleAction({
+      actionType: appConstants.BLUR_RESULT
+    });
+  },
+
   filterServices: function(name) {
     AppDispatcher.handleAction({
       actionType: appConstants.FILTER_SERVICES,

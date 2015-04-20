@@ -11,6 +11,7 @@ var _ = require('lodash');
 var CHANGE_EVENT = 'change';
 
 var _state = {
+  focusResult: false,
   activeService: {},
   services: []
 };
@@ -53,6 +54,7 @@ var setActiveService = function(service) {
 
 var clearActiveService = function() {
   _state.activeService = {};
+  _state.focusResult = false;
 };
 
 var saveActiveService = function() {
@@ -142,6 +144,14 @@ registerActions(servicesStore, {
   MATCH_SAVED_SERVICE: function (action) {
     matchSavedService(action.data);
   },
+
+  FOCUS_RESULT: function () {
+    _state.focusResult = true;
+  },
+
+  BLUR_RESULT: function () {
+    _state.focusResult = false;
+  }
 });
 
 initialize();
