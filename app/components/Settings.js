@@ -96,6 +96,16 @@ var Settings = React.createClass({
     }
   },
 
+  handleSaltGeneration(e) {
+    e.preventDefault();
+    settingsActions.setSetting('salt', settingsUtils.generateSalt());
+  },
+
+  handleSaltReset(e) {
+    e.preventDefault();
+    settingsActions.setSetting('salt', '');
+  },
+
   render() {
     var presetLengths = _.map([16, 20, 26, 34], (n, i) => {
       var key = "length-" + i;
@@ -131,6 +141,30 @@ var Settings = React.createClass({
               value={this.state.settings.length}
               onChange={this.handleInputChange}
               />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="length">Variation</label>
+            <a href="#"
+              onClick={this.handleSaltGeneration}
+              className="small-settings-button pull-right">
+              Generate
+            </a>
+            <a href="#"
+              onClick={this.handleSaltReset}
+              className="small-settings-button pull-right">
+              Reset
+            </a>
+
+            <input type="text" name="salt" id="salt"
+              className="form-control"
+              value={this.state.settings.salt}
+              onChange={this.handleInputChange}
+              readOnly />
+
+            <small className="help-block">
+              Generating a variation will create a new password. Useful when you need to change your password for this service.
+            </small>
           </div>
 
           <div className="form-group">

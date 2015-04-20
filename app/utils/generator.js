@@ -20,11 +20,16 @@ var coerceSettingsValues = function(obj) {
 
 var generator = function(obj) {
   if (obj.service) {
-    var vault, vaultSettings = coerceSettingsValues(obj.settings);
+    var vault, key, vaultSettings = coerceSettingsValues(obj.settings);
     vaultSettings.phrase = settingsStore.getDecryptedPhrase();
+    key = obj.settings.key
+
+    if (obj.settings.salt) {
+      key += obj.settings.salt;
+    }
 
     vault = new VaultExtended(vaultSettings);
-    return vault.generateWithKey(obj.service, obj.settings.key);
+    return vault.generateWithKey(obj.service, key);
   }
 };
 

@@ -1,6 +1,6 @@
 'use strict';
 var CryptoJS = require('crypto-js');
-var { PBKDF2, TripleDES, enc } = CryptoJS;
+var { SHA256, PBKDF2, TripleDES, enc } = CryptoJS;
 var _ = require('lodash');
 
 var settingsUtils = {
@@ -62,6 +62,10 @@ var settingsUtils = {
       }
     });
     return settings;
+  },
+
+  generateSalt: function () {
+    return SHA256(new Date().getTime().toString()).toString();
   },
 };
 
