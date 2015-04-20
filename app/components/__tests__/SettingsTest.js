@@ -15,10 +15,10 @@ describe('Settings', function () {
   });
 
   it('resets settings', function () {
-    component.handleResetSettings = jest.genMockFunction();
-    var resetSettingsEl = React.findDOMNode(component.refs.resetSettings);
-    Simulate.click(resetSettingsEl);
-    expect(component.handleResetSettings.mock.calls.length).toBe(1);
+    component.resetSettings = jest.genMockFn();
+
+    Simulate.click(React.findDOMNode(component.refs.resetSettings));
+    expect(component.resetSettings).toBeCalled();
   });
 
   // it('clears local data')

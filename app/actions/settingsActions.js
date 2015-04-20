@@ -28,6 +28,12 @@ var settingsActions = {
         value: value
       }
     });
+  },
+
+  resetSettings: function () {
+    AppDispatcher.handleAction({
+      actionType: appConstants.RESET_SETTINGS
+    });
   }
 };
 
