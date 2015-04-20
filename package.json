@@ -10,7 +10,7 @@
     "test": "jest",
     "start": "npm run webpack & npm run server",
     "server": "node server.js",
-    "webpack": "webpack -wd"
+    "webpack": "webpack -wd --cacheDirectory=true"
   },
   "author": "nicinabox",
   "license": "MIT",
