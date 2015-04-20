@@ -81,6 +81,10 @@ var setFilteredServices = function(name) {
   });
 };
 
+var hasActiveService = function () {
+  return !_.isEmpty(_state.activeService);
+};
+
 var servicesStore = _.assign({}, EventEmitter.prototype, {
   emitChange: function() {
     this.emit(CHANGE_EVENT);
@@ -143,6 +147,12 @@ registerActions(servicesStore, {
 
   MATCH_SAVED_SERVICE: function (action) {
     matchSavedService(action.data);
+  },
+
+  CHANGE_SETTING: function () {
+    if (hasActiveService()) {
+      saveActiveService();
+    }
   },
 
   FOCUS_RESULT: function () {
