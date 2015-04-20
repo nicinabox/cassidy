@@ -77,28 +77,18 @@ var Settings = React.createClass({
     });
   },
 
-  clearDropboxData() {
-  },
-
-  clearLocalData() {
-  },
-
-  resetSettings() {
-    settingsActions.resetSettings();
-  },
-
   handleResetSettings(e) {
     e.preventDefault();
-    this.resetSettings();
+    settingsActions.resetSettings();
   },
 
   handleClearData(e) {
     e.preventDefault();
 
     if (this.state.isDropboxAuth) {
-      this.clearDropboxData();
+      settingsActions.clearDropboxData();
     } else {
-      this.clearLocalData();
+      settingsActions.clearLocalData();
     }
   },
 

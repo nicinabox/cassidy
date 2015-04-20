@@ -34,7 +34,19 @@ var settingsActions = {
     AppDispatcher.handleAction({
       actionType: appConstants.RESET_SETTINGS
     });
-  }
+  },
+
+  clearLocalData: function () {
+    AppDispatcher.handleAction({
+      actionType: appConstants.CLEAR_LOCAL_DATA
+    });
+  },
+
+  clearRemoteData: function () {
+    AppDispatcher.handleAction({
+      actionType: appConstants.CLEAR_REMOTE_DATA
+    });
+  },
 };
 
 module.exports = settingsActions;

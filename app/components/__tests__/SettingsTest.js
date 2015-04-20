@@ -1,10 +1,12 @@
 jest.dontMock('../Settings');
 jest.dontMock('../../stores/settingsStore');
+jest.dontMock('../../actions/settingsActions');
 jest.dontMock('../../utils/storage');
 
 describe('Settings', function () {
   var React = require('react/addons');
   var Settings = require('../Settings');
+  var settingsActions = require('../../actions/settingsActions');
 
   var TestUtils = React.addons.TestUtils;
   var { Simulate } = TestUtils;
@@ -15,16 +17,16 @@ describe('Settings', function () {
   });
 
   it('resets settings', function () {
-    component.resetSettings = jest.genMockFn();
+    settingsActions.resetSettings = jest.genMockFn();
 
     Simulate.click(React.findDOMNode(component.refs.resetSettings));
-    expect(component.resetSettings).toBeCalled();
+    expect(settingsActions.resetSettings).toBeCalled();
   });
 
   it('clears local data', function () {
-    component.clearLocalData = jest.genMockFn();
+    settingsActions.clearLocalData = jest.genMockFn();
 
     Simulate.click(React.findDOMNode(component.refs.clearData));
-    expect(component.clearLocalData).toBeCalled();
+    expect(settingsActions.clearLocalData).toBeCalled();
   });
 });

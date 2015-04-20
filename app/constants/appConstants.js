@@ -5,6 +5,7 @@ module.exports = keyMirror({
   DROPBOX_SIGN_OUT: null,
 
   CLEAR_LOCAL_DATA: null,
+  CLEAR_REMOTE_DATA: null,
 
   LOAD_SERVICES: null,
   LOAD_SETTINGS: null,
