@@ -5,8 +5,15 @@
   padding-top: 15px;
   padding-bottom: 15px;
 
+  .nav {
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+
   .tab-pane {
     margin-top: 20px;
+    margin-left: -15px;
+    margin-right: -15px;
   }
 
   @include respond-to($container-sm) {
