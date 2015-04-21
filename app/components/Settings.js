@@ -113,7 +113,7 @@ var Settings = React.createClass({
   },
 
   render() {
-    var presetLengths = _.map([16, 20, 26, 34], (n, i) => {
+    var presetLengths = _.map([16, 20, 26, 34].reverse(), (n, i) => {
       var key = "length-" + i;
       return (
         <a href="#" key={key}
