@@ -10,6 +10,7 @@
     "test": "jest",
     "start": "npm run webpack & npm run server",
     "server": "node server.js",
+    "styles": "node-sass -w --include-path bower_components ./app/styles/application.scss ./build/application.css",
     "webpack": "webpack -wd --cacheDirectory=true"
   },
   "author": "nicinabox",
@@ -35,7 +36,7 @@
     "jest-cli": "^0.4.0",
     "jscs": "jscs-dev/node-jscs#master",
     "jsx-loader": "^0.12.2",
-    "node-sass": "^3.0.0-pre",
+    "node-sass": "^2.1.1",
     "sass-loader": "^0.4.2",
     "serve-static": "^1.9.2",
     "webpack": "^1.7.2"
