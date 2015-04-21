@@ -147,6 +147,7 @@ registerActions(servicesStore, {
 
   SAVE_SERVICE: function(action) {
     saveService(action.data);
+    setActiveService(action.data);
   },
 
   REMOVE_SERVICE: function(action) {

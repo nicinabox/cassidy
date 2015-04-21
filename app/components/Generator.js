@@ -98,7 +98,6 @@ var Generator = React.createClass({
       settings: this.state.settings
     };
     serviceActions.saveService(service);
-    this.setState(service);
   },
 
   render() {
@@ -122,9 +121,9 @@ var Generator = React.createClass({
                 autoCorrect="off"
                 autoFocus={true} />
 
-              {this.state.activeService.service ? '' : (
+              {!this.state.activeService.service ? (
                 <TypeaheadResults query={this.state.service} />
-              )}
+              ) : ''}
 
               {this.state.service && (
                 <a href="#" className="clear" tabIndex="-1"
