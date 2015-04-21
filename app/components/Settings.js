@@ -89,6 +89,10 @@ var Settings = React.createClass({
   handleClearData(e) {
     e.preventDefault();
 
+    if (!confirm('All your services and settings will be GONE FOREVER. Your key and saved variations will be UNRECOVERABLE.')) {
+      return;
+    }
+
     if (this.state.isDropboxAuth) {
       settingsActions.clearDropboxData();
     } else {
