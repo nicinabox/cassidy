@@ -166,7 +166,7 @@ var Settings = React.createClass({
             ): ''}
 
             <span className="pull-right variation-string" title={this.state.settings.salt}>
-              {_.trunc(this.state.settings.salt, 10)}
+              {_.trunc(this.state.settings.salt, 8)}
             </span>
 
             <small className="help-block">
@@ -192,16 +192,20 @@ var Settings = React.createClass({
         <form id="phraseForm">
           <div className="form-group">
             <label htmlFor="phrase">Phrase</label>
-            <a href="#"
-              onClick={this.togglePhraseVisibility}
-              className="settings-button pull-right">
-              {this.state.phraseIsVisible ? 'Hide' : 'Show'}
-            </a>
+            {!this.state.settings.require_always && (
+              <span>
+                <a href="#"
+                  onClick={this.togglePhraseVisibility}
+                  className="settings-button pull-right">
+                  {this.state.phraseIsVisible ? 'Hide' : 'Show'}
+                </a>
 
-            <input type={this.state.phraseIsVisible ? 'text' : 'password'} name="phrase" id="phrase"
-              ref="phrase"
-              onChange={this.handlePhraseChange}
-              className="form-control" value={this.state.phrase} />
+                <input type={this.state.phraseIsVisible ? 'text' : 'password'} name="phrase" id="phrase"
+                  ref="phrase"
+                  onChange={this.handlePhraseChange}
+                  className="form-control" value={this.state.phrase} />
+              </span>
+            )}
 
             <Toggle name="require_always"
               handleToggleChange={this.handleToggleChange.bind(null, 'require_always')}
