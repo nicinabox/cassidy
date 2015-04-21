@@ -151,8 +151,13 @@ registerActions(servicesStore, {
 
   CHANGE_SETTING: function () {
     if (hasActiveService()) {
+      _state.focusResult = false;
       saveActiveService();
     }
+  },
+
+  CHANGE_PHRASE: function () {
+    _state.focusResult = false;
   },
 
   FOCUS_RESULT: function () {
