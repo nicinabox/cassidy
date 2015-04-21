@@ -20,6 +20,12 @@ var settingsActions = {
     });
   },
 
+  clearPhrase: function () {
+    AppDispatcher.handleAction({
+      actionType: appConstants.CLEAR_PHRASE
+    });
+  },
+
   setSetting: function(name, value) {
     AppDispatcher.handleAction({
       actionType: appConstants.CHANGE_SETTING,

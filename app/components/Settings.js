@@ -37,11 +37,13 @@ var Settings = React.createClass({
   },
 
   componentDidMount() {
+    this.promptForPhrase();
+  },
+
+  promptForPhrase() {
     if (this.state.settings.require_always) {
       storage.remove('phrase');
-      this.setState({
-        phrase: ''
-      });
+      settingsActions.clearPhrase();
 
       setTimeout(function() {
         var answer = prompt('Please enter your phrase');

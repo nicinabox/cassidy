@@ -18,6 +18,7 @@ module.exports = keyMirror({
   MATCH_SAVED_SERVICE: null,
 
   CHANGE_PHRASE: null,
+  CLEAR_PHRASE: null,
   CHANGE_SETTING: null,
   HYDRATE_SETTINGS: null,
   RESET_SETTINGS: null,

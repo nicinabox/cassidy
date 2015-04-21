@@ -65,6 +65,11 @@ var savePhrase = function (phrase) {
   }
 };
 
+var clearPhrase = function () {
+  storage.remove('phrase');
+  _state.phrase = '';
+}
+
 var decryptPhrase = function () {
   return settingsUtils.decryptPhrase(_state.phrase, _state.settings.key);
 };
@@ -114,13 +119,17 @@ registerActions(settingsStore, {
     savePhrase(action.data);
   },
 
+  CLEAR_PHRASE: function () {
+    clearPhrase();
+  },
+
   RESET_SETTINGS: function () {
     resetSettings();
   },
 
   CLEAR_LOCAL_DATA: function () {
     clearLocalSettings();
-  }
+  },
 });
 
 hydrate();
