@@ -8,6 +8,7 @@ var generator = require('../utils/generator');
 var activeSettings = require('../utils/activeSettings');
 
 var Suggestions = require('./Suggestions');
+var TypeaheadResults = require('./TypeaheadResults');
 var _ = require('lodash');
 
 var Generator = React.createClass({
@@ -15,10 +16,12 @@ var Generator = React.createClass({
     var servicesState = servicesStore.getState();
 
     var state = {
-      settings: activeSettings()
+      settings: activeSettings(),
+      activeService: {}
     };
 
     if (servicesState.activeService) {
+      state.activeService = servicesState.activeService;
       state.service = servicesState.activeService.service;
     }
 
@@ -31,6 +34,7 @@ var Generator = React.createClass({
 
   getInitialState() {
     return {
+      activeService: {},
       service: servicesStore.getActiveServiceName(),
       settings: activeSettings(),
       result: ''
@@ -116,6 +120,10 @@ var Generator = React.createClass({
               autoCapitalize="off"
               autoCorrect="off"
               autoFocus={true} />
+
+            {this.state.activeService.service ? '' : (
+              <TypeaheadResults query={this.state.service} />
+            )}
 
             {this.state.service && (
               <a href="#" className="clear" tabIndex="-1"

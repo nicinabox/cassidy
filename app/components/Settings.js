@@ -157,17 +157,17 @@ var Settings = React.createClass({
               className="settings-button pull-right">
               Generate
             </a>
-            <a href="#"
-              onClick={this.handleSaltReset}
-              className="settings-button settings-button-secondary pull-right">
-              Reset
-            </a>
+            {this.state.settings.salt ? (
+              <a href="#"
+                onClick={this.handleSaltReset}
+                className="settings-button settings-button-secondary pull-right">
+                Reset
+              </a>
+            ): ''}
 
-            <input type="text" name="salt" id="salt"
-              className="form-control"
-              value={this.state.settings.salt}
-              onChange={this.handleInputChange}
-              readOnly />
+            <span className="pull-right variation-string" title={this.state.settings.salt}>
+              {_.trunc(this.state.settings.salt, 10)}
+            </span>
 
             <small className="help-block">
               Generating a variation will create a new password. Useful when you need to change your password for this service.

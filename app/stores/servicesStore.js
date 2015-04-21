@@ -75,10 +75,16 @@ var matchSavedService = function (name) {
 };
 
 var setFilteredServices = function(name) {
-  var re = new RegExp('^' + name, 'g');
-  _state.filteredServices = _.filter(_state.services, function(service) {
+  _state.filteredServices = filterServices(name);
+};
+
+var filterServices = function (name) {
+  if (!name) return;
+
+  var re = new RegExp(name, 'g');
+  return _(_state.services).filter((service) => {
     return service.service.match(re);
-  });
+  }).sortBy((s) => s.service).value();
 };
 
 var hasActiveService = function () {
@@ -115,11 +121,13 @@ var servicesStore = _.assign({}, EventEmitter.prototype, {
     return _(_state.services)
       .reject((s) => !s.usage)
       .sortBy((s) => s.usage)
-      .last(limit).reverse().value();
+      .takeRight(limit)
+      .reverse()
+      .value();
   },
 
-  getFilteredServices: function() {
-    return _state.filteredServices;
+  getFilteredServices: function(name) {
+    return filterServices(name);
   }
 });
 
