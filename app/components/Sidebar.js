@@ -7,7 +7,7 @@ require('bootstrap-sass/assets/javascripts/bootstrap/tab');
 var Sidebar = React.createClass({
   render() {
     return (
-      <div id="sidebar" className="col-sm-4 col-md-3 col-md-pull-6 col-sm-pull-7">
+      <div id="sidebar" className="col-sm-4 col-sm-pull-8 col-lg-3 col-lg-pull-6">
         <ul className="nav nav-pills">
           <li className="active">
             <a href="#services" data-toggle="pill"

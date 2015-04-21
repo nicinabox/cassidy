@@ -106,50 +106,52 @@ var Generator = React.createClass({
     var result = generator(this.state);
 
     return (
-      <div id="generator" className="col-sm-7 col-md-6 col-md-push-4 col-sm-push-5">
-        <form onSubmit={this.handleSubmit}>
-          <div className="form-group">
-            <input
-              type="text"
-              className="form-control input-lg"
-              value={this.state.service}
-              onChange={this.handleServiceChange}
-              placeholder={placeholder}
-              ref="service"
-              autoComplete="off"
-              autoCapitalize="off"
-              autoCorrect="off"
-              autoFocus={true} />
-
-            {this.state.activeService.service ? '' : (
-              <TypeaheadResults query={this.state.service} />
-            )}
-
-            {this.state.service && (
-              <a href="#" className="clear" tabIndex="-1"
-                onClick={this.clearService}>
-                &times;
-              </a>
-            )}
-          </div>
-
-          {result && (
+      <div className="col-sm-8 col-sm-push-4 col-lg-6">
+        <div id="generator">
+          <form onSubmit={this.handleSubmit}>
             <div className="form-group">
-              <input type="text" id="result"
-                className="result"
-                ref="result"
-                value={result}
-                onFocus={this.selectResult}
-                onClick={this.selectResult}
-                onCopy={this.saveService}
-                readOnly />
-            </div>
-          )}
-        </form>
+              <input
+                type="text"
+                className="form-control input-lg"
+                value={this.state.service}
+                onChange={this.handleServiceChange}
+                placeholder={placeholder}
+                ref="service"
+                autoComplete="off"
+                autoCapitalize="off"
+                autoCorrect="off"
+                autoFocus={true} />
 
-        <Suggestions
-          populate={this.props.populate}
-          services={this.props.services} />
+              {this.state.activeService.service ? '' : (
+                <TypeaheadResults query={this.state.service} />
+              )}
+
+              {this.state.service && (
+                <a href="#" className="clear" tabIndex="-1"
+                  onClick={this.clearService}>
+                  &times;
+                </a>
+              )}
+            </div>
+
+            {result && (
+              <div className="form-group">
+                <input type="text" id="result"
+                  className="result"
+                  ref="result"
+                  value={result}
+                  onFocus={this.selectResult}
+                  onClick={this.selectResult}
+                  onCopy={this.saveService}
+                  readOnly />
+              </div>
+            )}
+          </form>
+
+          <Suggestions
+            populate={this.props.populate}
+            services={this.props.services} />
+        </div>
       </div>
     );
   }

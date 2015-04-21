@@ -39,7 +39,7 @@ var App = React.createClass({
 
   render() {
     return (
-      <div className="container application">
+      <div className="container-fluid application">
         <div className="row">
           <Generator />
           <Sidebar />

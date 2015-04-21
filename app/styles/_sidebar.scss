@@ -1,12 +1,14 @@
 #sidebar {
-  @include clearfix;
+  @extend %clearfix;
   background: #fafafa;
   overflow: auto;
   padding-top: 15px;
   padding-bottom: 15px;
+
   .tab-pane {
     margin-top: 20px;
   }
+
   @include respond-to($container-sm) {
     height: auto !important;
   }

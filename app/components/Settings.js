@@ -166,7 +166,7 @@ var Settings = React.createClass({
             ): ''}
 
             <span className="pull-right variation-string" title={this.state.settings.salt}>
-              {_.trunc(this.state.settings.salt, 8)}
+              {_.trunc(this.state.settings.salt, 9)}
             </span>
 
             <small className="help-block">

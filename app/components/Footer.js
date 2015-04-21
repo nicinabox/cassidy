@@ -40,7 +40,7 @@ var Footer = React.createClass({
     );
 
     return (
-      <div id="footer" className="col-sm-9 col-md-9 col-md-push-3 col-sm-push-3">
+      <div id="footer" className="col-sm-8 col-sm-push-4">
         <div className="wrapper">
           <nav>
             <a href="https://github.com/nicinabox/cassidy">Source</a>

@@ -5,10 +5,14 @@
     border-bottom: 1px solid #efefef;
   }
 
+  .form-group {
+    position: relative;
+  }
+
   #result {
     background: none;
     border: none;
-    font-size: 20px;
+    font-size: 22px;
     font-family: Monaco, monospace;
     width: 100%;
     outline: none;
@@ -30,8 +34,9 @@
   .clear {
     font-weight: bold;
     position: absolute;
-    right: 19px;
-    top: 5px;
+    right: 3px;
+    top: 50%;
+    margin-top: -18px;
     font-size: 20px;
     color: #ddd;
     padding: 8px 12px 12px;

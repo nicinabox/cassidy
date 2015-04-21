@@ -36,7 +36,7 @@ var TypeaheadResults = React.createClass({
     );
 
     return (
-      <div>
+      <div className="typeahead-results-container">
         {this.state.services.length ? results : ''}
       </div>
     );
