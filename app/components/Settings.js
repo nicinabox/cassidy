@@ -111,6 +111,7 @@ var Settings = React.createClass({
       var key = "length-" + i;
       return (
         <a href="#" key={key}
+          className="settings-button pull-right"
           onClick={this.handlePresetLength.bind(null, n)}>
           {n}
         </a>
@@ -133,7 +134,7 @@ var Settings = React.createClass({
 
           <div className="form-group">
             <label htmlFor="length">Length</label>
-            <div className="presets length-presets" title="Length presets for easy access">
+            <div className="pull-right" title="Length presets for easy access">
               {presetLengths}
             </div>
             <input type="number" name="length" id="length"
@@ -147,12 +148,12 @@ var Settings = React.createClass({
             <label htmlFor="length">Variation</label>
             <a href="#"
               onClick={this.handleSaltGeneration}
-              className="small-settings-button pull-right">
+              className="settings-button pull-right">
               Generate
             </a>
             <a href="#"
               onClick={this.handleSaltReset}
-              className="small-settings-button pull-right">
+              className="settings-button settings-button-secondary pull-right">
               Reset
             </a>
 
@@ -187,7 +188,7 @@ var Settings = React.createClass({
             <label htmlFor="phrase">Phrase</label>
             <a href="#"
               onClick={this.togglePhraseVisibility}
-              className="small-settings-button pull-right">
+              className="settings-button pull-right">
               {this.state.phraseIsVisible ? 'Hide' : 'Show'}
             </a>
 

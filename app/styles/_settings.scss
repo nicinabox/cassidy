@@ -50,18 +50,6 @@
     }
   }
 
-  .presets {
-    float: right;
-
-    a {
-      @extend .small-settings-button;
-
-      + a {
-        margin-left: 3px;
-      }
-    }
-  }
-
   .danger-zone {
     margin-top: 30px;
   }

@@ -32,23 +32,37 @@
   }
 }
 
-a.small-settings-button {
+.settings-button {
   border-radius: 3px;
   padding: 0px 5px;
   background: $brand-primary;
-  border-bottom: 1px solid darken($brand-primary, 10%);;
+  border-bottom: 1px solid darken($brand-primary, 10%);
   color: #fff;
   font-size: 11px;
   display: inline-block;
   text-decoration: none;
 
-  &:active {
+  &:active, &:focus {
     text-decoration: none;
+    color: white;
   }
 
   &:hover {
     text-decoration: none;
     background: darken($brand-primary, 10%);
     color: #fff
+  }
+
+  &.settings-button-secondary {
+    background: $gray-lightish;
+    border-bottom: 1px solid darken($gray-lightish, 10%);
+
+    &:hover {
+      background: darken($gray-lightish, 10%);
+    }
+  }
+
+  + .settings-button {
+    margin-right: 3px;
   }
 }
