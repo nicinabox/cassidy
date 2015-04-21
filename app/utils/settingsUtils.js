@@ -14,6 +14,8 @@ var settingsUtils = {
     space: false
   },
 
+  global: ['require_always'],
+
   toggleFields: {
     lower: 'Lowercase',
     upper: 'Uppercase',

@@ -60,7 +60,7 @@ var clearActiveService = function() {
 var saveActiveService = function() {
   var service = _.find(_state.services, _state.activeService);
   if (service) {
-    service.settings = settingsStore.getState().settings;
+    service.settings = settingsStore.getScopedState('service').settings;
     _updateCache();
   }
 };

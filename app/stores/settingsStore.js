@@ -31,7 +31,7 @@ var hydrate = function () {
 
 var update = function (data) {
   _state.settings[data.name] = data.value;
-  if (!_serviceIsActive) {
+  if (!_serviceIsActive && !_.contains(settingsUtils.global, data.name)) {
     _updateCache();
   }
 };
@@ -57,6 +57,12 @@ var applySettings = function (data) {
   _state.settings = data.settings;
 };
 
+var serviceState = function () {
+  var state = _.clone(_state);
+  state.settings = _.omit(_state.settings, settingsUtils.global);
+  return state;
+};
+
 var savePhrase = function (phrase) {
   var phrase = settingsUtils.encryptPhrase(phrase, _state.settings.key);
   if (phrase) {
@@ -68,7 +74,7 @@ var savePhrase = function (phrase) {
 var clearPhrase = function () {
   storage.remove('phrase');
   _state.phrase = '';
-}
+};
 
 var decryptPhrase = function () {
   return settingsUtils.decryptPhrase(_state.phrase, _state.settings.key);
@@ -89,6 +95,11 @@ var settingsStore = _.assign({}, EventEmitter.prototype, {
 
   getState: function () {
     return _state;
+  },
+
+  getScopedState: function (scope) {
+    if (scope === 'global') return _state;
+    if (scope === 'service') return serviceState();
   },
 
   getDecryptedPhrase: function () {
