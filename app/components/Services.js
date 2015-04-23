@@ -30,7 +30,9 @@ var Services = React.createClass({
   },
 
   removeService(service, e) {
-    serviceActions.removeService(service);
+    if (confirm(`Are you sure you want to remove ${service.service}?`)) {
+      serviceActions.removeService(service);
+    }
   },
 
   getServices() {
@@ -60,7 +62,7 @@ var Services = React.createClass({
         {services.length ? (
           services
         ) : (
-          <NoResults message="Your recent services will appear here." />
+          <NoResults message="Your saved services will appear here after you copy the result." />
         )}
       </nav>
     );

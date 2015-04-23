@@ -25,13 +25,6 @@
   float: none;
 }
 
-.nav-pills {
-  li {
-    width: 48%;
-    text-align: center;
-  }
-}
-
 .settings-button {
   border-radius: 3px;
   padding: 0px 5px;
@@ -64,5 +57,30 @@
 
   + .settings-button {
     margin-right: 3px;
+  }
+}
+
+.nav-buttons {
+  li {
+    float: left;
+    width: 50%;
+    text-align: center;
+    border-radius: 0;
+
+    &.active {
+      a {
+        color: #555;
+        background: none;
+        font-weight: bold;
+      }
+    }
+
+    a {
+      background: linear-gradient(0deg, #fafafa, #e6e6e6);
+      color: #aaa;
+      border-radius: 0;
+      padding: 12px 15px;
+      font-size: 13px;
+    }
   }
 }

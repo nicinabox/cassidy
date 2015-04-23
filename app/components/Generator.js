@@ -1,15 +1,17 @@
 'use strict';
 var React = require('react');
+var _ = require('lodash');
+
 var servicesStore = require('../stores/servicesStore');
 var serviceActions = require('../actions/serviceActions');
 var settingsStore = require('../stores/settingsStore');
 var settingsActions = require('../actions/settingsActions');
 var generator = require('../utils/generator');
 var activeSettings = require('../utils/activeSettings');
+var device = require('../utils/device');
 
 var Suggestions = require('./Suggestions');
 var TypeaheadResults = require('./TypeaheadResults');
-var _ = require('lodash');
 
 var Generator = React.createClass({
   _onChange() {
@@ -37,6 +39,7 @@ var Generator = React.createClass({
       activeService: {},
       service: servicesStore.getActiveServiceName(),
       settings: activeSettings(),
+      serviceAutoFocus: !device.isMobile,
       result: ''
     };
   },
@@ -105,7 +108,7 @@ var Generator = React.createClass({
     var result = generator(this.state);
 
     return (
-      <div className="col-sm-8 col-sm-push-4 col-lg-6">
+      <div className="col-sm-8 col-sm-push-4 col-lg-6 col-lg-push-3">
         <div id="generator">
           <form onSubmit={this.handleSubmit}>
             <div className="form-group">
@@ -119,7 +122,7 @@ var Generator = React.createClass({
                 autoComplete="off"
                 autoCapitalize="off"
                 autoCorrect="off"
-                autoFocus={true} />
+                autoFocus={this.state.serviceAutoFocus} />
 
               {!this.state.activeService.service ? (
                 <TypeaheadResults query={this.state.service} />

@@ -6,8 +6,7 @@
   padding-bottom: 15px;
 
   .nav {
-    margin-left: -15px;
-    margin-right: -15px;
+    margin: -15px -30px 0;
   }
 
   .tab-pane {
@@ -18,5 +17,16 @@
 
   @include respond-to($container-sm) {
     height: auto !important;
+
+    .nav {
+      margin-left: -15px;
+      margin-right: -15px;
+    }
+
+    .tab-pane {
+      margin-top: 20px;
+      margin-left: 0;
+      margin-right: 0;
+    }
   }
 }
