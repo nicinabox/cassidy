@@ -6,6 +6,9 @@ var serviceActions = require('../actions/serviceActions');
 var Sidebar   = require('./Sidebar');
 var Generator = require('./Generator');
 var Footer = require('./Footer');
+var device = require('../utils/device');
+
+React.initializeTouchEvents(device.isMobile);
 
 var App = React.createClass({
   getInitialState() {
