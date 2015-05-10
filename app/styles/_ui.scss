@@ -66,8 +66,16 @@
     width: 50%;
     text-align: center;
     border-radius: 0;
+    border-bottom: 1px solid #eee;
+    border-right: 1px solid #eee;
+
+    &:last-child {
+      border-right: none;
+    }
 
     &.active {
+      border-bottom: none;
+
       a {
         color: #555;
         background: none;
