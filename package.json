@@ -8,10 +8,13 @@
   },
   "scripts": {
     "test": "jest",
-    "start": "npm run webpack & npm run server",
-    "server": "node server.js",
-    "styles": "node-sass -w --include-path bower_components ./app/styles/application.scss ./build/application.css",
-    "webpack": "webpack -wd --cacheDirectory=true"
+    "start": "npm run build:js:watch & npm run build:css:watch & npm run serve",
+    "serve": "node server.js",
+    "build:css": "gulp styles",
+    "build:css:watch": "gulp watch",
+    "build": "npm run build:css && npm run webpack",
+    "build:js": "webpack -d --cacheDirectory=true",
+    "build:js:watch": "npm run build:js -- -w"
   },
   "author": "nicinabox",
   "license": "MIT",
@@ -36,7 +39,7 @@
     "jest-cli": "^0.4.0",
     "jscs": "jscs-dev/node-jscs#master",
     "jsx-loader": "^0.12.2",
-    "node-sass": "^2.1.1",
+    "node-sass": "^3.0",
     "sass-loader": "^0.4.2",
     "serve-static": "^1.9.2",
     "webpack": "^1.7.2"
