@@ -2,13 +2,39 @@ var React = require('react');
 var Services = require('./Services');
 var Settings = require('./Settings');
 
+var device = require('../utils/device');
+
 require('bootstrap-sass/assets/javascripts/bootstrap/tab');
 
 var Sidebar = React.createClass({
+  getInitialState: function() {
+    return {
+      windowHeight: !device.isMobile && window.innerHeight
+    };
+  },
+
+  handleResize: function() {
+    if (!device.isMobile) {
+      this.setState({
+        windowHeight: window.innerHeight
+      });
+    }
+  },
+
+  componentWillMount: function() {
+    window.addEventListener('resize', this.handleResize);
+  },
+
+  componentWillUnmount: function() {
+    window.removeEventListener('resize', this.handleResize);
+  },
+
   render() {
     return (
-      <div id="sidebar" className="col-sm-4 col-sm-pull-8 col-lg-3 col-lg-pull-6">
-        <ul className="nav nav-pills">
+      <div id="sidebar"
+        className="col-sm-4 col-sm-pull-8 col-lg-3 col-lg-pull-6"
+        style={styles.windowHeight(this.state.windowHeight)}>
+        <ul className="nav nav-buttons">
           <li className="active">
             <a href="#services" data-toggle="pill"
               className="btn-sm">
@@ -32,5 +58,14 @@ var Sidebar = React.createClass({
   }
 
 });
+
+var styles = {
+  windowHeight: (height = 'auto') => {
+    return {
+      overflow: 'auto',
+      maxHeight: height,
+    }
+  }
+}
 
 module.exports = Sidebar;
