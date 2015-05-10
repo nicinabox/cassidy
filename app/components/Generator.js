@@ -40,6 +40,7 @@ var Generator = React.createClass({
       service: servicesStore.getActiveServiceName(),
       settings: activeSettings(),
       serviceAutoFocus: !device.isMobile,
+      showTypeahead: false,
       result: ''
     };
   },
@@ -63,13 +64,13 @@ var Generator = React.createClass({
 
     serviceActions.matchSavedService(value);
     this.setState({
-      service: value
+      service: value,
+      showTypeahead: true
     });
   },
 
   handleSubmit(e) {
     e.preventDefault();
-    React.findDOMNode(this.refs.service).focus();
   },
 
   clearService(e) {
@@ -83,9 +84,18 @@ var Generator = React.createClass({
     });
   },
 
-  selectResult() {
+  selectResult: function() {
     var node = React.findDOMNode(this.refs.result);
-    if (node) { node.select(); }
+    node.selectionStart = 0;
+    node.selectionEnd = node.value.length;
+
+    this.setState({
+      showTypeahead: false
+    });
+  },
+
+  handleSelectResult(e) {
+    _.defer(() => this.selectResult());
   },
 
   generateInterestingDomain() {
@@ -103,6 +113,10 @@ var Generator = React.createClass({
     serviceActions.saveService(service);
   },
 
+  showTypeahead() {
+    return this.state.showTypeahead;
+  },
+
   render() {
     var placeholder = 'Eg, ' + this.state.interestingDomain;
     var result = generator(this.state);
@@ -114,17 +128,17 @@ var Generator = React.createClass({
             <div className="form-group">
               <input
                 type="text"
+                ref="service"
                 className="form-control input-lg"
                 value={this.state.service}
                 onChange={this.handleServiceChange}
                 placeholder={placeholder}
-                ref="service"
                 autoComplete="off"
                 autoCapitalize="off"
                 autoCorrect="off"
                 autoFocus={this.state.serviceAutoFocus} />
 
-              {!this.state.activeService.service ? (
+              {this.showTypeahead() ? (
                 <TypeaheadResults query={this.state.service} />
               ) : ''}
 
@@ -138,14 +152,25 @@ var Generator = React.createClass({
 
             {result && (
               <div className="form-group">
-                <input type="text" id="result"
-                  className="result"
+                <input type="text"
+                  id="result"
                   ref="result"
                   value={result}
-                  onFocus={this.selectResult}
-                  onClick={this.selectResult}
+                  onFocus={this.handleSelectResult}
+                  onClick={this.handleSelectResult}
                   onCopy={this.saveService}
-                  readOnly />
+                  onChange={(e) => {
+                    e.preventDefault();
+                  }}
+                  />
+
+                {device.isMobile && (
+                  <div className="text-muted text-center" style={styles.copyHint}>
+                    <span className="pull-left">&uarr;</span>
+                    Tap on a blue dot to copy
+                    <span className="pull-right">&uarr;</span>
+                  </div>
+                )}
               </div>
             )}
           </form>
@@ -159,5 +184,12 @@ var Generator = React.createClass({
   }
 
 });
+
+var styles = {
+  copyHint: {
+    paddingLeft: 10,
+    paddingRight: 10,
+  }
+};
 
 module.exports = Generator;
