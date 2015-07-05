@@ -1,3 +1,7 @@
+@import 'variables';
+@import 'bootstrap-sass/assets/stylesheets/bootstrap';
+@import 'mixins';
+
 #welcome {
   form {
     margin: 50px 0;

@@ -1,4 +1,5 @@
 var React = require('react/addons');
+require('../styles/footer.scss');
 
 var Footer = React.createClass({
   propTypes: {
