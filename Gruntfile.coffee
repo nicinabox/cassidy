@@ -6,7 +6,12 @@ module.exports = (grunt) ->
 
   config =
     pkg: grunt.file.readJSON('package.json')
-    aws: grunt.file.readJSON('s3.json')
+    aws: {
+      key: process.env.S3_KEY
+      secret: process.env.S3_SECRET
+      bucket: process.env.S3_BUCKET
+      distribution: process.env.S3_DISTRIBUTION
+    }
     env: grunt.option('e') or 'development'
 
     s3:
