@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "grunt": "^0.4.4",
+    "keymaster": "^1.6.2",
     "vault": "^0.3.0"
   },
   "devDependencies": {
