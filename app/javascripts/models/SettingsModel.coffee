@@ -9,7 +9,7 @@ class App.SettingsModel extends Backbone.Model
       @store = new App.Storage('settings')
 
   defaults: ->
-    length: 20
+    length: '20'
     upper: true
     lower: true
     number: true
