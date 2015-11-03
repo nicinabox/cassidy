@@ -249,7 +249,6 @@ module.exports = (grunt) ->
     'rev'
     'usemin'
     'htmlmin'
-    'appcache'
   ]
 
   grunt.registerTask 'deploy', [
