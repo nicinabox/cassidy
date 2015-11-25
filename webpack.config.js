@@ -12,15 +12,14 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: [/node_modules/],
-        loader: 'babel-loader'
+        loader: 'babel'
       }
     ]
   },
 
   resolve: {
     modulesDirectories: [
-      'node_modules',
-      'bower_components'
+      'node_modules'
     ]
   }
 
