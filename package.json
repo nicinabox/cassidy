@@ -10,7 +10,7 @@
     "test": "jest",
     "start": "npm run build:js:watch & npm run serve",
     "serve": "node server.js",
-    "build": "npm run webpack",
+    "build": "webpack -p",
     "build:js": "webpack -d --cacheDirectory=true",
     "build:js:watch": "npm run build:js -- -w"
   },
@@ -37,7 +37,7 @@
     "jest-cli": "^0.4.0",
     "sass-loader": "^3.1.2",
     "serve-static": "^1.9.2",
-    "webpack": "^1.7.2"
+    "webpack": "^1.12.9"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
