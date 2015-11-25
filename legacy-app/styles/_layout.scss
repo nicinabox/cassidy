@@ -1,0 +1,45 @@
+body.docs {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 50px;
+}
+
+.container {
+  margin: 0;
+}
+
+#app {
+  @include clearfix;
+  @include respond-to($container-sm) {
+    margin-top: 20px;
+  }
+}
+
+[class*=col-] {
+  @include respond-to($container-sm) {
+    padding: 0 15px;
+  }
+}
+
+#primary-nav {
+  @include clearfix;
+  float: right;
+  margin-top: 30px;
+
+  a {
+    padding: 10px;
+    display: block;
+  }
+}
+
+kbd {
+  padding: 4px 6px;
+}
+
+.modal-body {
+  padding: 40px;
+}
+
+.page {
+  margin: 100px 0;
+}
