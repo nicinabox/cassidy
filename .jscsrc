@@ -1,5 +1,0 @@
-{
-  "esprima" : "esprima-fb",
-  "preset": "airbnb",
-  "esnext": true
-}
