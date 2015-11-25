@@ -4,8 +4,6 @@ var Settings = require('./Settings');
 
 var device = require('../utils/device');
 
-require('bootstrap-sass/assets/javascripts/bootstrap/tab');
-
 var Sidebar = React.createClass({
   getInitialState: function() {
     return {
