@@ -27,9 +27,8 @@ Dropbox syncing of services (using the Datastore API) is also available (https o
 
 ## Development setup
 
-* bundle install
 * npm install
-* bower install
+* npm start
 
 ## License
 
