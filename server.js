@@ -2,7 +2,7 @@ var connect = require('connect')
 var http = require('http')
 var serveStatic = require('serve-static')
 
-var PORT = 8000;
+var PORT = 8001;
 var app = connect()
 
 app.use(serveStatic(__dirname + '/public'))
