@@ -1,4 +1,10 @@
-window.jQuery = require('jquery');
+var React = require('react');
+var ReactDOM = require('react-dom');
+var App = require('./components/App');
+var FastClick = require('fastclick');
 
-require('./fastclick');
-require('./components/App');
+window.addEventListener('load', () => {
+  FastClick.attach(document.body);
+}, false);
+
+ReactDOM.render(<App />, document.getElementById('app'));

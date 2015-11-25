@@ -1,4 +1,5 @@
-var React = require('react/addons');
+var React = require('react');
+var classNames = require('classnames');
 var settingsUtils = require('../utils/settingsUtils');
 var settingsStore = require('../stores/settingsStore');
 
@@ -29,8 +30,7 @@ var Toggle = React.createClass({
   },
 
   render() {
-    var cx = React.addons.classSet;
-    var iconClasses = cx("fa fa-lg pull-right", this.getToggleClass());
+    var iconClasses = classNames("fa fa-lg pull-right", this.getToggleClass());
 
     return (
       <div className="toggle">

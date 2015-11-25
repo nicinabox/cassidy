@@ -1,4 +1,5 @@
-var React = require('react/addons');
+var React = require('react');
+var classNames = require('classnames');
 
 var Footer = React.createClass({
   propTypes: {
@@ -20,8 +21,7 @@ var Footer = React.createClass({
   },
 
   render() {
-    var cx = React.addons.classSet;
-    var dropboxClasses = cx('btn btn-link connect-dropbox', this._connectedClassName());
+    var dropboxClasses = classNames('btn btn-link connect-dropbox', this._connectedClassName());
 
     var dropboxButton = this.props.dropboxIsAuth ? (
       <a href="#"

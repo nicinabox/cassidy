@@ -8,8 +8,6 @@ var Generator = require('./Generator');
 var Footer = require('./Footer');
 var device = require('../utils/device');
 
-React.initializeTouchEvents(device.isMobile);
-
 var App = React.createClass({
   getInitialState() {
     return {
@@ -57,6 +55,4 @@ var App = React.createClass({
   }
 });
 
-React.render(
-  <App />,
-  document.getElementById('app'));
+module.exports = App;

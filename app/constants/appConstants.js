@@ -1,4 +1,4 @@
-var keyMirror = require('react/lib/keyMirror');
+var keyMirror = require('fbjs/lib/keyMirror');
 
 module.exports = keyMirror({
   DROPBOX_SIGN_IN: null,
