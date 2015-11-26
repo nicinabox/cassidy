@@ -52,20 +52,20 @@ var App = React.createClass({
             </div>
 
             <div className="row">
-              <div className="col-sm-12 col-lg-8">
+              <div className="col-sm-11 col-lg-8 col-sm-push-1">
                 <Generator />
               </div>
             </div>
+
+            <div className="row">
+              <Footer
+                connectDropbox={this._connectDropbox}
+                disconnectDropbox={this._disconnectDropbox}
+                dropboxIsAuth={this.state.dropboxIsAuth} />
+            </div>
           </div>
 
-          <div className="sidebar-container col-sm-4 col-sm-pull-8 col-lg-3 col-lg-pull-9">
-            <Sidebar />
-          </div>
-
-          <Footer
-            connectDropbox={this._connectDropbox}
-            disconnectDropbox={this._disconnectDropbox}
-            dropboxIsAuth={this.state.dropboxIsAuth} />
+          <Sidebar />
         </div>
       </div>
     );

@@ -42,7 +42,7 @@ var Sidebar = React.createClass({
 
   render() {
     return (
-      <div id="sidebar" style={styles.windowHeight(this.state.windowHeight)}>
+      <div id="sidebar" className="col-sm-4 col-sm-pull-8 col-lg-3 col-lg-pull-9" style={styles.windowHeight(this.state.windowHeight)}>
         <ul className="nav">
           <li className={this._activeIf(this.state.activeTab === 'services')}>
             <a href="#services" data-toggle="pill" onClick={this._toggleActiveTab.bind(null, 'services')}>
@@ -72,7 +72,7 @@ var styles = {
   windowHeight: (height = 'auto') => {
     return {
       overflow: 'auto',
-      minHeight: height,
+      minHeight: height - 4,
     }
   }
 }

@@ -1,9 +1,5 @@
-.sidebar-container {
-  background: #fafafa;
-}
-
 #sidebar {
-  @extend %clearfix;
+  background: #f9f9fa;
 
   .nav {
     text-align: center;
