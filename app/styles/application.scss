@@ -1,6 +1,6 @@
 @import 'variables';
-@import 'fontawesome/scss/font-awesome';
-@import 'bootstrap-sass/assets/stylesheets/bootstrap';
+@import 'font-awesome/scss/font-awesome';
+@import 'bootstrap';
 @import 'mixins';
 @import 'typeahead';
 @import 'ui';
@@ -10,7 +10,5 @@
 @import 'settings';
 @import 'generator';
 @import 'stats';
-@import 'welcome';
 @import 'suggestions';
 @import 'shortcuts';
-@import 'footer';

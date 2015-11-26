@@ -1,6 +1,5 @@
 var postcss = require('postcss');
 var autoprefixer = require('autoprefixer');
-var precss = require('precss');
 
 module.exports = {
   entry: {
@@ -22,14 +21,24 @@ module.exports = {
         }
       },
       {
-        test:   /\.css$/,
-        loader: "style-loader!css-loader!postcss-loader"
+        test: /\.scss$/,
+        loaders: ['style', 'css', 'sass']
+      },
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: "url-loader?limit=10000&mimetype=application/font-woff"
+      },
+      {
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: "file-loader"
       }
     ]
   },
-
-  postcss: function() {
-    return [autoprefixer, precss];
+  sassLoader: {
+    includePaths: [
+      'node_modules',
+      'node_modules/bootstrap-sass/assets/stylesheets'
+    ]
   }
 
 };
