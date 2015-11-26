@@ -40,17 +40,21 @@ var Sidebar = React.createClass({
     return statement && 'active'
   },
 
+  _isTabActive(id) {
+    return this.state.activeTab === id
+  },
+
   render() {
     return (
       <div id="sidebar" className="col-sm-4 col-sm-pull-8 col-lg-3 col-lg-pull-9" style={styles.windowHeight(this.state.windowHeight)}>
         <ul className="nav">
-          <li className={this._activeIf(this.state.activeTab === 'services')}>
+          <li className={this._activeIf(this._isTabActive('services'))}>
             <a href="#services" data-toggle="pill" onClick={this._toggleActiveTab.bind(null, 'services')}>
               Services
               <span></span>
             </a>
           </li>
-          <li className={this._activeIf(this.state.activeTab === 'settings')}>
+          <li className={this._activeIf(this._isTabActive('settings'))}>
             <a href="#settings" data-toggle="pill" onClick={this._toggleActiveTab.bind(null, 'settings')}>
               Attributes
               <span></span>
@@ -59,8 +63,8 @@ var Sidebar = React.createClass({
         </ul>
 
         <div className="tab-content">
-          <Settings />
-          <Services />
+          <Settings active={this._isTabActive('settings')} />
+          <Services active={this._isTabActive('services')} />
         </div>
       </div>
     );

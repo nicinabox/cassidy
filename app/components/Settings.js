@@ -1,6 +1,6 @@
-'use strict';
-
+var _ = require('lodash');
 var React = require('react');
+var classNames = require('classnames');
 var settingsActions = require('../actions/settingsActions');
 var serviceActions = require('../actions/serviceActions');
 var settingsStore = require('../stores/settingsStore');
@@ -8,7 +8,6 @@ var servicesStore = require('../stores/servicesStore');
 var settingsUtils = require('../utils/settingsUtils');
 var activeSettings = require('../utils/activeSettings');
 var authStore = require('../stores/authStore');
-var _ = require('lodash');
 
 var Toggle = require('./Toggle');
 var toggleFields = settingsUtils.toggleFields;
@@ -130,8 +129,10 @@ var Settings = React.createClass({
         settings={this.state.settings} />
     ).value();
 
+    var classes = classNames('tab-pane', this.props.active ? 'active' : '')
+
     return (
-      <div id="settings" className="tab-pane">
+      <div id="settings" className={classes}>
         <form id="settingsForm">
           <div className="form-group">
             <label htmlFor="">Attributes</label>

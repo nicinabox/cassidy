@@ -1,7 +1,8 @@
+var _ = require('lodash');
 var React   = require('react');
+var classNames = require('classnames');
 var servicesStore = require('../stores/servicesStore');
 var serviceActions = require('../actions/serviceActions');
-var _ = require('lodash');
 
 var NoResults = require('./NoResults');
 var Suggestions = require('./Suggestions');
@@ -58,8 +59,10 @@ var Services = React.createClass({
       </a>
     );
 
+    var classes = classNames('tab-pane', this.props.active ? 'active' : '')
+
     return (
-      <nav id="services" className="tab-pane active">
+      <nav id="services" className={classes}>
         <div className="sidebar-section">
           <span className="section-label">Most Used</span>
             <Suggestions
