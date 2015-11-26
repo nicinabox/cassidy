@@ -1,3 +1,7 @@
+var postcss = require('postcss');
+var autoprefixer = require('autoprefixer');
+var precss = require('precss');
+
 module.exports = {
   entry: {
     app: './app'
@@ -16,7 +20,16 @@ module.exports = {
         query: {
           presets: ['es2015', 'react', 'stage-2']
         }
+      },
+      {
+        test:   /\.css$/,
+        loader: "style-loader!css-loader!postcss-loader"
       }
     ]
+  },
+
+  postcss: function() {
+    return [autoprefixer, precss];
   }
+
 };
