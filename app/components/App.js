@@ -25,18 +25,7 @@ var App = React.createClass({
     authStore.removeChangeListener(this._onChange);
   },
 
-  _connectDropbox() {
-    authActions.signIn();
-  },
-
-  _disconnectDropbox() {
-    authActions.signOut();
-  },
-
   _onChange() {
-    this.setState({
-      dropboxIsAuth: authStore.isAuth()
-    });
   },
 
   render() {
@@ -58,10 +47,7 @@ var App = React.createClass({
             </div>
 
             <div className="row">
-              <Footer
-                connectDropbox={this._connectDropbox}
-                disconnectDropbox={this._disconnectDropbox}
-                dropboxIsAuth={this.state.dropboxIsAuth} />
+              <Footer />
             </div>
           </div>
 

@@ -2,43 +2,7 @@ var React = require('react');
 var classNames = require('classnames');
 
 var Footer = React.createClass({
-  propTypes: {
-    dropboxIsAuth: React.PropTypes.bool.isRequired
-  },
-
-  _connectedClassName() {
-    return this.props.dropboxIsAuth ? 'connected' : '';
-  },
-
-  _handleConnectDropbox(e) {
-    e.preventDefault();
-    this.props.connectDropbox();
-  },
-
-  _handleDisconnectDropbox(e) {
-    e.preventDefault();
-    this.props.disconnectDropbox();
-  },
-
   render() {
-    var dropboxClasses = classNames('btn btn-link connect-dropbox', this._connectedClassName());
-
-    var dropboxButton = this.props.dropboxIsAuth ? (
-      <a href="#"
-        className={dropboxClasses}
-        onClick={this._handleDisconnectDropbox}
-        title="Disconnect Dropbox">
-        <i className="fa fa-dropbox fa-lg"></i> Disconnect Dropbox
-      </a>
-    ) : (
-      <a href="#"
-        className={dropboxClasses}
-        onClick={this._handleConnectDropbox}
-        title="Connect Dropbox">
-        <i className="fa fa-dropbox fa-lg"></i> Connect Dropbox
-      </a>
-    );
-
     return (
       <div id="footer" className="col-sm-11 col-lg-8 col-sm-push-1">
         <div className="wrapper">
@@ -49,8 +13,6 @@ var Footer = React.createClass({
               Made by <a href="http://twitter.com/nicinabox">@nicinabox</a>
             </span>
           </nav>
-
-          {dropboxButton}
         </div>
       </div>
     );
