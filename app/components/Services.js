@@ -4,6 +4,7 @@ var serviceActions = require('../actions/serviceActions');
 var _ = require('lodash');
 
 var NoResults = require('./NoResults');
+var Suggestions = require('./Suggestions');
 
 var Services = React.createClass({
   _onChange() {
@@ -61,7 +62,9 @@ var Services = React.createClass({
       <nav id="services" className="tab-pane active">
         <div className="sidebar-section">
           <span className="section-label">Most Used</span>
-          <NoResults message="Your frequently used services will appear here for quick access." />
+            <Suggestions
+              populate={this.props.populate}
+              services={this.props.services} />
         </div>
 
         <div className="sidebar-section">

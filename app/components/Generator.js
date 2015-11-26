@@ -10,7 +10,6 @@ var generator = require('../utils/generator');
 var activeSettings = require('../utils/activeSettings');
 var device = require('../utils/device');
 
-var Suggestions = require('./Suggestions');
 var TypeaheadResults = require('./TypeaheadResults');
 
 var Generator = React.createClass({
@@ -173,10 +172,6 @@ var Generator = React.createClass({
             </div>
           )}
         </form>
-
-        <Suggestions
-          populate={this.props.populate}
-          services={this.props.services} />
       </div>
     );
   }

@@ -1,7 +1,8 @@
+var _     = require('lodash');
 var React = require('react');
 var servicesStore = require('../stores/servicesStore');
 var serviceActions = require('../actions/serviceActions');
-var _     = require('lodash');
+var NoResults = require('./NoResults');
 
 var Suggestions = React.createClass({
   _onChange() {
@@ -34,20 +35,19 @@ var Suggestions = React.createClass({
     var services = servicesStore.getTopServices(6);
     var suggestions = services.map((item, index) =>
       <a href="#"
-        key={index}
-        onClick={this.populateGenerator.bind(null, item)}>
-        {item.service}
+        onClick={this.populateGenerator.bind(null, item)}
+        key={index}>
+        <span className="name">{item.service}</span>
       </a>
     );
 
     return (
       <div>
         {services.length ? (
-          <div id="suggestions">
-            <strong>Most used: </strong>
-            {suggestions}
-          </div>
-        ) : ''}
+          suggestions
+        ) : (
+          <NoResults message="Your frequently used services will appear here for quick access." />
+        )}
       </div>
     );
   }
