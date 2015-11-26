@@ -1,5 +1,6 @@
 'use strict';
 var React = require('react');
+var { findDOMNode } = require('react-dom');
 var _ = require('lodash');
 
 var servicesStore = require('../stores/servicesStore');
@@ -79,12 +80,12 @@ var Generator = React.createClass({
     this.setState({
       service: ''
     }, () => {
-      React.findDOMNode(this.refs.service).focus();
+      findDOMNode(this.refs.service).focus();
     });
   },
 
   selectResult: function() {
-    var node = React.findDOMNode(this.refs.result);
+    var node = findDOMNode(this.refs.result);
     node.selectionStart = 0;
     node.selectionEnd = node.value.length;
 
