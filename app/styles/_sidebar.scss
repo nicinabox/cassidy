@@ -1,32 +1,47 @@
+.sidebar-container {
+  background: #fafafa;
+}
+
 #sidebar {
   @extend %clearfix;
-  background: #fafafa;
-  overflow: auto;
-  padding-top: 15px;
-  padding-bottom: 15px;
 
   .nav {
-    margin: -15px -30px 0;
-  }
+    text-align: center;
+    margin-bottom: 30px;
 
-  .tab-pane {
-    margin-top: 20px;
-    margin-left: -15px;
-    margin-right: -15px;
-  }
+    li {
+      display: inline-block;
 
-  @include respond-to($container-sm) {
-    height: auto !important;
+      &.active {
+        a {
+          color: $brand-primary;
+        }
 
-    .nav {
-      margin-left: -15px;
-      margin-right: -15px;
+        span {
+          border-bottom-color: $brand-primary;
+        }
+      }
     }
 
-    .tab-pane {
-      margin-top: 20px;
-      margin-left: 0;
-      margin-right: 0;
+    a {
+      font-weight: bold;
+      text-align: center;
+      color: #9B9B9B;
+
+      span {
+        margin-top: 2px;
+        display: inline-block;
+        border-bottom: 2px solid transparent;
+      }
+
+      &:hover, &:active, &:focus {
+        background: none;
+        color: #777;
+      }
     }
+  }
+
+  .sidebar-section {
+    margin-bottom: 30px;
   }
 }

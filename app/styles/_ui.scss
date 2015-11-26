@@ -1,13 +1,9 @@
 .no-results {
   font-weight: normal;
-  text-align: center;
-  border: 1px dashed #ddd;
   border-radius: 3px;
+  color: $gray-lightish;
+  line-height: 1.4;
   font-size: 16px;
-  color: $gray-light;
-  font-weight: 300;
-  padding: 20px;
-  line-height: 1.3;
 }
 
 .btn-link-danger {
@@ -91,4 +87,13 @@
       font-size: 13px;
     }
   }
+}
+
+.section-label {
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: bold;
+  color: $gray-lightish;
+  margin: 10px 0;
+  display: block;
 }

@@ -59,11 +59,19 @@ var Services = React.createClass({
 
     return (
       <nav id="services" className="tab-pane active">
-        {services.length ? (
-          services
-        ) : (
-          <NoResults message="Your saved services will appear here after you copy the result." />
-        )}
+        <div className="sidebar-section">
+          <span className="section-label">Most Used</span>
+          <NoResults message="Your frequently used services will appear here for quick access." />
+        </div>
+
+        <div className="sidebar-section">
+          <span className="section-label">All Services</span>
+          {services.length ? (
+            services
+          ) : (
+            <NoResults message="When you copy a generated password, the service will appear here." />
+          )}
+        </div>
       </nav>
     );
   }

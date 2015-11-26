@@ -7,6 +7,7 @@ var device = require('../utils/device');
 var Sidebar = React.createClass({
   getInitialState: function() {
     return {
+      activeTab: 'services',
       windowHeight: !device.isMobile && window.innerHeight
     };
   },
@@ -27,22 +28,32 @@ var Sidebar = React.createClass({
     window.removeEventListener('resize', this.handleResize);
   },
 
+  _toggleActiveTab(id, e) {
+    e.preventDefault()
+
+    this.setState({
+      activeTab: id
+    })
+  },
+
+  _activeIf(statement) {
+    return statement && 'active'
+  },
+
   render() {
     return (
-      <div id="sidebar"
-        className="col-sm-4 col-sm-pull-8 col-lg-3 col-lg-pull-6"
-        style={styles.windowHeight(this.state.windowHeight)}>
-        <ul className="nav nav-buttons">
-          <li className="active">
-            <a href="#services" data-toggle="pill"
-              className="btn-sm">
+      <div id="sidebar" style={styles.windowHeight(this.state.windowHeight)}>
+        <ul className="nav">
+          <li className={this._activeIf(this.state.activeTab === 'services')}>
+            <a href="#services" data-toggle="pill" onClick={this._toggleActiveTab.bind(null, 'services')}>
               Services
+              <span></span>
             </a>
           </li>
-          <li>
-            <a href="#settings" data-toggle="pill"
-              className="btn-sm">
-              Settings
+          <li className={this._activeIf(this.state.activeTab === 'settings')}>
+            <a href="#settings" data-toggle="pill" onClick={this._toggleActiveTab.bind(null, 'settings')}>
+              Attributes
+              <span></span>
             </a>
           </li>
         </ul>
@@ -61,7 +72,7 @@ var styles = {
   windowHeight: (height = 'auto') => {
     return {
       overflow: 'auto',
-      maxHeight: height,
+      minHeight: height,
     }
   }
 }

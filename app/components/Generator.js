@@ -122,63 +122,61 @@ var Generator = React.createClass({
     var result = generator(this.state);
 
     return (
-      <div className="col-sm-8 col-sm-push-4 col-lg-6 col-lg-push-3">
-        <div id="generator">
-          <form onSubmit={this.handleSubmit}>
+      <div id="generator">
+        <form onSubmit={this.handleSubmit}>
+          <div className="form-group">
+            <input
+              type="text"
+              ref="service"
+              className="form-control input-lg"
+              value={this.state.service}
+              onChange={this.handleServiceChange}
+              placeholder={placeholder}
+              autoComplete="off"
+              autoCapitalize="off"
+              autoCorrect="off"
+              autoFocus={this.state.serviceAutoFocus} />
+
+            {this.showTypeahead() ? (
+              <TypeaheadResults query={this.state.service} />
+            ) : ''}
+
+            {this.state.service && (
+              <a href="#" className="clear" tabIndex="-1"
+                onClick={this.clearService}>
+                &times;
+              </a>
+            )}
+          </div>
+
+          {result && (
             <div className="form-group">
-              <input
-                type="text"
-                ref="service"
-                className="form-control input-lg"
-                value={this.state.service}
-                onChange={this.handleServiceChange}
-                placeholder={placeholder}
-                autoComplete="off"
-                autoCapitalize="off"
-                autoCorrect="off"
-                autoFocus={this.state.serviceAutoFocus} />
+              <input type="text"
+                id="result"
+                ref="result"
+                value={result}
+                onFocus={this.handleSelectResult}
+                onClick={this.handleSelectResult}
+                onCopy={this.saveService}
+                onChange={(e) => {
+                  e.preventDefault();
+                }}
+                />
 
-              {this.showTypeahead() ? (
-                <TypeaheadResults query={this.state.service} />
-              ) : ''}
-
-              {this.state.service && (
-                <a href="#" className="clear" tabIndex="-1"
-                  onClick={this.clearService}>
-                  &times;
-                </a>
+              {device.isMobile && (
+                <div className="text-muted text-center" style={styles.copyHint}>
+                  <span className="pull-left">&uarr;</span>
+                  Tap on a blue dot to copy
+                  <span className="pull-right">&uarr;</span>
+                </div>
               )}
             </div>
+          )}
+        </form>
 
-            {result && (
-              <div className="form-group">
-                <input type="text"
-                  id="result"
-                  ref="result"
-                  value={result}
-                  onFocus={this.handleSelectResult}
-                  onClick={this.handleSelectResult}
-                  onCopy={this.saveService}
-                  onChange={(e) => {
-                    e.preventDefault();
-                  }}
-                  />
-
-                {device.isMobile && (
-                  <div className="text-muted text-center" style={styles.copyHint}>
-                    <span className="pull-left">&uarr;</span>
-                    Tap on a blue dot to copy
-                    <span className="pull-right">&uarr;</span>
-                  </div>
-                )}
-              </div>
-            )}
-          </form>
-
-          <Suggestions
-            populate={this.props.populate}
-            services={this.props.services} />
-        </div>
+        <Suggestions
+          populate={this.props.populate}
+          services={this.props.services} />
       </div>
     );
   }
