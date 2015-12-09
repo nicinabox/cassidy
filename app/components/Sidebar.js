@@ -1,31 +1,32 @@
-var React = require('react');
-var Services = require('./Services');
-var Settings = require('./Settings');
+import React from 'react'
+import Services from './Services'
+import Settings from './Settings'
+import Account from './Account'
 
-var device = require('../utils/device');
+import device from '../utils/device'
 
 var Sidebar = React.createClass({
   getInitialState: function() {
     return {
       activeTab: 'services',
       windowHeight: !device.isMobile && window.innerHeight
-    };
+    }
   },
 
   handleResize: function() {
     if (!device.isMobile) {
       this.setState({
         windowHeight: window.innerHeight
-      });
+      })
     }
   },
 
   componentWillMount: function() {
-    window.addEventListener('resize', this.handleResize);
+    window.addEventListener('resize', this.handleResize)
   },
 
   componentWillUnmount: function() {
-    window.removeEventListener('resize', this.handleResize);
+    window.removeEventListener('resize', this.handleResize)
   },
 
   _toggleActiveTab(id, e) {
@@ -74,10 +75,10 @@ var Sidebar = React.createClass({
           <Account active={this._isTabActive('account')} />
         </div>
       </div>
-    );
+    )
   }
 
-});
+})
 
 var styles = {
   windowHeight: (height = 'auto') => {
@@ -88,4 +89,4 @@ var styles = {
   }
 }
 
-module.exports = Sidebar;
+module.exports = Sidebar
