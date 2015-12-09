@@ -1,5 +1,5 @@
-var postcss = require('postcss');
-var autoprefixer = require('autoprefixer');
+var postcss = require('postcss')
+var autoprefixer = require('autoprefixer')
 
 module.exports = {
   entry: {
@@ -7,7 +7,8 @@ module.exports = {
   },
 
   output: {
-    filename: 'build/[name].js'
+    path: 'build',
+    filename: '[name].js'
   },
 
   module: {
@@ -26,11 +27,11 @@ module.exports = {
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: "url-loader?limit=10000&mimetype=application/font-woff"
+        loader: 'url-loader?limit=10000&mimetype=application/font-woff'
       },
       {
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: "file-loader"
+        loader: 'file-loader'
       }
     ]
   },
@@ -40,5 +41,4 @@ module.exports = {
       'node_modules/bootstrap-sass/assets/stylesheets'
     ]
   }
-
-};
+}
