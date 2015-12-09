@@ -70,7 +70,15 @@ var Generator = React.createClass({
   handleHotKey(name, e) {
     switch(name) {
     case 'BLUR_INPUT':
-      findDOMNode(this.refs.service).blur()
+      if (this.state.service) {
+        this.setState({
+          service: ''
+        })
+
+        findDOMNode(this.refs.service).focus()
+      } else {
+        findDOMNode(this.refs.service).blur()
+      }
       break
 
     case 'FOCUS_INPUT':
