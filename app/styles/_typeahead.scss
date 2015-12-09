@@ -28,15 +28,11 @@
 
   a {
     display: block;
-    padding: 10px;
+    padding: 8px 10px;
     text-decoration: none;
 
-    &:hover {
-      background: #fafafa;
-    }
-
-    + a {
-      border-top: 1px solid #ddd;
+    &:hover, &.selected {
+      background: #f7f7f7;
     }
 
     &:last-child {
