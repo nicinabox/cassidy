@@ -43,6 +43,7 @@
     "eslint-plugin-react": "^3.10.0",
     "file-loader": "^0.8.5",
     "jest-cli": "^0.8.0",
+    "json-loader": "^0.5.4",
     "node-sass": "^3.4.2",
     "postcss": "^5.0.12",
     "postcss-loader": "^0.8.0",
