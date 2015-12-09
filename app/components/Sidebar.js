@@ -60,8 +60,8 @@ var Sidebar = React.createClass({
               <span></span>
             </a>
           </li>
-          <li className={this._activeIf(this._isTabActive('phrase'))}>
-            <a href="#phrase" data-toggle="pill" onClick={this._toggleActiveTab.bind(null, 'phrase')}>
+          <li className={this._activeIf(this._isTabActive('account'))}>
+            <a href="#account" data-toggle="pill" onClick={this._toggleActiveTab.bind(null, 'account')}>
               Key & Phrase
               <span></span>
             </a>
@@ -71,6 +71,7 @@ var Sidebar = React.createClass({
         <div className="tab-content">
           <Settings active={this._isTabActive('settings')} />
           <Services active={this._isTabActive('services')} />
+          <Account active={this._isTabActive('account')} />
         </div>
       </div>
     );
