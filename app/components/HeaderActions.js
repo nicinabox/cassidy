@@ -1,17 +1,14 @@
-var React = require('react');
+import React from 'react'
 
 var HeaderActions = React.createClass({
 
   render: function() {
     return (
       <nav id="header-actions" className="pull-right">
-        <a href="">
-          Key & Phrase
-        </a>
       </nav>
-    );
+    )
   }
 
-});
+})
 
-module.exports = HeaderActions;
+module.exports = HeaderActions

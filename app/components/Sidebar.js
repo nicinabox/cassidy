@@ -60,6 +60,12 @@ var Sidebar = React.createClass({
               <span></span>
             </a>
           </li>
+          <li className={this._activeIf(this._isTabActive('phrase'))}>
+            <a href="#phrase" data-toggle="pill" onClick={this._toggleActiveTab.bind(null, 'phrase')}>
+              Key & Phrase
+              <span></span>
+            </a>
+          </li>
         </ul>
 
         <div className="tab-content">

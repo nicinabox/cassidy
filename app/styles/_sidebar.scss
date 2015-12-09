@@ -40,4 +40,13 @@
   .sidebar-section {
     margin-bottom: 30px;
   }
+
+  @include respond-to(1504px) {
+    .nav {
+      a {
+        font-size: 15px;
+        padding: 10px;
+      }
+    }
+  }
 }
