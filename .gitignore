@@ -25,3 +25,5 @@ dist
 build
 .tmp
 .env
+planning.txt
+todo.txt
