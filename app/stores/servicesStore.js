@@ -175,6 +175,10 @@ registerActions(servicesStore, {
 
   BLUR_RESULT: function () {
     _state.focusResult = false;
+  },
+
+  CLEAR_LOCAL_DATA: function () {
+    setServices([])
   }
 });
 
