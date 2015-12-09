@@ -9,7 +9,6 @@ import settingsUtils from '../utils/settingsUtils'
 import activeSettings from '../utils/activeSettings'
 import authStore from '../stores/authStore'
 import Toggle from './Toggle'
-
 var toggleFields = settingsUtils.toggleFields
 
 var Settings = React.createClass({
@@ -113,7 +112,7 @@ var Settings = React.createClass({
 
   render() {
     var presetLengths = _.map([16, 20, 26, 34].reverse(), (n, i) => {
-      var key = "length-" + i
+      var key = `length-${i}`
       return (
         <a href="#" key={key}
           className="settings-button pull-right"
