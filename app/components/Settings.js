@@ -1,15 +1,15 @@
-var _ = require('lodash')
-var React = require('react')
-var classNames = require('classnames')
-var settingsActions = require('../actions/settingsActions')
-var serviceActions = require('../actions/serviceActions')
-var settingsStore = require('../stores/settingsStore')
-var servicesStore = require('../stores/servicesStore')
-var settingsUtils = require('../utils/settingsUtils')
-var activeSettings = require('../utils/activeSettings')
-var authStore = require('../stores/authStore')
+import _ from 'lodash'
+import React from 'react'
+import classNames from 'classnames'
+import settingsActions from '../actions/settingsActions'
+import serviceActions from '../actions/serviceActions'
+import settingsStore from '../stores/settingsStore'
+import servicesStore from '../stores/servicesStore'
+import settingsUtils from '../utils/settingsUtils'
+import activeSettings from '../utils/activeSettings'
+import authStore from '../stores/authStore'
+import Toggle from './Toggle'
 
-var Toggle = require('./Toggle')
 var toggleFields = settingsUtils.toggleFields
 
 var Settings = React.createClass({
