@@ -1,16 +1,16 @@
-var _ = require('lodash');
-var React = require('react');
-var classNames = require('classnames');
-var settingsActions = require('../actions/settingsActions');
-var serviceActions = require('../actions/serviceActions');
-var settingsStore = require('../stores/settingsStore');
-var servicesStore = require('../stores/servicesStore');
-var settingsUtils = require('../utils/settingsUtils');
-var activeSettings = require('../utils/activeSettings');
-var authStore = require('../stores/authStore');
+var _ = require('lodash')
+var React = require('react')
+var classNames = require('classnames')
+var settingsActions = require('../actions/settingsActions')
+var serviceActions = require('../actions/serviceActions')
+var settingsStore = require('../stores/settingsStore')
+var servicesStore = require('../stores/servicesStore')
+var settingsUtils = require('../utils/settingsUtils')
+var activeSettings = require('../utils/activeSettings')
+var authStore = require('../stores/authStore')
 
-var Toggle = require('./Toggle');
-var toggleFields = settingsUtils.toggleFields;
+var Toggle = require('./Toggle')
+var toggleFields = settingsUtils.toggleFields
 
 var Settings = React.createClass({
   _onChange() {
@@ -18,7 +18,7 @@ var Settings = React.createClass({
       isDropboxAuth: authStore.isAuth(),
       settings: activeSettings(),
       phrase: settingsStore.getDecryptedPhrase()
-    });
+    })
   },
 
   getInitialState() {
@@ -27,107 +27,107 @@ var Settings = React.createClass({
       settings: activeSettings(),
       phrase: settingsStore.getDecryptedPhrase(),
       phraseIsVisible: false
-    };
+    }
   },
 
   componentWillMount() {
-    servicesStore.addChangeListener(this._onChange);
-    settingsStore.addChangeListener(this._onChange);
+    servicesStore.addChangeListener(this._onChange)
+    settingsStore.addChangeListener(this._onChange)
   },
 
   componentDidMount() {
-    this.promptForPhrase();
+    this.promptForPhrase()
   },
 
   promptForPhrase() {
     if (this.state.settings.require_always) {
-      storage.remove('phrase');
-      settingsActions.clearPhrase();
+      storage.remove('phrase')
+      settingsActions.clearPhrase()
 
       setTimeout(function() {
-        var answer = prompt('Please enter your phrase');
-        settingsActions.changePhrase(answer);
-      }, 0);
+        var answer = prompt('Please enter your phrase')
+        settingsActions.changePhrase(answer)
+      }, 0)
     }
   },
 
   componentWillUnmount() {
-    servicessStore.removeChangeListener(this._onChange);
-    settingsStore.removeChangeListener(this._onChange);
+    servicessStore.removeChangeListener(this._onChange)
+    settingsStore.removeChangeListener(this._onChange)
   },
 
   handleToggleChange(name, e) {
-    settingsActions.setSetting(name, !this.state.settings[name]);
+    settingsActions.setSetting(name, !this.state.settings[name])
   },
 
   handleInputChange(e) {
-    serviceActions.blurResult();
-    settingsActions.setSetting(e.target.name, e.target.value);
+    serviceActions.blurResult()
+    settingsActions.setSetting(e.target.name, e.target.value)
   },
 
   handlePresetLength(number, e) {
-    e.preventDefault();
-    settingsActions.setSetting('length', number);
+    e.preventDefault()
+    settingsActions.setSetting('length', number)
   },
 
   handlePhraseChange() {
-    var value = this.refs.phrase.getDOMNode().value;
-    settingsActions.changePhrase(value);
+    var value = this.refs.phrase.getDOMNode().value
+    settingsActions.changePhrase(value)
   },
 
   togglePhraseVisibility(e) {
-    e.preventDefault();
+    e.preventDefault()
     this.setState({
       phraseIsVisible: !this.state.phraseIsVisible
-    });
+    })
   },
 
   handleResetSettings(e) {
-    e.preventDefault();
-    settingsActions.resetSettings();
+    e.preventDefault()
+    settingsActions.resetSettings()
   },
 
   handleClearData(e) {
-    e.preventDefault();
+    e.preventDefault()
 
     if (!confirm('All your services and settings will be GONE FOREVER. Your key and saved variations will be UNRECOVERABLE.')) {
-      return;
+      return
     }
 
     if (this.state.isDropboxAuth) {
-      settingsActions.clearDropboxData();
+      settingsActions.clearDropboxData()
     } else {
-      settingsActions.clearLocalData();
+      settingsActions.clearLocalData()
     }
   },
 
   handleSaltGeneration(e) {
-    e.preventDefault();
-    settingsActions.setSetting('salt', settingsUtils.generateSalt());
+    e.preventDefault()
+    settingsActions.setSetting('salt', settingsUtils.generateSalt())
   },
 
   handleSaltReset(e) {
-    e.preventDefault();
-    settingsActions.setSetting('salt', '');
+    e.preventDefault()
+    settingsActions.setSetting('salt', '')
   },
 
   render() {
     var presetLengths = _.map([16, 20, 26, 34].reverse(), (n, i) => {
-      var key = "length-" + i;
+      var key = "length-" + i
       return (
         <a href="#" key={key}
           className="settings-button pull-right"
           onClick={this.handlePresetLength.bind(null, n)}>
           {n}
         </a>
-      );
-    });
+      )
+    })
 
     var toggles = _(toggleFields).omit('require_always').map((v, k) =>
       <Toggle key={k} name={k}
         handleToggleChange={this.handleToggleChange.bind(null, k)}
         settings={this.state.settings} />
-    ).value();
+    ).value()
 
     var classes = classNames('tab-pane', this.props.active ? 'active' : '')
 
@@ -185,7 +185,7 @@ var Settings = React.createClass({
               autoCorrect="off" />
 
             <small className="help-block">
-              This key was made for you. Keep it safe&mdash;you'll need it generate the same passwords.
+              This key was made for you. Keep it safe&mdashyou'll need it generate the same passwords.
             </small>
           </div>
         </form>
@@ -239,9 +239,9 @@ var Settings = React.createClass({
           </a>
         </div>
       </div>
-    );
+    )
   }
 
-});
+})
 
-module.exports = Settings;
+module.exports = Settings
