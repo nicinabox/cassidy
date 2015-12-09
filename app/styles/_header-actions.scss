@@ -7,4 +7,14 @@
       display: inline-block;
     }
   }
+
+  @include respond-to(1504px) {
+    nav {
+      font-size: 15px;
+    }
+  }
+
+  @include respond-to($container-sm) {
+    display: none;
+  }
 }
