@@ -1,27 +1,26 @@
-'use strict';
-var React     = require('react');
-var authStore = require('../stores/authStore');
-var authActions = require('../actions/authActions');
-var serviceActions = require('../actions/serviceActions');
-var Sidebar   = require('./Sidebar');
-var Generator = require('./Generator');
-var HeaderActions = require('./HeaderActions');
-var device = require('../utils/device');
+import React from 'react'
+import authStore from '../stores/authStore'
+import authActions from '../actions/authActions'
+import serviceActions from '../actions/serviceActions'
+import Sidebar from './Sidebar'
+import Generator from './Generator'
+import HeaderActions from './HeaderActions'
+import device from '../utils/device'
 
 var App = React.createClass({
   getInitialState() {
     return {
       dropboxIsAuth: authStore.isAuth()
-    };
+    }
   },
 
   componentWillMount() {
-    authStore.addChangeListener(this._onChange);
-    authActions.tryAuth();
+    authStore.addChangeListener(this._onChange)
+    authActions.tryAuth()
   },
 
   componentWillUnmount() {
-    authStore.removeChangeListener(this._onChange);
+    authStore.removeChangeListener(this._onChange)
   },
 
   _onChange() {
@@ -49,8 +48,8 @@ var App = React.createClass({
           <Sidebar />
         </div>
       </div>
-    );
+    )
   }
-});
+})
 
-module.exports = App;
+module.exports = App

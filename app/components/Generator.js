@@ -1,37 +1,38 @@
-'use strict';
-var React = require('react');
-var { findDOMNode } = require('react-dom');
-var _ = require('lodash');
+import React from 'react'
+import { findDOMNode } from 'react-dom'
+import _ from 'lodash'
 
-var servicesStore = require('../stores/servicesStore');
-var serviceActions = require('../actions/serviceActions');
-var settingsStore = require('../stores/settingsStore');
-var settingsActions = require('../actions/settingsActions');
-var generator = require('../utils/generator');
-var activeSettings = require('../utils/activeSettings');
-var device = require('../utils/device');
+import servicesStore from '../stores/servicesStore'
+import serviceActions from '../actions/serviceActions'
+import settingsStore from '../stores/settingsStore'
+import settingsActions from '../actions/settingsActions'
+import generator from '../utils/generator'
+import activeSettings from '../utils/activeSettings'
+import device from '../utils/device'
 
-var TypeaheadResults = require('./TypeaheadResults');
+import TypeaheadResults from './TypeaheadResults'
+
+import shortcutsManager from '../utils/shortcutsManager'
 
 var Generator = React.createClass({
   _onChange() {
-    var servicesState = servicesStore.getState();
+    var servicesState = servicesStore.getState()
 
     var state = {
       settings: activeSettings(),
       activeService: {}
-    };
+    }
 
     if (servicesState.activeService) {
-      state.activeService = servicesState.activeService;
-      state.service = servicesState.activeService.service;
+      state.activeService = servicesState.activeService
+      state.service = servicesState.activeService.service
     }
 
     this.setState(state, () => {
       if (servicesState.focusResult) {
-        this.selectResult();
+        this.selectResult()
       }
-    });
+    })
   },
 
   getInitialState() {
@@ -42,66 +43,89 @@ var Generator = React.createClass({
       serviceAutoFocus: !device.isMobile,
       showTypeahead: false,
       result: ''
-    };
+    }
+  },
+
+  componentWillMount() {
+    shortcutsManager.listen({
+      FOCUS_INPUT: '/',
+      BLUR_INPUT: 'escape'
+    }, this.handleHotKey)
   },
 
   componentDidMount() {
-    servicesStore.addChangeListener(this._onChange);
-    settingsStore.addChangeListener(this._onChange);
+    servicesStore.addChangeListener(this._onChange)
+    settingsStore.addChangeListener(this._onChange)
 
     this.setState({
       interestingDomain: this.generateInterestingDomain() || 'google.com'
-    });
+    })
   },
 
   componentWillUnmount() {
-    servicesStore.removeChangeListener(this._onChange);
-    settingsStore.removeChangeListener(this._onChange);
+    servicesStore.removeChangeListener(this._onChange)
+    settingsStore.removeChangeListener(this._onChange)
+  },
+
+  handleHotKey(name, e) {
+    switch(name) {
+    case 'BLUR_INPUT':
+      findDOMNode(this.refs.service).blur()
+      break
+
+    case 'FOCUS_INPUT':
+      e.preventDefault()
+      findDOMNode(this.refs.service).focus()
+      break
+
+    default:
+      break
+    }
   },
 
   handleServiceChange(e) {
-    var value = e.target.value;
+    var value = e.target.value
 
-    serviceActions.matchSavedService(value);
+    serviceActions.matchSavedService(value)
     this.setState({
       service: value,
       showTypeahead: true
-    });
+    })
   },
 
   handleSubmit(e) {
-    e.preventDefault();
+    e.preventDefault()
   },
 
   clearService(e) {
-    e.preventDefault();
-    serviceActions.clearActiveService();
-    serviceActions.filterServices();
+    e.preventDefault()
+    serviceActions.clearActiveService()
+    serviceActions.filterServices()
     this.setState({
       service: ''
     }, () => {
-      findDOMNode(this.refs.service).focus();
-    });
+      findDOMNode(this.refs.service).focus()
+    })
   },
 
   selectResult: function() {
-    var node = findDOMNode(this.refs.result);
-    node.selectionStart = 0;
-    node.selectionEnd = node.value.length;
+    var node = findDOMNode(this.refs.result)
+    node.selectionStart = 0
+    node.selectionEnd = node.value.length
 
     this.setState({
       showTypeahead: false
-    });
+    })
   },
 
   handleSelectResult(e) {
-    _.defer(() => this.selectResult());
+    _.defer(() => this.selectResult())
   },
 
   generateInterestingDomain() {
-    var service = _(servicesStore.getTopServices(10)).sample();
+    var service = _(servicesStore.getTopServices(10)).sample()
     if (service) {
-      return service.service;
+      return service.service
     }
   },
 
@@ -109,17 +133,16 @@ var Generator = React.createClass({
     var service = {
       service: this.state.service,
       settings: this.state.settings
-    };
-    serviceActions.saveService(service);
+    }
+    serviceActions.saveService(service)
   },
 
   showTypeahead() {
-    return this.state.showTypeahead;
+    return this.state.showTypeahead
   },
 
   render() {
-    var placeholder = 'Eg, ' + this.state.interestingDomain;
-    var result = generator(this.state);
+    var result = generator(this.state)
 
     return (
       <div id="generator">
@@ -131,7 +154,7 @@ var Generator = React.createClass({
               className="form-control input-lg"
               value={this.state.service}
               onChange={this.handleServiceChange}
-              placeholder={placeholder}
+              placeholder={`Eg, ${this.state.interestingDomain}`}
               autoComplete="off"
               autoCapitalize="off"
               autoCorrect="off"
@@ -159,31 +182,31 @@ var Generator = React.createClass({
                 onClick={this.handleSelectResult}
                 onCopy={this.saveService}
                 onChange={(e) => {
-                  e.preventDefault();
+                  e.preventDefault()
                 }}
                 />
 
               {device.isMobile && (
                 <div className="text-muted text-center" style={styles.copyHint}>
-                  <span className="pull-left">&uarr;</span>
+                  <span className="pull-left">&uarr</span>
                   Tap on a blue dot to copy
-                  <span className="pull-right">&uarr;</span>
+                  <span className="pull-right">&uarr</span>
                 </div>
               )}
             </div>
           )}
         </form>
       </div>
-    );
+    )
   }
 
-});
+})
 
 var styles = {
   copyHint: {
     paddingLeft: 10,
     paddingRight: 10,
   }
-};
+}
 
-module.exports = Generator;
+module.exports = Generator
