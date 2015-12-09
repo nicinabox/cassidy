@@ -9,7 +9,7 @@
   "scripts": {
     "test": "jest",
     "lint": "eslint app",
-    "start": "webpack-dev-server --content-base public --hot --inline --port 8081",
+    "start": "webpack-dev-server --content-base public --hot --inline --port 8081 --host 0.0.0.0",
     "build": "webpack -p"
   },
   "author": "nicinabox",

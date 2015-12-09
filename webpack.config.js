@@ -39,6 +39,9 @@ module.exports = {
       }
     ]
   },
+
+  devtool: '#inline-source-map',
+
   sassLoader: {
     includePaths: [
       'node_modules',
