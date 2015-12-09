@@ -6,7 +6,6 @@ var serviceActions = require('../actions/serviceActions');
 var Sidebar   = require('./Sidebar');
 var Generator = require('./Generator');
 var HeaderActions = require('./HeaderActions');
-var Footer = require('./Footer');
 var device = require('../utils/device');
 
 var App = React.createClass({
@@ -44,10 +43,6 @@ var App = React.createClass({
               <div className="col-sm-11 col-lg-8 col-sm-push-1">
                 <Generator />
               </div>
-            </div>
-
-            <div className="row">
-              <Footer />
             </div>
           </div>
 

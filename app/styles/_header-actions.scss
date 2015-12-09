@@ -1,0 +1,10 @@
+#header-actions {
+  @include clearfix;
+
+  nav {
+    > a, > span {
+      padding: 10px;
+      display: inline-block;
+    }
+  }
+}
