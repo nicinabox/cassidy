@@ -14,7 +14,7 @@
         ],
         "semi": [
             2,
-            "always"
+            "never"
         ]
     },
     "env": {
@@ -23,7 +23,8 @@
         "browser": true
     },
     "ecmaFeatures": {
-        "jsx": true
+        "jsx": true,
+        "modules": true
     },
     "plugins": [
         "react"
