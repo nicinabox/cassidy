@@ -9,9 +9,12 @@ export default {
   listen(keymap, handler) {
     each(keymap, (v, k) => {
       key(v, (e) => {
-        if ((/input|textarea|select/i).test(e.target.tagName) && !(/^blur_/i).test(k)) return
         handler(k, e)
       })
     })
+  },
+
+  unlisten(keymap) {
+    each(keymap, (v, k) => key.unbind(v))
   }
 }

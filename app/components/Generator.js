@@ -1,7 +1,6 @@
 import React from 'react'
 import { findDOMNode } from 'react-dom'
 import _ from 'lodash'
-
 import servicesStore from '../stores/servicesStore'
 import serviceActions from '../actions/serviceActions'
 import settingsStore from '../stores/settingsStore'
@@ -9,10 +8,9 @@ import settingsActions from '../actions/settingsActions'
 import generator from '../utils/generator'
 import activeSettings from '../utils/activeSettings'
 import device from '../utils/device'
-
+import shortcutsManager from '../utils/shortcutsManager'
 import TypeaheadResults from './TypeaheadResults'
 
-import shortcutsManager from '../utils/shortcutsManager'
 
 var Generator = React.createClass({
   _onChange() {
@@ -82,8 +80,10 @@ var Generator = React.createClass({
       break
 
     case 'FOCUS_INPUT':
-      e.preventDefault()
-      findDOMNode(this.refs.service).focus()
+      if (!(/input/i).test(e.target.tagName)) {
+        e.preventDefault()
+        findDOMNode(this.refs.service).focus()
+      }
       break
 
     default:
@@ -95,6 +95,7 @@ var Generator = React.createClass({
     var value = e.target.value
 
     serviceActions.matchSavedService(value)
+
     this.setState({
       service: value,
       showTypeahead: true
@@ -168,9 +169,9 @@ var Generator = React.createClass({
               autoCorrect="off"
               autoFocus={this.state.serviceAutoFocus} />
 
-            {this.showTypeahead() ? (
+            {this.showTypeahead() && (
               <TypeaheadResults query={this.state.service} />
-            ) : ''}
+            )}
 
             {this.state.service && (
               <a href="#" className="clear" tabIndex="-1"
@@ -196,9 +197,9 @@ var Generator = React.createClass({
 
               {device.isMobile && (
                 <div className="text-muted text-center" style={styles.copyHint}>
-                  <span className="pull-left">&uarr</span>
+                  <span className="pull-left">&uarr;</span>
                   Tap on a blue dot to copy
-                  <span className="pull-right">&uarr</span>
+                  <span className="pull-right">&uarr;</span>
                 </div>
               )}
             </div>
