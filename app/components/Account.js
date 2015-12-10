@@ -94,7 +94,7 @@ var Account = React.createClass({
 
     return (
       <div id="account" className={classes}>
-        <form>
+        <form onSubmit={(e) => e.preventDefault()}>
           <div className="form-group">
             <label htmlFor="key">Key</label>
             <input type="text" name="key" id="key"
@@ -110,7 +110,7 @@ var Account = React.createClass({
           </div>
         </form>
 
-        <form id="phraseForm">
+        <form onSubmit={(e) => e.preventDefault()}>
           <div className="form-group">
             <label htmlFor="phrase">Phrase</label>
             {!this.state.settings.require_always && (
