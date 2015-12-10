@@ -46,8 +46,8 @@ var Generator = React.createClass({
 
   componentWillMount() {
     shortcutsManager.listen({
-      FOCUS_INPUT: '/',
-      BLUR_INPUT: 'escape'
+      KEY_SLASH: '/',
+      ESCAPE: 'escape'
     }, this.handleHotKey)
   },
 
@@ -67,7 +67,7 @@ var Generator = React.createClass({
 
   handleHotKey(name, e) {
     switch(name) {
-    case 'BLUR_INPUT':
+    case 'ESCAPE':
       if (this.state.service) {
         this.setState({
           service: ''
@@ -79,7 +79,7 @@ var Generator = React.createClass({
       }
       break
 
-    case 'FOCUS_INPUT':
+    case 'KEY_SLASH':
       if (!(/input/i).test(e.target.tagName)) {
         e.preventDefault()
         findDOMNode(this.refs.service).focus()
