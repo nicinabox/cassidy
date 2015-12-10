@@ -86,7 +86,7 @@ var Settings = React.createClass({
 
     return (
       <div id="settings" className={classes}>
-        <form id="settingsForm">
+        <form onSubmit={(e) => e.preventDefault()}>
           <div className="form-group">
             <label htmlFor="">Attributes</label>
             {this.renderToggles()}
