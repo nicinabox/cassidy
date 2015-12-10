@@ -2,7 +2,7 @@ import AppDispatcher from '../dispatcher/AppDispatcher'
 import appConstants from '../constants/appConstants'
 import dropbox from '../utils/dropbox'
 
-export default {
+module.exports = {
   setActiveService(service) {
     AppDispatcher.handleAction({
       actionType: appConstants.SET_ACTIVE_SERVICE,

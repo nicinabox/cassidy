@@ -2,7 +2,7 @@ import AppDispatcher from '../dispatcher/AppDispatcher'
 import appConstants from '../constants/appConstants'
 import dropbox from '../utils/dropbox'
 
-export default {
+module.exports = {
   loadSettings() {
     delete storage.cache.settings
     dropbox.loadSettings((settings) => {
