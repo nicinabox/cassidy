@@ -1,6 +1,6 @@
 import React from 'react'
 import { findDOMNode } from 'react-dom'
-import _ from 'lodash'
+import { defer, sample } from 'lodash'
 import servicesStore from '../stores/servicesStore'
 import serviceActions from '../actions/serviceActions'
 import settingsStore from '../stores/settingsStore'
@@ -128,11 +128,11 @@ var Generator = React.createClass({
   },
 
   handleSelectResult(e) {
-    _.defer(() => this.selectResult())
+    defer(() => this.selectResult())
   },
 
   generateInterestingDomain() {
-    var service = _(servicesStore.getTopServices(10)).sample()
+    var service = sample(servicesStore.getTopServices(10))
     if (service) {
       return service.service
     }
