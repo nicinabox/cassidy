@@ -194,14 +194,6 @@ var Generator = React.createClass({
                   e.preventDefault()
                 }}
                 />
-
-              {device.isMobile && (
-                <div className="text-muted text-center" style={styles.copyHint}>
-                  <span className="pull-left">&uarr;</span>
-                  Tap on a blue dot to copy
-                  <span className="pull-right">&uarr;</span>
-                </div>
-              )}
             </div>
           )}
         </form>
@@ -210,12 +202,5 @@ var Generator = React.createClass({
   }
 
 })
-
-var styles = {
-  copyHint: {
-    paddingLeft: 10,
-    paddingRight: 10,
-  }
-}
 
 module.exports = Generator
