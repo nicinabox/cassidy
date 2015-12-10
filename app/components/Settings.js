@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import { map, trunc } from 'lodash'
 import React from 'react'
 import classNames from 'classnames'
 import settingsActions from '../actions/settingsActions'
@@ -62,7 +62,7 @@ var Settings = React.createClass({
   },
 
   renderPresetLengths() {
-    return _.map([16, 20, 26, 34].reverse(), (n, i) => {
+    return map([16, 20, 26, 34].reverse(), (n, i) => {
       return (
         <a href="#" key={`length-${i}`}
           className="settings-button pull-right"
@@ -123,7 +123,7 @@ var Settings = React.createClass({
             ): ''}
 
             <span className="pull-right variation-string" title={this.state.settings.salt}>
-              {_.trunc(this.state.settings.salt, 9)}
+              {trunc(this.state.settings.salt, 9)}
             </span>
 
             <small className="help-block">
