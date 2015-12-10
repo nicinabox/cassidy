@@ -97,7 +97,10 @@ var Settings = React.createClass({
             <div className="pull-right" title="Length presets for easy access">
               {this.renderPresetLengths()}
             </div>
-            <input type="number" name="length" id="length"
+            <input type="number"
+              name="length"
+              id="length"
+              pattern="[0-9]*"
               className="form-control"
               value={this.state.settings.length}
               onChange={this.handleInputChange}
