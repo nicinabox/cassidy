@@ -1,58 +1,56 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher');
-var appConstants = require('../constants/appConstants');
-var dropbox = require('../utils/dropbox');
+import AppDispatcher from '../dispatcher/AppDispatcher'
+import appConstants from '../constants/appConstants'
+import dropbox from '../utils/dropbox'
 
-var settingsActions = {
-  loadSettings: function() {
-    delete storage.cache.settings;
-    dropbox.loadSettings(function(settings) {
+export default {
+  loadSettings() {
+    delete storage.cache.settings
+    dropbox.loadSettings((settings) => {
       AppDispatcher.handleAction({
         actionType: appConstants.LOAD_SETTINGS,
         data: settings
-      });
-    });
+      })
+    })
   },
 
-  changePhrase: function(phrase) {
+  changePhrase(phrase) {
     AppDispatcher.handleAction({
       actionType: appConstants.CHANGE_PHRASE,
       data: phrase
-    });
+    })
   },
 
-  clearPhrase: function () {
+  clearPhrase() {
     AppDispatcher.handleAction({
       actionType: appConstants.CLEAR_PHRASE
-    });
+    })
   },
 
-  setSetting: function(name, value) {
+  setSetting(name, value) {
     AppDispatcher.handleAction({
       actionType: appConstants.CHANGE_SETTING,
       data: {
         name: name,
         value: value
       }
-    });
+    })
   },
 
-  resetSettings: function () {
+  resetSettings() {
     AppDispatcher.handleAction({
       actionType: appConstants.RESET_SETTINGS
-    });
+    })
   },
 
-  clearLocalData: function () {
+  clearLocalData() {
     AppDispatcher.handleAction({
       actionType: appConstants.CLEAR_LOCAL_DATA
-    });
+    })
   },
 
-  clearRemoteData: function () {
+  clearRemoteData() {
     AppDispatcher.handleAction({
       actionType: appConstants.CLEAR_REMOTE_DATA
-    });
+    })
   },
-};
-
-module.exports = settingsActions;
+}
