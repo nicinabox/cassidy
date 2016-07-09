@@ -8,6 +8,9 @@
   },
   "author": "nicinabox",
   "license": "MIT",
+  "scripts": {
+    "start": "grunt"
+  },
   "dependencies": {
     "grunt": "^0.4.4",
     "keymaster": "^1.6.2",
