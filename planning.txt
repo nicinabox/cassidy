@@ -1,0 +1,60 @@
+DROPBOX_SIGN_IN
+  remove settings
+  remove services
+  cache new settings
+  cache new services
+  decrypt phrase
+
+DROPBOX_SIGN_OUT
+  remove services
+  remove settings
+  generate and cache new settings
+
+LOAD_SERVICES
+  populate list
+
+LOAD_SETTINGS
+  apply settings or defaults
+  decrypt phrase
+
+SET_ACTIVE_SERVICE
+  apply service settings
+  prefill generator
+  generate
+  select result
+
+CLEAR_ACTIVE_SERVICE
+  reset generator
+  reset settings
+
+SELECT_RESULT
+  if active service
+    increment usage
+  else
+    save/cache new service
+
+ADD_SERVICE
+  save/cache new service
+
+REMOVE_SERVICE
+  remove/decache from services list
+
+CHANGE_SETTING
+  if active service
+    save/cache current settings to service
+  else
+    save/cache current settings to defaults
+
+CHANGE_KEY
+  if phrase decrypted
+    encrypt phrase with new key
+  else
+    decrypt phrase with new key
+
+CHANGE_PHRASE
+  encrypt with settings key and save locally
+
+CHANGE_GENERATOR
+  filter services list to show matching
+  if exact service match
+    apply service settings

@@ -1,0 +1,28 @@
+Bugs
+[x] don't highlight on settings change
+[x] save settings on change to active service
+[x] load active service on match
+[x] don't highlight on exact match
+[x] persist generator state on copy new service
+[x] don't show typeahead when service active
+[x] mobile - can't copy password
+[x] save service if generator is filled and settings changed
+[ ] phrase require always doesn't work
+[ ] save service (new) on settings change
+
+Dropbox
+[ ] signin
+[ ] signout
+[ ] sync
+
+Remaining Features
+[x] wire reset settings
+[x] wire clear local data
+[x] wire require always setting
+[x] some kind of autocomplete
+[x] actually useful autocommplete
+[ ] data migration
+
+New Features
+[x] service salt
+[ ] Add X-Frame-Options to prevent iframing
