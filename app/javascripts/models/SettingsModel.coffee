@@ -1,12 +1,8 @@
 class App.SettingsModel extends Backbone.Model
   protectedAttributes: ['key', 'phrase']
 
-  # Fallback on localStorage
   setStorage: ->
-    if Backbone.DropboxDatastore.client.isAuthenticated()
-      @dropboxStore = Backbone.DropboxDatastore.client
-    else
-      @store = new App.Storage('settings')
+    @store = new App.Storage('settings')
 
   defaults: ->
     length: '20'

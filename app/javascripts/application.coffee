@@ -8,8 +8,6 @@ window.App =
   collections: {}
 
   initialize: ->
-    dropbox = new App.DropboxClient
-    Backbone.DropboxDatastore.client = dropbox.client
 
     @models =
       phrase: new App.PhraseModel

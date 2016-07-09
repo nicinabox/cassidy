@@ -3,10 +3,9 @@ class App.ApplicationView extends Backbone.View
   template: JST['application']
 
   events:
-    'click .connect-dropbox': 'connectDropbox'
+    'click .sign-in': 'signIn'
 
   initialize: ->
-    @dropboxAuth = Backbone.DropboxDatastore.client.isAuthenticated()
     @setupCollections()
 
   render: ->
@@ -35,18 +34,10 @@ class App.ApplicationView extends Backbone.View
     App.views.shortcuts = new App.ShortcutsView
     @$el.append App.views.shortcuts.render()
 
-  disconnectDropbox: ->
-    Backbone.DropboxDatastore.client.signOut {}, ->
-      window.location.reload()
+  signOut: ->
 
-  connectDropbox: (e) ->
+  signIn: (e) ->
     e.preventDefault()
 
     if App.env == 'production' and window.location.protocol != 'https:'
-       window.location.href = "https:" +
-        window.location.href.substring(window.location.protocol.length)
-
-    if @dropboxAuth
-      @disconnectDropbox()
-    else
-      Backbone.DropboxDatastore.client.authenticate()
+      window.location.href = "https:" + window.location.href.substring(window.location.protocol.length)

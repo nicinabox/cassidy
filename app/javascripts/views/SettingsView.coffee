@@ -42,7 +42,6 @@ class App.SettingsView extends Backbone.View
     @$('[title]').tooltip('destroy')
 
     @$el.html @template _.extend @model.toJSON(),
-      dropbox_auth: Backbone.DropboxDatastore.client.isAuthenticated()
       toggles:
         lower: 'Lowercase'
         upper: 'Uppercase'

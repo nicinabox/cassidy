@@ -2,10 +2,7 @@ class App.ServicesCollection extends Backbone.Collection
   model: App.ServiceModel
 
   setStorage: ->
-    if Backbone.DropboxDatastore.client.isAuthenticated()
-      @setRemoteStorage()
-    else
-      @setLocalStorage()
+    @setLocalStorage()
 
   setLocalStorage: ->
     delete @dropboxDatastore
