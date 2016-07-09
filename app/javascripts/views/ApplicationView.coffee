@@ -15,6 +15,8 @@ class App.ApplicationView extends Backbone.View
     @el
 
   setupCollections: ->
+    App.collections.services.migrateStorage()
+
     _.each App.collections, (c, k) ->
       c.fetch()
 

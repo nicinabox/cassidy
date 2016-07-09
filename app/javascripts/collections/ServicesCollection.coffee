@@ -1,36 +1,14 @@
 class App.ServicesCollection extends Backbone.Collection
   model: App.ServiceModel
-
-  setStorage: ->
-    @setLocalStorage()
-
-  setLocalStorage: ->
-    delete @dropboxDatastore
-    @localStorage = new Backbone.LocalStorage('services')
-
-  setRemoteStorage: ->
-    delete @localStorage
-    @dropboxDatastore = new Backbone.DropboxDatastore('services')
-    @dropboxDatastore.syncCollection(this)
-    @sync = Backbone.cachingSync(Backbone.sync, 'services')
-
-  initialize: ->
-    @setStorage()
-
   comparator: 'service'
+  localStorage: new Backbone.LocalStorage("services")
 
-  syncLocalToRemote: ->
-    originalCollection = this
-    @setLocalStorage()
-
-    @fetch
-      success: (collection, response, options) ->
-        remote = new App.ServicesCollection()
-        collection.each (m) ->
-          data = m.toJSON()
-          delete data.id
-          data.settings = JSON.stringify(data.settings)
-          remote.create(data)
+  migrateStorage: ->
+    if +localStorage.getItem('migration') < 1
+      burry = new Burry.Store('services')
+      ids = burry.get('__ids__')
+      ids && _.each(ids, (id) => @create(burry.get(id)))
+      localStorage.setItem('migration', 1)
 
   toDataset: ->
     name: 'service'
