@@ -6,6 +6,7 @@ class App.SettingsView extends Backbone.View
   events:
     'change form#settingsForm': 'updateSettings'
     'click .reset-settings': 'resetSettings'
+    'click .export-csv': 'handleCSVExport'
     'click .clear-data': 'clearData'
     'click .length-presets a': 'setLength'
 
@@ -99,3 +100,34 @@ class App.SettingsView extends Backbone.View
     @$('#length')
       .val($(e.currentTarget).text())
       .trigger('change')
+
+  handleCSVExport: (e) ->
+    e.preventDefault()
+    @downloadCSV()
+
+  sanitizeValue: (str) ->
+    "\"#{str.replace(/"/g, '""')}\""
+
+  downloadCSV: ->
+    data = localStorage
+    ids = data['services'].split(',')
+
+    key = @model.get('key')
+    rows = ids.map((id) =>
+      service = JSON.parse(data['services-' + id])
+      service.settings = JSON.parse(service.settings)
+      service.settings.key = key
+      generator = new App.Generator(service)
+
+      [
+        service.service,
+        '',
+        '',
+        @sanitizeValue(generator.result)
+      ].join(',')
+    ).join('\n')
+
+    el = document.createElement('a')
+    el.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(rows))
+    el.setAttribute('download', 'cassidy.csv')
+    el.click()
