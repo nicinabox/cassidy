@@ -22,6 +22,7 @@ class App.ApplicationView extends Backbone.View
 
   setupViews: ->
     views =
+      notice: new App.AppNoticeView
       generator: new App.GeneratorView
       sidebar: new App.SidebarView
       footer: new App.FooterView
