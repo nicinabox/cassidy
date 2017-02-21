@@ -117,6 +117,8 @@ class App.SettingsView extends Backbone.View
       service = JSON.parse(data['services-' + id])
       service.settings = JSON.parse(service.settings)
       service.settings.key = key
+      _.merge(service.settings, App.models.phrase.toJSON())
+
       generator = new App.Generator(service)
 
       [
